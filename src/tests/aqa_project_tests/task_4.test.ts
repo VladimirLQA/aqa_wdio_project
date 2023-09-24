@@ -41,6 +41,7 @@ describe("First test in aqa_project", () => {
         // expect(await isBgDanger(await HomePage["Orders page"])).toBeTruthy();
     });
 
+    // TODO: implement expects after bg change
     it("Should have blue 'background-color' on 'Products page' button after clicking", async () => {
         await HomePage["Products page"].click();
         await browser.pause(3000)
