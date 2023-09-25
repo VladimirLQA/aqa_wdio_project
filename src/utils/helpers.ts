@@ -1,4 +1,4 @@
-import {FindAsyncCallback} from "../../types/types";
+import {FindAsyncCallback} from "../types/types";
 
 export async function find<T>(array: T[], callback: FindAsyncCallback<T>): Promise<T | undefined> {
     for (let i = 0; i < array?.length; i++) {
