@@ -1,8 +1,8 @@
 import SignInPage from "../../pages/aqa_project/sign-in.page";
 import {URLS} from "../../endpoints";
-import {TIMEOUT_5} from "../../utils/aqa_project_const";
+import {TIMEOUT_1, TIMEOUT_5} from "../../utils/aqa_project_const";
 import HomePage from "../../pages/aqa_project/home.page";
-import {isBgDanger} from "../../utils/helpers";
+import {browserPause, isBgDanger} from "../../utils/helpers";
 
 /*
 * Разработать тест со следующими шагами:
@@ -22,7 +22,7 @@ describe("First test in aqa_project", () => {
         });
     });
 
-    it("Should hide spinner", async () => {
+    it("Should hide spinner after login", async () => {
         await SignInPage.login();
         await SignInPage["Spinner"].waitForDisplayed({
             TIMEOUT_5, timeoutMsg: `Spinner is not hidden after 5 seconds`, reverse: true,
@@ -34,26 +34,24 @@ describe("First test in aqa_project", () => {
         expect(userName).toBe("AQA User");
     });
 
-    it("Should have blue 'background-color' on 'Orders page' button after clicking", async () => {
+    it("Should have blue 'background-color' on 'Orders' sidebar button after clicking", async () => {
         await HomePage["Orders page"].click();
-        await browser.pause(3000)
-        console.log(await isBgDanger(await HomePage["Orders page"]))
-        // expect(await isBgDanger(await HomePage["Orders page"])).toBeTruthy();
+        await browserPause(TIMEOUT_1);
+        const isBgColorRead: boolean = await isBgDanger(await HomePage["Orders page"]);
+        expect(isBgColorRead).toBe(false);
     });
 
-    // TODO: implement expects after bg change
-    it("Should have blue 'background-color' on 'Products page' button after clicking", async () => {
+    it("Should have blue 'background-color' on 'Products' sidebar button after clicking", async () => {
         await HomePage["Products page"].click();
-        await browser.pause(3000)
-        console.log(await isBgDanger(await HomePage["Products page"]))
+        await browserPause(TIMEOUT_1);
+        const isBgColorRead: boolean = await isBgDanger(await HomePage["Products page"]);
+        expect(isBgColorRead).toBe(false);
     });
 
-    it("Should have blue 'background-color' on 'Customers page' button after clicking", async () => {
+    it("Should have blue 'background-color' on 'Customers' sidebar button after clicking", async () => {
         await HomePage["Customers page"].click();
-        await browser.pause(3000)
-        console.log(await isBgDanger(await HomePage["Customers page"]))
+        await browserPause(TIMEOUT_1);
+        const isBgColorRead: boolean = await isBgDanger(await HomePage["Customers page"]);
+        expect(isBgColorRead).toBe(false);
     });
-    xit("", () => {
-
-    });
-})
+});
