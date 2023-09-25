@@ -14,6 +14,7 @@ import {browserPause, isBgDanger} from "../../utils/helpers";
 
 
 describe("First test in aqa_project", () => {
+    let isBgColorRead: boolean
     before("Prepare to test", async () => {
         await browser.maximizeWindow();
         await browser.url(URLS.baseAK);
@@ -30,28 +31,28 @@ describe("First test in aqa_project", () => {
     });
 
     it("Should verify that 'AQA User' is logged", async () => {
-        const userName = await HomePage["User dropdown"].getText();
+        const userName = await HomePage["User dropdown menu"].getText();
         expect(userName).toBe("AQA User");
     });
 
     it("Should have blue 'background-color' on 'Orders' sidebar button after clicking", async () => {
         await HomePage["Orders page"].click();
         await browserPause(TIMEOUT_1);
-        const isBgColorRead: boolean = await isBgDanger(await HomePage["Orders page"]);
+        isBgColorRead = await isBgDanger(await HomePage["Orders page"]);
         expect(isBgColorRead).toBe(false);
     });
 
     it("Should have blue 'background-color' on 'Products' sidebar button after clicking", async () => {
         await HomePage["Products page"].click();
         await browserPause(TIMEOUT_1);
-        const isBgColorRead: boolean = await isBgDanger(await HomePage["Products page"]);
+        isBgColorRead = await isBgDanger(await HomePage["Products page"]);
         expect(isBgColorRead).toBe(false);
     });
 
     it("Should have blue 'background-color' on 'Customers' sidebar button after clicking", async () => {
         await HomePage["Customers page"].click();
         await browserPause(TIMEOUT_1);
-        const isBgColorRead: boolean = await isBgDanger(await HomePage["Customers page"]);
+        isBgColorRead = await isBgDanger(await HomePage["Customers page"]);
         expect(isBgColorRead).toBe(false);
     });
 });

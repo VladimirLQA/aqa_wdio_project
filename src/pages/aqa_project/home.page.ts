@@ -1,5 +1,5 @@
 class HomePage {
-    get ["User dropdown"]() {
+    get ["User dropdown menu"]() {
         return $("#sidebar #dropdownUser1");
     }
 
