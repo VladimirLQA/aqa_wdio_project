@@ -1,5 +1,5 @@
 import SignInPage from "../../pages/aqa_project/sign-in.page";
-import {URLS} from "../../endpoints";
+import {URLS} from "../../api/endpoints";
 import {TIMEOUT_1, TIMEOUT_5} from "../../utils/aqa_project_const";
 import HomePage from "../../pages/aqa_project/home.page";
 import {browserPause, isBgDanger} from "../../utils/helpers";
