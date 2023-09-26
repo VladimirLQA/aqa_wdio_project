@@ -12,7 +12,7 @@ export async function find<T>(array: T[], callback: FindAsyncCallback<T>): Promi
 
 export async function isBgDanger(element: WebdriverIO.Element): Promise<boolean> {
     let classAttribute = await element.getAttribute("class");
-    return classAttribute.toLowerCase().split(" ").includes("bg-danger");
+    return classAttribute.toLowerCase().includes("bg-danger");
 }
 
 export async function browserPause(timeout: number): Promise<void> {
