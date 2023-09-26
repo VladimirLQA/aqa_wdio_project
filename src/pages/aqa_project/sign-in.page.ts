@@ -1,34 +1,35 @@
 import {credentials} from "../../data/aqa_project";
+import {PageHandler} from "./page.handler";
 
-class SignInPage {
+class SignInPage extends PageHandler{
     get ["Email"]() {
-        return $("#emailinput");
+        return "#emailinput";
     }
 
     get ["Password"]() {
-        return $("#passwordinput");
+        return "#passwordinput";
     }
 
     get ["Remember me check box"]() {
-        return $("#remembermecheckbox");
+        return "#remembermecheckbox";
     }
 
     get ["Login button"]() {
-        return $(".btn-lg");
+        return ".btn-lg";
     }
 
     get ["Spinner"]() {
-        return $(".spinner-border");
+        return ".spinner-border";
     }
 
     get ["Image"]() {
-        return $(".img-fluid");
+        return ".img-fluid";
     }
 
     async login() {
-        await this.Email.setValue(credentials.login);
-        await this.Password.setValue(credentials.password);
-        await this["Login button"].click();
+        await this.waitForElemAndSetValue(this["Email"], credentials.login);
+        await this.waitForElemAndSetValue(this["Password"], credentials.password);
+        await (await this.findElement(this["Login button"])).click();
     }
 }
 export default new SignInPage();
