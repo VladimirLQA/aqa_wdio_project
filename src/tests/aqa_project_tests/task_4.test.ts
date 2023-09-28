@@ -3,6 +3,7 @@ import { URLS } from "../../api/endpoints";
 import { TIMEOUT_1, TIMEOUT_5 } from "../../utils/aqa_project_const";
 import HomePage from "../../pages/aqa_project/home.page";
 import { browserPause, isBgDanger } from "../../utils/helpers";
+import { PageHandler } from "../../pages/aqa_project/page.handler";
 
 /*
 * Разработать тест со следующими шагами:
@@ -18,41 +19,41 @@ describe("First test in aqa_project", () => {
   before("Prepare to test", async () => {
     await browser.maximizeWindow();
     await browser.url(URLS.baseAK);
-    await SignInPage["Image"].waitForDisplayed({
+    await $(SignInPage["Image"]).waitForDisplayed({
       TIMEOUT_5, timeoutMsg: `Home page not opened after 5 seconds`,
     });
   });
 
   it("Should hide spinner after login", async () => {
     await SignInPage.login();
-    await SignInPage["Spinner"].waitForDisplayed({
+    await $(SignInPage["Spinner"]).waitForDisplayed({
       TIMEOUT_5, timeoutMsg: `Spinner is not hidden after 5 seconds`, reverse: true,
     });
   });
 
   it("Should verify that 'AQA User' is logged", async () => {
-    const userName = await HomePage["User dropdown menu"].getText();
+    const userName = await HomePage.waitForElemAndGetText(HomePage["User dropdown menu"]);
     expect(userName).toBe("AQA User");
   });
 
   it("Should have blue 'background-color' on 'Orders' sidebar button after clicking", async () => {
-    await HomePage["Orders page"].click();
+    await HomePage.waitForElemAndClick(HomePage["Orders page"]);
     await browserPause(TIMEOUT_1);
     isBgColorRead = await isBgDanger(await $(HomePage["Orders page"]));
     expect(isBgColorRead).toBe(false);
   });
 
   it("Should have blue 'background-color' on 'Products' sidebar button after clicking", async () => {
-    await HomePage["Products page"].click();
+    await HomePage["Products page"];
     await browserPause(TIMEOUT_1);
-    isBgColorRead = await isBgDanger(await HomePage["Products page"]);
+    isBgColorRead = await isBgDanger(await $(HomePage["Products page"]));
     expect(isBgColorRead).toBe(false);
   });
 
   it("Should have blue 'background-color' on 'Customers' sidebar button after clicking", async () => {
-    await HomePage["Customers page"].click();
+    await HomePage.waitForElemAndClick(HomePage["Customers page"]);
     await browserPause(TIMEOUT_1);
-    isBgColorRead = await isBgDanger(await HomePage["Customers page"]);
+    isBgColorRead = await isBgDanger(await $(HomePage["Customers page"]));
     expect(isBgColorRead).toBe(false);
   });
 });
