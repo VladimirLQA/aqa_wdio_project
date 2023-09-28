@@ -1,4 +1,6 @@
-class HomePage {
+import { PageHandler } from "./page.handler";
+
+class HomePage extends PageHandler {
   get ["User dropdown menu"]() {
     return "#sidebar #dropdownUser1";
   }

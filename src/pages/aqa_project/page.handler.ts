@@ -11,13 +11,22 @@ export class PageHandler {
     }
   }
 
-  public async waitForElemAndSetValue(selector: string, text: string | number, timeout: number = TIMEOUT_5) {
+  public async waitForElemAndSetValue(selector: string, text: string | number, timeout: number = TIMEOUT_5): Promise<void> {
     const elem = await this.findElement(selector);
-    if (!elem) {
-      throw new Error("Element not found");
-    } else {
-      await elem.waitForEnabled({ timeout, timeoutMsg: "Element is not enabled after 5 seconds" });
-      await elem.setValue(text);
-    }
+    await elem.waitForEnabled({ timeout, timeoutMsg: "Element is not enabled after 5 seconds" });
+    await elem.setValue(text);
+
+  }
+
+  public async waitForElemAndClick(selector: string, timeout: number = TIMEOUT_5): Promise<void> {
+    const elem = await this.findElement(selector);
+    await elem.waitForEnabled({ timeout, timeoutMsg: "Element is not enabled after 5 seconds" });
+    await elem.click();
+  }
+
+  public async waitForElemAndGetText(selector: string): Promise<string> {
+    const elem = await this.findElement(selector);
+    const text = await elem.getText();
+    return text;
   }
 }
