@@ -1,6 +1,7 @@
 {
   "name": "my-new-project",
   "devDependencies": {
+    "@faker-js/faker": "^8.1.0",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@wdio/allure-reporter": "^8.16.3",
     "@wdio/cli": "^8.16.4",
@@ -23,6 +24,7 @@
     "lint:check": "eslint . --ext .ts"
   },
   "dependencies": {
-    "@typescript-eslint/parser": "^6.7.3"
+    "@typescript-eslint/parser": "^6.7.3",
+    "dotenv": "^16.3.1"
   }
 }
