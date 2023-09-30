@@ -3,7 +3,7 @@ import { URLS } from "../../api/endpoints";
 import { TIMEOUT_1, TIMEOUT_5 } from "../../utils/aqa_project_const";
 import HomePage from "../../pages/aqa_project/home.page";
 import { browserPause, isBgDanger } from "../../utils/helpers";
-import { PageHandler } from "../../pages/aqa_project/page.handler";
+import { PageHandlerPage } from "../../pages/aqa_project/page-handler.page";
 
 /*
 * Разработать тест со следующими шагами:
