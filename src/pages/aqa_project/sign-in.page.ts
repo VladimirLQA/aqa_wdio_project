@@ -1,12 +1,11 @@
-import { credentials } from "../../data/aqa_project";
-import { PageHandler } from "./page.handler";
+import { BasePage } from "./base.page";
 
-class SignInPage extends PageHandler {
-  get ["Email"]() {
+class SignInPage extends BasePage {
+  get ["Email input"]() {
     return "#emailinput";
   }
 
-  get ["Password"]() {
+  get ["Password input"]() {
     return "#passwordinput";
   }
 
@@ -24,12 +23,6 @@ class SignInPage extends PageHandler {
 
   get ["Image"]() {
     return ".img-fluid";
-  }
-
-  async login() {
-    await this.waitForElemAndSetValue(this["Email"], credentials.login);
-    await this.waitForElemAndSetValue(this["Password"], credentials.password);
-    await (await this.findElement(this["Login button"])).click();
   }
 }
 

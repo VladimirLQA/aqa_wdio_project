@@ -1,20 +1,15 @@
-import { FindAsyncCallback } from "../types/types";
+import { arrayOfManufacturerBrands } from "../data/products/product.data";
 
-export async function find<T>(array: T[], callback: FindAsyncCallback<T>): Promise<T | undefined> {
-  for (let i = 0; i < array?.length; i++) {
-    const result = await callback(array[i], i, array);
-    if (result) {
-      return array[i];
-    }
-  }
-  return undefined;
-}
-
-export async function isBgDanger(element: WebdriverIO.Element): Promise<boolean> {
+export const isBgDanger = async (element: WebdriverIO.Element): Promise<boolean> => {
   let classAttribute = await element.getAttribute("class");
   return classAttribute.toLowerCase().includes("bg-danger");
-}
+};
 
-export async function browserPause(timeout: number): Promise<void> {
+export const browserPause = async (timeout: number): Promise<void> => {
   await browser.pause(timeout);
+};
+
+export function getRandomManufacturerBrand() {
+  const randomIndex = Math.floor(Math.random() * arrayOfManufacturerBrands.length);
+  return arrayOfManufacturerBrands[randomIndex];
 }

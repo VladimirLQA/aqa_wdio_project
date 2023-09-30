@@ -1,6 +1,6 @@
-import { PageHandler } from "../page.handler";
+import { BasePage } from "../base.page";
 
-class ProductsPage extends PageHandler {
+class ProductsPage extends BasePage {
   get ["Page header"]() {
     return ".page-header-flex h2";
   }
@@ -21,31 +21,21 @@ class ProductsPage extends PageHandler {
     return "button.page-title-button";
   }
 
-  get ["Products table body"]() {
-    return "#contentInner > table > tbody";
+  get ["Table row selector"]() {
+    return (product: string) => `//tr[./td[text()="${product}"]]`;
   }
 
-  get [""]() {
-    return "";
+  get ["Name by table row"]() {
+    return (productName: string) => `${this["Table row selector"](productName)}/td[1]`;
   }
 
-  get [""]() {
-    return "";
+  get ["Price by table row"]() {
+    return (productPrice: string) => `${this["Table row selector"](productPrice)}/td[2]`;
   }
 
-  get [""]() {
-    return "";
-  }
-
-  get [""]() {
-    return "";
-  }
-
-  get [""]() {
-    return "";
-  }
-
-  get [""]() {
-    return "";
+  get ["Manufacturer by table row"]() {
+    return (productManufacturer: string) => `${this["Table row selector"](productManufacturer)}/td[3]`;
   }
 }
+
+export default new ProductsPage();
