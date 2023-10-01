@@ -5,7 +5,11 @@ export class BasePage extends PageHandler {
     return '.spinner-border';
   }
 
-  get ['Toast']() {
+  get ['Toast body']() {
     return '.toast-body';
+  }
+
+  get ['Toast close button']() {
+    return '.toast-container button';
   }
 }

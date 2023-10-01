@@ -31,8 +31,6 @@ export class PageHandler {
 
   public async checkElementText(selector: string, text: string) {
     const actual = await this.waitForElemAndGetText(selector);
-    console.log(actual);
-    console.log(text);
     expect(actual).toBe(text);
   }
 }

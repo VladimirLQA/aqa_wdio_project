@@ -30,11 +30,15 @@ class ProductsPage extends BasePage {
   }
 
   get ['Price by table row']() {
-    return (productPrice: string) => `${this['Table row selector'](productPrice)}/td[2]`;
+    return (productName: string) => `${this['Table row selector'](productName)}/td[2]`;
   }
 
   get ['Manufacturer by table row']() {
-    return (productManufacturer: string) => `${this['Table row selector'](productManufacturer)}/td[3]`;
+    return (productName: string) => `${this['Table row selector'](productName)}/td[3]`;
+  }
+
+  get ['Table row action button']() {
+    return (productName: string, actionButton: string) => `${this['Table row selector'](productName)}/td/button[@title='${actionButton}']`;
   }
 }
 

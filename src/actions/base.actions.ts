@@ -19,7 +19,7 @@ export class BaseActions {
     await browser.maximizeWindow();
   }
 
-  public async verifyNotificationText(text: string) {
-    await this.basePage.checkElementText(this.basePage.Toast, text);
+  public async closeToastMessage() {
+    await this.basePage.waitForElemAndClick(this.basePage['Toast close button']);
   }
 }

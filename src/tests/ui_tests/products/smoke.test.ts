@@ -3,30 +3,25 @@ import HomeActions from '../../../actions/home.actions';
 import ProductsActions from '../../../actions/products/products.actions';
 import AddNewProductActions from '../../../actions/products/add-new-product.actions';
 import { newProduct, toastText } from '../../../data/products/product.data';
-import { BasePage } from '../../../pages/aqa_project/base.page';
+import ProductsAssertions from '../../../assertions/products_assertions/products.assertions';
+import BaseAssertions from '../../../assertions/base.assertions';
 
 describe('', () => {
   before('Prepare to test', async () => {
     await SignInActions.openSitePage();
+    await SignInActions.signIn();
   });
 
-  // TODO: implement teardown methods after test
-  after('', () => {});
+  after('', async () => {
+    await ProductsActions.deleteProduct(newProduct.name);
+    await BaseAssertions.verifyToastText(await toastText('deleted'));
+  });
+
   it('Should create product with valid data', async () => {
-    // login
-    await SignInActions.signIn();
-
-    // open products
     await HomeActions.openProductsPage();
-
-    // open add new products
     await ProductsActions.openAddNewProductPage();
-
-    // product creation
     await AddNewProductActions.createProduct(newProduct, newProduct.manufacturer);
-
-    // verify created product
-    await ProductsActions.verifyCreatedProduct(newProduct);
-    await HomeActions.verifyNotificationText(await toastText('created'));
+    await BaseAssertions.verifyToastText(await toastText('created'));
+    await ProductsAssertions.verifyCreatedProductRow(newProduct);
   });
 });
