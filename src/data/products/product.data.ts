@@ -38,4 +38,4 @@ export const arrayOfManufacturerBrands: MANUFACTURER[] = [
   MANUFACTURER.XIAOMI,
 ];
 
-export const toastText = async (text: string) => `Product was successfully ${text}`;
+export const productToastText = async (text: string) => `Product was successfully ${text}`;

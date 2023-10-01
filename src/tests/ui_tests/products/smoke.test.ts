@@ -14,14 +14,14 @@ describe('', () => {
 
   after('', async () => {
     await ProductsActions.deleteProduct(newProduct.name);
-    await BaseAssertions.verifyToastText(await toastText('deleted'));
+    await ProductsAssertions.verifyProductToastText('deleted');
   });
 
   it('Should create product with valid data', async () => {
     await HomeActions.openProductsPage();
     await ProductsActions.openAddNewProductPage();
     await AddNewProductActions.createProduct(newProduct, newProduct.manufacturer);
-    await BaseAssertions.verifyToastText(await toastText('created'));
+    await ProductsAssertions.verifyProductToastText('created');
     await ProductsAssertions.verifyCreatedProductRow(newProduct);
   });
 });

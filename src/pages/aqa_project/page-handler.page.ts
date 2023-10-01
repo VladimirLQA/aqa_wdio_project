@@ -28,9 +28,4 @@ export class PageHandler {
     const text = await elem.getText();
     return text;
   }
-
-  public async checkElementText(selector: string, text: string) {
-    const actual = await this.waitForElemAndGetText(selector);
-    expect(actual).toBe(text);
-  }
 }

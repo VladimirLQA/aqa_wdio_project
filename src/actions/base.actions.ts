@@ -1,6 +1,5 @@
 import { BasePage } from '../pages/aqa_project/base.page';
 import { elementFinder } from '../utils/element-finder';
-import HomePage from '../pages/aqa_project/home.page';
 
 export class BaseActions {
   public basePage: BasePage;
