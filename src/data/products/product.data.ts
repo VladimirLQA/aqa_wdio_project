@@ -1,5 +1,5 @@
-import { faker } from "@faker-js/faker";
-import { IProduct } from "../../types/products.type";
+import { faker } from '@faker-js/faker';
+import { IProduct } from '../../types/products.type';
 
 // const manufacturer = getRandomManufacturerBrand();
 //
@@ -9,14 +9,14 @@ import { IProduct } from "../../types/products.type";
 // }
 
 export enum MANUFACTURER {
-  APPLE = "Apple",
-  SAMSUNG = "Samsung",
-  GOOGLE = "Google",
-  MICROSOFT = "Microsoft",
-  SONY = "Sony",
-  XIAOMI = "Xiaomi",
-  AMAZON = "Amazon",
-  TESLA = "Tesla",
+  APPLE = 'Apple',
+  SAMSUNG = 'Samsung',
+  GOOGLE = 'Google',
+  MICROSOFT = 'Microsoft',
+  SONY = 'Sony',
+  XIAOMI = 'Xiaomi',
+  AMAZON = 'Amazon',
+  TESLA = 'Tesla',
 }
 
 export const newProduct: IProduct = {
@@ -28,12 +28,14 @@ export const newProduct: IProduct = {
 };
 
 export const arrayOfManufacturerBrands: MANUFACTURER[] = [
-  MANUFACTURER.GOOGLE, MANUFACTURER.APPLE,
-  MANUFACTURER.AMAZON, MANUFACTURER.SONY,
-  MANUFACTURER.TESLA, MANUFACTURER.MICROSOFT,
-  MANUFACTURER.SAMSUNG, MANUFACTURER.XIAOMI,
+  MANUFACTURER.GOOGLE,
+  MANUFACTURER.APPLE,
+  MANUFACTURER.AMAZON,
+  MANUFACTURER.SONY,
+  MANUFACTURER.TESLA,
+  MANUFACTURER.MICROSOFT,
+  MANUFACTURER.SAMSUNG,
+  MANUFACTURER.XIAOMI,
 ];
 
-export const toastText = async (text: string) => {
-  return `Product was successfully ${text}`
-}
+export const toastText = async (text: string) => `Product was successfully ${text}`;

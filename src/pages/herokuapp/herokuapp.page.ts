@@ -1,9 +1,9 @@
 class MainPageHerokuapp {
-  get ["Main page title"]() {
-    return "h1.heading";
+  get ['Main page title']() {
+    return 'h1.heading';
   }
 
-  get ["Dropdown page link"]() {
+  get ['Dropdown page link']() {
     return "li > a[href='/dropdown']";
   }
 }

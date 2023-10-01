@@ -1,8 +1,8 @@
-import { arrayOfManufacturerBrands } from "../data/products/product.data";
+import { arrayOfManufacturerBrands } from '../data/products/product.data';
 
 export const isBgDanger = async (element: WebdriverIO.Element): Promise<boolean> => {
-  let classAttribute = await element.getAttribute("class");
-  return classAttribute.toLowerCase().includes("bg-danger");
+  const classAttribute = await element.getAttribute('class');
+  return classAttribute.toLowerCase().includes('bg-danger');
 };
 
 export const browserPause = async (timeout: number): Promise<void> => {

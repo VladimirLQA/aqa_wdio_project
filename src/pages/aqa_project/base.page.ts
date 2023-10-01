@@ -1,11 +1,11 @@
-import { PageHandler } from "./page-handler.page";
+import { PageHandler } from './page-handler.page';
 
 export class BasePage extends PageHandler {
-  get ["Spinner"]() {
-    return ".spinner-border";
+  get ['Spinner']() {
+    return '.spinner-border';
   }
 
-  get ["Toast"]() {
-    return ".toast-body";
+  get ['Toast']() {
+    return '.toast-body';
   }
 }

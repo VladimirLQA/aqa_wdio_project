@@ -3,7 +3,7 @@ const findElement = async (selector: string): Promise<WebdriverIO.Element> => {
     const element = await $(selector);
     return element;
   } catch (error: any) {
-    throw new Error("Error while finding element by selector: " + selector);
+    throw new Error(`Error while finding element by selector: ${selector}`);
   }
 };
 
@@ -12,7 +12,7 @@ const findArrayElements = async (selector: string): Promise<WebdriverIO.Element[
     const element = await $$(selector);
     return element;
   } catch (error) {
-    throw new Error("Error while finding array of elements by selector:" + selector);
+    throw new Error(`Error while finding array of elements by selector:${selector}`);
   }
 };
 

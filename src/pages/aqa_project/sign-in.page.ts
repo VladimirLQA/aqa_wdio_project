@@ -1,28 +1,28 @@
-import { BasePage } from "./base.page";
+import { BasePage } from './base.page';
 
 class SignInPage extends BasePage {
-  get ["Email input"]() {
-    return "#emailinput";
+  get ['Email input']() {
+    return '#emailinput';
   }
 
-  get ["Password input"]() {
-    return "#passwordinput";
+  get ['Password input']() {
+    return '#passwordinput';
   }
 
-  get ["Remember me check box"]() {
-    return "#remembermecheckbox";
+  get ['Remember me check box']() {
+    return '#remembermecheckbox';
   }
 
-  get ["Login button"]() {
-    return ".btn-lg";
+  get ['Login button']() {
+    return '.btn-lg';
   }
 
-  get ["Spinner"]() {
-    return ".spinner-border";
+  get ['Spinner']() {
+    return '.spinner-border';
   }
 
-  get ["Image"]() {
-    return ".img-fluid";
+  get ['Image']() {
+    return '.img-fluid';
   }
 }
 

@@ -1,18 +1,18 @@
-import { BaseActions } from "../base.actions";
-import ProductsPage from "../../pages/aqa_project/products/products.page";
-import { IProduct } from "../../types/products.type";
+import { BaseActions } from '../base.actions';
+import ProductsPage from '../../pages/aqa_project/products/products.page';
+import { IProduct } from '../../types/products.type';
 
 class ProductsActions extends BaseActions {
   public async openAddNewProductPage() {
-    await ProductsPage.waitForElemAndClick(ProductsPage["Add product button"]);
+    await ProductsPage.waitForElemAndClick(ProductsPage['Add product button']);
     await this.waitForPageLoad();
   }
 
   public async getCreatedProducttToVerify(productName: string) {
     return {
-      name: await ProductsPage.waitForElemAndGetText(ProductsPage["Name by table row"](productName)),
-      price: await ProductsPage.waitForElemAndGetText(ProductsPage["Price by table row"](productName)),
-      manufacturer: await ProductsPage.waitForElemAndGetText(ProductsPage["Manufacturer by table row"](productName)),
+      name: await ProductsPage.waitForElemAndGetText(ProductsPage['Name by table row'](productName)),
+      price: await ProductsPage.waitForElemAndGetText(ProductsPage['Price by table row'](productName)),
+      manufacturer: await ProductsPage.waitForElemAndGetText(ProductsPage['Manufacturer by table row'](productName)),
     };
   }
 

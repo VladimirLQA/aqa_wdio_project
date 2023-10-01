@@ -1,25 +1,25 @@
-import { TIMEOUT } from "../../utils/aqa_project_const";
-import { elementFinder } from "../../utils/element-finder";
-import { browserPause } from "../../utils/helpers";
+import { TIMEOUT } from '../../utils/aqa_project_const';
+import { elementFinder } from '../../utils/element-finder';
+import { browserPause } from '../../utils/helpers';
 
 export class PageHandler {
   // TODO: implement basic logic to carry out an action on pages
-  public async waitForElement(selector: string, timeout: number = TIMEOUT["5 seconds"]) {
+  public async waitForElement(selector: string, timeout: number = TIMEOUT['5 seconds']) {
     const elem = await elementFinder.findElement(selector);
-    await elem.waitForDisplayed({timeout});
+    await elem.waitForDisplayed({ timeout });
     return elem;
   }
 
-  public async waitForElemAndSetValue(selector: string, text: string | number, timeout: number = TIMEOUT["5 seconds"]): Promise<void> {
+  public async waitForElemAndSetValue(selector: string, text: string | number, timeout: number = TIMEOUT['5 seconds']): Promise<void> {
     const elem = await this.waitForElement(selector);
-    await elem.waitForEnabled({ timeout, timeoutMsg: "Element is not enabled after 5 seconds" });
+    await elem.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
     await elem.setValue(text);
     await browserPause(200);
   }
 
-  public async waitForElemAndClick(selector: string, timeout: number = TIMEOUT["5 seconds"]): Promise<void> {
+  public async waitForElemAndClick(selector: string, timeout: number = TIMEOUT['5 seconds']): Promise<void> {
     const elem = await this.waitForElement(selector);
-    await elem.waitForEnabled({ timeout, timeoutMsg: "Element is not enabled after 5 seconds" });
+    await elem.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
     await elem.click();
   }
 

@@ -1,4 +1,4 @@
-import { MANUFACTURER } from "../data/products/product.data";
+import { MANUFACTURER } from '../data/products/product.data';
 
 export interface IProduct {
   name: string;
