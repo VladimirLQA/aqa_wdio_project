@@ -12,7 +12,7 @@ class ProductsAssertions extends BaseAssertions {
   }
 
   public async verifyProductToastText(text: string) {
-    await this.verifyElementText(this.basePage['Toast body'], await productToastText(text));
+    await this.verifyElementText(this.basePage['Toast body'], await ProductsActions.getProductToastText(text));
     await this.baseActions.closeToastMessage();
   }
 }

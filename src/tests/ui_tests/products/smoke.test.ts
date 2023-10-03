@@ -2,7 +2,7 @@ import SignInActions from '../../../actions/sign-in.actions';
 import HomeActions from '../../../actions/home.actions';
 import ProductsActions from '../../../actions/products/products.actions';
 import AddNewProductActions from '../../../actions/products/add-new-product.actions';
-import { newProduct, toastText } from '../../../data/products/product.data';
+import { newProduct } from '../../../data/products/product.data';
 import ProductsAssertions from '../../../assertions/products_assertions/products.assertions';
 import BaseAssertions from '../../../assertions/base.assertions';
 

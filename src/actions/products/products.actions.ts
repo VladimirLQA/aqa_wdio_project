@@ -1,6 +1,5 @@
 import { BaseActions } from '../base.actions';
 import ProductsPage from '../../pages/aqa_project/products/products.page';
-import { IProduct } from '../../types/products.type';
 import DeleteProductModalActions from './modals/delete-product-modal.actions';
 
 class ProductsActions extends BaseActions {
@@ -23,9 +22,13 @@ class ProductsActions extends BaseActions {
   }
 
   public async deleteProduct(productName: string) {
-    await this.clickOnProductRowActionButton(productName, "Delete");
+    await this.clickOnProductRowActionButton(productName, 'Delete');
     await DeleteProductModalActions.clickOnDeleteButton();
     await this.waitForPageLoad();
+  }
+
+  public async getProductToastText(text: string) {
+    return `Product was successfully ${text}`
   }
 }
 
