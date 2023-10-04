@@ -1,7 +1,6 @@
 import { IProduct } from '../../types/products.type';
 import ProductsActions from '../../actions/products/products.actions';
 import { BaseAssertions } from '../base.assertions';
-import { productToastText } from '../../data/products/product.data';
 
 class ProductsAssertions extends BaseAssertions {
   public async verifyCreatedProductRow(expectedProduct: IProduct) {

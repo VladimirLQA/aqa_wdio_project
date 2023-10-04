@@ -1,15 +1,17 @@
 import { arrayOfManufacturerBrands } from '../data/products/product.data';
 
-export const isBgDanger = async (element: WebdriverIO.Element): Promise<boolean> => {
+const isAttributeContainClass = async (element: WebdriverIO.Element, className: string): Promise<boolean> => {
   const classAttribute = await element.getAttribute('class');
-  return classAttribute.toLowerCase().includes('bg-danger');
+  return classAttribute.toLowerCase().includes(className);
 };
 
-export const browserPause = async (timeout: number): Promise<void> => {
+const browserPause = async (timeout: number): Promise<void> => {
   await browser.pause(timeout);
 };
 
-export function getRandomManufacturerBrand() {
+const getRandomManufacturerBrand = async () => {
   const randomIndex = Math.floor(Math.random() * arrayOfManufacturerBrands.length);
   return arrayOfManufacturerBrands[randomIndex];
-}
+};
+
+export { getRandomManufacturerBrand, isAttributeContainClass, browserPause };

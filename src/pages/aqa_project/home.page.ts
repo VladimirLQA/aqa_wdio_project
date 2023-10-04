@@ -1,4 +1,3 @@
-import { PageHandler } from './page-handler.page';
 import { BasePage } from './base.page';
 
 class HomePage extends BasePage {

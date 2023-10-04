@@ -33,6 +33,10 @@ class AddNewProductPage extends BasePage {
   get ['Manufacturer dropdown element']() {
     return (brand: string) => `//option[text()="${brand}"]`;
   }
+
+  get ['Manufacturer dropdown element']() {
+    return (brand: string) => `//option[text()="${brand}"]`;
+  }
 }
 
 export default new AddNewProductPage();
