@@ -15,6 +15,10 @@ class AddNewProductActions extends BaseActions {
     await browserPause(200);
   }
 
+  public async fillProductInputField(inputField: string, inputValue: string) {
+    await AddNewProductPage.waitForElemAndSetValue(inputField, inputValue);
+  }
+
   public async clickOnSaveNewProductButton() {
     await AddNewProductPage.waitForElemAndClick(AddNewProductPage['Save New Product button']);
   }

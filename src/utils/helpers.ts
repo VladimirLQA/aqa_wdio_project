@@ -1,7 +1,9 @@
 import { arrayOfManufacturerBrands } from '../data/products/product.data';
+import { elementFinder } from './element-finder';
 
-const isAttributeContainClass = async (element: WebdriverIO.Element, className: string): Promise<boolean> => {
-  const classAttribute = await element.getAttribute('class');
+const isAttributeContainClass = async (element: string, className: string): Promise<boolean> => {
+  const elem = await elementFinder.findElement(element);
+  const classAttribute = await elem.getAttribute('class');
   return classAttribute.toLowerCase().includes(className);
 };
 

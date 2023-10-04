@@ -4,7 +4,6 @@ import ProductsActions from '../../../actions/products/products.actions';
 import AddNewProductActions from '../../../actions/products/add-new-product.actions';
 import { newProduct } from '../../../data/products/product.data';
 import ProductsAssertions from '../../../assertions/products_assertions/products.assertions';
-import BaseAssertions from '../../../assertions/base.assertions';
 
 describe('', () => {
   before('Prepare to test', async () => {
