@@ -18,5 +18,3 @@ export class BaseAssertions {
     expect(actual).toBe(text);
   }
 }
-
-export default new BaseAssertions();

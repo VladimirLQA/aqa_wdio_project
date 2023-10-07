@@ -1,6 +1,7 @@
-import { IProduct } from '../../types/products.type';
+import { IProduct, ToastMessage } from '../../types/products.type';
 import ProductsActions from '../../actions/products/products.actions';
 import { BaseAssertions } from '../base.assertions';
+import { browserPause } from '../../utils/helpers';
 
 class ProductsAssertions extends BaseAssertions {
   public async verifyCreatedProductRow(expectedProduct: IProduct) {
@@ -10,9 +11,10 @@ class ProductsAssertions extends BaseAssertions {
     expect(actualProduct.manufacturer).toBe(expectedProduct.manufacturer);
   }
 
-  public async verifyProductToastText(text: string) {
-    await this.verifyElementText(this.basePage['Toast body'], await ProductsActions.getProductToastText(text));
+  public async verifyProductToastText(text: ToastMessage, name?: string) {
+    await this.verifyElementText(this.basePage['Toast body'], await ProductsActions.getProductToastText(text, name));
     await this.baseActions.closeToastMessage();
+    await browserPause(300);
   }
 }
 
