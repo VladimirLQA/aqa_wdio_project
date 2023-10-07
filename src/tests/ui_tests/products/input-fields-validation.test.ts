@@ -2,30 +2,37 @@ import SignInActions from '../../../actions/sign-in.actions';
 import HomeActions from '../../../actions/home.actions';
 import ProductsActions from '../../../actions/products/products.actions';
 import AddNewProductActions from '../../../actions/products/add-new-product.actions';
-import AddNewProductPage from '../../../pages/aqa_project/products/add-new-product.page';
-import { isAttributeContainClass } from '../../../utils/helpers';
-import { productInputs } from '../../../data/products/product.data'
+import { productInputs } from '../../../data/products/product.data';
+import ProductsAssertions from '../../../assertions/products_assertions/products.assertions';
+import { browserPause } from '../../../utils/helpers';
 
 describe('', () => {
-  before('Prepare to test', async () => {
+  before('', async () => {
     await SignInActions.openSitePage();
+  });
+
+  beforeEach('Prepare to test', async () => {
     await SignInActions.signIn();
     await HomeActions.openProductsPage();
     await ProductsActions.openAddNewProductPage();
   });
 
+  afterEach('', async () => {
+    await HomeActions.logOut();
+  });
+
   after('', async () => {
-    // await ProductsActions.deleteProduct(newProduct.name);
-    // await ProductsAssertions.verifyProductToastText('deleted');
+
   });
 
   context('Positive tests on input fields validation', async () => {
 
     for (const product of productInputs.positiveDataNameField) {
-      it(`Should create product with name: '${product.name}'`, async () => {
-        await AddNewProductActions.fillProductInputField(AddNewProductPage['Name input field'], product.name);
-        const isValidInput = await isAttributeContainClass(AddNewProductPage['Name input field'], 'is-valid');
-        expect(isValidInput).toBe(false);
+      it(`Should create product with valid name: '${product.name}'`, async () => {
+        await AddNewProductActions.fillProductInputs(product);
+        await AddNewProductActions.clickOnSaveNewProductButton();
+        // await browserPause(2000)
+        await ProductsAssertions.verifyProductToastText('created');
       });
     }
   });

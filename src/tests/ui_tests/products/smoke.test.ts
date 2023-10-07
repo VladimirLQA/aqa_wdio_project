@@ -19,7 +19,7 @@ describe('', () => {
   it('Should create product with valid data', async () => {
     await HomeActions.openProductsPage();
     await ProductsActions.openAddNewProductPage();
-    await AddNewProductActions.createProduct(newProduct, newProduct.manufacturer);
+    await AddNewProductActions.createProduct(newProduct);
     await ProductsAssertions.verifyProductToastText('created');
     await ProductsAssertions.verifyCreatedProductRow(newProduct);
   });

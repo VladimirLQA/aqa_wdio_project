@@ -8,7 +8,9 @@ interface IProduct {
   notes?: string;
 }
 
+type ToastMessage = 'created' | 'updated' | 'deleted' | 'already exist' | 'assigned to order';
+
 type InputFieldsData = Pick<IProduct, 'price' | 'name' | 'amount'>;
 type ProductInputs = Record<any, InputFieldsData[]>
 
-export { IProduct, InputFieldsData, ProductInputs };
+export { IProduct, InputFieldsData, ProductInputs, ToastMessage };

@@ -1,6 +1,8 @@
 import { BaseActions } from '../base.actions';
 import ProductsPage from '../../pages/aqa_project/products/products.page';
 import DeleteProductModalActions from './modals/delete-product-modal.actions';
+import { ToastMessage } from '../../types/products.type';
+import { productToastMessages } from '../../data/products/product.data';
 
 class ProductsActions extends BaseActions {
   public async openAddNewProductPage() {
@@ -27,8 +29,9 @@ class ProductsActions extends BaseActions {
     await this.waitForPageLoad();
   }
 
-  public async getProductToastText(text: string) {
-    return `Product was successfully ${text}`
+  public async getProductToastText(text: ToastMessage, name?: string) {
+    const toastMessage = productToastMessages[text];
+    return toastMessage(name) || (text === 'already exist' && !name ? `Name was not provided` : 'Text was not provided');
   }
 }
 
