@@ -1,6 +1,10 @@
 import { BasePage } from '../base.page';
 
 class AddNewProductPage extends BasePage {
+  get ['Page title']() {
+    return '.page-title-text';
+  }
+
   get ['Name input field']() {
     return `#inputName`;
   }
@@ -21,6 +25,14 @@ class AddNewProductPage extends BasePage {
     return `#save-new-product`;
   }
 
+  get ['Back button']() {
+    return `#back-to-products-page`;
+  }
+
+  get ['Clear inputs button']() {
+    return `#clear-inputs`;
+  }
+
   get ['Manufacturer dropdown list']() {
     // maybe unnecessary
     return '#inputManufacturer > option';
@@ -30,11 +42,7 @@ class AddNewProductPage extends BasePage {
     return '#inputManufacturer';
   }
 
-  get ['Manufacturer dropdown element']() {
-    return (brand: string) => `//option[text()="${brand}"]`;
-  }
-
-  get ['Manufacturer dropdown element']() {
+  get ['Manufacturer dropdown brand']() {
     return (brand: string) => `//option[text()="${brand}"]`;
   }
 

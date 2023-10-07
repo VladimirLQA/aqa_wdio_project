@@ -4,7 +4,7 @@ import { browserPause } from '../../utils/helpers';
 
 export class PageHandler {
   // TODO: implement basic logic to carry out an action on pages
-  public async waitForElement(selector: string, timeout: number = TIMEOUT['5 seconds']) {
+  public async waitForElement(selector: string, timeout: number = TIMEOUT['5 seconds']): Promise<WebdriverIO.Element> {
     const elem = await elementFinder.findElement(selector);
     await elem.waitForDisplayed({ timeout });
     return elem;

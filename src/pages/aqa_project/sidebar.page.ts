@@ -1,6 +1,6 @@
 import { BasePage } from './base.page';
 
-export class SidebarPage extends BasePage {
+class SidebarPage extends BasePage {
   get ['User dropdown menu']() {
     return '#sidebar #dropdownUser1';
   }
@@ -35,6 +35,10 @@ export class SidebarPage extends BasePage {
 
   get ["Currency 'Buy' button"]() {
     return '#sidebar > div > button';
+  }
+
+  get ['Sign out button']() {
+    return '#signOut';
   }
 }
 
