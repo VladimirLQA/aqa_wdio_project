@@ -1,14 +1,18 @@
-import ProductsController from '../../../api/controllers/products.controller'
+import ProductsController from '../../../api/controllers/products.controller';
+import { newProduct } from '../../../data/products/product.data';
 
 describe('Smoke api test', () => {
-  let token: string
+  let token: string;
   before(async () => {
-    token = await SignInController.login()
+    token = await SignInController.login();
   });
-  beforeEach(async () => {});
-  after(async () => {});
+  beforeEach(async () => {
+  });
+  after(async () => {
+  });
 
   it('Create product', async () => {
-    await ProductsController.create()
+    await ProductsController.create({ data: newProduct, token });
+
   });
-})
+});

@@ -1,10 +1,10 @@
-import SignInPage from '../../pages/aqa_project/sign-in.page';
-import { URLS } from '../../api/endpoints';
-import HomePage from '../../pages/aqa_project/home.page';
-import { browserPause, isAttributeContainClass } from '../../utils/helpers';
-import { TIMEOUT } from '../../utils/aqa_project_const';
-import SignInActions from '../../actions/sign-in.actions';
-import SidebarPage from '../../pages/aqa_project/sidebar.page';
+import SignInPage from '../../../ui/pages/aqa_project/sign-in.page';
+import { URLS } from '../../../api/endpoints';
+import HomePage from '../../../ui/pages/aqa_project/home.page';
+import { browserPause, isAttributeContainClass } from '../../../utils/helpers';
+import { TIMEOUT } from '../../../utils/aqa_project_const';
+import SignInActions from '../../../ui/actions/sign-in.actions';
+import SidebarPage from '../../../ui/pages/aqa_project/sidebar.page';
 
 /*
 * Разработать тест со следующими шагами:
@@ -18,7 +18,7 @@ describe('First test in aqa_project', () => {
   let isBgColorRead: boolean;
   before('Prepare to test', async () => {
     await browser.maximizeWindow();
-    await browser.url(URLS.baseAK);
+    await browser.url(URLS.baseURL);
     await $(SignInPage.Image).waitForDisplayed({
       timeout: TIMEOUT['5 seconds'],
       timeoutMsg: `Home page not opened after 5 seconds`,

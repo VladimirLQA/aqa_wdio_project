@@ -1,6 +1,6 @@
-import { URLS } from '../api/endpoints';
-import DropdownPage from '../pages/herokuapp/dropdown.page';
-import MainPageHerokuapp from '../pages/herokuapp/herokuapp.page';
+import { URLS } from '../../api/endpoints';
+import DropdownPage from '../../ui/pages/herokuapp/dropdown.page';
+import MainPageHerokuapp from '../../ui/pages/herokuapp/herokuapp.page';
 
 describe('Dropdown test', () => {
   before('Prepare to test', async () => {

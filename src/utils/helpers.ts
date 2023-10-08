@@ -1,4 +1,3 @@
-import { arrayOfManufacturerBrands } from '../data/products/product.data';
 import { elementFinder } from './element-finder';
 
 const isAttributeContainClass = async (element: string, className: string): Promise<boolean> => {
@@ -11,9 +10,4 @@ const browserPause = async (timeout: number): Promise<void> => {
   await browser.pause(timeout);
 };
 
-const getRandomManufacturerBrand = async () => {
-  const randomIndex = Math.floor(Math.random() * arrayOfManufacturerBrands.length);
-  return arrayOfManufacturerBrands[randomIndex];
-};
-
-export { getRandomManufacturerBrand, isAttributeContainClass, browserPause };
+export { isAttributeContainClass, browserPause };

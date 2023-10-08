@@ -6,17 +6,17 @@ import { IProduct } from '../../types/products.type';
 class ProductsController {
   public async get(params: RequestParams<Id>) {
     const options: RequestOptions = {
-      method: "GET",
+      method: 'GET',
       baseURL: URLS.baseURL,
-      url: params.data ? URLS.endpoints.productByID(params.data._id) : URLS.endpoints.Products,
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${params.token}` },
+      url: params.data ? URLS.endpoints.productByID(params.data._id) : URLS.endpoints.products,
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${params.token}` },
     };
     return Request.sendRequest(options);
   }
 
   public async create(params: RequestParams<IProduct>) {
     const options: RequestOptions = {
-      method: "POST",
+      method: 'POST',
       baseURL: URLS.baseURL,
       url: URLS.endpoints.products,
       headers: { Authorization: `Bearer ${params.token}` },
@@ -27,7 +27,7 @@ class ProductsController {
 
   public async update(params: RequestParams<IProduct>) {
     const options: RequestOptions = {
-      method: "PUT",
+      method: 'PUT',
       baseURL: URLS.baseURL,
       url: URLS.endpoints.products,
       headers: { Authorization: `Bearer ${params.token}` },
@@ -38,7 +38,7 @@ class ProductsController {
 
   public async delete(params: Required<RequestParams<Id>>) {
     const options: RequestOptions = {
-      method: "DELETE",
+      method: 'DELETE',
       baseURL: URLS.baseURL,
       url: URLS.endpoints.productByID(params.data._id),
       headers: { Authorization: `Bearer ${params.token}` },

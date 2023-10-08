@@ -1,7 +1,7 @@
-import { IProduct, ToastMessage } from '../../types/products.type';
+import { IProduct, ToastMessage } from '../../../types/products.type';
 import ProductsActions from '../../actions/products/products.actions';
 import { BaseAssertions } from '../base.assertions';
-import { browserPause } from '../../utils/helpers';
+import { browserPause } from '../../../utils/helpers';
 
 class ProductsAssertions extends BaseAssertions {
   public async verifyCreatedProductRow(expectedProduct: IProduct) {

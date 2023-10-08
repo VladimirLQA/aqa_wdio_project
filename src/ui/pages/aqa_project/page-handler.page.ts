@@ -1,6 +1,6 @@
-import { TIMEOUT } from '../../utils/aqa_project_const';
-import { elementFinder } from '../../utils/element-finder';
-import { browserPause } from '../../utils/helpers';
+import { TIMEOUT } from '../../../utils/aqa_project_const';
+import { elementFinder } from '../../../utils/element-finder';
+import { browserPause } from '../../../utils/helpers';
 
 export class PageHandler {
   // TODO: implement basic logic to carry out an action on pages

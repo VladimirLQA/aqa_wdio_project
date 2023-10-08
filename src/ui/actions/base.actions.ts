@@ -1,6 +1,6 @@
 import { BasePage } from '../pages/aqa_project/base.page';
-import { elementFinder } from '../utils/element-finder';
-import { browserPause } from '../utils/helpers';
+import { elementFinder } from '../../utils/element-finder';
+import { browserPause } from '../../utils/helpers';
 
 export class BaseActions {
   public basePage: BasePage;

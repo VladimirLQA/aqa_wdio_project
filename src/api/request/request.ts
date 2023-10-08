@@ -10,10 +10,11 @@ let response: AxiosResponse;
 class Request {
   public async sendRequest(options: RequestOptions): Response {
     try {
-       response = await request(options as AxiosRequestConfig);
+      response = await request(options as AxiosRequestConfig);
+      return response;
     } catch (error: any) {
-      console.log("Error", error.isAxiosError ? error.message : error);
-      console.log("Request URL:", options.method, options.url);
+      console.log('Error', error.isAxiosError ? error.message : error);
+      console.log('Request URL:', options.method, options.url);
       return error.response;
     }
   }

@@ -1,6 +1,6 @@
-import { find } from '../utils/helpers';
-import { URLS } from '../api/endpoints';
-import { userCredentials } from '../data/first_test_constant';
+import { find } from '../../utils/helpers';
+import { URLS } from '../../api/endpoints';
+import { userCredentials } from '../../data/first_test_constant';
 
 describe('Login page tests', () => {
   const errorMessageSelector = 'div#flash';

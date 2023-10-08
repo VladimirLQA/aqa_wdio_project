@@ -1,9 +1,9 @@
-import SignInActions from '../../../actions/sign-in.actions';
-import HomeActions from '../../../actions/home.actions';
-import ProductsActions from '../../../actions/products/products.actions';
-import AddNewProductActions from '../../../actions/products/add-new-product.actions';
+import SignInActions from '../../../ui/actions/sign-in.actions';
+import HomeActions from '../../../ui/actions/home.actions';
+import ProductsActions from '../../../ui/actions/products/products.actions';
+import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
 import { newProduct } from '../../../data/products/product.data';
-import ProductsAssertions from '../../../assertions/products_assertions/products.assertions';
+import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
 
 describe('', () => {
   before('Prepare to test', async () => {

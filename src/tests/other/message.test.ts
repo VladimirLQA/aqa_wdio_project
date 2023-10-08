@@ -1,4 +1,4 @@
-import messageService from '../services/message.service';
+import messageService from '../../services/message.service';
 
 describe('', () => {
   let marsToken: string;

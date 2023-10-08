@@ -1,5 +1,5 @@
 import { BaseActions } from './base.actions';
-import { IUserCredentials } from '../types/user.types';
+import { IUserCredentials } from '../../types/user.types';
 import SignInPage from '../pages/aqa_project/sign-in.page';
 
 class SignInActions extends BaseActions {

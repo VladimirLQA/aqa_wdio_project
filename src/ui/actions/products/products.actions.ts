@@ -1,8 +1,8 @@
 import { BaseActions } from '../base.actions';
 import ProductsPage from '../../pages/aqa_project/products/products.page';
 import DeleteProductModalActions from './modals/delete-product-modal.actions';
-import { ToastMessage } from '../../types/products.type';
-import { productToastMessages } from '../../data/products/product.data';
+import { ToastMessage } from '../../../types/products.type';
+import { productToastMessages } from '../../../data/products/product.data';
 
 class ProductsActions extends BaseActions {
   public async openAddNewProductPage() {
