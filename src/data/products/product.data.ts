@@ -9,14 +9,14 @@ import { IProduct } from '../../types/products.type';
 // }
 
 enum MANUFACTURERS {
-  APPLE = "Apple",
-  SAMSUNG = "Samsung",
-  GOOGLE = "Google",
-  MICROSOFT = "Microsoft",
-  SONY = "Sony",
-  XIAOMI = "Xiaomi",
-  AMAZON = "Amazon",
-  TESLA = "Tesla",
+  APPLE = 'Apple',
+  SAMSUNG = 'Samsung',
+  GOOGLE = 'Google',
+  MICROSOFT = 'Microsoft',
+  SONY = 'Sony',
+  XIAOMI = 'Xiaomi',
+  AMAZON = 'Amazon',
+  TESLA = 'Tesla',
 }
 
 const productToastMessages = {
@@ -35,19 +35,54 @@ const newProduct: IProduct = {
   manufacturer: MANUFACTURERS.TESLA,
 };
 
+const getNewProduct = () => {
+  return {
+    name: faker.commerce.product() + faker.number.int({ min: 1, max: 100 }),
+    price: faker.number.int({ min: 50, max: 3000 }),
+    amount: faker.number.int({ min: 10, max: 50 }),
+    notes: faker.commerce.productDescription(),
+    manufacturer: MANUFACTURERS.TESLA,
+  }
+}
+
 const inputError = {
   nameField: 'Products\'s name should contain only 3-40 alphanumerical characters and one space between',
   priceField: 'Price should be in range 1-99999',
   amountField: 'Amount should be in range 0-999',
 };
 
-const productInputs = {
-  positiveDataNameField: [
-    { name: 'aaaaaaaaaaaaaaaaaA1aaaaaaaaaaaaaaaaaaaaa', price: 1, amount: 0  },
-    { name: 'a a', price: 99999, amount: 999 },
-    { name: 'a a', price: 12345, amount: 1 },
-    { name: '23423423', price: 12345, amount: 1 },
-  ],
+const productData = {
+  valid: {
+    name: [
+      { name: 'aaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaa' },
+      { name: 'aaa' },
+      { name: 'FF FF' },
+      { name: '23423423' },
+    ],
+    price: [
+      { price: 1 },
+      { price: 99999 },
+      { price: 332 },
+    ],
+    manufacturer: [
+      { manufacturer: MANUFACTURERS.GOOGLE },
+      { manufacturer: MANUFACTURERS.TESLA },
+      { manufacturer: MANUFACTURERS.MICROSOFT },
+    ],
+    amount: [
+      { amount: 0 },
+      { amount: 999 },
+      { amount: 36 },
+    ],
+    notes: [
+      { notes: '' },
+      { notes: 'aaaaaaaaaaaaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt' },
+      { notes: '!@#$%^&&*()_-++=.?,\\}{po[]' },
+      { notes: '52345234' },
+
+    ],
+  },
+
 };
 
 const actionButtonsTableRow = {
@@ -56,4 +91,4 @@ const actionButtonsTableRow = {
   delete: 'Delete',
 };
 
-export { inputError, newProduct, MANUFACTURERS, productInputs, actionButtonsTableRow, productToastMessages };
+export { inputError, newProduct, MANUFACTURERS, productData, actionButtonsTableRow, productToastMessages, getNewProduct };
