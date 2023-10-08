@@ -2,6 +2,8 @@
   "name": "my-new-project",
   "devDependencies": {
     "@faker-js/faker": "^8.1.0",
+    "@types/ajv": "^1.0.0",
+    "@types/axios": "^0.14.0",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@wdio/allure-reporter": "^8.16.3",
     "@wdio/cli": "^8.16.4",
@@ -25,6 +27,8 @@
   },
   "dependencies": {
     "@typescript-eslint/parser": "^6.7.3",
+    "ajv": "^8.12.0",
+    "axios": "^1.5.1",
     "dotenv": "^16.3.1"
   }
 }
