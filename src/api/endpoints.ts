@@ -1,4 +1,9 @@
 export const URLS = {
   baseHerokuapp: `http://the-internet.herokuapp.com/`,
-  baseAK: `https://anatoly-karpovich.github.io/aqa-course-project/`,
+  baseURL: "https://aqa-course-project.app/",
+  endpoints: {
+    login: `api/login/`,
+    products: `api/products/`,
+    productByID: (id: string) => `api/products/${id}/`,
+  },
 };

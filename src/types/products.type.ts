@@ -1,10 +1,10 @@
-import { MANUFACTURER } from '../data/products/product.data';
+import { MANUFACTURERS } from '../data/products/product.data';
 
 interface IProduct {
   name: string;
   price: number;
   amount: number;
-  manufacturer: string | MANUFACTURER;
+  manufacturer: string | MANUFACTURERS;
   notes?: string;
 }
 
