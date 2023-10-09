@@ -9,8 +9,8 @@ const findElement = async (selector: string): Promise<WebdriverIO.Element> => {
 
 const findArrayElements = async (selector: string): Promise<WebdriverIO.Element[]> => {
   try {
-    const element = await $$(selector);
-    return element;
+    const elements = await $$(selector);
+    return elements;
   } catch (error) {
     throw new Error(`Error while finding array of elements by selector:${selector}`);
   }

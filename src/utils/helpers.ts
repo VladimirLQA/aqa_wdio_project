@@ -1,4 +1,5 @@
 import { elementFinder } from './element-finder';
+import { IProduct } from '../types/products.type';
 
 const isAttributeContainClass = async (element: string, className: string): Promise<boolean> => {
   const elem = await elementFinder.findElement(element);
@@ -14,4 +15,13 @@ const prepareProduct = (product, ...args) => {
   return Object.assign(product, ...args);
 };
 
-export { isAttributeContainClass, browserPause, prepareProduct };
+const modalParser = async (modalData: string[]) => {
+  return modalData.reduce((parsed, info) => {
+    const [p, v] = info.split('\n');
+    const clearedP = p.slice(0, -1);
+    parsed[clearedP] = v;
+    return parsed;
+  }, {} as IProduct);
+};
+
+export { isAttributeContainClass, browserPause, prepareProduct, modalParser };

@@ -34,4 +34,8 @@ export class BaseActions {
     await browserPause(200);
     await this.basePage.waitForElemAndClick(item);
   }
+
+  async closeModalWindow() {
+    await this.basePage.waitForElemAndClick(this.basePage['Modal close button']);
+  }
 }

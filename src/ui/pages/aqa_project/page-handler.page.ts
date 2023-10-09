@@ -10,6 +10,11 @@ export class PageHandler {
     return elem;
   }
 
+  public async waitForElements(selector: string, timeout: number = TIMEOUT['5 seconds']): Promise<WebdriverIO.Element[]> {
+    const elements = await elementFinder.findArrayElements(selector);
+    return elements;
+  }
+
   public async waitForElemAndSetValue(selector: string, text: string | number, timeout: number = TIMEOUT['5 seconds']): Promise<void> {
     const elem = await this.waitForElement(selector);
     await elem.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });

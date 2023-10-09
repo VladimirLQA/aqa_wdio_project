@@ -35,7 +35,7 @@ const newProduct: IProduct = {
   manufacturer: MANUFACTURERS.TESLA,
 };
 
-const getNewProduct = () => {
+const getNewProduct = (): IProduct => {
   return {
     name: faker.commerce.product() + faker.number.int({ min: 1, max: 100 }),
     price: faker.number.int({ min: 50, max: 3000 }),

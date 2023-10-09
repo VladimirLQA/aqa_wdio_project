@@ -16,6 +16,15 @@ class ProductsAssertions extends BaseAssertions {
     await this.baseActions.closeToastMessage();
     await browserPause(300);
   }
+
+  async verifyCreatedProductInDetailModal(productToCreate: IProduct) {
+    const a = await ProductsActions.getParsedProductModalInfo();
+    expect(a['Name']).toBe(productToCreate.name);
+    expect(+a['Amount']).toBe(productToCreate.amount);
+    expect(+a['Price']).toBe(productToCreate.price);
+    expect(a['Manufacturer']).toBe(productToCreate.manufacturer);
+    expect(a['Notes']).toBe(productToCreate.notes);
+  }
 }
 
 export default new ProductsAssertions();

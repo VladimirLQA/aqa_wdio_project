@@ -12,4 +12,8 @@ export class BasePage extends PageHandler {
   get ['Toast close button']() {
     return '.toast-container button';
   }
+
+  get['Modal close button']() {
+    return 'button.btn-close';
+  }
 }
