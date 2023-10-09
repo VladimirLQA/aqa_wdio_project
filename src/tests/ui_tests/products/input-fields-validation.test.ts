@@ -2,7 +2,7 @@ import SignInActions from '../../../ui/actions/sign-in.actions';
 import HomeActions from '../../../ui/actions/home.actions';
 import ProductsActions from '../../../ui/actions/products/products.actions';
 import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
-import { productInputs } from '../../../data/products/product.data';
+import { productData } from '../../../data/products/product.data';
 import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
 import { browserPause } from '../../../utils/helpers';
 
@@ -27,7 +27,7 @@ describe('', () => {
 
   context('Positive tests on input fields validation', async () => {
 
-    for (const product of productInputs.positiveDataNameField) {
+    for (const product of productData.valid.name) {
       it(`Should create product with valid name: '${product.name}'`, async () => {
         await AddNewProductActions.fillProductInputs(product);
         await AddNewProductActions.clickOnSaveNewProductButton();

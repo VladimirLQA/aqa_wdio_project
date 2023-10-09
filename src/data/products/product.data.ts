@@ -78,11 +78,11 @@ const productData = {
       { notes: '' },
       { notes: 'aaaaaaaaaaaaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt' },
       { notes: '!@#$%^&&*()_-++=.?,\\}{po[]' },
-      { notes: '52345234' },
-
     ],
   },
+  invalid: {
 
+  }
 };
 
 const actionButtonsTableRow = {

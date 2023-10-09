@@ -10,4 +10,8 @@ const browserPause = async (timeout: number): Promise<void> => {
   await browser.pause(timeout);
 };
 
-export { isAttributeContainClass, browserPause };
+const prepareProduct = (product, ...args) => {
+  return Object.assign(product, ...args);
+};
+
+export { isAttributeContainClass, browserPause, prepareProduct };
