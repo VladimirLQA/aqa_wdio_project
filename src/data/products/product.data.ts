@@ -42,8 +42,8 @@ const getNewProduct = (): IProduct => {
     amount: faker.number.int({ min: 10, max: 50 }),
     notes: faker.commerce.productDescription(),
     manufacturer: MANUFACTURERS.TESLA,
-  }
-}
+  };
+};
 
 const inputError = {
   nameField: 'Products\'s name should contain only 3-40 alphanumerical characters and one space between',
@@ -80,9 +80,7 @@ const productData = {
       { notes: '!@#$%^&&*()_-++=.?,\\}{po[]' },
     ],
   },
-  invalid: {
-
-  }
+  invalid: {},
 };
 
 const actionButtonsTableRow = {
@@ -91,4 +89,12 @@ const actionButtonsTableRow = {
   delete: 'Delete',
 };
 
-export { inputError, newProduct, MANUFACTURERS, productData, actionButtonsTableRow, productToastMessages, getNewProduct };
+export {
+  inputError,
+  newProduct,
+  MANUFACTURERS,
+  productData,
+  actionButtonsTableRow,
+  productToastMessages,
+  getNewProduct,
+};
