@@ -17,9 +17,9 @@ const prepareProduct = (product, ...args) => {
 
 const modalParser = async (modalData: string[]) => {
   return modalData.reduce((parsed, info) => {
-    const [p, v] = info.split('\n');
-    const clearedP = p.slice(0, -1);
-    parsed[clearedP] = v;
+    const [k, v] = info.split('\n');
+    const clearedK = k.slice(0, -1); // remove semicolon
+    parsed[clearedK] = v;
     return parsed;
   }, {} as IProduct);
 };
