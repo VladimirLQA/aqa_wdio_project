@@ -40,6 +40,10 @@ class ProductsPage extends BasePage {
   get ['Table row action button']() {
     return (productName: string, actionButton: string) => `${this['Table row selector'](productName)}/td/button[@title='${actionButton}']`;
   }
+
+  get ['Table of products']() {
+    return '#table-products';
+  }
 }
 
 export default new ProductsPage();
