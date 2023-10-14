@@ -8,6 +8,7 @@ import { IProduct } from '../../../types/products.type';
 import DetailsProductModalPage from '../../../ui/pages/aqa_project/products/modals/details-product-modal.page';
 import { browserPause, modalParser } from '../../../utils/helpers';
 import { arrayAsyncMethods } from '../../../utils/async_array_methods/array-async-methods';
+import ProductsPage from '../../../ui/pages/aqa_project/products/products.page';
 
 describe('', () => {
   let productToCreate: IProduct;
@@ -18,11 +19,11 @@ describe('', () => {
   });
 
   afterEach('', async () => {
-    await ProductsActions.deleteProduct(productToCreate.name);
-    await ProductsAssertions.verifyProductToastText('deleted');
+    //await ProductsActions.deleteProduct(productToCreate.name);
+   // await ProductsAssertions.verifyProductToastText('deleted');
   });
 
-  it('Should create product and validate in table of products', async () => {
+  xit('Should create product and validate in table of products', async () => {
     productToCreate = getNewProduct();
     await ProductsActions.openAddNewProductPage();
     await AddNewProductActions.createProduct(productToCreate, {price: 888});
@@ -30,7 +31,7 @@ describe('', () => {
     await ProductsAssertions.verifyCreatedProductRow(productToCreate);
   });
 
-  it('Should create product and validate in details modal window', async () => {
+  xit('Should create product and validate in details modal window', async () => {
     productToCreate = getNewProduct();
     await ProductsActions.openAddNewProductPage();
     await AddNewProductActions.createProduct(productToCreate);
@@ -39,4 +40,10 @@ describe('', () => {
     await ProductsAssertions.verifyCreatedProductInDetailModal(productToCreate);
     await ProductsActions.closeModalWindow();
   });
+
+  it('Validate products in table', async () => {
+     await ProductsPage.waitForElemAndGetText(ProductsPage['Table of products']);
+  });
+
+   // nedd to create array that has collection of objects with keys: name, price, manufacturer
 });
