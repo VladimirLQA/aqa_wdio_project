@@ -11,7 +11,7 @@ const browserPause = async (timeout: number): Promise<void> => {
   await browser.pause(timeout);
 };
 
-const prepareProduct = (product, ...args) => {
+const prepareProduct = (product: IProduct, ...args) => {
   return Object.assign(product, ...args);
 };
 

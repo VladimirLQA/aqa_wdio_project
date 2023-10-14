@@ -35,14 +35,15 @@ const newProduct: IProduct = {
   manufacturer: MANUFACTURERS.TESLA,
 };
 
-const getNewProduct = (): IProduct => {
+const getNewProduct = (customProductParams?: Partial<IProduct>): IProduct => {
   return {
     name: faker.commerce.product() + faker.number.int({ min: 1, max: 100 }),
     price: faker.number.int({ min: 50, max: 3000 }),
     amount: faker.number.int({ min: 10, max: 50 }),
     notes: faker.commerce.productDescription(),
     manufacturer: MANUFACTURERS.TESLA,
-  };
+    ...customProductParams
+  }
 };
 
 const inputError = {
