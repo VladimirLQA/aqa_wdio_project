@@ -1,7 +1,6 @@
 import { BaseActions } from './base.actions';
 import HomePage from '../pages/aqa_project/home.page';
 import SidebarPage from '../pages/aqa_project/sidebar.page';
-import SignInPage from '../pages/aqa_project/sign-in.page';
 
 class HomeActions extends BaseActions {
   public async openProductsPage() {

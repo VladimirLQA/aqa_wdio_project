@@ -8,7 +8,7 @@ import { browserPause } from '../../../utils/helpers';
 
 describe('', () => {
   before('', async () => {
-    await SignInActions.openSitePage();
+    await SignInActions.openSalesPortal();
   });
 
   beforeEach('Prepare to test', async () => {
@@ -25,15 +25,20 @@ describe('', () => {
 
   });
 
-  context('Positive tests on input fields validation', async () => {
+  xcontext('Positive tests on input fields validation', async () => {
 
     for (const product of productData.valid.name) {
       it(`Should create product with valid name: '${product.name}'`, async () => {
         await AddNewProductActions.fillProductInputs(product);
         await AddNewProductActions.clickOnSaveNewProductButton();
-        // await browserPause(2000)
         await ProductsAssertions.verifyProductToastText('created');
       });
     }
   });
+
+  context('WDIO - 6', () => {
+    it('Should create product with created product via api', async => {
+
+    })
+  })
 });

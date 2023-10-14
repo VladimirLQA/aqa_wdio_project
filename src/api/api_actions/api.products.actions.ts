@@ -1,6 +1,6 @@
 import { getNewProduct } from '../../data/products/product.data';
 import ProductsController from '../controllers/products.controller';
-import { IProduct } from '../../types/products.type';
+import { IProduct } from '../../ui/types/products.type';
 import { prepareProduct } from '../../utils/helpers';
 
 class ApiProductsActions {

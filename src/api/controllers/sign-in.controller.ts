@@ -1,5 +1,5 @@
-import { RequestOptions, RequestParams } from '../../types/api-request.types';
-import { IUserCredentials } from '../../types/user.types';
+import { RequestOptions, RequestParams } from '../types/api-request.types';
+import { IUserCredentials } from '../../ui/types/user.types';
 import { URLS } from '../endpoints';
 import Request from '../request/request';
 

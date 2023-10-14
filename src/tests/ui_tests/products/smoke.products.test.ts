@@ -4,7 +4,7 @@ import ProductsActions from '../../../ui/actions/products/products.actions';
 import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
 import { getNewProduct, newProduct } from '../../../data/products/product.data';
 import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
-import { IProduct } from '../../../types/products.type';
+import { IProduct } from '../../../ui/types/products.type';
 import DetailsProductModalPage from '../../../ui/pages/aqa_project/products/modals/details-product-modal.page';
 import { browserPause, modalParser } from '../../../utils/helpers';
 import { arrayAsyncMethods } from '../../../utils/async_array_methods/array-async-methods';
@@ -13,7 +13,7 @@ import ProductsPage from '../../../ui/pages/aqa_project/products/products.page';
 describe('', () => {
   let productToCreate: IProduct;
   before('Prepare to test', async () => {
-    await SignInActions.openSitePage();
+    await SignInActions.openSalesPortal();
     await SignInActions.signIn();
     await HomeActions.openProductsPage();
   });

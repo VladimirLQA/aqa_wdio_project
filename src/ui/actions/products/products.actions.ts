@@ -1,11 +1,17 @@
 import { BaseActions } from '../base.actions';
 import ProductsPage from '../../pages/aqa_project/products/products.page';
 import DeleteProductModalActions from './modals/delete-product-modal.actions';
-import { IProduct, ToastMessage } from '../../../types/products.type';
-import { productToastMessages } from '../../../data/products/product.data';
+import { IProduct, ToastMessage } from '../../types/products.type';
+import { getNewProduct, productToastMessages } from '../../../data/products/product.data';
 import DetailsProductModalPage from '../../pages/aqa_project/products/modals/details-product-modal.page';
 import { arrayAsyncMethods } from '../../../utils/async_array_methods/array-async-methods';
 import { modalParser } from '../../../utils/helpers';
+import ApiProductsActions from '../../../api/api_actions/api.products.actions';
+import { ApiBaseAssertions } from '../../../api/api_assertions/api.base.assertions';
+import ApiProductsAssertions from '../../../api/api_assertions/api.products.assertions';
+import { ProductsStorage } from '../../../utils/storages/products.storage';
+import ProductsController from '../../../api/controllers/products.controller';
+import { ActionButtons } from '../../types/common.types';
 
 class ProductsActions extends BaseActions {
   public async openAddNewProductPage() {
@@ -28,7 +34,7 @@ class ProductsActions extends BaseActions {
     return parsedInfo;
   }
 
-  public async clickOnProductRowActionButton(productName: string, action: string) {
+  public async clickOnProductRowActionButton(productName: string, action: ActionButtons) {
     await ProductsPage.waitForElemAndClick(ProductsPage['Table row action button'](productName, action));
     await this.waitForPageLoad();
   }
@@ -42,6 +48,15 @@ class ProductsActions extends BaseActions {
   public async getProductToastText(text: ToastMessage, name?: string) {
     const toastMessage = productToastMessages[text];
     return toastMessage(name) || (text === 'already exist' && !name ? `Name was not provided` : 'Text was not provided');
+  }
+
+  public async createProductAPI(customParams?: Partial<IProduct>) {
+    const product = getNewProduct(customParams);
+    const token = await this.getToken();
+    const response = await ApiProductsActions.createProduct(token, product);
+    await ApiProductsAssertions.verifyResponse(response, 201, true, null);
+    ProductsStorage.addProduct(response.data.Product);
+    return response.data.Product;
   }
 }
 

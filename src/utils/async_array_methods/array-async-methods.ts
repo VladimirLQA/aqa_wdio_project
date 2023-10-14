@@ -1,5 +1,5 @@
-import { FindAsyncCallback } from '../../types/array_callback_types';
-import { MapAsyncCallback } from '../../types/array_callback_types';
+import { FindAsyncCallback } from '../../ui/types/array_callback_types';
+import { MapAsyncCallback } from '../../ui/types/array_callback_types';
 
 async function find<T>(array: T[], callback: FindAsyncCallback<T>): Promise<T | undefined> {
   for (let i = 0; i < array?.length; i++) {

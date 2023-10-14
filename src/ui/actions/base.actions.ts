@@ -14,9 +14,14 @@ export class BaseActions {
     await spinner.waitForDisplayed({ reverse: true });
   }
 
-  public async openSitePage() {
+  public async openSalesPortal() {
     await browser.url('https://anatoly-karpovich.github.io/aqa-course-project/?#');
     await browser.maximizeWindow();
+  }
+
+  public async getToken() {
+    const token = (await browser.getCookies('Authorization'))[0].value;
+    return token;
   }
 
   public async closeToastMessage() {

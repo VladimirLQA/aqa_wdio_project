@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { RequestOptions } from '../../types/api-request.types';
+import { RequestOptions } from '../types/api-request.types';
 
 export type Response<T = any> = Promise<AxiosResponse<T>>;
 

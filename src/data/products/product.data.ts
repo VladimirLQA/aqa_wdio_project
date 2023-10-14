@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { IProduct } from '../../types/products.type';
+import { IProduct } from '../../ui/types/products.type';
 
 // const manufacturer = getRandomManufacturerBrand();
 //
