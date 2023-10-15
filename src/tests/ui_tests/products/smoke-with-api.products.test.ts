@@ -1,13 +1,8 @@
 import SignInActions from '../../../ui/actions/sign-in.actions';
 import HomeActions from '../../../ui/actions/home.actions';
 import ProductsActions from '../../../ui/actions/products/products.actions';
-import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
-import { productData } from '../../../data/products/product.data';
 import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
-import { browserPause } from '../../../utils/helpers';
-import ProductsPage from '../../../ui/pages/aqa_project/products/products.page';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
-import ApiProductsActions from '../../../api/api_actions/api.products.actions';
 import ProductsController from '../../../api/controllers/products.controller';
 
 describe('', () => {
@@ -24,10 +19,10 @@ describe('', () => {
 
   context('WDIO - 6', () => {
     it('Should create product with created product via api', async () => {
-      await ProductsActions.createProductAPI();
+      const product = await ProductsActions.createProductAPI();
       await HomeActions.openProductsPage();
-      await ProductsActions.clickOnProductRowActionButton(ProductsStorage.getProduct().name, 'Details');
-      await ProductsAssertions.verifyCreatedProductInDetailModal(ProductsStorage.getProduct());
+      await ProductsActions.clickOnProductRowActionButton(product.name, 'Details');
+      await ProductsAssertions.verifyCreatedProductInDetailModal(ProductsStorage.getProduct(product.name));
       await ProductsActions.closeModalWindow();
     });
   })

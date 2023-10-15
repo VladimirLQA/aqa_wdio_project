@@ -4,7 +4,7 @@ export class ProductsStorage {
   private static instance: ProductsStorage;
   public static products: IProductResponse[] = [];
 
-  private constructor() {
+  constructor() {
     if (ProductsStorage.instance) {
       return ProductsStorage.instance;
     }
@@ -12,7 +12,7 @@ export class ProductsStorage {
   }
 
   public static addProduct(product: IProductResponse) {
-    const productIndex = this.products.findIndex((p) => p._id === product._id);
+    const productIndex = this.products.findIndex((p) => p.name === product.name);
     if (productIndex !== -1) this.updateProduct(product, productIndex);
     else this.products.push(product);
   }
@@ -21,17 +21,17 @@ export class ProductsStorage {
     this.products[productIndex] = product;
   }
 
-  public static getProduct(productIndex: number = this.products.length - 1) {
-    return this.products[productIndex];
+  public static getProduct(productName: string) {
+    return this.products.find((product) => product.name === productName);
   }
 
   public static getAllProducts() {
     return this.products;
   }
 
-  public static deleteProduct(productIndex: number = this.products.length - 1) {
-    return this.products.splice(productIndex, 1);
+  public static deleteProduct(productName: string) {
+    const productIndex = this.products.findIndex((p) => p.name === productName)
+    if(productIndex !== -1) return this.products.splice(productIndex, 1);
+    else throw new Error('Product not found in storage');
   }
 }
-
-// export default new ProductsStorage;
