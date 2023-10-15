@@ -6,7 +6,7 @@ import { getNewProduct, newProduct } from '../../../data/products/product.data';
 import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
 import { IProduct } from '../../../ui/types/products.type';
 import DetailsProductModalPage from '../../../ui/pages/aqa_project/products/modals/details-product-modal.page';
-import { browserPause, modalParser } from '../../../utils/helpers';
+import { browserPause, modalParser, tableParser } from '../../../utils/helpers';
 import { arrayAsyncMethods } from '../../../utils/async_array_methods/array-async-methods';
 import ProductsPage from '../../../ui/pages/aqa_project/products/products.page';
 
@@ -42,8 +42,11 @@ describe('', () => {
   });
 
   it('Validate products in table', async () => {
-     await ProductsPage.waitForElemAndGetText(ProductsPage['Table of products']);
+     const a = await ProductsActions.getParsedTableData();
+    console.log(a);
   });
 
-   // nedd to create array that has collection of objects with keys: name, price, manufacturer
+
+
+  // [...head].map((th) => th.textContent).filter((c) => c !== 'Actions')
 });

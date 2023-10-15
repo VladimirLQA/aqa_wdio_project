@@ -24,8 +24,5 @@ const modalParser = async (modalData: string[]) => {
   }, {} as IProduct);
 };
 
-const tableParser = async (tableSelector: string) => {
-
-}
 
 export { isAttributeContainClass, browserPause, prepareProduct, modalParser };
