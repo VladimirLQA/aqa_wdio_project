@@ -1,7 +1,8 @@
 import BaseActions from '../base.actions';
 import { IProduct } from '../../types/products.type';
 import AddNewProductPage from '../../pages/aqa_project/products/add-new-product.page';
-import { browserPause, prepareProduct } from '../../../utils/helpers';
+import { browserPause } from '../../../utils/helpers';
+import { ProductsStorage } from '../../../utils/storages/products.storage';
 
 class AddNewProductActions extends BaseActions {
   public async fillProductInputs<T>(product: T): Promise<void> {
@@ -32,10 +33,10 @@ class AddNewProductActions extends BaseActions {
     await AddNewProductPage.waitForElemAndClick(AddNewProductPage['Manufacturer dropdown brand'](manufacturer));
   }
 
-  public async createProduct(product: IProduct, ...args) {
-    const p = prepareProduct(product, ...args);
-    await this.fillProductInputs(p);
-    await this.chooseDropdownItem(AddNewProductPage['Manufacturer dropdown'], AddNewProductPage['Manufacturer dropdown brand'](p.manufacturer));
+  public async createProduct(product: IProduct) {
+    ProductsStorage.addProduct<IProduct>(product);
+    await this.fillProductInputs(product);
+    await this.chooseDropdownItem(AddNewProductPage['Manufacturer dropdown'], AddNewProductPage['Manufacturer dropdown brand'](product.manufacturer));
     await this.clickOnSaveNewProductButton();
     await this.waitForPageLoad();
   }

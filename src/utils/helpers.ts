@@ -11,9 +11,9 @@ const browserPause = async (timeout: number): Promise<void> => {
   await browser.pause(timeout);
 };
 
-const prepareProduct = (product: IProduct, ...args) => {
-  return Object.assign(product, ...args);
-};
+// const prepareProduct = (product: IProduct, ...args) => {
+//   return Object.assign(product, ...args);
+// };
 
 const modalParser = async (modalData: string[]) => {
   return modalData.reduce((parsed, info) => {
@@ -25,4 +25,4 @@ const modalParser = async (modalData: string[]) => {
 };
 
 
-export { isAttributeContainClass, browserPause, prepareProduct, modalParser };
+export { isAttributeContainClass, browserPause, modalParser };

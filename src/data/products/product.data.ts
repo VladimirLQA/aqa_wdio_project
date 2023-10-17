@@ -52,6 +52,8 @@ const inputError = {
   amountField: 'Amount should be in range 0-999',
 };
 
+const errorToastMessage = 'Incorrect request body';
+
 const productData = {
   valid: {
     name: [
@@ -98,4 +100,5 @@ export {
   actionButtonsTableRow,
   productToastMessages,
   getNewProduct,
+  errorToastMessage,
 };

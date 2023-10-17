@@ -36,11 +36,11 @@ export default class BaseActions {
     await this.basePage.waitForElemAndClick(item);
   }
 
-  async closeModalWindow() {
+  public async closeModalWindow() {
     await this.basePage.waitForElemAndClick(this.basePage['Modal close button']);
   }
 
-  async getParsedTableData() {
+  public async getParsedTableData() {
     return browser.execute(` 
       const entities = []; 
       const columnNames = [...document.querySelectorAll('th')].reduce((res,e,i,arr) => {
@@ -57,5 +57,9 @@ export default class BaseActions {
       }); 
       return entities; 
   `) as Promise<[]>;
+  }
+
+  public async enableButton(selector: string) {
+    return browser.execute(`$('button${selector}').removeAttr("disabled")`);
   }
 }

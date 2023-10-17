@@ -14,13 +14,12 @@ describe('', () => {
 
   after('', async () => {
     for (const product of ProductsStorage.getAllProducts()) {
-      // await ProductsController.delete({token: await ProductsActions.getToken(), data: {_id: product._id}});
-      await reqAsLoggedUser(ProductsController.delete, { data: { _id: product._id } });
+      await reqAsLoggedUser(ProductsController.delete, { data: { name: product.name } });
     }
   });
 
   context('WDIO - 6', () => {
-    it('Should create product with created product via api', async () => {
+    it('Should create product via api and verify in "Details modal window"', async () => {
       const product = await ProductsActions.createProductAPI();
       await HomeActions.openProductsPage();
       await ProductsActions.clickOnProductRowActionButton(product.name, 'Details');

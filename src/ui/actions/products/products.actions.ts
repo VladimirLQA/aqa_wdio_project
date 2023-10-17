@@ -10,6 +10,7 @@ import ApiProductsActions from '../../../api/api_actions/api.products.actions';
 import ApiProductsAssertions from '../../../api/api_assertions/api.products.assertions';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
 import { ActionButtons } from '../../types/common.types';
+import { IProductResponse } from '../../../api/types/api.product.types';
 
 class ProductsActions extends BaseActions {
   public async openAddNewProductPage() {
@@ -53,7 +54,7 @@ class ProductsActions extends BaseActions {
     const token = await this.getToken();
     const response = await ApiProductsActions.createProduct(token, product);
     await ApiProductsAssertions.verifyResponse(response, 201, true, null);
-    ProductsStorage.addProduct(response.data.Product);
+    ProductsStorage.addProduct<IProductResponse>(response.data.Product);
     return response.data.Product;
   }
 }

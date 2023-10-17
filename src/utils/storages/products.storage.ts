@@ -1,4 +1,5 @@
 import { IProductResponse } from '../../api/types/api.product.types';
+import { IProduct } from '../../ui/types/products.type';
 
 export class ProductsStorage {
   private static instance: ProductsStorage;
@@ -11,7 +12,7 @@ export class ProductsStorage {
     ProductsStorage.instance = this;
   }
 
-  public static addProduct(product: IProductResponse): void {
+  public static addProduct<T>(product: T): void {
     const productIndex = this.findProductIndexByName(product.name);
     productIndex !== -1 ? this.updateProduct(product, product.name) : this.products.push(product);
   }
