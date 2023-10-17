@@ -2,7 +2,7 @@ import  BasePage  from '../pages/aqa_project/base.page';
 import { elementFinder } from '../../utils/element-finder';
 import { browserPause } from '../../utils/helpers';
 
-export class BaseActions {
+export default class BaseActions {
   public basePage: BasePage = new BasePage();
 
   public async waitForPageLoad() {

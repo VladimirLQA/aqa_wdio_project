@@ -1,4 +1,4 @@
-import { BaseActions } from '../../base.actions';
+import BaseActions from '../../base.actions';
 import DeleteProductModalPage from '../../../pages/aqa_project/products/modals/delete-product-modal.page';
 
 

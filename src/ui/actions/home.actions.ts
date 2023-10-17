@@ -1,4 +1,4 @@
-import { BaseActions } from './base.actions';
+import BaseActions from './base.actions';
 import HomePage from '../pages/aqa_project/home.page';
 import SidebarPage from '../pages/aqa_project/sidebar.page';
 

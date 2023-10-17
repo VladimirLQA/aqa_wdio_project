@@ -1,6 +1,6 @@
-import { BaseActions } from '../actions/base.actions';
-import  PageHandler from '../pages/aqa_project/page-handler.page';
-import  BasePage  from '../pages/aqa_project/base.page';
+import BaseActions from '../actions/base.actions';
+import PageHandler from '../pages/aqa_project/page-handler.page';
+import BasePage from '../pages/aqa_project/base.page';
 
 export class BaseAssertions {
   public pageHandler: PageHandler = new PageHandler();

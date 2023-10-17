@@ -1,16 +1,14 @@
-import { BaseActions } from '../base.actions';
+import BaseActions from '../base.actions';
 import ProductsPage from '../../pages/aqa_project/products/products.page';
 import DeleteProductModalActions from './modals/delete-product-modal.actions';
 import { IProduct, ToastMessage } from '../../types/products.type';
 import { getNewProduct, productToastMessages } from '../../../data/products/product.data';
 import DetailsProductModalPage from '../../pages/aqa_project/products/modals/details-product-modal.page';
-import { map } from '../../../utils/async_array_methods/array-async-methods';
+import { asyncMap } from '../../../utils/async_array_methods/array-async-methods';
 import { modalParser } from '../../../utils/helpers';
 import ApiProductsActions from '../../../api/api_actions/api.products.actions';
-import { ApiBaseAssertions } from '../../../api/api_assertions/api.base.assertions';
 import ApiProductsAssertions from '../../../api/api_assertions/api.products.assertions';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
-import ProductsController from '../../../api/controllers/products.controller';
 import { ActionButtons } from '../../types/common.types';
 
 class ProductsActions extends BaseActions {
@@ -29,7 +27,7 @@ class ProductsActions extends BaseActions {
 
   public async getParsedProductModalInfo(): Promise<IProduct> {
     const modalElements = await DetailsProductModalPage.waitForElements(DetailsProductModalPage['Modal info']);
-    const modalInfo = await map(modalElements, element => element.getText());
+    const modalInfo = await asyncMap(modalElements, element => element.getText());
     const parsedInfo = await modalParser(modalInfo);
     return parsedInfo;
   }

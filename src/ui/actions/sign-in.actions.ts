@@ -1,4 +1,4 @@
-import { BaseActions } from './base.actions';
+import BaseActions from './base.actions';
 import { IUserCredentials } from '../types/user.types';
 import SignInPage from '../pages/aqa_project/sign-in.page';
 

@@ -1,4 +1,4 @@
-import { BaseActions } from '../base.actions';
+import BaseActions from '../base.actions';
 import { IProduct } from '../../types/products.type';
 import AddNewProductPage from '../../pages/aqa_project/products/add-new-product.page';
 import { browserPause, prepareProduct } from '../../../utils/helpers';

@@ -4,6 +4,7 @@ import ProductsActions from '../../../ui/actions/products/products.actions';
 import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
 import ProductsController from '../../../api/controllers/products.controller';
+import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
 
 describe('', () => {
   before('', async () => {
@@ -12,8 +13,9 @@ describe('', () => {
   });
 
   after('', async () => {
-    for (const product of ProductsStorage.getAllProducts()){
-      await ProductsController.delete({token: await ProductsActions.getToken(), data: {_id: product._id}});
+    for (const product of ProductsStorage.getAllProducts()) {
+      // await ProductsController.delete({token: await ProductsActions.getToken(), data: {_id: product._id}});
+      await reqAsLoggedUser(ProductsController.delete, { data: { _id: product._id } });
     }
   });
 
@@ -25,5 +27,5 @@ describe('', () => {
       await ProductsAssertions.verifyCreatedProductInDetailModal(ProductsStorage.getProduct(product.name));
       await ProductsActions.closeModalWindow();
     });
-  })
+  });
 });
