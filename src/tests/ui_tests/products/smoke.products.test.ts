@@ -19,11 +19,11 @@ describe('', () => {
   });
 
   afterEach('', async () => {
-    //await ProductsActions.deleteProduct(productToCreate.name);
-   // await ProductsAssertions.verifyProductToastText('deleted');
+    await ProductsActions.deleteProduct(productToCreate.name);
+   await ProductsAssertions.verifyProductToastText('deleted');
   });
 
-  xit('Should create product and validate in table of products', async () => {
+  it('Should create product and validate in table of products', async () => {
     productToCreate = getNewProduct();
     await ProductsActions.openAddNewProductPage();
     await AddNewProductActions.createProduct(productToCreate, {price: 888});
@@ -31,7 +31,7 @@ describe('', () => {
     await ProductsAssertions.verifyCreatedProductRow(productToCreate);
   });
 
-  xit('Should create product and validate in details modal window', async () => {
+  it('Should create product and validate in details modal window', async () => {
     productToCreate = getNewProduct();
     await ProductsActions.openAddNewProductPage();
     await AddNewProductActions.createProduct(productToCreate);
@@ -41,7 +41,7 @@ describe('', () => {
     await ProductsActions.closeModalWindow();
   });
 
-  it('Validate products in table', async () => {
+  xit('Validate products in table', async () => {
      const a = await ProductsActions.getParsedTableData();
     console.log(a);
   });

@@ -4,7 +4,7 @@ import DeleteProductModalActions from './modals/delete-product-modal.actions';
 import { IProduct, ToastMessage } from '../../types/products.type';
 import { getNewProduct, productToastMessages } from '../../../data/products/product.data';
 import DetailsProductModalPage from '../../pages/aqa_project/products/modals/details-product-modal.page';
-import { arrayAsyncMethods } from '../../../utils/async_array_methods/array-async-methods';
+import { map } from '../../../utils/async_array_methods/array-async-methods';
 import { modalParser } from '../../../utils/helpers';
 import ApiProductsActions from '../../../api/api_actions/api.products.actions';
 import { ApiBaseAssertions } from '../../../api/api_assertions/api.base.assertions';
@@ -29,7 +29,7 @@ class ProductsActions extends BaseActions {
 
   public async getParsedProductModalInfo(): Promise<IProduct> {
     const modalElements = await DetailsProductModalPage.waitForElements(DetailsProductModalPage['Modal info']);
-    const modalInfo = await arrayAsyncMethods.map(modalElements, element => element.getText());
+    const modalInfo = await map(modalElements, element => element.getText());
     const parsedInfo = await modalParser(modalInfo);
     return parsedInfo;
   }

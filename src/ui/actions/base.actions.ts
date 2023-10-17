@@ -1,16 +1,12 @@
-import { BasePage } from '../pages/aqa_project/base.page';
+import  BasePage  from '../pages/aqa_project/base.page';
 import { elementFinder } from '../../utils/element-finder';
 import { browserPause } from '../../utils/helpers';
 
 export class BaseActions {
-  public basePage: BasePage;
-
-  constructor() {
-    this.basePage = new BasePage();
-  }
+  public basePage: BasePage = new BasePage();
 
   public async waitForPageLoad() {
-    const spinner = await elementFinder.findElement(this.basePage.Spinner);
+    const spinner = await elementFinder.findElement(this.basePage['Spinner']);
     await spinner.waitForDisplayed({ reverse: true });
   }
 
