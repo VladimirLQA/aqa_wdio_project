@@ -1,45 +1,25 @@
-import { BasePage } from './base.page';
+import BasePage from './base.page';
 
 class SidebarPage extends BasePage {
-  get ['User dropdown menu']() {
-    return '#sidebar #dropdownUser1';
-  }
+  readonly ['User dropdown menu'] = '#sidebar #dropdownUser1';
 
-  get ['Sign out button']() {
-    return '#signOut';
-  }
+  readonly ['Sign out button'] = '#signOut';
 
-  get ['Sidebar title']() {
-    return '#sidebar > a > span.fs-4';
-  }
+  readonly ['Sidebar title'] = '#sidebar > a > span.fs-4';
 
-  get ['Home page']() {
-    return '#sidebar > ul > li:nth-child(1) > a';
-  }
+  readonly ['Home page'] = '#sidebar > ul > li:nth-child(1) > a';
 
-  get ['Orders page']() {
-    return '#sidebar > ul > li:nth-child(2) > a';
-  }
+  readonly ['Orders page'] = '#sidebar > ul > li:nth-child(2) > a';
 
-  get ['Products page']() {
-    return '#sidebar > ul > li:nth-child(3) > a';
-  }
+  readonly ['Products page'] = '#sidebar > ul > li:nth-child(3) > a';
 
-  get ['Customers page']() {
-    return '#sidebar > ul > li:nth-child(4) > a';
-  }
+  readonly ['Customers page'] = '#sidebar > ul > li:nth-child(4) > a';
 
-  get ['Currency input']() {
-    return '#currency-input';
-  }
+  readonly ['Currency input'] = '#currency-input';
 
-  get ["Currency 'Buy' button"]() {
-    return '#sidebar > div > button';
-  }
+  readonly ["Currency 'Buy' button"] = '#sidebar > div > button';
 
-  get ['Sign out button']() {
-    return '#signOut';
-  }
+  readonly ['Sign out button'] =  '#signOut';
 }
 
 export default new SidebarPage();

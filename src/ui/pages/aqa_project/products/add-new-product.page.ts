@@ -1,62 +1,33 @@
-import { BasePage } from '../base.page';
+import BasePage from '../base.page';
 
 class AddNewProductPage extends BasePage {
-  get ['Page title']() {
-    return '.page-title-text';
-  }
+  readonly ['Page title'] = '.page-title-text';
 
-  get ['Name input field']() {
-    return `#inputName`;
-  }
+  readonly ['Name input field'] = `#inputName`;
 
-  get ['Price input field']() {
-    return `#inputPrice`;
-  }
+  readonly ['Price input field'] = `#inputPrice`;
 
-  get ['Amount input field']() {
-    return `#inputAmount`;
-  }
+  readonly ['Amount input field'] = `#inputAmount`;
 
-  get ['Notes input field']() {
-    return `#textareaNotes`;
-  }
+  readonly ['Notes input field'] = `#textareaNotes`;
 
-  get ['Save New Product button']() {
-    return `#save-new-product`;
-  }
+  readonly ['Save New Product button'] = `#save-new-product`;
 
-  get ['Back button']() {
-    return `#back-to-products-page`;
-  }
+  readonly ['Back button'] = `#back-to-products-page`;
 
-  get ['Clear inputs button']() {
-    return `#clear-inputs`;
-  }
+  readonly ['Clear inputs button'] = `#clear-inputs`;
 
-  get ['Manufacturer dropdown list']() {
-    // maybe unnecessary
-    return '#inputManufacturer > option';
-  }
+  readonly ['Manufacturer dropdown list'] = '#inputManufacturer > option';
 
-  get ['Manufacturer dropdown']() {
-    return '#inputManufacturer';
-  }
+  readonly ['Manufacturer dropdown'] = '#inputManufacturer'
 
-  get ['Manufacturer dropdown brand']() {
-    return (brand: string) => `//option[text()="${brand}"]`;
-  }
+  readonly ['Manufacturer dropdown brand'] = (brand: string) => `//option[text()="${brand}"]`;
 
-  get ['Price input field error']() {
-    return '#error-inputPrice';
-  }
+  readonly ['Price input field error'] = '#error-inputPrice';
 
-  get ['Amount input field error']() {
-    return '#error-inputAmount';
-  }
+  readonly ['Amount input field error'] = '#error-inputAmount';
 
-  get ['Name input field error']() {
-    return '#error-inputName';
-  }
+  readonly ['Name input field error'] = '#error-inputName';
 }
 
 export default new AddNewProductPage();

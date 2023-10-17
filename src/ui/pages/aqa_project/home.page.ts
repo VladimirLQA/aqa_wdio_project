@@ -1,17 +1,11 @@
-import { BasePage } from './base.page';
+import  BasePage from './base.page';
 
 class HomePage extends BasePage {
-  get ['Orders view details button']() {
-    return '#orders-from-home';
-  }
+  readonly ['Orders view details button'] = '#orders-from-home';
 
-  get ['Products view details button']() {
-    return '#products-from-home';
-  }
+  readonly ['Products view details button'] = '#products-from-home';
 
-  get ['Customers view details button']() {
-    return '#customers-from-home';
-  }
+  readonly ['Customers view details button'] = '#customers-from-home';
 }
 
 export default new HomePage();

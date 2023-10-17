@@ -1,19 +1,8 @@
-import { PageHandler } from './page-handler.page';
+import PageHandler from './page-handler.page';
 
-export class BasePage extends PageHandler {
-  get ['Spinner']() {
-    return '.spinner-border';
-  }
-
-  get ['Toast body']() {
-    return '.toast-body';
-  }
-
-  get ['Toast close button']() {
-    return '.toast-container button';
-  }
-
-  get['Modal close button']() {
-    return 'button.btn-close';
-  }
+export default class BasePage extends PageHandler {
+   readonly ['Spinner'] = '.spinner-border';
+   readonly ['Toast body'] = '.toast-body';
+   readonly ['Toast close button'] = '.toast-container button';
+   readonly ['Modal close button'] = 'button.btn-close';
 }

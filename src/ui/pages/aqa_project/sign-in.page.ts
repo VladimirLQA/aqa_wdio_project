@@ -1,29 +1,12 @@
-import { BasePage } from './base.page';
+import  BasePage  from './base.page';
 
 class SignInPage extends BasePage {
-  get ['Email input']() {
-    return '#emailinput';
-  }
-
-  get ['Password input']() {
-    return '#passwordinput';
-  }
-
-  get ['Remember me check box']() {
-    return '#remembermecheckbox';
-  }
-
-  get ['Login button']() {
-    return '.btn-lg';
-  }
-
-  get ['Spinner']() {
-    return '.spinner-border';
-  }
-
-  get ['Image']() {
-    return '.img-fluid';
-  }
+  readonly ['Email input'] = '#emailinput';
+  readonly ['Password input'] = '#passwordinput';
+  readonly ['Remember me check box'] = '#remembermecheckbox';
+  readonly ['Login button'] = '.btn-lg';
+  readonly ['Spinner'] = '.spinner-border';
+  readonly ['Image'] = '.img-fluid';
 }
 
 export default new SignInPage();
