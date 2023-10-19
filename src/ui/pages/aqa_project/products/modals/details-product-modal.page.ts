@@ -1,37 +1,17 @@
 import BasePage from '../../base.page';
 
 class DetailsProductModalPage extends BasePage {
-  get['Modal title']() {
-    return '#Product-details-modal-id h5.modal-title';
-  }
+  readonly ['Modal title'] = '#Product-details-modal-id h5.modal-title';
 
-  get['Modal close button']() {
-    return '#Product-details-modal-id button.btn-close';
-  }
+  readonly['Modal info by property'] =
+    (property: string) =>
+      `//div[@id='Product-details-modal-id']//p[./strong[text()='${property}:']]`;
 
-  get['Modal info by property']() {
-    return (property: string) => `//div[@id='Product-details-modal-id']//p[./strong[text()='${property}:']]`;
-  }
+  readonly['Modal data rows'] = '//div[@id="Product-details-modal-id"]//p';
 
-  get['Modal info']() {
-    return '//div[@id="Product-details-modal-id"]//p';
-  }
+  readonly['Edit product button'] = '//button[text()="Edit Product"]';
 
-  get['']() {
-    return '';
-  }
-
-  get['']() {
-    return '';
-  }
-
-  get['']() {
-    return '';
-  }
-
-  get['']() {
-    return '';
-  }
+  readonly['Cancel button'] = '//button[text()="Edit Product"]';
 }
 
 export default new DetailsProductModalPage();

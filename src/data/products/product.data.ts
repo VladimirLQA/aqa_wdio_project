@@ -19,6 +19,17 @@ enum MANUFACTURERS {
   TESLA = 'Tesla',
 }
 
+const manufacturersArray = [
+  MANUFACTURERS.GOOGLE,
+  MANUFACTURERS.TESLA,
+  MANUFACTURERS.MICROSOFT,
+  MANUFACTURERS.APPLE,
+  MANUFACTURERS.SAMSUNG,
+  MANUFACTURERS.SONY,
+  MANUFACTURERS.XIAOMI,
+  MANUFACTURERS.AMAZON,
+]
+
 const productToastMessages = {
   created: () => `Product was successfully created`,
   updated: () => `Product was successfully updated`,
@@ -101,4 +112,5 @@ export {
   productToastMessages,
   getNewProduct,
   errorToastMessage,
+  manufacturersArray
 };

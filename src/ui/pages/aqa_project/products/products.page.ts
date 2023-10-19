@@ -24,6 +24,10 @@ class ProductsPage extends BasePage {
       `${this['Table row selector'](productName)}/td/button[@title='${actionButton}']`;
 
   readonly ['Table of products'] = '#table-products';
+
+  readonly ['Chip label'] = (chipName: string) => `.chip[data-chip-products='${chipName}']`;
+
+  readonly ['Chip close btn'] = (chipName: string) => `.closebtn[data-chip-products='${chipName}']`;
 }
 
 export default new ProductsPage();
