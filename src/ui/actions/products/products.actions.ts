@@ -57,6 +57,18 @@ class ProductsActions extends BaseActions {
     ProductsStorage.addProduct<IProductResponse>(response.data.Product);
     return response.data.Product;
   }
+
+  public async clickOnFiltersButton() {
+    await this.basePage.waitForElemAndClick(ProductsPage['Filter button']);
+  }
+
+  public async clickOnSearchButton() {
+    await this.basePage.waitForElemAndClick(ProductsPage['Search button']);
+  }
+
+  public async fillSearchInput(searchValue: string) {
+    await this.basePage.waitForElemAndSetValue(ProductsPage['Search input'], searchValue);
+  }
 }
 
 export default new ProductsActions();

@@ -1,6 +1,9 @@
-import  BasePage  from '../pages/aqa_project/base.page';
+import BasePage from '../pages/aqa_project/base.page';
 import { elementFinder } from '../../utils/element-finder';
 import { browserPause } from '../../utils/helpers';
+import ProductsPage from '../pages/aqa_project/products/products.page';
+import FiltersProductModalPage from '../pages/aqa_project/products/modals/filters-product-modal.page';
+import { MANUFACTURERS } from '../../data/products/product.data';
 
 export default class BaseActions {
   public basePage: BasePage = new BasePage();
@@ -61,5 +64,15 @@ export default class BaseActions {
 
   public async enableButton(selector: string) {
     return browser.execute(`$('button${selector}').removeAttr("disabled")`);
+  }
+
+  public async checkFiltersBox(labels: MANUFACTURERS[] = [MANUFACTURERS.SAMSUNG]) {
+    for ( const label of labels) {
+      await this.basePage.waitForElemAndClick(FiltersProductModalPage['Filter checkbox'](label));
+    }
+  }
+
+  public async filterSortByUniqueValue<T>(uniqueValue: T[]) {
+
   }
 }

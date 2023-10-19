@@ -18,8 +18,7 @@ export class BaseAssertions {
     await elem.waitUntil(async () => {
       return await elem.isClickable();
     }, {
-      timeout: TIMEOUT['5 seconds'],
-      timeoutMsg: 'Element is not clickable after 5 seconds'
+      timeoutMsg: 'Element is not clickable'
     });
   }
 }
