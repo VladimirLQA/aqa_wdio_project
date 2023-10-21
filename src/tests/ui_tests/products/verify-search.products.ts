@@ -1,13 +1,13 @@
 import SignInActions from '../../../ui/actions/sign-in.actions';
 import HomeActions from '../../../ui/actions/home.actions';
 import ProductsActions from '../../../ui/actions/products/products.actions';
-import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
 import ProductsController from '../../../api/controllers/products.controller';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
 import FiltersProductModalActions from '../../../ui/actions/products/modals/filters-product-modal.actions';
 import { MANUFACTURERS } from '../../../data/products/product.data';
-import { browserPause } from '../../../utils/helpers';
+import { IProduct } from '../../../ui/types/products.type';
+import { sortByNameASC } from '../../../utils/helpers';
 
 describe('', () => {
   before('', async () => {
@@ -25,10 +25,13 @@ describe('', () => {
   context('WDIO - 7', () => {
     it('Should verify table data after search with filters', async () => {
       await ProductsActions.clickOnFiltersButton();
-      await FiltersProductModalActions.checkAllBoxesInFiltersModal();
+      await FiltersProductModalActions.checkFiltersBox([MANUFACTURERS.APPLE]);
       await FiltersProductModalActions.clickOnApplyButton();
-      await ProductsActions.getParsedTableData();
-      await
+      const parsedProductsUI = await ProductsActions.getParsedTableData();
+      const sorted = sortByNameASC(parsedProductsUI);
+      const productsAPI = await reqAsLoggedUser(ProductsController.get, {});
+      const a = await ProductsActions.getParsedAPIData<Pick<IProduct, 'name' | 'manufacturer' | 'price'>>(productsAPI.data.Products, MANUFACTURERS.APPLE);
+      expect(sorted).toEqual(a)
     });
   });
 });

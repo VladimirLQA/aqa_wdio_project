@@ -11,10 +11,6 @@ const browserPause = async (timeout: number): Promise<void> => {
   await browser.pause(timeout);
 };
 
-// const prepareProduct = (product: IProduct, ...args) => {
-//   return Object.assign(product, ...args);
-// };
-
 const modalParser = async (modalData: string[]) => {
   return modalData.reduce((parsed, info) => {
     const [k, v] = info.split('\n');
@@ -24,5 +20,20 @@ const modalParser = async (modalData: string[]) => {
   }, {} as IProduct);
 };
 
+const filterObjKeys = (obj, f) => {
+  const res = Object.fromEntries(Object.entries(obj).filter(([k, v]) => f(k)))
+  return res;
+};
 
-export { isAttributeContainClass, browserPause, modalParser };
+const select = (obj, ...props) => filterObjKeys(obj, k => props.includes(k));
+const omit = async (obj, ...props) => filterObjKeys(obj, k => !props.includes(k));
+
+const sortByNameASC = <T>(array: T[]): T[] => {
+  return [...array].sort((a, b) => {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
+    if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
+    return 0;
+  });
+}
+
+export { isAttributeContainClass, browserPause, modalParser, filterObjKeys, omit, select, sortByNameASC };
