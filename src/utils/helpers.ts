@@ -1,5 +1,6 @@
 import { elementFinder } from './element-finder';
 import { IProduct } from '../ui/types/products.type';
+import { apiKeysMapper, tableHeadersForMapping } from './mapper-keys';
 
 const isAttributeContainClass = async (element: string, className: string): Promise<boolean> => {
   const elem = await elementFinder.findElement(element);
@@ -28,7 +29,7 @@ const filterObjKeys = (obj, f) => {
 const select = (obj, ...props) => filterObjKeys(obj, k => props.includes(k));
 const omit = async (obj, ...props) => filterObjKeys(obj, k => !props.includes(k));
 
-const sortByNameASC = <T>(array: T[]): T[] => {
+const sortByNameASC = <T>(array: T) => {
   return [...array].sort((a, b) => {
     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
@@ -36,4 +37,14 @@ const sortByNameASC = <T>(array: T[]): T[] => {
   });
 }
 
-export { isAttributeContainClass, browserPause, modalParser, filterObjKeys, omit, select, sortByNameASC };
+const capitalize = (word: string): string => word.slice(0, 1).toUpperCase() + word.slice(1);
+
+const apiKeyMapper = async (entity: any, pageName: string) => {
+  const mappedEntity = {};
+  for (const key of tableHeadersForMapping[pageName]) {
+    mappedEntity[apiKeysMapper[key]] = entity[key];
+  }
+  return mappedEntity;
+};
+
+export { isAttributeContainClass, browserPause, modalParser, filterObjKeys, omit, select, sortByNameASC, capitalize, apiKeyMapper };
