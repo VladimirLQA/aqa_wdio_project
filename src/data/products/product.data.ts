@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { IProduct } from '../../ui/types/products.type';
+import { IProduct } from '../../ui/types/products.types';
 
 // const manufacturer = getRandomManufacturerBrand();
 //
@@ -65,38 +65,6 @@ const inputError = {
 
 const errorToastMessage = 'Incorrect request body';
 
-const productData = {
-  valid: {
-    name: [
-      { name: 'aaaaaaaaaa aaaaaaaaaaaaaaaaaaaaaaaaaaaaa' },
-      { name: 'aaa' },
-      { name: 'FF FF' },
-      { name: '23423423' },
-    ],
-    price: [
-      { price: 1 },
-      { price: 99999 },
-      { price: 332 },
-    ],
-    manufacturer: [
-      { manufacturer: MANUFACTURERS.GOOGLE },
-      { manufacturer: MANUFACTURERS.TESLA },
-      { manufacturer: MANUFACTURERS.MICROSOFT },
-    ],
-    amount: [
-      { amount: 0 },
-      { amount: 999 },
-      { amount: 36 },
-    ],
-    notes: [
-      { notes: '' },
-      { notes: 'aaaaaaaaaaaaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt' },
-      { notes: '!@#$%^&&*()_-++=.?,\\}{po[]' },
-    ],
-  },
-  invalid: {},
-};
-
 const actionButtonsTableRow = {
   details: 'Details',
   edit: 'Edit',
@@ -107,7 +75,6 @@ export {
   inputError,
   newProduct,
   MANUFACTURERS,
-  productData,
   actionButtonsTableRow,
   productToastMessages,
   getNewProduct,
