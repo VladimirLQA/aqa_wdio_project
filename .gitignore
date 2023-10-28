@@ -1,5 +1,6 @@
 node_modules
 allure-results
+allure-report
 dist
 .idea
 aqa-wdio-1.iml

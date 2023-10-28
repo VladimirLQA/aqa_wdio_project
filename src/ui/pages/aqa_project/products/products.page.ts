@@ -1,6 +1,9 @@
 import  BasePage from '../base.page';
+import { CommonPage } from '../common.page';
 
-class ProductsPage extends BasePage {
+class ProductsPage extends CommonPage {
+  readonly pageName: string = 'products';
+
   readonly ['Page header'] = '.page-header-flex h2';
 
   readonly ['Search input'] = "[type='search']";

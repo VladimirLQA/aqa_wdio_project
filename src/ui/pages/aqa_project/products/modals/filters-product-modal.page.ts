@@ -1,6 +1,6 @@
 import BasePage from '../../base.page';
 
-class FiltersProductModalPage extends BasePage {
+class FiltersModalPage extends BasePage {
   readonly ['Modal title'] = '.modal-title';
 
   readonly ['Filter checkbox'] =
@@ -11,4 +11,4 @@ class FiltersProductModalPage extends BasePage {
   readonly ['Clear filters button'] = '#clear-filters';
 }
 
-export default new FiltersProductModalPage();
+export default new FiltersModalPage();
