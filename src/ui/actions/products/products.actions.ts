@@ -1,7 +1,7 @@
 import BaseActions from '../base.actions';
 import ProductsPage from '../../pages/aqa_project/products/products.page';
 import DeleteProductModalActions from './modals/delete-product-modal.actions';
-import { IProduct, ToastMessage } from '../../types/products.type';
+import { IProduct, ToastMessage } from '../../types/products.types';
 import { getNewProduct, productToastMessages } from '../../../data/products/product.data';
 import DetailsProductModalPage from '../../pages/aqa_project/products/modals/details-product-modal.page';
 import { asyncMap } from '../../../utils/async_array_methods/array-async-methods';
@@ -11,8 +11,12 @@ import ApiProductsAssertions from '../../../api/api_assertions/api.products.asse
 import { ProductsStorage } from '../../../utils/storages/products.storage';
 import { ActionButtons } from '../../types/common.types';
 import { IProductResponse } from '../../../api/types/api.product.types';
+import { logAction } from '../../../utils/reporter/allure.reporter';
+import { CommonActions } from '../common.actions';
 
-class ProductsActions extends BaseActions {
+class ProductsActions extends CommonActions {
+
+  // @logAction('Wait for page loading')
   public async openAddNewProductPage() {
     await ProductsPage.waitForElemAndClick(ProductsPage['Add product button']);
     await this.waitForPageLoad();
@@ -27,7 +31,7 @@ class ProductsActions extends BaseActions {
   }
 
   public async getParsedProductModalInfo(): Promise<IProduct> {
-    const modalElements = await DetailsProductModalPage.waitForElements(DetailsProductModalPage['Modal info']);
+    const modalElements = await DetailsProductModalPage.waitForElements(DetailsProductModalPage['Modal data rows']);
     const modalInfo = await asyncMap(modalElements, element => element.getText());
     const parsedInfo = await modalParser(modalInfo);
     return parsedInfo;

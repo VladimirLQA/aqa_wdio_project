@@ -4,25 +4,34 @@ import { browserPause, omit, sortByNameASC } from '../../utils/helpers';
 import FiltersProductModalPage from '../pages/aqa_project/products/modals/filters-product-modal.page';
 import { MANUFACTURERS } from '../../data/products/product.data';
 import { asyncMap } from '../../utils/async_array_methods/array-async-methods';
+import { logAction } from '../../utils/reporter/allure.reporter';
+import { UnionFilterModalLabels } from '../types/common.types';
 
 export default class BaseActions {
-  public basePage: BasePage = new BasePage();
+  public basePage: BasePage;
+  constructor() {
+    this.basePage = new BasePage();
+  }
 
+  // @logAction('Wait for page loading')
   public async waitForPageLoad() {
     const spinner = await elementFinder.findElement(this.basePage['Spinner']);
     await spinner.waitForDisplayed({ reverse: true });
   }
 
+  // @logAction('Open "Sales portal"')
   public async openSalesPortal() {
     await browser.url('https://anatoly-karpovich.github.io/aqa-course-project/?#');
     await browser.maximizeWindow();
   }
 
+  // @logAction('Get token from browser cookies')
   public async getToken() {
     const token = (await browser.getCookies('Authorization'))[0].value;
     return token;
   }
 
+  // @logAction('Close toast')
   public async closeToastMessage() {
     await this.basePage.waitForElemAndClick(this.basePage['Toast close button']);
   }
@@ -39,6 +48,7 @@ export default class BaseActions {
     await this.basePage.waitForElemAndClick(item);
   }
 
+  // @logAction('Close modal window')
   public async closeModalWindow() {
     await this.basePage.waitForElemAndClick(this.basePage['Modal close button']);
   }
@@ -55,7 +65,7 @@ export default class BaseActions {
           const values = [...i.querySelectorAll('td')].reduce((res,e,i,arr) => {
             if(i < arr.length-2) res.push(e.innerText)
             return res;}, []);
-          entities.push(Object.assign(...columnNames.map((k, i) => ({[k.toLowerCase()]: values[i]})))); 
+          entities.push(Object.assign(...columnNames.map((k, i) => ({[k]: values[i]})))); 
         }
       }); 
       return entities; 
@@ -66,21 +76,4 @@ export default class BaseActions {
     return browser.execute(`$('button${selector}').removeAttr("disabled")`);
   }
 
-  public async checkFiltersBox(labels: MANUFACTURERS[] = [MANUFACTURERS.SAMSUNG]) {
-    for (const label of labels) {
-      await this.basePage.waitForElemAndClick(FiltersProductModalPage['Filter checkbox'](label));
-    }
-  }
-
-  public async filterAndSortProducts<T>(array: T[], uniqueValue: string) {
-    const sorted: T[] = sortByNameASC<T>(array);
-    return [...sorted].filter((product) => product.manufacturer === uniqueValue);
-  }
-
-  public async getParsedAPIData<T>(array: T[], uniqueValue: string) {
-    const filtered = await this.filterAndSortProducts<T>(array, uniqueValue);
-    return await asyncMap(filtered, async (product) => {
-       return await omit(product, 'createdOn', '_id', 'notes', 'amount');
-    });
-  }
 }
