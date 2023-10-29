@@ -5,6 +5,8 @@ import ProductsAssertions from '../../../ui/assertions/products_assertions/produ
 import { ProductsStorage } from '../../../utils/storages/products.storage';
 import ProductsController from '../../../api/controllers/products.controller';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
+import ProductsPage from '../../../ui/pages/aqa_project/products/products.page';
+import DeleteModalActions from '../../../ui/actions/modals/delete-modal.actions';
 
 describe('', () => {
   before('', async () => {
@@ -23,8 +25,8 @@ describe('', () => {
       const product = await ProductsActions.createProductAPI();
       await HomeActions.openProductsPage();
       await ProductsActions.clickOnProductRowActionButton(product.name, 'Details');
-      await ProductsAssertions.verifyCreatedProductInDetailModal(ProductsStorage.getProduct(product.name));
-      await ProductsActions.closeModalWindow();
+      await ProductsAssertions.verifyCreatedEntityInDetailModal(ProductsPage, ProductsStorage.getProduct(product.name));
+      await DeleteModalActions.clickOnCloseModalButton();
     });
   });
 });

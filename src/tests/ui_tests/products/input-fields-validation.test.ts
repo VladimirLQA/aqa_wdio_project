@@ -2,9 +2,10 @@ import SignInActions from '../../../ui/actions/sign-in.actions';
 import HomeActions from '../../../ui/actions/home.actions';
 import ProductsActions from '../../../ui/actions/products/products.actions';
 import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
-import { productData } from '../../../data/products/product.data';
+// import { productData } from '../../../data/products/product.data';
 import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
 import { browserPause } from '../../../utils/helpers';
+import { productData } from '../../../data/products/products-test.data';
 
 describe('', () => {
   before('', async () => {

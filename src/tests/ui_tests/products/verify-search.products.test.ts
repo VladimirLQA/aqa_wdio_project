@@ -4,13 +4,11 @@ import ProductsActions from '../../../ui/actions/products/products.actions';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
 import ProductsController from '../../../api/controllers/products.controller';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
-import FiltersProductModalActions from '../../../ui/actions/products/modals/filters-product-modal.actions';
 import { MANUFACTURERS } from '../../../data/products/product.data';
-import CommonActions from '../../../ui/actions/common.actions';
-import FiltersModalPage from '../../../ui/pages/aqa_project/products/modals/filters-product-modal.page';
 import ProductsPage from '../../../ui/pages/aqa_project/products/products.page';
-import { loadModule } from '@wdio/mocha-framework/build/common';
-import { browserPause } from '../../../utils/helpers';
+import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
+import FilterModalPage from '../../../ui/pages/aqa_project/modals/filter-modal.page';
+import FiltersModalActions from '../../../ui/actions/modals/filters-modal.actions';
 
 describe('', () => {
   before('', async () => {
@@ -28,9 +26,9 @@ describe('', () => {
   context('WDIO - 7', () => {
     it('Should verify table data after search with filters', async () => {
       await ProductsActions.clickOnFiltersButton();
-      await CommonActions.checkFiltersBox(FiltersModalPage, [MANUFACTURERS.APPLE, MANUFACTURERS.AMAZON, MANUFACTURERS.XIAOMI]);
-      await FiltersProductModalActions.clickOnApplyButton();
-      await CommonActions.verifyTableData(ProductsPage)
+      await FiltersModalActions.checkFiltersBox(FilterModalPage, [MANUFACTURERS.APPLE, MANUFACTURERS.AMAZON, MANUFACTURERS.XIAOMI]);
+      await FiltersModalActions.clickOnApplyButton();
+      await ProductsAssertions.verifyTableData(ProductsPage)
 
 
 

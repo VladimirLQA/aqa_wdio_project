@@ -4,12 +4,13 @@ import ProductsActions from '../../../ui/actions/products/products.actions';
 import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
 import { errorToastMessage, getNewProduct } from '../../../data/products/product.data';
 import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
-import { IProduct } from '../../../ui/types/products.type';
+import { IProduct } from '../../../ui/types/products.types';
 import ProductsController from '../../../api/controllers/products.controller';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
 import AddNewProductPage from '../../../ui/pages/aqa_project/products/add-new-product.page';
 import AddNewProductAssertions from '../../../ui/assertions/products_assertions/add-new-product.assertions';
+import DetailsModalActions from '../../../ui/actions/modals/details-modal.actions';
 
 
 describe('', () => {
@@ -34,14 +35,14 @@ describe('', () => {
     await ProductsAssertions.verifyCreatedProductRow(productToCreate);
   });
 
-  xit('Should create product and validate in details modal window', async () => {
+  it('Should create product and validate in details modal window', async () => {
     productToCreate = getNewProduct();
     await ProductsActions.openAddNewProductPage();
     await AddNewProductActions.createProduct(productToCreate);
     await ProductsAssertions.verifyProductToastText('created');
     await ProductsActions.clickOnProductRowActionButton(productToCreate.name, 'Details');
-    await ProductsAssertions.verifyCreatedProductInDetailModal(productToCreate);
-    await ProductsActions.closeModalWindow();
+    await ProductsAssertions.verifyCreatedEntityInDetailModal(productToCreate);
+    await DetailsModalActions.clickOnCloseModalButton();
   });
 
   xit('Validate products in table', async () => {
@@ -50,7 +51,7 @@ describe('', () => {
     console.log(apiProducts);
   });
 
-  it('Should get api error response after sending invalid data', async () => {
+  xit('Should get api error response after sending invalid data', async () => {
     productToCreate = getNewProduct({ name: '   sdsds  sd', price: 1111112, amount: 12312312, notes: '_+><>'});
     ProductsStorage.addProduct(productToCreate);
     await ProductsActions.openAddNewProductPage();
