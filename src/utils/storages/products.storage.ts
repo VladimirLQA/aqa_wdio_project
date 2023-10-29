@@ -1,5 +1,4 @@
 import { IProductResponse } from '../../api/types/api.product.types';
-import { IProduct } from '../../ui/types/products.type';
 
 export class ProductsStorage {
   private static instance: ProductsStorage;

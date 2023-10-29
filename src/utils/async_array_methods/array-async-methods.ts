@@ -1,5 +1,5 @@
-import { FindAsyncCallback, ForEachAsyncCallback, ReduceAsyncCallback } from '../../ui/types/array_callback_types';
-import { MapAsyncCallback } from '../../ui/types/array_callback_types';
+import { FindAsyncCallback, ForEachAsyncCallback, ReduceAsyncCallback } from '../../ui/types/async-array-method-callback.types';
+import { MapAsyncCallback } from '../../ui/types/async-array-method-callback.types';
 
 export async function asyncFind<T>(array: T[], callback: FindAsyncCallback<T>): Promise<T | undefined> {
   for (let i = 0; i < array?.length; i++) {

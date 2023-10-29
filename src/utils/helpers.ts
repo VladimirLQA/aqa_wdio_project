@@ -1,6 +1,6 @@
 import { elementFinder } from './element-finder';
-import { IProduct } from '../ui/types/products.type';
-import { apiKeysMapper, tableHeadersForMapping } from './mapper-keys';
+import { IProduct } from '../ui/types/products.types';
+import { apiKeysMapper, apiKeysForMapping } from './mapper-keys';
 
 const isAttributeContainClass = async (element: string, className: string): Promise<boolean> => {
   const elem = await elementFinder.findElement(element);
@@ -18,11 +18,11 @@ const modalParser = async (modalData: string[]) => {
     const clearedK = k.slice(0, -1); // remove semicolon
     parsed[clearedK] = v;
     return parsed;
-  }, {} as IProduct);
+  }, {});
 };
 
 const filterObjKeys = (obj, f) => {
-  const res = Object.fromEntries(Object.entries(obj).filter(([k, v]) => f(k)))
+  const res = Object.fromEntries(Object.entries(obj).filter(([k, v]) => f(k)));
   return res;
 };
 
@@ -35,16 +35,26 @@ const sortByNameASC = <T>(array: T) => {
     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
     return 0;
   });
-}
+};
 
 const capitalize = (word: string): string => word.slice(0, 1).toUpperCase() + word.slice(1);
 
 const apiKeyMapper = async (entity: any, pageName: string) => {
   const mappedEntity = {};
-  for (const key of tableHeadersForMapping[pageName]) {
+  for (const key of apiKeysForMapping[pageName]) {
     mappedEntity[apiKeysMapper[key]] = entity[key];
   }
   return mappedEntity;
 };
 
-export { isAttributeContainClass, browserPause, modalParser, filterObjKeys, omit, select, sortByNameASC, capitalize, apiKeyMapper };
+export {
+  isAttributeContainClass,
+  browserPause,
+  modalParser,
+  filterObjKeys,
+  omit,
+  select,
+  sortByNameASC,
+  capitalize,
+  apiKeyMapper,
+};
