@@ -1,9 +1,9 @@
 import BaseActions from '../base.actions';
 import ProductsPage from '../../pages/aqa_project/products/products.page';
-import DeleteProductModalActions from './modals/delete-product-modal.actions';
+import DeleteProductModalActions from '../modals/delete-product-modal.actions';
 import { IProduct, ToastMessage } from '../../types/products.types';
 import { getNewProduct, productToastMessages } from '../../../data/products/product.data';
-import DetailsProductModalPage from '../../pages/aqa_project/products/modals/details-product-modal.page';
+// import DetailsProductModalPage from '../../pages/aqa_project/products/modals/details-product-modal.page';
 import { asyncMap } from '../../../utils/async_array_methods/array-async-methods';
 import { modalParser } from '../../../utils/helpers';
 import ApiProductsActions from '../../../api/api_actions/api.products.actions';
@@ -30,13 +30,6 @@ class ProductsActions extends CommonActions {
     };
   }
 
-  public async getParsedProductModalInfo(): Promise<IProduct> {
-    const modalElements = await DetailsProductModalPage.waitForElements(DetailsProductModalPage['Modal data rows']);
-    const modalInfo = await asyncMap(modalElements, element => element.getText());
-    const parsedInfo = await modalParser(modalInfo);
-    return parsedInfo;
-  }
-
   public async clickOnProductRowActionButton(productName: string, action: ActionButtons) {
     await ProductsPage.waitForElemAndClick(ProductsPage['Table row action button'](productName, action));
     await this.waitForPageLoad();
@@ -44,7 +37,7 @@ class ProductsActions extends CommonActions {
 
   public async deleteProduct(productName: string) {
     await this.clickOnProductRowActionButton(productName, 'Delete');
-    await DeleteProductModalActions.clickOnDeleteButton();
+    // await DeleteProductModalActions.clickOnDeleteButton();
     await this.waitForPageLoad();
   }
 

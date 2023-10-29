@@ -48,11 +48,6 @@ export default class BaseActions {
     await this.basePage.waitForElemAndClick(item);
   }
 
-  // @logAction('Close modal window')
-  public async closeModalWindow() {
-    await this.basePage.waitForElemAndClick(this.basePage['Modal close button']);
-  }
-
   public async getParsedTableData() {
     return browser.execute(` 
       const entities = []; 
