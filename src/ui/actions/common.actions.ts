@@ -1,13 +1,11 @@
 import BaseActions from './base.actions';
-import { IChipsFilterOptions, UnionFilterModalLabels } from '../types/common.types';
-import FiltersModalPage from '../pages/aqa_project/products/modals/filters-product-modal.page';
+import { IChipsFilterOptions } from '../types/common.types';
 import { CommonPage } from '../pages/aqa_project/common.page';
 import { elementFinder } from '../../utils/element-finder';
-import { asyncForEach, asyncMap, asyncReduce } from '../../utils/async_array_methods/array-async-methods';
+import { asyncForEach, asyncReduce } from '../../utils/async_array_methods/array-async-methods';
 import { reqAsLoggedUser } from '../../api/request/request-as-logged-user';
 import ControllersList from '../../api/controllers/contollers.index';
-import { apiKeyMapper, capitalize, modalParser } from '../../utils/helpers';
-import DetailsProductModalPage from '../pages/aqa_project/products/modals/details-product-modal.page';
+import { apiKeyMapper, capitalize } from '../../utils/helpers';
 
 export class CommonActions extends BaseActions {
 

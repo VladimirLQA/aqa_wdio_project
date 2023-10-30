@@ -5,13 +5,13 @@ import { logAction } from '../../utils/reporter/allure.reporter';
 
 class HomeActions extends BaseActions {
 
-  // @logAction('Open products page')
+  @logAction('Click on products view details button')
   public async openProductsPage() {
     await HomePage.waitForElemAndClick(HomePage['Products view details button']);
     await this.waitForPageLoad();
   }
 
-  // @logAction('Log out')
+  @logAction('Click on "Sign out" button')
   public async logOut() {
     await SidebarPage.waitForElemAndClick(SidebarPage['User dropdown menu']);
     await SidebarPage.waitForElemAndClick(SidebarPage['Sign out button']);

@@ -1,6 +1,7 @@
 import BasePage from '../pages/aqa_project/base.page';
 import { elementFinder } from '../../utils/element-finder';
 import { browserPause } from '../../utils/helpers';
+import { logAction } from '../../utils/reporter/allure.reporter';
 
 
 export default class BaseActions {
@@ -9,25 +10,25 @@ export default class BaseActions {
     this.basePage = new BasePage();
   }
 
-  // @logAction('Wait for page loading')
+  @logAction('Wait for page loading')
   public async waitForPageLoad() {
     const spinner = await elementFinder.findElement(this.basePage['Spinner']);
     await spinner.waitForDisplayed({ reverse: true });
   }
 
-  // @logAction('Open "Sales portal"')
+  @logAction('Open "Sales portal"')
   public async openSalesPortal() {
     await browser.url('https://anatoly-karpovich.github.io/aqa-course-project/?#');
     await browser.maximizeWindow();
   }
 
-  // @logAction('Get token from browser cookies')
+  @logAction('Get token from browser cookies')
   public async getToken() {
     const token = (await browser.getCookies('Authorization'))[0].value;
     return token;
   }
 
-  // @logAction('Close toast')
+  @logAction('Click on toast close button')
   public async closeToastMessage() {
     await this.basePage.waitForElemAndClick(this.basePage['Toast close button']);
   }

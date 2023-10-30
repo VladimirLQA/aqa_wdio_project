@@ -1,11 +1,6 @@
-import BaseActions from '../base.actions';
 import ProductsPage from '../../pages/aqa_project/products/products.page';
-import DeleteProductModalActions from '../modals/delete-product-modal.actions';
 import { IProduct, ToastMessage } from '../../types/products.types';
 import { getNewProduct, productToastMessages } from '../../../data/products/product.data';
-// import DetailsProductModalPage from '../../pages/aqa_project/products/modals/details-product-modal.page';
-import { asyncMap } from '../../../utils/async_array_methods/array-async-methods';
-import { modalParser } from '../../../utils/helpers';
 import ApiProductsActions from '../../../api/api_actions/api.products.actions';
 import ApiProductsAssertions from '../../../api/api_assertions/api.products.assertions';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
@@ -16,11 +11,12 @@ import { CommonActions } from '../common.actions';
 
 class ProductsActions extends CommonActions {
 
-  // @logAction('Wait for page loading')
+  @logAction('Wait for page loading')
   public async openAddNewProductPage() {
     await ProductsPage.waitForElemAndClick(ProductsPage['Add product button']);
     await this.waitForPageLoad();
   }
+
 
   public async getCreatedProductRow(productName: string) {
     return {
@@ -30,11 +26,13 @@ class ProductsActions extends CommonActions {
     };
   }
 
+  @logAction('Click on product row action button')
   public async clickOnProductRowActionButton(productName: string, action: ActionButtons) {
     await ProductsPage.waitForElemAndClick(ProductsPage['Table row action button'](productName, action));
     await this.waitForPageLoad();
   }
 
+  @logAction('Click on delete product button')
   public async deleteProduct(productName: string) {
     await this.clickOnProductRowActionButton(productName, 'Delete');
     // await DeleteProductModalActions.clickOnDeleteButton();
@@ -55,14 +53,17 @@ class ProductsActions extends CommonActions {
     return response.data.Product;
   }
 
+  @logAction('Click on filters button')
   public async clickOnFiltersButton() {
     await this.basePage.waitForElemAndClick(ProductsPage['Filter button']);
   }
 
+  @logAction('Click on search button')
   public async clickOnSearchButton() {
     await this.basePage.waitForElemAndClick(ProductsPage['Search button']);
   }
 
+  @logAction('Fill search input')
   public async fillSearchInput(searchValue: string) {
     await this.basePage.waitForElemAndSetValue(ProductsPage['Search input'], searchValue);
   }
