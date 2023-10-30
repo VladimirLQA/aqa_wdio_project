@@ -1,8 +1,6 @@
 import allure from '@wdio/allure-reporter';
-import type { RequestParams } from '../../api/types/api-request.types';
-import { AxiosResponse, AxiosRequestConfig } from 'axios';
 import { Status } from 'allure-js-commons';
-// TODO implement to business logic and correct errors with methods
+
 export function logAction(stepName: string): MethodDecorator {
   return function(target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
