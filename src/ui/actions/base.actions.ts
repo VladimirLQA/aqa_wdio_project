@@ -1,11 +1,7 @@
 import BasePage from '../pages/aqa_project/base.page';
 import { elementFinder } from '../../utils/element-finder';
-import { browserPause, omit, sortByNameASC } from '../../utils/helpers';
-import FiltersProductModalPage from '../pages/aqa_project/products/modals/filters-product-modal.page';
-import { MANUFACTURERS } from '../../data/products/product.data';
-import { asyncMap } from '../../utils/async_array_methods/array-async-methods';
-import { logAction } from '../../utils/reporter/allure.reporter';
-import { UnionFilterModalLabels } from '../types/common.types';
+import { browserPause } from '../../utils/helpers';
+
 
 export default class BaseActions {
   public basePage: BasePage;

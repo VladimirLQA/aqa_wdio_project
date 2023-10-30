@@ -1,4 +1,4 @@
-import { ModalPage } from './modal.page';
+import  ModalPage from './modal.page';
 import { asyncForEach } from '../../../../utils/async_array_methods/array-async-methods';
 
 class DetailsModalPage extends ModalPage {
@@ -21,9 +21,8 @@ class DetailsModalPage extends ModalPage {
     const parsedData = {};
     const modalRowsData = await this.waitForElements(this['Modal data rows']);
     await asyncForEach(modalRowsData, async (row) => {
-      const [name, value] = (await row.getText()).split('\n');
-      const clearedName = name.slice(0, -1).toLowerCase();
-      parsedData[clearedName] = value;
+      const [name, value] = (await row.getText()).split(':\n');
+      parsedData[name.toLowerCase()] = value;
     });
     return parsedData;
   }
