@@ -15,13 +15,15 @@ describe('', () => {
 
   after('', async () => {
     for (const product of ProductsStorage.getAllProducts()) {
-      await reqAsLoggedUser(ProductsController.delete, { data: { name: product.name } });
+      await reqAsLoggedUser(ProductsController.delete, { data: { _id: product._id } });
     }
   });
 
   context('WDIO - 6', () => {
     it('Should create product via api and verify in "Details modal window"', async () => {
       const product = await ProductsActions.createProductAPI();
+
+
       await HomeActions.openProductsPage();
       await ProductsActions.clickOnProductRowActionButton(product.name, 'Details');
       await ProductsAssertions.verifyCreatedEntityInDetailModal(ProductsStorage.getProduct(product.name));

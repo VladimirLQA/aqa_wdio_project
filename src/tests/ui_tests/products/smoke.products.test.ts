@@ -29,6 +29,8 @@ describe('', () => {
 
   xit('Should create product and validate in table of products', async () => {
     productToCreate = getNewProduct({ price: 888 });
+    await ProductsStorage.addProduct(productToCreate);
+
     await ProductsActions.openAddNewProductPage();
     await AddNewProductActions.createProduct(productToCreate);
     await ProductsAssertions.verifyProductToastText('created');
@@ -37,6 +39,8 @@ describe('', () => {
 
   it('Should create product and validate in details modal window', async () => {
     productToCreate = getNewProduct();
+    await ProductsStorage.addProduct(productToCreate);
+
     await ProductsActions.openAddNewProductPage();
     await AddNewProductActions.createProduct(productToCreate);
     await ProductsAssertions.verifyProductToastText('created');

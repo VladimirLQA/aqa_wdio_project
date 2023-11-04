@@ -10,36 +10,37 @@ import ProductsAssertions from '../../../ui/assertions/products_assertions/produ
 import FilterModalPage from '../../../ui/pages/aqa_project/modals/filter-modal.page';
 import FiltersModalActions from '../../../ui/actions/modals/filters-modal.actions';
 
-describe('', () => {
-  before('', async () => {
+describe('WDIO - 7', () => {
+  before('Up browser and open products page', async () => {
     await SignInActions.openSalesPortal();
     await SignInActions.signIn();
     await HomeActions.openProductsPage();
   });
 
-  after('', async () => {
-    for (const product of ProductsStorage.getAllProducts()) {
-      await reqAsLoggedUser(ProductsController.delete, { data: { name: product.name } });
-    }
+  it('Should verify table data after search with filters', async () => {
+    await ProductsActions.clickOnFiltersButton();
+    await FiltersModalActions.checkFiltersBox(FilterModalPage, [MANUFACTURERS.APPLE, MANUFACTURERS.AMAZON, MANUFACTURERS.XIAOMI]);
+    await FiltersModalActions.clickOnApplyButton();
+    await ProductsAssertions.verifyTableData(ProductsPage);
+
   });
 
-  context('WDIO - 7', () => {
-    it('Should verify table data after search with filters', async () => {
-      await ProductsActions.clickOnFiltersButton();
-      await FiltersModalActions.checkFiltersBox(FilterModalPage, [MANUFACTURERS.APPLE, MANUFACTURERS.AMAZON, MANUFACTURERS.XIAOMI]);
-      await FiltersModalActions.clickOnApplyButton();
-      await ProductsAssertions.verifyTableData(ProductsPage)
 
+  // todo add actions and finish tests
+  it('Should verify table data after search with search value', async () => {
+    await ProductsActions.clickOnFiltersButton();
+    await FiltersModalActions.checkFiltersBox(FilterModalPage, [MANUFACTURERS.APPLE, MANUFACTURERS.AMAZON, MANUFACTURERS.XIAOMI]);
+    await FiltersModalActions.clickOnApplyButton();
+    await ProductsAssertions.verifyTableData(ProductsPage);
 
-
-
-
-
-      // const parsedProductsUI = await ProductsActions.getParsedTableData();
-      // const sorted = sortByNameASC(parsedProductsUI);
-      // const productsAPI = await reqAsLoggedUser(ProductsController.get, {});
-      // const a = await ProductsActions.getParsedAPIData<Pick<IProduct, 'name' | 'manufacturer' | 'price'>>(productsAPI.data.Products, MANUFACTURERS.APPLE);
-      // expect(sorted).toEqual(a);
-    });
   });
+
+  it('Should verify table data after search with search value and filters', async () => {
+    await ProductsActions.clickOnFiltersButton();
+    await FiltersModalActions.checkFiltersBox(FilterModalPage, [MANUFACTURERS.APPLE, MANUFACTURERS.AMAZON, MANUFACTURERS.XIAOMI]);
+    await FiltersModalActions.clickOnApplyButton();
+    await ProductsAssertions.verifyTableData(ProductsPage);
+
+  });
+
 });

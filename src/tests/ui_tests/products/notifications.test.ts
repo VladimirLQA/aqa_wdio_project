@@ -36,15 +36,16 @@ describe('Notifications test on products page', () => {
   });
 
   context('Positive tests on input fields validation', async () => {
-
+    let tempProductName: string;
     for (const product of productData.valid.name) {
       it(`Should create product with valid name: '${product.description}'`, async () => {
         productToCreate = getNewProduct({ name: product.name });
         await ProductsStorage.addProduct(productToCreate);
+        tempProductName = productToCreate.name;
 
         await AddNewProductActions.fillProductInputs(productToCreate);
         await AddNewProductActions.clickOnSaveNewProductButton();
-        await ProductsAssertions.verifyProductToastText('deleted');
+        await ProductsAssertions.verifyProductToastText('created');
       });
     }
   });
