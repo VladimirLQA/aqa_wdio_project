@@ -1,4 +1,4 @@
-import { ModalPage } from './modal.page';
+import ModalPage from './modal.page';
 
 class DeleteModalPage extends ModalPage {
   readonly ['Delete button'] = 'button.btn-danger[type="submit"]';

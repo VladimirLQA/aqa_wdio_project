@@ -19,7 +19,6 @@ class SidebarPage extends BasePage {
 
   readonly ["Currency 'Buy' button"] = '#sidebar > div > button';
 
-  readonly ['Sign out button'] =  '#signOut';
 }
 
 export default new SidebarPage();

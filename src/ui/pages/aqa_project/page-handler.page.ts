@@ -18,7 +18,7 @@ export default class PageHandler {
   public async waitForElemAndSetValue(selector: string, text: string | number, timeout: number = TIMEOUT['5 seconds']): Promise<void> {
     const elem = await this.waitForElement(selector);
     await elem.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
-    await elem.setValue(text);
+    await elem.setValue(text)
     await browserPause(200);
   }
 
