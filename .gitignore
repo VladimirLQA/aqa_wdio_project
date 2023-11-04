@@ -4,5 +4,5 @@ allure-report
 dist
 .idea
 aqa-wdio-1.iml
-/package-lock.json
+package-lock.json
 .env
