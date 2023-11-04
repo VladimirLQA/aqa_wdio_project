@@ -6,6 +6,7 @@ import { ProductsStorage } from '../../../utils/storages/products.storage';
 
 class AddNewProductActions extends BaseActions {
   public async fillProductInputs<T>(product: T): Promise<void> {
+
     await AddNewProductPage.waitForElemAndSetValue(AddNewProductPage['Name input field'], product.name);
     await AddNewProductPage.waitForElemAndSetValue(AddNewProductPage['Price input field'], product.price);
     await AddNewProductPage.waitForElemAndSetValue(AddNewProductPage['Amount input field'], product.amount);
@@ -34,7 +35,7 @@ class AddNewProductActions extends BaseActions {
   }
 
   public async createProduct(product: IProduct) {
-    ProductsStorage.addProduct<IProduct>(product);
+
     await this.fillProductInputs(product);
     await this.chooseDropdownItem(AddNewProductPage['Manufacturer dropdown'], AddNewProductPage['Manufacturer dropdown brand'](product.manufacturer));
     await this.clickOnSaveNewProductButton();

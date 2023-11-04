@@ -38,11 +38,11 @@ export class CommonActions extends BaseActions {
 
   async getTableDataAfterFilterAndSearch(tableData: Record<string, string>[], chipFilters: IChipsFilterOptions) {
     const { search, quickFilters } = chipFilters;
-    const filteredAndSearchedData = [];
+    const filteredAndSearchedData: Record<string, string>[] = [];
     await asyncForEach(tableData, async (entity) => {
       const isMatchQuickFilter = quickFilters?.some(filter => Object.values(entity).at(-1).includes(filter));
       const isMatchSearch = Object.values(entity).some((value => value.toLowerCase().includes(search?.toLowerCase())));
-
+      tableData.length
       if (search && quickFilters?.length) {
         if (isMatchQuickFilter && isMatchSearch) filteredAndSearchedData.push(entity);
 

@@ -12,7 +12,7 @@ class HomeActions extends BaseActions {
   }
 
   @logAction('Click on "Sign out" button')
-  public async logOut() {
+  public async clickOnSignOutButton() {
     await SidebarPage.waitForElemAndClick(SidebarPage['User dropdown menu']);
     await SidebarPage.waitForElemAndClick(SidebarPage['Sign out button']);
     await this.waitForPageLoad();

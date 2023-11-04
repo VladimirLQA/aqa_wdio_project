@@ -1,5 +1,4 @@
 import { BaseAssertions } from '../base.assertions';
-import ProductsActions from '../../actions/products/products.actions';
 import { browserPause } from '../../../utils/helpers';
 
 class AddNewProductAssertions extends BaseAssertions {

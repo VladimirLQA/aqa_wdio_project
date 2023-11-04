@@ -8,6 +8,8 @@ import { ActionButtons } from '../../types/common.types';
 import { IProductResponse } from '../../../api/types/api.product.types';
 import { logAction } from '../../../utils/reporter/allure.reporter';
 import { CommonActions } from '../common.actions';
+import ModalActions from '../modal.actions';
+import DeleteModalActions from '../modals/delete-modal.actions';
 
 class ProductsActions extends CommonActions {
 
@@ -35,7 +37,7 @@ class ProductsActions extends CommonActions {
   @logAction('Click on delete product button')
   public async deleteProduct(productName: string) {
     await this.clickOnProductRowActionButton(productName, 'Delete');
-    // await DeleteProductModalActions.clickOnDeleteButton();
+    await DeleteModalActions.clickOnDeleteButton();
     await this.waitForPageLoad();
   }
 

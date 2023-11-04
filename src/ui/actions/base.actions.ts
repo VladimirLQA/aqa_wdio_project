@@ -18,7 +18,7 @@ export default class BaseActions {
 
   @logAction('Open "Sales portal"')
   public async openSalesPortal() {
-    await browser.url('https://anatoly-karpovich.github.io/aqa-course-project/?#');
+    await browser.url('https://anatoly-karpovich.github.io/aqa-course-project/#');
     await browser.maximizeWindow();
   }
 
