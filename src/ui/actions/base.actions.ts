@@ -45,25 +45,6 @@ export default class BaseActions {
     await this.basePage.waitForElemAndClick(item);
   }
 
-  public async getParsedTableData() {
-    return browser.execute(` 
-      const entities = []; 
-      const columnNames = [...document.querySelectorAll('th')].reduce((res,e,i,arr) => {
-        if(i < arr.length-2) res.push(e.innerText)
-        return res;}, []);
-
-      document.querySelectorAll('table > tbody > tr').forEach(i => {
-        if(i.style.display !== 'none') {
-          const values = [...i.querySelectorAll('td')].reduce((res,e,i,arr) => {
-            if(i < arr.length-2) res.push(e.innerText)
-            return res;}, []);
-          entities.push(Object.assign(...columnNames.map((k, i) => ({[k]: values[i]})))); 
-        }
-      }); 
-      return entities; 
-  `) as Promise<[]>;
-  }
-
   public async enableButton(selector: string) {
     return browser.execute(`$('button${selector}').removeAttr("disabled")`);
   }

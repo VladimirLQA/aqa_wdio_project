@@ -10,6 +10,8 @@ import { logAction } from '../../../utils/reporter/allure.reporter';
 import { CommonActions } from '../common.actions';
 import ModalActions from '../modal.actions';
 import DeleteModalActions from '../modals/delete-modal.actions';
+import FiltersModalActions from '../modals/filters-modal.actions';
+import FilterModalPage from '../../pages/aqa_project/modals/filter-modal.page';
 
 class ProductsActions extends CommonActions {
 
@@ -55,11 +57,6 @@ class ProductsActions extends CommonActions {
     return response.data.Product;
   }
 
-  @logAction('Click on filters button')
-  public async clickOnFiltersButton() {
-    await this.basePage.waitForElemAndClick(ProductsPage['Filter button']);
-  }
-
   @logAction('Click on search button')
   public async clickOnSearchButton() {
     await this.basePage.waitForElemAndClick(ProductsPage['Search button']);
@@ -69,6 +66,7 @@ class ProductsActions extends CommonActions {
   public async fillSearchInput(searchValue: string) {
     await this.basePage.waitForElemAndSetValue(ProductsPage['Search input'], searchValue);
   }
+
 }
 
 export default new ProductsActions();
