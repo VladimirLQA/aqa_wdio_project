@@ -1,4 +1,4 @@
-import { ModalPage } from './modal.page';
+import ModalPage from './modal.page';
 
 class FilterModalPage extends ModalPage {
   readonly ['Modal title'] = '.modal-title';
