@@ -4,6 +4,7 @@
     "@faker-js/faker": "^8.1.0",
     "@types/ajv": "^1.0.0",
     "@types/axios": "^0.14.0",
+    "@types/chai": "^4.3.9",
     "@typescript-eslint/eslint-plugin": "^6.7.3",
     "@wdio/allure-reporter": "^8.16.3",
     "@wdio/cli": "^8.16.4",
@@ -23,12 +24,15 @@
   },
   "scripts": {
     "wdio": "wdio run ./wdio.conf.ts",
-    "lint:check": "eslint . --ext .ts"
+    "lint:check": "eslint . --ext .ts",
+    "report": "allure generate allure-results --clean -o allure-report",
+    "report-open": "allure open allure-report"
   },
   "dependencies": {
     "@typescript-eslint/parser": "^6.7.3",
     "ajv": "^8.12.0",
     "axios": "^1.5.1",
+    "chai": "^4.3.10",
     "dotenv": "^16.3.1"
   }
 }
