@@ -1,8 +1,8 @@
 import ProductsPage from '../../pages/aqa_project/products/products.page';
 import { IProduct, ToastMessage } from '../../types/products.types';
 import { getNewProduct, productToastMessages } from '../../../data/products/product.data';
-import ApiProductsActions from '../../../api/api_actions/api.products.actions';
-import ApiProductsAssertions from '../../../api/api_assertions/api.products.assertions';
+import ApiProductsActions from '../../../api/api_actions/api-products.actions';
+import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
 import { ActionButtons } from '../../types/common.types';
 import { IProductResponse } from '../../../api/types/api.product.types';

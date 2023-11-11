@@ -67,6 +67,9 @@ export const config: Options.Testrunner = {
   capabilities: [
     {
       browserName: 'chrome',
+      'goog:chromeOptions': {
+        args: ['--headless']
+      }
     },
   ],
 
@@ -127,14 +130,6 @@ export const config: Options.Testrunner = {
   // see also: https://webdriver.io/docs/dot-reporter
   reporters: reporters,
 
-  //
-  // Options to be passed to Mocha.
-  // See the full list at http://mochajs.org/
-  mochaOpts: {
-    ui: 'bdd',
-    timeout: 60000,
-  },
-  //
   // =====
   // Hooks
   // =====

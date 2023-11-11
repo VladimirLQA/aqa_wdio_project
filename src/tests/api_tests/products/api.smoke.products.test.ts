@@ -1,8 +1,8 @@
 import ProductsController from '../../../api/controllers/products.controller';
 import { getNewProduct, productData } from '../../../data/products/product.data';
-import ApiSignInActions from '../../../api/api_actions/api.sign-in.actions';
-import ApiProductsActions from '../../../api/api_actions/api.products.actions';
-import ApiProductsAssertions from '../../../api/api_assertions/api.products.assertions';
+import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions';
+import ApiProductsActions from '../../../api/api_actions/api-products.actions';
+import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions';
 import { CREATE_PRODUCT_SCHEMA } from '../../../data/json_schemas/products.schema';
 
 describe('Smoke api test', () => {

@@ -1,6 +1,5 @@
 import SignInPage from '../../../ui/pages/aqa_project/sign-in.page';
-import { URLS } from '../../../api/endpoints';
-import HomePage from '../../../ui/pages/aqa_project/home.page';
+import SignInEndpoints from '../../../api/endpoints/base-endpoints';
 import { browserPause, isAttributeContainClass } from '../../../utils/helpers';
 import { TIMEOUT } from '../../../utils/aqa_project_const';
 import SignInActions from '../../../ui/actions/sign-in.actions';
@@ -18,7 +17,7 @@ describe('First test in aqa_project', () => {
   let isBgColorRead: boolean;
   before('Prepare to test', async () => {
     await browser.maximizeWindow();
-    await browser.url(URLS.baseURL);
+    await browser.url(SignInEndpoints.baseURL);
     await $(SignInPage.Image).waitForDisplayed({
       timeout: TIMEOUT['5 seconds'],
       timeoutMsg: `Home page not opened after 5 seconds`,
