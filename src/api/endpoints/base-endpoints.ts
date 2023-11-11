@@ -8,3 +8,7 @@ export const URLS = {
     productByID: (id: string) => `api/products/${id}/`,
   },
 };
+
+export class Endpoints {}
+
+export class
