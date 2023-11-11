@@ -1,4 +1,4 @@
-import { ApiBaseAssertions } from './api.base.assertions';
+import { ApiBaseAssertions } from './api-base.assertions';
 
 
 class ApiProductsAssertions extends ApiBaseAssertions {

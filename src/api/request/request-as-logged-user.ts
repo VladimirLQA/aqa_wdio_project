@@ -1,9 +1,8 @@
 import type { RequestParams } from '../types/api-request.types';
-import SignInActions from '../../ui/actions/sign-in.actions';
-import { AxiosResponse } from 'axios';
+import ApiSignInActions from '../api_actions/api-sign-in.actions';
 
 export const reqAsLoggedUser = async <T>(action: Function, params: RequestParams<T>) => {
-  params.token = await SignInActions.getToken();
+  params.token = await ApiSignInActions.signInAsAdminAndGetToken();
   const response = await action(params);
   return response;
 };
