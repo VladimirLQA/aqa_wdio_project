@@ -1,14 +1,9 @@
-export const URLS = {
-  baseHerokuapp: 'http://the-internet.herokuapp.com/',
-  baseURL: 'https://aqa-course-project.app/',
-  endpoints: {
-    login: `api/login/`,
+export class BaseEndpoints {
+  readonly baseURL = 'https://aqa-course-project.app/';
+}
 
-    products: `api/products/`,
-    productByID: (id: string) => `api/products/${id}/`,
-  },
-};
+class SignInEndpoints extends BaseEndpoints {
+  readonly login = `api/login/`;
+}
 
-export class Endpoints {}
-
-export class
+export default new SignInEndpoints();
