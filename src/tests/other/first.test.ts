@@ -1,5 +1,5 @@
 import { find } from '../../utils/helpers';
-import { URLS } from '../../api/endpoints';
+import { URLS } from '../../api/endpoints/base-endpoints';
 import { userCredentials } from '../../data/other/first_test_constant';
 
 describe('Login page tests', () => {

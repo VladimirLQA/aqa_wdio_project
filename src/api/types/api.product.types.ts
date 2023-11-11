@@ -1,4 +1,4 @@
-import type { IProduct } from '../../ui/types/products.type';
+import type { IProduct } from '../../ui/types/products.types';
 
 interface IProductResponse extends IProduct {
   _id: string;

@@ -1,4 +1,4 @@
-import { URLS } from '../../api/endpoints';
+import { URLS } from '../../api/endpoints/base-endpoints';
 import DropdownPage from '../../ui/pages/herokuapp/dropdown.page';
 import MainPageHerokuapp from '../../ui/pages/herokuapp/herokuapp.page';
 
