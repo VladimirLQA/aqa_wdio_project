@@ -23,6 +23,6 @@
   },
   "include": [
     "src",
-    "wdio.conf.ts"
+    "src/config/wdio.conf.ts"
   ]
 }

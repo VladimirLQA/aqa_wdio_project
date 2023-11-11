@@ -1,14 +1,14 @@
 import Request from '../request/request';
 import { Id, RequestOptions, RequestParams } from '../types/api-request.types';
-import ProductsEndpoints from '../endpoints/products-endpoints';
+import { URLS } from '../endpoints/base-endpoints';
 import { IProduct } from '../../ui/types/products.types';
 
 class ProductsController {
   public async get(params: RequestParams<Id>) {
     const options: RequestOptions = {
       method: 'GET',
-      baseURL: ProductsEndpoints.baseURL,
-      url: params.data ? ProductsEndpoints.productByID(params.data._id) : ProductsEndpoints.products,
+      baseURL: URLS.baseURL,
+      url: params.data ? URLS.endpoints.productByID(params.data._id) : URLS.endpoints.products,
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${params.token}` },
     };
     return Request.sendRequest(options);
@@ -17,8 +17,8 @@ class ProductsController {
   public async create(params: RequestParams<IProduct>) {
     const options: RequestOptions = {
       method: 'POST',
-      baseURL: ProductsEndpoints.baseURL,
-      url: ProductsEndpoints.products,
+      baseURL: URLS.baseURL,
+      url: URLS.endpoints.products,
       headers: { Authorization: `Bearer ${params.token}` },
       data: params.data,
     };
@@ -28,8 +28,8 @@ class ProductsController {
   public async update(params: RequestParams<IProduct>) {
     const options: RequestOptions = {
       method: 'PUT',
-      baseURL: ProductsEndpoints.baseURL,
-      url: ProductsEndpoints.products,
+      baseURL: URLS.baseURL,
+      url: URLS.endpoints.products,
       headers: { Authorization: `Bearer ${params.token}` },
       data: params.data,
     };
@@ -39,8 +39,8 @@ class ProductsController {
   public async delete(params: Required<RequestParams<Id>>) {
     const options: RequestOptions = {
       method: 'DELETE',
-      baseURL: ProductsEndpoints.baseURL,
-      url: ProductsEndpoints.productByID(params.data._id),
+      baseURL: URLS.baseURL,
+      url: URLS.endpoints.productByID(params.data._id),
       headers: { Authorization: `Bearer ${params.token}` },
     };
     return Request.sendRequest(options);

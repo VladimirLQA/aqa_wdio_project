@@ -1,4 +1,6 @@
 import type { Options } from '@wdio/types';
+import reporters from './reporters';
+import spec from './specs';
 
 export const config: Options.Testrunner = {
   //
@@ -31,13 +33,14 @@ export const config: Options.Testrunner = {
   // then the current working directory is where your `package.json` resides, so `wdio`
   // will be called from there.
   //
-  specs: [
-    // ToDo: define location for spec files here
-    `${process.cwd()}/src/**/smoke.test.ts`,
-  ],
+  specs: spec,
+  suites: {
+    mocha: ['../tests/ui_tests/**/*.test.ts'],
+    cucumber: ['../ui/features/**/*.feature'],
+  },
   // Patterns to exclude.
   exclude: [
-    // 'path/to/excluded/files'
+    '../tests/other/'
   ],
   //
   // ============
@@ -110,20 +113,6 @@ export const config: Options.Testrunner = {
   // Default request retries count
   connectionRetryCount: 3,
   //
-  // Test runner services
-  // Services take over a specific job you don't want to take care of. They enhance
-  // your test setup with almost no effort. Unlike plugins, they don't add new
-  // commands. Instead, they hook themselves up into the test process.
-  // services: [],
-  //
-  // Framework you want to run your specs with.
-  // The following are supported: Mocha, Jasmine, and Cucumber
-  // see also: https://webdriver.io/docs/frameworks
-  //
-  // Make sure you have the wdio adapter package for the specific framework installed
-  // before running any tests.
-  framework: 'mocha',
-  //
   // The number of times to retry the entire specfile when it fails as a whole
   // specFileRetries: 1,
   //
@@ -136,7 +125,7 @@ export const config: Options.Testrunner = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: ['spec', ['allure', { outputDir: 'allure-results' }]],
+  reporters: reporters,
 
   //
   // Options to be passed to Mocha.

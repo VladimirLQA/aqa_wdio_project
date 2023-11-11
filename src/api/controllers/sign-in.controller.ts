@@ -1,14 +1,14 @@
 import { RequestOptions, RequestParams } from '../types/api-request.types';
 import { IUserCredentials } from '../../ui/types/user.types';
-import { URLS } from '../endpoints';
 import Request from '../request/request';
+import SignInEndpoints from '../endpoints/base-endpoints'
 
 class SignInController {
   async login(params: RequestParams<IUserCredentials>) {
     const options: RequestOptions = {
       method: 'POST',
-      baseURL: URLS.baseURL,
-      url: URLS.endpoints.login,
+      baseURL: SignInEndpoints.baseURL,
+      url: SignInEndpoints.login,
       headers: {'Content-Type': 'application/json'},
       data: params.data,
     };
