@@ -19,9 +19,7 @@ class AddNewProductPage extends BasePage {
 
   readonly ['Manufacturer dropdown list'] = '#inputManufacturer > option';
 
-  readonly ['Manufacturer dropdown'] = '#inputManufacturer'
-
-  readonly ['Manufacturer dropdown brand'] = (brand: string) => `//option[text()="${brand}"]`;
+  readonly ['Manufacturer dropdown'] = '#inputManufacturer';
 
   readonly ['Price input field error'] = '#error-inputPrice';
 
