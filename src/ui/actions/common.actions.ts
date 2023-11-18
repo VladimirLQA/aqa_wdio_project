@@ -104,10 +104,21 @@ export class CommonActions extends BaseActions {
     });
   }
 
+  @logAction('Check quick filters')
   async checkQuickFilters(quickFilters: UnionFilterModalLabels[]) {
     await this.clickOnFiltersButton();
     await FiltersModalActions.checkFiltersBox(FilterModalPage, quickFilters);
     await FiltersModalActions.clickOnApplyButton();
+  }
+
+  @logAction('Click on search button')
+  async clickOnSearchButton(page: CommonPage) {
+    await this.basePage.waitForElemAndClick(this.commonPage['Search button'](page.pageName));
+  }
+
+  @logAction('Fill search input')
+  async fillSearchInput(searchValue: string) {
+    await this.basePage.waitForElemAndSetValue(this.commonPage['Search input'], searchValue);
   }
 
 }

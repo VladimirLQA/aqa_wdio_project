@@ -28,7 +28,7 @@ describe('WDIO - 7', () => {
 
   it('Should verify table data after search with search value', async () => {
     await ProductsActions.fillSearchInput('app');
-    await ProductsActions.clickOnSearchButton();
+    await ProductsActions.clickOnSearchButton(ProductsPage);
     await ProductsAssertions.verifyElementText(ProductsPage['Chip buttons'], 'app');
     await ProductsAssertions.verifyTableData(ProductsPage);
 
@@ -38,7 +38,7 @@ describe('WDIO - 7', () => {
 
     await ProductsActions.checkQuickFilters([MANUFACTURERS.TESLA])
     await ProductsActions.fillSearchInput('6');
-    await ProductsActions.clickOnSearchButton();
+    await ProductsActions.clickOnSearchButton(ProductsPage);
     await ProductsAssertions.verifyTableData(ProductsPage);
 
   });

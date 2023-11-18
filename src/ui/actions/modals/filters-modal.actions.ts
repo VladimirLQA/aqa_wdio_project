@@ -1,9 +1,9 @@
-import ModalActions from '../base.actions';
-import { manufacturersArray } from '../../../data/products/product.data';
+import ModalActions from '../modal.actions';
 import { UnionFilterModalLabels } from '../../types/common.types';
 import FilterModalPage from '../../pages/aqa_project/modals/filter-modal.page';
 
 class FiltersModalActions extends ModalActions {
+
   async clickOnApplyButton() {
     await this.basePage.waitForElemAndClick(FilterModalPage['Apply button']);
   }

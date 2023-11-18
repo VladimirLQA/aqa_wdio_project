@@ -3,6 +3,7 @@ import { IProduct } from '../../types/products.types';
 import AddNewProductPage from '../../pages/aqa_project/products/add-new-product.page';
 import { browserPause } from '../../../utils/helpers';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
+import { MANUFACTURERS } from '../../../data/products/product.data';
 
 class AddNewProductActions extends BaseActions {
   public async fillProductInputs<T>(product: T): Promise<void> {
@@ -30,14 +31,14 @@ class AddNewProductActions extends BaseActions {
     await AddNewProductPage.waitForElemAndClick(AddNewProductPage['Manufacturer dropdown']);
   }
 
-  public async clickOnManufacturerBrand(manufacturer: string) {
-    await AddNewProductPage.waitForElemAndClick(AddNewProductPage['Manufacturer dropdown brand'](manufacturer));
+  public async clickOnManufacturerBrand(manufacturer: MANUFACTURERS) {
+    await AddNewProductPage.waitForElemAndClick(AddNewProductPage['Dropdown option'](manufacturer));
   }
 
   public async createProduct(product: IProduct) {
 
     await this.fillProductInputs(product);
-    await this.chooseDropdownItem(AddNewProductPage['Manufacturer dropdown'], AddNewProductPage['Manufacturer dropdown brand'](product.manufacturer));
+    await this.chooseDropdownItem(AddNewProductPage['Manufacturer dropdown'], AddNewProductPage['Dropdown option'](product.manufacturer));
     await this.clickOnSaveNewProductButton();
     await this.waitForPageLoad();
   }
