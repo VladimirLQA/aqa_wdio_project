@@ -14,4 +14,8 @@ export class CommonPage extends BasePage {
 
   readonly ['Filter button'] = '#filter';
 
+  readonly ['Search input'] = "[type='search']";
+
+  readonly ['Search button'] = (pageName: string) => `#search-${pageName}`;
+
 }

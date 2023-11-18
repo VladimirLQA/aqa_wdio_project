@@ -6,10 +6,6 @@ class OrdersPage extends CommonPage {
 
   readonly ['Page title'] = '.page-header-flex h2';
 
-  readonly ['Search input'] = "[type='search']";
-
-  readonly ['Search button'] = '#search-orders';
-
   readonly ['Create order button'] = 'button.page-title-button';
 
   readonly ['Table row selector'] = (orderNum: string) => `//tr[./td[text()="${orderNum}"]]`;

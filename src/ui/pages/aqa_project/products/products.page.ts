@@ -6,10 +6,6 @@ class ProductsPage extends CommonPage {
 
   readonly ['Page header'] = '.page-header-flex h2';
 
-  readonly ['Search input'] = "[type='search']";
-
-  readonly ['Search button'] = '#search-products';
-
   readonly ['Add product button'] = 'button.page-title-button';
 
   readonly ['Table row selector'] = (product: string) => `//tr[./td[text()="${product}"]]`;
