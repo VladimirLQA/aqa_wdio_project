@@ -7,7 +7,7 @@ export class ApiBaseAssertions {
     expect(valid).toBe(true);
   }
 
-  public async verifyResponse(response: AxiosResponse, statusCode: number, IsSuccess: boolean, ErrorMessage: null | string) {
+  public async verifyResponse(response: AxiosResponse, statusCode: number, IsSuccess?: boolean, ErrorMessage?: null | string) {
     expect(response.status).toBe(statusCode);
     expect(response.data.IsSuccess).toBe(IsSuccess);
     expect(response.data.ErrorMessage).toBe(ErrorMessage);
