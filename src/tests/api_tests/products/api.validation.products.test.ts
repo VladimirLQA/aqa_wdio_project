@@ -25,12 +25,6 @@ describe('Smoke api test', () => {
   });
 
   context('Tests with valid data', () => {
-    it('Should create product', async () => {
-      const response = await ApiProductsActions.createProduct(token, getNewProduct());
-      await ApiProductsAssertions.verifyResponse(response, 201, true, null);
-      await ApiProductsAssertions.verifyResponseSchema(CREATE_PRODUCT_SCHEMA, response.data);
-      productsArchive.push(response.data.Product._id);
-    });
 
     for (const product of productData.valid.name) {
       it(`Should create product with name: '${product.name}'`, async () => {

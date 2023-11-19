@@ -6,8 +6,6 @@ import ProductsAssertions from '../../../ui/assertions/products_assertions/produ
 import { productData } from '../../../data/products/products-test.data';
 import { getNewProduct } from '../../../data/products/product.data';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
-import ProductsController from '../../../api/controllers/products.controller';
 import { IProduct } from '../../../ui/types/products.types';
 
 describe('Notifications test on products page', () => {
