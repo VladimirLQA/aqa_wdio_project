@@ -8,7 +8,7 @@ const request = axios.create();
 let response: AxiosResponse;
 
 class Request {
-  public async sendRequest(options: RequestOptions): Response {
+  async sendRequest(options: RequestOptions): Response {
     try {
       response = await request(options as AxiosRequestConfig);
       return response;

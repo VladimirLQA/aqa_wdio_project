@@ -1,7 +1,7 @@
 import Request from '../request/request';
 import { Id, RequestOptions, RequestParams } from '../types/api-request.types';
 import ProductsEndpoints from '../endpoints/products-endpoints';
-import { IProduct } from '../../ui/types/products.types';
+import { IProduct, IProductWithID } from '../../ui/types/products.types';
 
 class ProductsController {
   public async get(params: RequestParams<Id>) {
@@ -25,7 +25,7 @@ class ProductsController {
     return Request.sendRequest(options);
   }
 
-  public async update(params: RequestParams<IProduct>) {
+  public async update(params: Required<RequestParams<IProductWithID>>) {
     const options: RequestOptions = {
       method: 'PUT',
       baseURL: ProductsEndpoints.baseURL,

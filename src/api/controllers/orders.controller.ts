@@ -3,7 +3,7 @@ import { Id, RequestOptions, RequestParams } from '../types/api-request.types';
 import { URLS } from '../endpoints/base-endpoints';
 import { IProduct } from '../../ui/types/products.types';
 
-class ProductsController {
+class OrdersController {
   public async get(params: RequestParams<Id>) {
     const options: RequestOptions = {
       method: 'GET',

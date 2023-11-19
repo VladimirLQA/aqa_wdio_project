@@ -3,7 +3,7 @@ import { Id, RequestOptions, RequestParams } from '../types/api-request.types';
 import CustomerEndpoints from '../endpoints/customer-endpoints';
 import { IProduct } from '../../ui/types/products.types';
 
-class ProductsController {CustomerEndpoints
+class CustomersController {
   public async get(params: RequestParams<Id>) {
     const options: RequestOptions = {
       method: 'GET',
@@ -47,4 +47,4 @@ class ProductsController {CustomerEndpoints
   }
 }
 
-export default new ProductsController();
+export default new CustomersController();
