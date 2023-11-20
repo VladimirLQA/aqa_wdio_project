@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { RequestOptions } from '../types/api-request.types';
+import { logApiActions } from '../../utils/reporter/allure.reporter';
 
 export type Response<T = any> = Promise<AxiosResponse<T>>;
 
@@ -8,6 +9,7 @@ const request = axios.create();
 let response: AxiosResponse;
 
 class Request {
+  @logApiActions
   async sendRequest(options: RequestOptions): Response {
     try {
       response = await request(options as AxiosRequestConfig);
