@@ -20,7 +20,7 @@ export class BaseAssertions {
     expect(isClickable).toBe(expected);
   }
 
-  async verifyContainClass(selector: string, className: string, expected: boolean): Promise<boolean> {
+  async verifyContainClass(selector: string, className: string, expected: boolean) {
     const elem = await this.pageHandler.waitForElement(selector);
     const classAttribute = await elem.getAttribute('class');
     const isContain = classAttribute.toLowerCase().includes(className);
