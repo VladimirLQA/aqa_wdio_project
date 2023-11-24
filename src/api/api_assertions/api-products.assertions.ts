@@ -1,5 +1,5 @@
 import { ApiBaseAssertions } from './api-base.assertions';
-import { IProductResponse } from '../types/api.product.types';
+import { IProductResponse } from '../type/api.product.type';
 
 
 class ApiProductsAssertions extends ApiBaseAssertions {

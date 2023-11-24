@@ -1,4 +1,4 @@
-import { IProductResponse } from '../../api/types/api.product.types';
+import { IProductResponse } from '../../api/type/api.product.type';
 
 export class ProductsStorage {
   private static instance: ProductsStorage;

@@ -3,7 +3,7 @@ import ApiProductsActions from '../../../api/api_actions/api-products.actions';
 import { getNewProduct, MANUFACTURERS } from '../../../data/products/product.data';
 import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions';
 import { CREATE_PRODUCT_SCHEMA } from '../../../data/json_schemas/products.schema';
-import { IProductResponse } from '../../../api/types/api.product.types';
+import { IProductResponse } from '../../../api/type/api.product.type';
 import { IProduct } from '../../../ui/types/products.types';
 
 

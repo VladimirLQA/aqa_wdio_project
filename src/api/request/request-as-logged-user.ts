@@ -1,4 +1,4 @@
-import type { RequestParams } from '../types/api-request.types';
+import type { RequestParams } from '../type/api-request.type';
 import ApiSignInActions from '../api_actions/api-sign-in.actions';
 
 export const reqAsLoggedUser = async <T>(action: Function, params: RequestParams<T>) => {

@@ -5,7 +5,7 @@ import ApiProductsActions from '../../../api/api_actions/api-products.actions';
 import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions';
 import { ProductsStorage } from '../../../utils/storages/products.storage';
 import { ActionButtons } from '../../types/common.types';
-import { IProductResponse } from '../../../api/types/api.product.types';
+import { IProductResponse } from '../../../api/type/api.product.type';
 import { logAction } from '../../../utils/reporter/allure.reporter';
 import { CommonActions } from '../common.actions';
 import DeleteModalActions from '../modals/delete-modal.actions';

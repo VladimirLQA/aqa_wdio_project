@@ -1,4 +1,4 @@
-import { RequestOptions, RequestParams } from '../types/api-request.types';
+import { RequestOptions, RequestParams } from '../type/api-request.type';
 import { IUserCredentials } from '../../ui/types/user.types';
 import Request from '../request/request';
 import SignInEndpoints from '../endpoints/base-endpoints'

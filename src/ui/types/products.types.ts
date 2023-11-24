@@ -1,5 +1,5 @@
 import { MANUFACTURERS } from '../../data/products/product.data';
-import { Id } from '../../api/types/api-request.types';
+import { Id } from '../../api/type/api-request.type';
 
 export interface IProduct {
   name: string;

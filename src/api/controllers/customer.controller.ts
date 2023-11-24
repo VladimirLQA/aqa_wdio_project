@@ -1,5 +1,5 @@
 import Request from '../request/request';
-import { Id, RequestOptions, RequestParams } from '../types/api-request.types';
+import { Id, RequestOptions, RequestParams } from '../type/api-request.type';
 import CustomerEndpoints from '../endpoints/customer-endpoints';
 import { IProduct } from '../../ui/types/products.types';
 

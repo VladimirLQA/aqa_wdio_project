@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { RequestOptions } from '../types/api-request.types';
+import { RequestOptions } from '../type/api-request.type';
 import { logApiActions } from '../../utils/reporter/allure.reporter';
 
 export type Response<T = any> = Promise<AxiosResponse<T>>;
