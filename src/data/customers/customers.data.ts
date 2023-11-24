@@ -1,4 +1,4 @@
-enum COUNTRIES {
+export enum COUNTRIES {
   USA = 'USA',
   BELARUS = 'Belarus',
   GERMANY = 'Germany',
@@ -8,5 +8,3 @@ enum COUNTRIES {
   FRANCE = 'France',
   RUSSIA = 'Russia',
 }
-
-export { COUNTRIES };

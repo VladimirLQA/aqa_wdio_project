@@ -2,7 +2,7 @@ import BasePage from './base.page';
 
 
 export class CommonPage extends BasePage {
-  readonly pageName: string;
+  readonly pageName: string = '';
 
   readonly ['Chip buttons'] = '#chip-buttons .chip';
 
