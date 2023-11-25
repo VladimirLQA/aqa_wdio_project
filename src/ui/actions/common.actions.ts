@@ -7,7 +7,6 @@ import { reqAsLoggedUser } from '../../api/request/request-as-logged-user';
 import ControllersList from '../../api/controllers/contollers.index';
 import { apiKeyMapper, capitalize } from '../../utils/helpers';
 import { logAction } from '../../utils/reporter/allure.reporter';
-import ProductsPage from '../pages/aqa_project/products/products.page';
 import FiltersModalActions from './modals/filters-modal.actions';
 import FilterModalPage from '../pages/aqa_project/modals/filter-modal.page';
 

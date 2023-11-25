@@ -1,4 +1,3 @@
-import { MANUFACTURERS } from '../../data/products/product.data';
 import { Id } from '../../api/type/api-request.type';
 
 export interface IProduct {
@@ -12,3 +11,25 @@ export interface IProduct {
 export type IProductWithID = IProduct & Id;
 
 export type ToastMessage = 'created' | 'updated' | 'deleted' | 'already exist' | 'assigned to order';
+
+export enum MANUFACTURERS {
+  APPLE = 'Apple',
+  SAMSUNG = 'Samsung',
+  GOOGLE = 'Google',
+  MICROSOFT = 'Microsoft',
+  SONY = 'Sony',
+  XIAOMI = 'Xiaomi',
+  AMAZON = 'Amazon',
+  TESLA = 'Tesla',
+}
+
+export const manufacturersArray = [
+  MANUFACTURERS.GOOGLE,
+  MANUFACTURERS.TESLA,
+  MANUFACTURERS.MICROSOFT,
+  MANUFACTURERS.APPLE,
+  MANUFACTURERS.SAMSUNG,
+  MANUFACTURERS.SONY,
+  MANUFACTURERS.XIAOMI,
+  MANUFACTURERS.AMAZON,
+];

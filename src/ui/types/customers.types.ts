@@ -1,5 +1,3 @@
-import { COUNTRIES } from '../../data/customers/customers.data';
-
 export interface ICustomer {
   email: string;
   country: string | COUNTRIES;
@@ -10,4 +8,15 @@ export interface ICustomer {
   city: string;
   house: number;
   phone: string;
+}
+
+export enum COUNTRIES {
+  USA = 'USA',
+  BELARUS = 'Belarus',
+  GERMANY = 'Germany',
+  GREAT_BRITAIN = 'Great Britain',
+  CANADA = 'Canada',
+  UKRAINE = 'Ukraine',
+  FRANCE = 'France',
+  RUSSIA = 'Russia',
 }

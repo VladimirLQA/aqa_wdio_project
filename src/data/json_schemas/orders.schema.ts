@@ -1,3 +1,7 @@
+import { COUNTRIES } from '../../ui/types/customers.types';
+import { MANUFACTURERS } from '../../ui/types/products.types';
+import { DELIVERY, ORDER_STATUSES } from '../../ui/types/order.types';
+
 export const CREATE_ORDER_SCHEMA = {
   type: 'object',
   properties: {
@@ -11,7 +15,7 @@ export const CREATE_ORDER_SCHEMA = {
         total_price: { type: 'integer' },
         comments: {
           type: 'array',
-          items: {
+          items: [{
             type: 'object',
             properties: {
               createdOn: { type: 'string' },
@@ -21,7 +25,7 @@ export const CREATE_ORDER_SCHEMA = {
               },
               text: { type: 'string' },
             },
-          },
+          }],
         },
         createdOn: { type: 'string' },
         history: {
@@ -32,7 +36,7 @@ export const CREATE_ORDER_SCHEMA = {
               action: { type: 'string' },
               changedOn: { type: 'string' },
               customer: { type: 'string' },
-              status: { enum: ['Draft', 'Partially Received', 'Canceled', 'In Process', 'Received'] },
+              status: { enum: Object.values(ORDER_STATUSES) },
               total_price: { type: 'integer' },
               products: {
                 type: 'array',
@@ -46,7 +50,7 @@ export const CREATE_ORDER_SCHEMA = {
                     name: { type: 'string' },
                     amount: { type: 'integer' },
                     price: { type: 'integer' },
-                    manufacturer: { type: 'string' },
+                    manufacturer: { enum: Object.values(MANUFACTURERS) },
                     notes: { type: 'string' },
                     received: { type: 'boolean' },
                   },
@@ -56,13 +60,16 @@ export const CREATE_ORDER_SCHEMA = {
                 type: 'object',
                 properties: {
                   finalDate: { type: 'string' },
-                  condition: { type: 'string' },
+                  condition: {
+                    type: ['string', 'null'],
+                    enum: Object.values(DELIVERY),
+                  },
                   address: {
                     type: 'object',
                     properties: {
                       flat: { type: 'integer' },
                       house: { type: 'integer' },
-                      country: { enum: ['USA', 'Belarus', 'Germany', 'Great Britain', 'Canada', 'Ukraine', 'France', 'Russia'] },
+                      country: { enum: Object.values(COUNTRIES) },
                       street: { type: 'string' },
                       city: { type: 'string' },
                     },
@@ -84,7 +91,7 @@ export const CREATE_ORDER_SCHEMA = {
               name: { type: 'string' },
               amount: { type: 'integer' },
               price: { type: 'integer' },
-              manufacturer: { type: 'string' },
+              manufacturer: { enum: Object.values(MANUFACTURERS) },
               notes: { type: 'string' },
               received: { type: 'boolean' },
             },
@@ -100,8 +107,7 @@ export const CREATE_ORDER_SCHEMA = {
             email: { type: 'string' },
             flat: { type: 'integer' },
             house: { type: 'integer' },
-            country: { enum: ['USA', 'Belarus', 'Germany', 'Great Britain', 'Canada', 'Ukraine', 'France', 'Russia'] },
-
+            country: { enum: Object.values(COUNTRIES) },
             createdOn: { type: 'string' },
             notes: { type: 'string' },
             street: { type: 'string' },
@@ -111,7 +117,26 @@ export const CREATE_ORDER_SCHEMA = {
           required: ['_id', 'email', 'flat', 'house', 'country', 'createdOn',
             'street', 'city', 'phone'],
         },
-        delivery: { type: ['string', 'null'] },
+        delivery: {
+          type: 'object',
+          properties: {
+            finalDate: { type: 'string' },
+            condition: {
+              type: ['string', 'null'],
+              enum: Object.values(DELIVERY),
+            },
+            address: {
+              type: 'object',
+              properties: {
+                flat: { type: 'integer' },
+                house: { type: 'integer' },
+                country: { enum: Object.values(COUNTRIES) },
+                street: { type: 'string' },
+                city: { type: 'string' },
+              },
+            },
+          },
+        },
         status: { enum: ['Draft', 'Partially Received', 'Canceled', 'In Process', 'Received'] },
       },
     },
