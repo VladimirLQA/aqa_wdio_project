@@ -38,7 +38,7 @@ describe('Notifications test on products page', () => {
     for (const product of productData.valid.name) {
       it(`Should create product with valid name: '${product.description}'`, async () => {
         productToCreate = getNewProduct({ name: product.name });
-        await ProductsStorage.addProduct(productToCreate);
+        ProductsStorage.addProduct(productToCreate);
         tempProductName = productToCreate.name;
 
         await AddNewProductActions.fillProductInputs(productToCreate);

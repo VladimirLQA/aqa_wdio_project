@@ -11,26 +11,30 @@ export class ProductsStorage {
     ProductsStorage.instance = this;
   }
 
-  public static addProduct<T>(product: T): void {
+  static addProduct<T>(product: T): void {
     const productIndex = this.findProductIndexByName(product.name);
-    productIndex !== -1 ? this.updateProduct(product, product.name) : this.products.push(product);
+    productIndex !== -1
+      ? this.updateProduct(product, product.name)
+      : this.products.push(product);
   }
 
-  public static updateProduct(product: IProductResponse, productName: string): void {
+  static updateProduct(product: IProductResponse, productName: string): void {
     const productIndex = this.findProductIndexByName(productName);
-    productIndex !== -1 ? this.products[productIndex] = product : console.error('Product not found');
+    productIndex !== -1
+      ? this.products[productIndex] = product
+      : console.error('Product not found');
   }
 
-  public static getProduct(productName: string) {
+  static getProduct(productName: string) {
     const productIndex = this.findProductIndexByName(productName);
     return this.products[productIndex];
   }
 
-  public static getAllProducts(): IProductResponse[] {
+  static getAllProducts(): IProductResponse[] {
     return this.products;
   }
 
-  public static deleteProduct(productName: string): void {
+  static deleteProduct(productName: string): void {
     const productIndex = this.findProductIndexByName(productName);
      productIndex !== -1
       ? this.products.splice(productIndex, 1)

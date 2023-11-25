@@ -48,7 +48,7 @@ export function logApiActions(target: any, propertyName: string, descriptor: Pro
     allure.addAttachment(`Request body`, JSON.stringify(options.data, null, 2), 'application/json');
     allure.endStep();
 
-    Logger.logApiRequest(JSON.stringify(options));
+    Logger.logApiRequest(JSON.stringify(options, null, 2));
 
     try {
       const response: AxiosResponse = await originalMethod.apply(this, args);
@@ -58,7 +58,7 @@ export function logApiActions(target: any, propertyName: string, descriptor: Pro
       allure.addAttachment(`Response body`, JSON.stringify(response.data, null, 2), 'application/json');
       allure.endStep(response.status >= 400 ? Status.FAILED : Status.PASSED);
 
-      Logger.logApiResponse(JSON.stringify({status: response.status, body: response.data}));
+      Logger.logApiResponse(JSON.stringify({status: response.status, body: response.data}, null, 2));
 
       return response;
     } catch (error) {
