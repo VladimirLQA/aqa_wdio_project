@@ -1,7 +1,6 @@
-import { MANUFACTURERS } from './product.data';
-import { IProduct } from '../../ui/types/products.types';
+import { IProduct, MANUFACTURERS } from '../../ui/types/products.types';
 
-interface ProductsTestData extends IProduct {
+export interface ProductsTestData extends IProduct {
   description: string;
 }
 
@@ -26,31 +25,63 @@ export const productData: Record<string, Record<keyof IProduct, Partial<Products
       },
     ],
     price: [
-      { price: 1 },
-      { price: 99999 },
-      { price: 332 },
+      {
+        price: 1,
+        description: 'Min value',
+      },
+      {
+        price: 99999,
+        description: 'Max value',
+      },
+      {
+        price: 332,
+        description: 'Average value',
+      },
     ],
     manufacturer: [
-      { manufacturer: MANUFACTURERS.GOOGLE },
-      { manufacturer: MANUFACTURERS.TESLA },
-      { manufacturer: MANUFACTURERS.MICROSOFT },
+      {
+        manufacturer: MANUFACTURERS.GOOGLE,
+        description: 'One of the default value',
+      },
+      {
+        manufacturer: MANUFACTURERS.TESLA,
+        description: 'One of the default value',
+      },
     ],
     amount: [
-      { amount: 0 },
-      { amount: 999 },
-      { amount: 36 },
+      {
+        amount: 0,
+        description: 'Min value',
+      },
+      {
+        amount: 999,
+        description: 'Max value',
+      },
+      {
+        amount: 36,
+        description: 'Average value',
+      },
     ],
     notes: [
-      { notes: '' },
-      { notes: 'aaaaaaaaaaaaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt' },
-      { notes: '!@#$%^&&*()_-++=.?,\\}{po[]' },
+      {
+        notes: '',
+        description: 'Empty value',
+      },
+      {
+        notes: '1234567890aaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt',
+        description: '250 symbols value',
+      },
+      {
+        notes: '!@#$%^&&*()_-++=.?,\\}{po[]',
+        description: 'Special characters except "<>"',
+      },
     ],
   },
   invalid: {
     name: [
       {
-        name: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-        description: '40 symbols value',
+        name: '',
+        description: 'Empty value',
       },
       {
         name: 'aaa',

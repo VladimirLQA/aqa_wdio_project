@@ -34,9 +34,9 @@ class ApiProductsActions {
 
   async updateCustomer(token: string, id: string, newCustomer?: Partial<ICustomer>) {
     try {
-      const { name, manufacturer, amount, price, notes } = (await this.getCustomerByID(token, id)).data.Customer;
+      const { email, country, street, notes, flat, phone, name, city, house } = (await this.getCustomerByID(token, id)).data.Customer;
       const updatedCustomer = {
-        _id: id, name, manufacturer, amount, price, notes, ...newCustomer,
+        _id: id, email, country, street, notes, flat, phone, name, city, house, ...newCustomer,
       };
 
       const response = await CustomerController.update({ token, data: updatedCustomer });

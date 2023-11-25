@@ -1,50 +1,66 @@
 import Request from '../request/request';
 import { Id, RequestOptions, RequestParams } from '../type/api-request.type';
-import { URLS } from '../endpoints/base-endpoints';
+
 import { IProduct } from '../../ui/types/products.types';
+import OrdersEndpoints from '../endpoints/orders-endpoints';
+import { IOrder } from '../../ui/types/order.types';
+import { IApiCommentRequest, IApiOrdersRequest } from '../type/api.orders.type';
 
 class OrdersController {
-  public async get(params: RequestParams<Id>) {
+  async getOrder(params: RequestParams<Id>) {
     const options: RequestOptions = {
       method: 'GET',
-      baseURL: URLS.baseURL,
-      url: params.data ? URLS.endpoints.productByID(params.data._id) : URLS.endpoints.products,
+      baseURL: OrdersEndpoints.baseURL,
+      url: params.data ? OrdersEndpoints.orderById(params.data._id) : OrdersEndpoints.orders,
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${params.token}` },
     };
     return Request.sendRequest(options);
   }
 
-  public async create(params: RequestParams<IProduct>) {
+  async createOrder(params: RequestParams<IApiOrdersRequest>) {
     const options: RequestOptions = {
       method: 'POST',
-      baseURL: URLS.baseURL,
-      url: URLS.endpoints.products,
-      headers: { Authorization: `Bearer ${params.token}` },
+      baseURL: OrdersEndpoints.baseURL,
+      url: OrdersEndpoints.orders,
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json', },
       data: params.data,
     };
     return Request.sendRequest(options);
   }
 
-  public async update(params: RequestParams<IProduct>) {
+  async updateOrder(params: RequestParams<IOrder>) {
     const options: RequestOptions = {
       method: 'PUT',
-      baseURL: URLS.baseURL,
-      url: URLS.endpoints.products,
-      headers: { Authorization: `Bearer ${params.token}` },
+      baseURL: OrdersEndpoints.baseURL,
+      url: OrdersEndpoints.orders,
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json', },
       data: params.data,
     };
     return Request.sendRequest(options);
   }
 
-  public async delete(params: Required<RequestParams<Id>>) {
+  async deleteOrder(params: Required<RequestParams<Id>>) {
     const options: RequestOptions = {
       method: 'DELETE',
-      baseURL: URLS.baseURL,
-      url: URLS.endpoints.productByID(params.data._id),
-      headers: { Authorization: `Bearer ${params.token}` },
+      baseURL: OrdersEndpoints.baseURL,
+      url: OrdersEndpoints.orderById(params.data._id),
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json', },
     };
     return Request.sendRequest(options);
   }
+
+  async addComment(params: RequestParams<IApiCommentRequest>) {
+    const options: RequestOptions = {
+      method: 'DELETE',
+      baseURL: OrdersEndpoints.baseURL,
+      url: OrdersEndpoints.orderComment,
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json', },
+      data: params.data
+    };
+    return Request.sendRequest(options);
+  }
+
+  // update status order
 }
 
-export default new ProductsController();
+export default new OrdersController();

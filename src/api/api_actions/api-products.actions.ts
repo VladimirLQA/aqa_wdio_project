@@ -1,5 +1,7 @@
 import ProductsController from '../controllers/products.controller';
 import { IProduct } from '../../ui/types/products.types';
+import { reqAsLoggedUser } from '../request/request-as-logged-user';
+import { getNewProduct } from '../../data/products/product.data';
 
 class ApiProductsActions {
   async createProduct(token: string, product: IProduct) {
@@ -51,6 +53,15 @@ class ApiProductsActions {
     } catch (error) {
       throw new Error('Error while getting product by id');
     }
+  }
+
+  async createProducts(count: number) {
+    let productsId: string[] = [];
+    for(let i = 1; i <= count; i++) {
+      const product = getNewProduct();
+      productsId.push((await reqAsLoggedUser(ProductsController.create, {data: product})).data.Product._id);
+    }
+    return productsId;
   }
 }
 
