@@ -1,10 +1,10 @@
 import Request from '../request/request';
 import { Id, RequestOptions, RequestParams } from '../type/api-request.type';
 import CustomerEndpoints from '../endpoints/customer-endpoints';
-import { IProduct } from '../../ui/types/products.types';
+import { ICustomer } from '../../ui/types/customers.types';
 
 class CustomersController {
-  public async get(params: RequestParams<Id>) {
+  async get(params: RequestParams<Id>) {
     const options: RequestOptions = {
       method: 'GET',
       baseURL: CustomerEndpoints.baseURL,
@@ -14,7 +14,7 @@ class CustomersController {
     return Request.sendRequest(options);
   }
 
-  public async create(params: RequestParams<IProduct>) {
+  async create(params: RequestParams<ICustomer>) {
     const options: RequestOptions = {
       method: 'POST',
       baseURL: CustomerEndpoints.baseURL,
@@ -25,7 +25,7 @@ class CustomersController {
     return Request.sendRequest(options);
   }
 
-  public async update(params: RequestParams<IProduct>) {
+  async update(params: RequestParams<ICustomer>) {
     const options: RequestOptions = {
       method: 'PUT',
       baseURL: CustomerEndpoints.baseURL,
@@ -36,7 +36,7 @@ class CustomersController {
     return Request.sendRequest(options);
   }
 
-  public async delete(params: Required<RequestParams<Id>>) {
+  async delete(params: Required<RequestParams<Id>>) {
     const options: RequestOptions = {
       method: 'DELETE',
       baseURL: CustomerEndpoints.baseURL,
