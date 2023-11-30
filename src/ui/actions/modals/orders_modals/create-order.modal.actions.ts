@@ -2,12 +2,15 @@ import ModalActions from '../../modal.actions';
 import CreateOrderModalPage from '../../../pages/aqa_project/modals/orders_modals/create-order.modal.page';
 import { logAction } from '../../../../utils/reporter/allure.reporter';
 
-
 class CreateOrderModalActions extends ModalActions {
-
   @logAction('Click on customer dropdown')
   async clickOnCustomerDropdown() {
     await this.basePage.waitForElemAndClick(CreateOrderModalPage['Customer dropdown']);
+  }
+
+  @logAction('Click on customer in dropdown list')
+  async clickOnCustomerFromDropdownList(customerName: string) {
+    await this.basePage.waitForElemAndClick(CreateOrderModalPage['Dropdown option'](customerName));
   }
 
   @logAction('Click on products dropdown')
@@ -15,6 +18,11 @@ class CreateOrderModalActions extends ModalActions {
     await this.basePage.waitForElemAndClick(CreateOrderModalPage['Products dropdown']);
   }
 
+  @logAction('Click on product in dropdown list')
+  async clickOnProductFromDropdownList(product: string) {
+    await this.basePage.waitForElemAndClick(CreateOrderModalPage['Dropdown option'](product));
+  } 
+  
   @logAction('Click on "Add product" button')
   async clickOnAddProductButton() {
     await this.basePage.waitForElemAndClick(CreateOrderModalPage['Add product button']);
@@ -34,8 +42,6 @@ class CreateOrderModalActions extends ModalActions {
   async clickOnDeleteProductButtonFromList(dataId: string) {
     await this.basePage.waitForElemAndClick(CreateOrderModalPage['Delete product button'](dataId));
   }
-
-
 }
 
 export default new CreateOrderModalActions();

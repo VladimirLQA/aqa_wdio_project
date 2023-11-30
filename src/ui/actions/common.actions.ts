@@ -11,34 +11,34 @@ import FiltersModalActions from './modals/filters-modal.actions';
 import FilterModalPage from '../pages/aqa_project/modals/filter-modal.page';
 
 export class CommonActions extends BaseActions {
-
   commonPage: CommonPage = new CommonPage();
 
   async getListOfChipButtons(page: CommonPage): Promise<IChipsFilterOptions> {
     const chips = await elementFinder.findArrayElements(page['Chip buttons']);
+    const chipsFilters: IChipsFilterOptions = {
+      quickFilters: [],
+    };
     if (chips.length) {
-      const chipsFilters: IChipsFilterOptions = {
-        quickFilters: [],
-      };
       await asyncForEach(chips, async (chip) => {
         const actualFilters = await chip.getAttribute(`data-chip-${page.pageName}`);
 
         if (actualFilters === 'search') chipsFilters[actualFilters] = await chip.getText();
         else chipsFilters['quickFilters']?.push(await chip.getText());
       });
-      return chipsFilters;
     }
+
+    return chipsFilters;
   }
 
   async getApiMappedData(page: CommonPage) {
     const data = (await reqAsLoggedUser(ControllersList[page.pageName].get, {})).data[capitalize(page.pageName)];
     const res = await asyncReduce(data, async (result, entity) => {
-      if (entity['price']) entity['price'] = `$${entity.price}`;
+        if (entity['price']) entity['price'] = `$${entity.price}`;
 
-      result.push(await apiKeyMapper(entity, page.pageName));
-      return result;
-    }, []);
-
+        result.push(await apiKeyMapper(entity, page.pageName));
+        return result;
+      }, []);
+    
     return res;
   }
 
@@ -46,15 +46,13 @@ export class CommonActions extends BaseActions {
     const { search, quickFilters } = chipFilters;
     const filteredAndSearchedData: Record<string, string>[] = [];
     await asyncForEach(tableData, async (entity) => {
-      const isMatchQuickFilter = quickFilters?.some(filter => Object.values(entity).at(-1).includes(filter));
-      const isMatchSearch = Object.values(entity).some((value => value.toLowerCase().includes(search?.toLowerCase())));
+      const isMatchQuickFilter = quickFilters?.some((filter) => Object.values(entity).at(-1).includes(filter));
+      const isMatchSearch = Object.values(entity).some((value) => value.toLowerCase().includes(search?.toLowerCase()));
 
       if (search && quickFilters?.length) {
         if (isMatchQuickFilter && isMatchSearch) filteredAndSearchedData.push(entity);
-
       } else if (search) {
         if (isMatchSearch) filteredAndSearchedData.push(entity);
-
       } else if (quickFilters?.length) {
         if (isMatchQuickFilter) filteredAndSearchedData.push(entity);
       }
@@ -94,12 +92,9 @@ export class CommonActions extends BaseActions {
 
       if (chipsToClose === 'all') await chip.$(page['Chip close button']).click();
 
-      if (chipsToClose === 'search')
-        if (actualFilters === 'search') await chip.$(page['Chip close button']).click();
+      if (chipsToClose === 'search') if (actualFilters === 'search') await chip.$(page['Chip close button']).click();
 
-      if (chipsToClose === 'quick filters')
-        if (actualFilters !== 'search') await chip.$(page['Chip close button']).click();
-
+      if (chipsToClose === 'quick filters') if (actualFilters !== 'search') await chip.$(page['Chip close button']).click();
     });
   }
 
@@ -119,5 +114,4 @@ export class CommonActions extends BaseActions {
   async fillSearchInput(searchValue: string) {
     await this.basePage.waitForElemAndSetValue(this.commonPage['Search input'], searchValue);
   }
-
 }

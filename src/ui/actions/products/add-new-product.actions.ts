@@ -2,8 +2,7 @@ import BaseActions from '../base.actions';
 import { IProduct } from '../../types/products.types';
 import AddNewProductPage from '../../pages/aqa_project/products/add-new-product.page';
 import { browserPause } from '../../../utils/helpers';
-import { ProductsStorage } from '../../../utils/storages/products.storage';
-import { MANUFACTURERS } from '../../../data/products/product.data';
+import { MANUFACTURERS } from '../../types/products.types';
 
 class AddNewProductActions extends BaseActions {
   public async fillProductInputs<T>(product: T): Promise<void> {
