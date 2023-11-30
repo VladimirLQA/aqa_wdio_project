@@ -1,6 +1,5 @@
 import BasePage from './base.page';
 
-
 export class CommonPage extends BasePage {
   readonly pageName: string = '';
 
@@ -18,4 +17,9 @@ export class CommonPage extends BasePage {
 
   readonly ['Search button'] = (pageName: string) => `#search-${pageName}`;
 
+  readonly ['Table row selector'] = (searchValue: string) => `//tr[./td[text()="${searchValue}"]]`;
+
+  readonly ['Table row action button'] = 
+    (searchValue: string, actionButton: string) =>
+      `${this['Table row selector'](searchValue)}/td/button[@title='${actionButton}']`;
 }

@@ -37,6 +37,16 @@ class OrderDetailsPage extends BasePage {
   readonly ['Delete comment button'] = (substr: string) => `//p[contains(., "${substr}")]/following-sibling::button`;
 
   readonly ['Comment text'] = (substr: string) => `//p[contains(., "${substr}")]`;
+  
+  readonly ['Receive button'] = `#start-receiving-products`;
+  
+  readonly ['Cancel receiving button'] = `#cancel-receiving`;
+
+  readonly ['Save received products button'] = `#save-received-products`;
+
+  readonly ['Select all checkbox'] = `#selectAll`;
+
+  readonly ['Check box by id'] = (id: number) => `#chekc${id}`;
 }
 
 export default new OrderDetailsPage();
