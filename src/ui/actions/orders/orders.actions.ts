@@ -24,11 +24,11 @@ class OrdersActions extends CommonActions {
   }
 
   @logAction('Get created order table row')
-  async getCreatedProductRow(productName: string) {
+  async getCreatedProductRow(orderNum: string) {
     return {
-      name: await ProductsPage.waitForElemAndGetText(ProductsPage['Name by table row'](productName)),
-      price: await ProductsPage.waitForElemAndGetText(ProductsPage['Price by table row'](productName)),
-      manufacturer: await ProductsPage.waitForElemAndGetText(ProductsPage['Manufacturer by table row'](productName)),
+      name: await OrdersPage.waitForElemAndGetText(OrdersPage['Name by table row'](orderNum)),
+      price: await OrdersPage.waitForElemAndGetText(OrdersPage['Price by table row'](orderNum)),
+      status: await OrdersPage.waitForElemAndGetText(OrdersPage['Status by table row'](orderNum)),
     };
   }
 }

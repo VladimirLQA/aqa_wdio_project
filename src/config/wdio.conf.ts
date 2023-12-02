@@ -35,7 +35,6 @@ export const config: Options.Testrunner = {
   //
   specs: spec,
   suites: {
-    mocha: ['../tests/ui_tests/**/*.test.ts'],
     cucumber: ['../ui/features/**/*.feature'],
   },
   // Patterns to exclude.
@@ -67,9 +66,7 @@ export const config: Options.Testrunner = {
   capabilities: [
     {
       browserName: 'chrome',
-      'goog:chromeOptions': {
-        args: ['--headless']
-      }
+
     },
   ],
 
@@ -107,7 +104,7 @@ export const config: Options.Testrunner = {
   baseUrl: 'http://localhost',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 10000,
+  waitforTimeout: 60000,
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response

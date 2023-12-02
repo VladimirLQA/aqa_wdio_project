@@ -20,6 +20,7 @@
     "noFallthroughCasesInSwitch": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "strictPropertyInitialization": true
   },
   "include": [
     "src",
