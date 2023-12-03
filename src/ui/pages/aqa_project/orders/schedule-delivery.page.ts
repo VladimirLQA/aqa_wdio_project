@@ -11,9 +11,9 @@ class EditDeliveryPage extends BasePage {
 
   readonly ['Date picker days'] = '.datepicker-days';
 
-  readonly ['Date picker days'] = '.datepicker-months';
+  readonly ['Date picker months'] = '.datepicker-months';
 
-  readonly ['Date picker days'] = '.datepicker-years';
+  readonly ['Date picker years'] = '.datepicker-years';
 
   readonly ['Location dropdown'] = '#inputLocation';
 

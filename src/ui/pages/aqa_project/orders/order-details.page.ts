@@ -10,7 +10,7 @@ class OrderDetailsPage extends BasePage {
 
   readonly ['Refresh order button'] = '#refresh-order';
 
-  readonly ['Cancel order button '] = '#cancel-order';
+  readonly ['Cancel order button'] = '#cancel-order';
 
   readonly ['Edit customer pencil button'] = '#edit-customer-pencil';
 
@@ -20,12 +20,12 @@ class OrderDetailsPage extends BasePage {
 
   readonly ['Order details section tab button'] = (tabName: 'delivery' | 'history' | 'comments') => `#${tabName}-tab`;
 
-  readonly ['Details section tab title'] =
+  readonly ['Details order tab title'] =
     (tabName: 'delivery' | 'history' | 'comments') => `#order-details-tabs-content > #${tabName} h4`;
 
   readonly ['Delivery information body'] = '#delivery > .modal-body';
 
-  readonly ['Edit delivery button'] = '#delivery-btn';
+  readonly ['Schedule delivery button'] = '#delivery-btn';
 
   readonly ['Collapse button order history tab'] =
     (action: string) => `//span[text()="${action}"]/preceding-sibling::button`;

@@ -2,25 +2,28 @@ import { CommonActions } from '../common.actions';
 import OrdersPage from '../../pages/aqa_project/orders/orders.page';
 import { logAction } from '../../../utils/reporter/allure.reporter';
 import CreateOrderModalActions from '../modals/orders_modals/create-order.modal.actions';
+import CreateOrderModalPage from '../../pages/aqa_project/modals/orders_modals/create-order.modal.page';
 
 class OrdersActions extends CommonActions {
   @logAction('Click on details row button')
   async clickOnDetailsRowButton(orderNum: string, action: string) {
-    await this.basePage.waitForElemAndClick(OrdersPage['Table row action button'](orderNum, action));
+    await OrdersPage.waitForElemAndClick(OrdersPage['Table row action button'](orderNum, action));
   }
 
   @logAction('Click on "Create order" button')
   async clickOnCreateOrderButton() {
-    await this.basePage.waitForElemAndClick(OrdersPage['Create order button']);
+    await OrdersPage.waitForElemAndClick(OrdersPage['Create order button']);
   }
 
   @logAction('Create order')
-  async createOrder(customerName: string) {
-    await this.clickOnCreateOrderButton(); 
-    await CreateOrderModalActions.clickOnCustomerDropdown(); 
-    await CreateOrderModalActions.clickOnCustomerFromDropdownList(customerName);
-    await CreateOrderModalActions.clickOnAddProductButton(); 
-    await CreateOrderModalActions.clickOnCreateButton(); 
+  async createOrder(customerName: string, products: string[]) {
+    await this.clickOnCreateOrderButton();
+    await this.chooseDropdownItem(CreateOrderModalPage['Customer dropdown'], CreateOrderModalPage['Dropdown option'](customerName));
+    for(const product of products) {
+      await this.chooseDropdownItem(CreateOrderModalPage['Products dropdown'], CreateOrderModalPage['Dropdown option'](product));
+      await CreateOrderModalActions.clickOnAddProductButton();
+    }
+    await CreateOrderModalActions.clickOnCreateButton();
   }
 
   @logAction('Get created order table row')
@@ -29,6 +32,8 @@ class OrdersActions extends CommonActions {
       name: await OrdersPage.waitForElemAndGetText(OrdersPage['Name by table row'](orderNum)),
       price: await OrdersPage.waitForElemAndGetText(OrdersPage['Price by table row'](orderNum)),
       status: await OrdersPage.waitForElemAndGetText(OrdersPage['Status by table row'](orderNum)),
+      number: await OrdersPage.waitForElemAndGetText(OrdersPage['Order number by table row'](orderNum)),
+      delivery: await OrdersPage.waitForElemAndGetText(OrdersPage['Delivery by table row'](orderNum)),
     };
   }
 }

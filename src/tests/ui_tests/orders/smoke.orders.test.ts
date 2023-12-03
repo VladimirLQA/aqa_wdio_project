@@ -6,6 +6,7 @@ import OrdersAssertions from '../../../ui/assertions/orders_assertions/orders.as
 import { orderPageToastMessages } from '../../../data/orders/orders.data'
 
 describe('Smoke test on orders page', () => {
+  let productsArr = ['test 1', 'test 2'];
   before(async () => {
     await SignInActions.openSalesPortal();
     await SignInActions.signIn();
@@ -15,7 +16,7 @@ describe('Smoke test on orders page', () => {
   after(async () => {});
 
   it('Create order', async () => {
-    await OrderActions.createOrder('Anatoly'); 
+    await OrderActions.createOrder('Anatoly', productsArr); 
     await OrdersAssertions.verifyToastMessage(orderPageToastMessages.orderCreated()); 
   }); 
 
