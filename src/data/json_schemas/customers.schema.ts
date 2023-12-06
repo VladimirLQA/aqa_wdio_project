@@ -13,7 +13,7 @@ export const CREATE_CUSTOMER_SCHEMA = {
         email: { type: 'string' },
         flat: { type: 'integer' },
         house: { type: 'integer' },
-        country: { type: 'string' },
+        country: { type: Object.values(COUNTRIES) },
         createdOn: { type: 'string' },
         notes: { type: 'string' },
         street: { type: 'string' },

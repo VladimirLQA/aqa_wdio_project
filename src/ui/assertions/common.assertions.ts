@@ -3,7 +3,6 @@ import { CommonPage } from '../pages/aqa_project/common.page';
 import { CommonActions } from '../actions/common.actions';
 import { IProduct } from '../types/products.types';
 import DetailsModalPage from '../pages/aqa_project/modals/details-modal.page';
-import { expect as expectChai } from 'chai'
 
 export class CommonAssertions extends BaseAssertions {
   private commonActions: CommonActions = new CommonActions();

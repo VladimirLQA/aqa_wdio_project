@@ -1,9 +1,8 @@
-import ModalActions from '../modal.actions';
-import { UnionFilterModalLabels } from '../../types/common.types';
 import FilterModalPage from '../../pages/aqa_project/modals/filter-modal.page';
+import { UnionFilterModalLabels } from '../../types/common.types';
+import ModalActions from '../modal.actions';
 
 class FiltersModalActions extends ModalActions {
-
   async clickOnApplyButton() {
     await this.basePage.waitForElemAndClick(FilterModalPage['Apply button']);
   }
@@ -16,7 +15,7 @@ class FiltersModalActions extends ModalActions {
     await this.checkFiltersBox(FilterModalPage, labels);
   }
 
-  async checkFiltersBox(modalSelector: FilterModalPage, labels?: UnionFilterModalLabels[]) {
+  async checkFiltersBox(modalSelector: typeof FilterModalPage, labels?: UnionFilterModalLabels[]) {
     for (const label of labels) {
       await this.basePage.waitForElemAndClick(modalSelector['Filter checkbox'](label));
     }

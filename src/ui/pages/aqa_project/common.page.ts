@@ -19,7 +19,6 @@ export class CommonPage extends BasePage {
 
   readonly ['Table row selector'] = (searchValue: string) => `//tr[./td[text()="${searchValue}"]]`;
 
-  readonly ['Table row action button'] = 
-    (searchValue: string, actionButton: string) =>
-      `${this['Table row selector'](searchValue)}/td/button[@title='${actionButton}']`;
+  readonly ['Table row action button'] = (searchValue: string, actionButton: string) =>
+    `${this['Table row selector'](searchValue)}/td/button[@title='${actionButton}']`;
 }

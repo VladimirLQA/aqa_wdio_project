@@ -4,16 +4,13 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Logger from '../logger/logger';
 
 export function logAction(stepName: string): MethodDecorator {
-  return function(target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+  return function (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
     const originalMethod = descriptor.value;
-    descriptor.value = async function(...args: any[]) {
-
+    descriptor.value = async function (...args: any[]) {
       const selector = args[0]; // Extract the selector from the arguments
       const value = args[1]; // Extract the value from the arguments
 
-      let newStepName = stepName
-        .replace('{selector}', `"${selector}"`)
-        .replace('{text}', `"${value}"`);
+      let newStepName = stepName.replace('{selector}', `"${selector}"`).replace('{text}', `"${value}"`);
 
       allure.startStep(newStepName);
       try {
@@ -40,7 +37,7 @@ export function attachScreenshot(screenshot: string) {
 export function logApiActions(target: any, propertyName: string, descriptor: PropertyDescriptor) {
   const originalMethod = descriptor.value;
 
-  descriptor.value = async function(...args: any[]) {
+  descriptor.value = async function (...args: any[]) {
     const options: AxiosRequestConfig = args[0];
 
     allure.startStep(`Request: ${options.method.toUpperCase()} ${options.url}`);
@@ -58,7 +55,7 @@ export function logApiActions(target: any, propertyName: string, descriptor: Pro
       allure.addAttachment(`Response body`, JSON.stringify(response.data, null, 2), 'application/json');
       allure.endStep(response.status >= 400 ? Status.FAILED : Status.PASSED);
 
-      Logger.logApiResponse(JSON.stringify({status: response.status, body: response.data}, null, 2));
+      Logger.logApiResponse(JSON.stringify({ status: response.status, body: response.data }, null, 2));
 
       return response;
     } catch (error) {
