@@ -1,6 +1,6 @@
-import ModalActions from '../../modal.actions';
-import CreateOrderModalPage from '../../../pages/aqa_project/modals/orders_modals/create-order.modal.page';
 import { logAction } from '../../../../utils/reporter/allure.reporter';
+import CreateOrderModalPage from '../../../pages/aqa_project/modals/orders_modals/create-order.modal.page';
+import ModalActions from '../../modal.actions';
 
 class CreateOrderModalActions extends ModalActions {
   @logAction('Click on "Add product" button')
@@ -21,6 +21,14 @@ class CreateOrderModalActions extends ModalActions {
   @logAction('Click on "Delete" product button')
   async clickOnDeleteProductButtonFromList(dataId: string) {
     await CreateOrderModalPage.waitForElemAndClick(CreateOrderModalPage['Delete product button'](dataId));
+  }
+
+  @logAction('Add products to order')
+  async addProductsToOrder(products: string[]) {
+    for (const [index, product] of products.entries()) {
+      await this.chooseDropdownItem(CreateOrderModalPage['Products dropdown'], CreateOrderModalPage['Dropdown option'](product));
+      if (index !== products.length - 1) await this.clickOnAddProductButton();
+    }
   }
 }
 

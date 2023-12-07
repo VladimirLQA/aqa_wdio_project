@@ -1,6 +1,6 @@
-import BaseActions from './base.actions';
-import ModalPage from '../pages/aqa_project/modals/modal.page';
 import { logAction } from '../../utils/reporter/allure.reporter';
+import ModalPage from '../pages/aqa_project/modals/modal.page';
+import BaseActions from './base.actions';
 
 export default class ModalActions extends BaseActions {
   modalPage: ModalPage = new ModalPage();

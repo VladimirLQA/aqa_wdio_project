@@ -18,16 +18,9 @@ class OrdersActions extends CommonActions {
   @logAction('Create order')
   async createOrder(customerName: string, products: string[]) {
     await this.clickOnCreateOrderButton();
-    await this.chooseDropdownItem(CreateOrderModalPage['Customer dropdown'], CreateOrderModalPage['Dropdown option'](customerName));
-    for (const product of products) {
-      await this.chooseDropdownItem(CreateOrderModalPage['Products dropdown'], CreateOrderModalPage['Dropdown option'](product));
-      await CreateOrderModalActions.clickOnAddProductButton();
-    }
+    await CreateOrderModalActions.addProductsToOrder(products);
     await CreateOrderModalActions.clickOnCreateButton();
   }
-  // TODO
-  // for editing getDropdownByItemName
-  // (//select[@name='Product'])[1]
 
   @logAction('Get created order table row')
   async getCreatedProductRow(orderNum: string) {

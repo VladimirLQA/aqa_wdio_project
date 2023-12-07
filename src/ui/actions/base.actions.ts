@@ -3,7 +3,6 @@ import { elementFinder } from '../../utils/element-finder';
 import { browserPause } from '../../utils/helpers';
 import { logAction } from '../../utils/reporter/allure.reporter';
 
-
 export default class BaseActions {
   public basePage: BasePage;
 
@@ -49,5 +48,4 @@ export default class BaseActions {
   async enableButton(selector: string) {
     return browser.execute(`$('button${selector}').removeAttr("disabled")`);
   }
-
 }
