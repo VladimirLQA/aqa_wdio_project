@@ -1,10 +1,9 @@
 import ModalPage from '../modal.page';
 
-
 class CreateOrderModalPage extends ModalPage {
   readonly ['Customer dropdown'] = '#inputCustomerOrder';
 
-  readonly ['Products dropdown'] = 'select[name="Product"]';
+  readonly ['Products dropdown'] = `(//select[@name="Product"])[last()]`;
 
   readonly ['Customer dropdown list'] = '#inputCustomerOrder > option';
 
@@ -19,7 +18,6 @@ class CreateOrderModalPage extends ModalPage {
   readonly ['Total price'] = '#total-price-order-modal';
 
   readonly ['Delete product button'] = (dataId: string) => `button[data-delete-id="${dataId}"]`;
-
 }
 
 export default new CreateOrderModalPage();
