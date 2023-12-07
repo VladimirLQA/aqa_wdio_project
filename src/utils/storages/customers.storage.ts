@@ -13,24 +13,17 @@ export class CustomersStorage {
 
   static addCustomer<T>(customer: T): void {
     const customerIndex = this.findCustomerIndexByEmail(customer.email);
-    customerIndex !== -1
-      ? this.updateCustomer(customer, customer.email)
-      : this.customers.push(customer);
+    customerIndex !== -1 ? this.updateCustomer(customer, customer.email) : this.customers.push(customer);
   }
 
   static updateCustomer(customer: ICustomerResponse, customerEmail: string): void {
     const customerIndex = this.findCustomerIndexByEmail(customerEmail);
-    customerIndex !== -1
-      ? this.customers[customerIndex] = customer
-      : console.log('Customer not found');
+    customerIndex !== -1 ? (this.customers[customerIndex] = customer) : console.log('Customer not found');
   }
 
   static getCustomer(customerEmail: string) {
     const customerIndex = this.findCustomerIndexByEmail(customerEmail);
-    return customerIndex !== -1
-      ? this.customers[customerIndex]
-      : console.log('Customer not found');
-
+    return customerIndex !== -1 ? this.customers[customerIndex] : console.log('Customer not found');
   }
 
   static getAllCustomers(): ICustomerResponse[] {
@@ -39,9 +32,7 @@ export class CustomersStorage {
 
   static deleteCustomer(customerEmail: string) {
     const customerIndex = this.findCustomerIndexByEmail(customerEmail);
-    customerIndex !== -1
-      ? this.customers.splice(customerIndex, 1)
-      : console.log('Customer not found');
+    customerIndex !== -1 ? this.customers.splice(customerIndex, 1) : console.log('Customer not found');
   }
 
   private static findCustomerIndexByEmail(customerEmail: string): number {
