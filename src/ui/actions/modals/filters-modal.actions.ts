@@ -15,7 +15,7 @@ class FiltersModalActions extends ModalActions {
     await this.checkFiltersBox(FilterModalPage, labels);
   }
 
-  async checkFiltersBox(modalSelector: typeof FilterModalPage, labels?: UnionFilterModalLabels[]) {
+  async checkFiltersBox(modalSelector: typeof FilterModalPage, labels: UnionFilterModalLabels[]) {
     for (const label of labels) {
       await this.basePage.waitForElemAndClick(modalSelector['Filter checkbox'](label));
     }

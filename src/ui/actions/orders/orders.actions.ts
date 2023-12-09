@@ -18,6 +18,7 @@ class OrdersActions extends CommonActions {
   @logAction('Create order')
   async createOrder(customerName: string, products: string[]) {
     await this.clickOnCreateOrderButton();
+    await this.chooseDropdownItem(CreateOrderModalPage['Customer dropdown'], CreateOrderModalPage['Dropdown option'](customerName));
     await CreateOrderModalActions.addProductsToOrder(products);
     await CreateOrderModalActions.clickOnCreateButton();
   }

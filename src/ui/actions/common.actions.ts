@@ -1,14 +1,14 @@
-import BaseActions from './base.actions';
-import { IChipsFilterOptions, UnionFilterModalLabels } from '../types/common.types';
-import { CommonPage } from '../pages/aqa_project/common.page';
-import { elementFinder } from '../../utils/element-finder';
-import { asyncForEach, asyncReduce } from '../../utils/async_array_methods/array-async-methods';
-import { reqAsLoggedUser } from '../../api/request/request-as-logged-user';
 import ControllersList from '../../api/controllers/contollers.index';
+import { reqAsLoggedUser } from '../../api/request/request-as-logged-user';
+import { asyncForEach, asyncReduce } from '../../utils/async_array_methods/array-async-methods';
+import { elementFinder } from '../../utils/element-finder';
 import { apiKeyMapper, capitalize } from '../../utils/helpers';
 import { logAction } from '../../utils/reporter/allure.reporter';
-import FiltersModalActions from './modals/filters-modal.actions';
+import { CommonPage } from '../pages/aqa_project/common.page';
 import FilterModalPage from '../pages/aqa_project/modals/filter-modal.page';
+import { IChipsFilterOptions, UnionFilterModalLabels } from '../types/common.types';
+import BaseActions from './base.actions';
+import FiltersModalActions from './modals/filters-modal.actions';
 
 export class CommonActions extends BaseActions {
   commonPage: CommonPage = new CommonPage();
@@ -32,16 +32,21 @@ export class CommonActions extends BaseActions {
 
   async getApiMappedData(page: CommonPage) {
     const data = (await reqAsLoggedUser(ControllersList[page.pageName].get, {})).data[capitalize(page.pageName)];
-    const res = await asyncReduce(data, async (result, entity) => {
+    const res = await asyncReduce(
+      data,
+      async (result, entity) => {
         if (entity['price']) entity['price'] = `$${entity.price}`;
 
         result.push(await apiKeyMapper(entity, page.pageName));
         return result;
-      }, []);
-    
+      },
+      [],
+    );
+
     return res;
   }
 
+  // TODO rename method getTableDataAfterFilterAndSearch
   async getTableDataAfterFilterAndSearch(tableData: Record<string, string>[], chipFilters: IChipsFilterOptions) {
     const { search, quickFilters } = chipFilters;
     const filteredAndSearchedData: Record<string, string>[] = [];
