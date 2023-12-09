@@ -1,14 +1,15 @@
-import { BaseAssertions } from './base.assertions';
-import { CommonPage } from '../pages/aqa_project/common.page';
 import { CommonActions } from '../actions/common.actions';
-import { IProduct } from '../types/products.types';
+import { CommonPage } from '../pages/aqa_project/common.page';
 import DetailsModalPage from '../pages/aqa_project/modals/details-modal.page';
+import { IProduct } from '../types/products.types';
+import { BaseAssertions } from './base.assertions';
 
 export class CommonAssertions extends BaseAssertions {
   private commonActions: CommonActions = new CommonActions();
 
   async verifyTableData(page: CommonPage) {
     let expected = await this.commonActions.getApiMappedData(page);
+    console.log('expected ========', expected);
     const chipFilters = await this.commonActions.getListOfChipButtons(page);
     if (chipFilters) {
       expected = await this.commonActions.getTableDataAfterFilterAndSearch(expected, chipFilters);
@@ -29,7 +30,4 @@ export class CommonAssertions extends BaseAssertions {
       }
     }
   }
-
 }
-
-

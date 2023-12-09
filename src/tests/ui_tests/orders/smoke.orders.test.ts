@@ -11,6 +11,7 @@ describe('Smoke test on orders page', () => {
   let productsArr = ['test 1', 'test 2', 'test 3'];
   // TODO add to before hook products(4) and customers(2) creation
   before(async () => {
+
     await SignInActions.openSalesPortal();
     await SignInActions.signIn();
     await HomeActions.openOrdersPage();
