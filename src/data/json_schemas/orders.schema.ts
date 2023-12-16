@@ -1,6 +1,46 @@
 import { COUNTRIES } from '../../ui/types/customers.types';
-import { MANUFACTURERS } from '../../ui/types/products.types';
 import { DELIVERY, ORDER_STATUSES } from '../../ui/types/order.types';
+import { MANUFACTURERS } from '../../ui/types/products.types';
+
+export const DELIVERY_SCHEMA = {
+  type: 'object',
+  properties: {
+    finalDate: { type: 'string' },
+    condition: {
+      type: ['string', 'null'],
+      enum: Object.values(DELIVERY),
+    },
+    address: {
+      type: 'object',
+      properties: {
+        flat: { type: 'integer' },
+        house: { type: 'integer' },
+        country: { enum: Object.values(COUNTRIES) },
+        street: { type: 'string' },
+        city: { type: 'string' },
+      },
+    },
+  },
+};
+
+export const PRODUCT_SCHEMA = {
+  type: 'array',
+  items: {
+    type: 'object',
+    properties: {
+      _id: {
+        type: 'string',
+        description: 'The unique identifier for an product',
+      },
+      name: { type: 'string' },
+      amount: { type: 'integer' },
+      price: { type: 'integer' },
+      manufacturer: { enum: Object.values(MANUFACTURERS) },
+      notes: { type: 'string' },
+      received: { type: 'boolean' },
+    },
+  },
+};
 
 export const CREATE_ORDER_SCHEMA = {
   type: 'object',
@@ -15,88 +55,39 @@ export const CREATE_ORDER_SCHEMA = {
         total_price: { type: 'integer' },
         comments: {
           type: 'array',
-          items: [{
-            type: 'object',
-            properties: {
-              createdOn: { type: 'string' },
-              _id: {
-                type: 'string',
-                description: 'The unique identifier for a comment',
+          items: [
+            {
+              type: 'object',
+              properties: {
+                createdOn: { type: 'string' },
+                _id: {
+                  type: 'string',
+                  description: 'The unique identifier for a comment',
+                },
+                text: { type: 'string' },
               },
-              text: { type: 'string' },
             },
-          }],
+          ],
         },
         createdOn: { type: 'string' },
         history: {
           type: 'array',
-          items: [{
-            type: 'object',
-            properties: {
-              action: { type: 'string' },
-              changedOn: { type: 'string' },
-              customer: { type: 'string' },
-              status: { enum: Object.values(ORDER_STATUSES) },
-              total_price: { type: 'integer' },
-              products: {
-                type: 'array',
-                items: [{
-                  type: 'object',
-                  properties: {
-                    _id: {
-                      type: 'string',
-                      description: 'The unique identifier for an product',
-                    },
-                    name: { type: 'string' },
-                    amount: { type: 'integer' },
-                    price: { type: 'integer' },
-                    manufacturer: { enum: Object.values(MANUFACTURERS) },
-                    notes: { type: 'string' },
-                    received: { type: 'boolean' },
-                  },
-                }],
-              },
-              delivery: {
-                type: 'object',
-                properties: {
-                  finalDate: { type: 'string' },
-                  condition: {
-                    type: ['string', 'null'],
-                    enum: Object.values(DELIVERY),
-                  },
-                  address: {
-                    type: 'object',
-                    properties: {
-                      flat: { type: 'integer' },
-                      house: { type: 'integer' },
-                      country: { enum: Object.values(COUNTRIES) },
-                      street: { type: 'string' },
-                      city: { type: 'string' },
-                    },
-                  },
-                },
+          items: [
+            {
+              type: 'object',
+              properties: {
+                action: { type: 'string' },
+                changedOn: { type: 'string' },
+                customer: { type: 'string' },
+                status: { enum: Object.values(ORDER_STATUSES) },
+                total_price: { type: 'integer' },
+                products: PRODUCT_SCHEMA,
+                delivery: DELIVERY_SCHEMA,
               },
             },
-          }],
+          ],
         },
-        products: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              _id: {
-                type: 'string',
-                description: 'The unique identifier for an product',
-              },
-              name: { type: 'string' },
-              amount: { type: 'integer' },
-              price: { type: 'integer' },
-              manufacturer: { enum: Object.values(MANUFACTURERS) },
-              notes: { type: 'string' },
-              received: { type: 'boolean' },
-            },
-          },
-        },
+        products: PRODUCT_SCHEMA,
         customer: {
           type: 'object',
           properties: {
@@ -114,29 +105,9 @@ export const CREATE_ORDER_SCHEMA = {
             city: { type: 'string' },
             phone: { type: 'string' },
           },
-          required: ['_id', 'email', 'flat', 'house', 'country', 'createdOn',
-            'street', 'city', 'phone'],
+          required: ['_id', 'email', 'flat', 'house', 'country', 'createdOn', 'street', 'city', 'phone'],
         },
-        delivery: {
-          type: 'object',
-          properties: {
-            finalDate: { type: 'string' },
-            condition: {
-              type: ['string', 'null'],
-              enum: Object.values(DELIVERY),
-            },
-            address: {
-              type: 'object',
-              properties: {
-                flat: { type: 'integer' },
-                house: { type: 'integer' },
-                country: { enum: Object.values(COUNTRIES) },
-                street: { type: 'string' },
-                city: { type: 'string' },
-              },
-            },
-          },
-        },
+        delivery: DELIVERY_SCHEMA,
         status: { enum: ['Draft', 'Partially Received', 'Canceled', 'In Process', 'Received'] },
       },
     },

@@ -9,7 +9,7 @@ const request = axios.create();
 let response: AxiosResponse;
 
 class Request {
-  @logApiActions
+  // @logApiActions
   async sendRequest(options: RequestOptions): Response {
     try {
       response = await request(options as AxiosRequestConfig);

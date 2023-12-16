@@ -1,5 +1,3 @@
-
-
 export interface IApiOrdersRequest {
   _id?: string;
   customer: string;
@@ -8,7 +6,7 @@ export interface IApiOrdersRequest {
 
 export interface IApiCommentRequest {
   comments: {
-    text: string
+    text: string;
   };
   _id: string;
 }

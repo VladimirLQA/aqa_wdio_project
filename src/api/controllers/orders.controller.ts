@@ -1,9 +1,7 @@
 import Request from '../request/request';
 import { Id, RequestOptions, RequestParams } from '../type/api-request.type';
-
-import { IProduct } from '../../ui/types/products.types';
-import OrdersEndpoints from '../endpoints/orders-endpoints';
 import { IOrder } from '../../ui/types/order.types';
+import OrdersEndpoints from '../endpoints/orders-endpoints';
 import { IApiCommentRequest, IApiOrdersRequest } from '../type/api.orders.type';
 
 class OrdersController {
@@ -22,7 +20,7 @@ class OrdersController {
       method: 'POST',
       baseURL: OrdersEndpoints.baseURL,
       url: OrdersEndpoints.orders,
-      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json', },
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json' },
       data: params.data,
     };
     return Request.sendRequest(options);
@@ -33,7 +31,7 @@ class OrdersController {
       method: 'PUT',
       baseURL: OrdersEndpoints.baseURL,
       url: OrdersEndpoints.orders,
-      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json', },
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json' },
       data: params.data,
     };
     return Request.sendRequest(options);
@@ -44,7 +42,7 @@ class OrdersController {
       method: 'DELETE',
       baseURL: OrdersEndpoints.baseURL,
       url: OrdersEndpoints.orderById(params.data._id),
-      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json', },
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json' },
     };
     return Request.sendRequest(options);
   }
@@ -54,8 +52,8 @@ class OrdersController {
       method: 'DELETE',
       baseURL: OrdersEndpoints.baseURL,
       url: OrdersEndpoints.orderComment,
-      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json', },
-      data: params.data
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json' },
+      data: params.data,
     };
     return Request.sendRequest(options);
   }

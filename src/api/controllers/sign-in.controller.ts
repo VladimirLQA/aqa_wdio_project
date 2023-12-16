@@ -1,7 +1,7 @@
-import { RequestOptions, RequestParams } from '../type/api-request.type';
 import { IUserCredentials } from '../../ui/types/user.types';
+import SignInEndpoints from '../endpoints/base-endpoints';
 import Request from '../request/request';
-import SignInEndpoints from '../endpoints/base-endpoints'
+import { RequestOptions, RequestParams } from '../type/api-request.type';
 
 class SignInController {
   async login(params: RequestParams<IUserCredentials>) {
@@ -9,7 +9,7 @@ class SignInController {
       method: 'POST',
       baseURL: SignInEndpoints.baseURL,
       url: SignInEndpoints.login,
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       data: params.data,
     };
     return Request.sendRequest(options);

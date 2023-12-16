@@ -15,3 +15,5 @@ export const getNewCustomer = (customProductParams?: Partial<ICustomer>) => {
     ...customProductParams,
   };
 };
+
+export { COUNTRIES };

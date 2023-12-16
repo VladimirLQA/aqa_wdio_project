@@ -1,11 +1,11 @@
 import CustomerController from '../controllers/customer.controller';
 import { ICustomer } from '../../ui/types/customers.types';
+import { getNewCustomer } from '../../data/customers/customers.data';
+import { reqAsLoggedUser } from '../request/request-as-logged-user';
+import CustomerStorage from '../../utils/storages/customers.storage';
 
-
-// TODO: finish with this class + api smoke tests
-class ApiProductsActions {
+class ApiCustomersActions {
   async createCustomer(token: string, customer: ICustomer) {
-
     try {
       const response = await CustomerController.create({ token, data: customer });
       return response;
@@ -36,7 +36,17 @@ class ApiProductsActions {
     try {
       const { email, country, street, notes, flat, phone, name, city, house } = (await this.getCustomerByID(token, id)).data.Customer;
       const updatedCustomer = {
-        _id: id, email, country, street, notes, flat, phone, name, city, house, ...newCustomer,
+        _id: id,
+        email,
+        country,
+        street,
+        notes,
+        flat,
+        phone,
+        name,
+        city,
+        house,
+        ...newCustomer,
       };
 
       const response = await CustomerController.update({ token, data: updatedCustomer });
@@ -54,6 +64,14 @@ class ApiProductsActions {
       throw new Error('Error while getting customer by id');
     }
   }
+
+  async createCustomers(count: number) {
+    for (let i = 1; i <= count; i++) {
+      const customer = getNewCustomer();
+      CustomerStorage.addEntity<ICustomer>((await reqAsLoggedUser(CustomerController.create, { data: customer })).data.Customer);
+    }
+    return CustomerStorage;
+  }
 }
 
-export default new ApiProductsActions();
+export default new ApiCustomersActions();
