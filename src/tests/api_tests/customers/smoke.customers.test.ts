@@ -1,11 +1,10 @@
-import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions';
-import { ICustomerResponse } from '../../../api/type/api.customers.type';
-import { COUNTRIES, ICustomer } from '../../../ui/types/customers.types';
-import { getNewCustomer } from '../../../data/customers/customers.data';
 import ApiCustomersActions from '../../../api/api_actions/api-customers.actions';
-import { CREATE_CUSTOMER_SCHEMA } from '../../../data/json_schemas/customers.schema';
+import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions';
 import ApiCustomersAssertions from '../../../api/api_assertions/api-customers.assertions';
-
+import { ICustomerResponse } from '../../../api/type/api.customers.type';
+import { getNewCustomer } from '../../../data/customers/customers.data';
+import { CREATE_CUSTOMER_SCHEMA } from '../../../data/json_schemas/customers.schema';
+import { COUNTRIES, ICustomer } from '../../../ui/types/customers.types';
 
 describe('Smoke customers test', () => {
   let token: string, id: string, createdCustomer: ICustomerResponse | ICustomer;
@@ -15,7 +14,6 @@ describe('Smoke customers test', () => {
   });
 
   context('Default flow', () => {
-
     it('Should create customer', async () => {
       createdCustomer = getNewCustomer();
 
@@ -58,7 +56,7 @@ describe('Smoke customers test', () => {
 
     it('Should verify that customer is deleted from server', async () => {
       const response = await ApiCustomersActions.getCustomerByID(token, id);
-      await ApiCustomersAssertions.verifyResponse(response, 404, false , `Customer with id '${id}' wasn't found`);
+      await ApiCustomersAssertions.verifyResponse(response, 404, false, `Customer with id '${id}' wasn't found`);
     });
   });
 });

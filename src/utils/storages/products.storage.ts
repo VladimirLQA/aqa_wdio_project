@@ -1,47 +1,37 @@
 import { IProductResponse } from '../../api/type/api.product.type';
+import { IProduct } from '../../ui/types/products.types';
+import { CombinedType, Storage } from './abstract.storage';
 
-export class ProductsStorage {
-  private static instance: ProductsStorage;
-  public static products: IProductResponse[] = [];
+class ProductsStorage extends Storage<IProduct & IProductResponse> {
+  protected storage: (IProduct & IProductResponse)[] = [];
 
-  constructor() {
-    if (ProductsStorage.instance) {
-      return ProductsStorage.instance;
-    }
-    ProductsStorage.instance = this;
+  addEntity(product: IProductResponse & IProduct): void {
+    const productIndex = this.findEntityIndex(product.name);
+    productIndex !== -1 ? this.updateEntity(product, product.name) : this.storage.push(product);
   }
 
-  static addProduct<T>(product: T): void {
-    const productIndex = this.findProductIndexByName(product.name);
-    productIndex !== -1
-      ? this.updateProduct(product, product.name)
-      : this.products.push(product);
+  updateEntity(updatedProduct: IProduct & IProductResponse, productName: string): void {
+    const productIndex = this.findEntityIndex(productName);
+    productIndex !== -1 ? (this.storage[productIndex] = updatedProduct) : console.log('Product was not found');
   }
 
-  static updateProduct(product: IProductResponse, productName: string): void {
-    const productIndex = this.findProductIndexByName(productName);
-    productIndex !== -1
-      ? this.products[productIndex] = product
-      : console.error('Product not found');
+  deleteEntity(productName: string): void {
+    const productIndex = this.findEntityIndex(productName);
+    productIndex !== -1 ? this.storage.splice(productIndex, 1) : console.log('Product was not found');
   }
 
-  static getProduct(productName: string) {
-    const productIndex = this.findProductIndexByName(productName);
-    return this.products[productIndex];
+  getAllEntities() {
+    return this.storage;
   }
 
-  static getAllProducts(): IProductResponse[] {
-    return this.products;
+  getEntity(productName: string) {
+    const productIndex = this.findEntityIndex(productName);
+    return productIndex !== -1 ? this.storage[productIndex] : console.log(`Product was not found`);
   }
 
-  static deleteProduct(productName: string): void {
-    const productIndex = this.findProductIndexByName(productName);
-     productIndex !== -1
-      ? this.products.splice(productIndex, 1)
-      : console.error('Product not found in storage');
-  }
-
-  private static findProductIndexByName(productName: string): number {
-    return this.products.findIndex((p) => p.name === productName);
+  protected findEntityIndex(productName: string): number {
+    return this.storage.findIndex((product) => product.name === productName);
   }
 }
+
+export default new ProductsStorage();

@@ -1,11 +1,11 @@
-import SignInActions from '../../../ui/actions/sign-in.actions';
-import HomeActions from '../../../ui/actions/home.actions';
-import ProductsActions from '../../../ui/actions/products/products.actions';
-import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
-import { ProductsStorage } from '../../../utils/storages/products.storage';
 import ProductsController from '../../../api/controllers/products.controller';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
+import HomeActions from '../../../ui/actions/home.actions';
 import DetailsModalActions from '../../../ui/actions/modals/details-modal.actions';
+import ProductsActions from '../../../ui/actions/products/products.actions';
+import SignInActions from '../../../ui/actions/sign-in.actions';
+import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
+import { ProductsStorage } from '../../../utils/storages/products.storage';
 
 describe('', () => {
   before('', async () => {
@@ -22,7 +22,6 @@ describe('', () => {
   context('WDIO - 6', () => {
     it('Should create product via api and verify in "Details modal window"', async () => {
       const product = await ProductsActions.createProductAPI();
-
 
       await HomeActions.openProductsPage();
       await ProductsActions.clickOnProductRowActionButton(product.name, 'Details');

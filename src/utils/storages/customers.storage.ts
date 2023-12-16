@@ -1,41 +1,37 @@
 import { ICustomerResponse } from '../../api/type/api.customers.type';
+import { ICustomer } from '../../ui/types/customers.types';
+import { Storage } from './abstract.storage';
 
-export class CustomersStorage {
-  private static instance: CustomersStorage;
-  public static customers: ICustomerResponse[] = [];
+class CustomersStorage extends Storage<ICustomerResponse & ICustomer> {
+  protected storage: (ICustomer & ICustomerResponse)[] = [];
 
-  constructor() {
-    if (CustomersStorage.instance) {
-      return CustomersStorage.instance;
-    }
-    CustomersStorage.instance = this;
+  addEntity(customer: ICustomer & ICustomerResponse): void {
+    const customerIndex = this.findEntityIndex(customer.email);
+    customerIndex !== -1 ? this.updateEntity(customer, customer.email) : this.storage.push(customer);
   }
 
-  static addCustomer<T>(customer: T): void {
-    const customerIndex = this.findCustomerIndexByEmail(customer.email);
-    customerIndex !== -1 ? this.updateCustomer(customer, customer.email) : this.customers.push(customer);
+  updateEntity(updatedCustomer: ICustomer & ICustomerResponse, customerEmail: string): void {
+    const customerIndex = this.findEntityIndex(customerEmail);
+    customerIndex !== -1 ? (this.storage[customerIndex] = updatedCustomer) : console.log('Customer was not found');
   }
 
-  static updateCustomer(customer: ICustomerResponse, customerEmail: string): void {
-    const customerIndex = this.findCustomerIndexByEmail(customerEmail);
-    customerIndex !== -1 ? (this.customers[customerIndex] = customer) : console.log('Customer not found');
+  deleteEntity(customerEmail: string): void {
+    const customerIndex = this.findEntityIndex(customerEmail);
+    customerIndex !== -1 ? this.storage.splice(customerIndex, 1) : console.log('Customer was not found');
   }
 
-  static getCustomer(customerEmail: string) {
-    const customerIndex = this.findCustomerIndexByEmail(customerEmail);
-    return customerIndex !== -1 ? this.customers[customerIndex] : console.log('Customer not found');
+  getAllEntities() {
+    return this.storage;
   }
 
-  static getAllCustomers(): ICustomerResponse[] {
-    return this.customers;
+  getEntity(customerEmail: string) {
+    const customerIndex = this.findEntityIndex(customerEmail);
+    return customerIndex !== -1 ? this.storage[customerIndex] : this.storage.at(-1);
   }
 
-  static deleteCustomer(customerEmail: string) {
-    const customerIndex = this.findCustomerIndexByEmail(customerEmail);
-    customerIndex !== -1 ? this.customers.splice(customerIndex, 1) : console.log('Customer not found');
-  }
-
-  private static findCustomerIndexByEmail(customerEmail: string): number {
-    return this.customers.findIndex((customer) => customer.email === customerEmail);
+  protected findEntityIndex(customerEmail: string): number {
+    return this.storage.findIndex((customer) => customer.email === customerEmail);
   }
 }
+
+export default new CustomersStorage();

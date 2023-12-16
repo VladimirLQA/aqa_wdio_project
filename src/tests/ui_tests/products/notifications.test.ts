@@ -1,12 +1,12 @@
-import SignInActions from '../../../ui/actions/sign-in.actions';
-import HomeActions from '../../../ui/actions/home.actions';
-import ProductsActions from '../../../ui/actions/products/products.actions';
-import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
-import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
-import { productData } from '../../../data/products/products-test.data';
 import { getNewProduct } from '../../../data/products/product.data';
-import { ProductsStorage } from '../../../utils/storages/products.storage';
+import { productData } from '../../../data/products/products-test.data';
+import HomeActions from '../../../ui/actions/home.actions';
+import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
+import ProductsActions from '../../../ui/actions/products/products.actions';
+import SignInActions from '../../../ui/actions/sign-in.actions';
+import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
 import { IProduct } from '../../../ui/types/products.types';
+import ProductsStorage from '../../../utils/storages/products.storage';
 
 describe('Notifications test on products page', () => {
   let productToCreate: IProduct;
@@ -28,7 +28,7 @@ describe('Notifications test on products page', () => {
     await SignInActions.signIn();
     await HomeActions.openProductsPage();
 
-    for (const product of ProductsStorage.getAllProducts()) {
+    for (const product of ProductsStorage.getAllEntities()) {
       await ProductsActions.deleteProduct(product.name);
     }
   });
@@ -38,7 +38,7 @@ describe('Notifications test on products page', () => {
     for (const product of productData.valid.name) {
       it(`Should create product with valid name: '${product.description}'`, async () => {
         productToCreate = getNewProduct({ name: product.name });
-        ProductsStorage.addProduct(productToCreate);
+        ProductsStorage.addEntity(productToCreate);
         tempProductName = productToCreate.name;
 
         await AddNewProductActions.fillProductInputs(productToCreate);
@@ -47,5 +47,4 @@ describe('Notifications test on products page', () => {
       });
     }
   });
-
 });
