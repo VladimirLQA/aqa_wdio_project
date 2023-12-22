@@ -6,3 +6,4 @@ dist
 aqa-wdio-1.iml
 package-lock.json
 .env
+.vscode/
