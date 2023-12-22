@@ -1,7 +1,8 @@
-import Request from '../request/request';
-import { Id, RequestOptions, RequestParams } from '../type/api-request.type';
+import { ContentType } from 'allure-js-commons';
 import { IOrder } from '../../ui/types/order.types';
 import OrdersEndpoints from '../endpoints/orders-endpoints';
+import Request from '../request/request';
+import { Id, RequestOptions, RequestParams } from '../type/api-request.type';
 import { IApiCommentRequest, IApiOrdersRequest } from '../type/api.orders.type';
 
 class OrdersController {
@@ -10,7 +11,7 @@ class OrdersController {
       method: 'GET',
       baseURL: OrdersEndpoints.baseURL,
       url: params.data ? OrdersEndpoints.orderById(params.data._id) : OrdersEndpoints.orders,
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${params.token}` },
+      headers: { 'Content-Type': ContentType.JSON, Authorization: `Bearer ${params.token}` },
     };
     return Request.sendRequest(options);
   }
@@ -20,7 +21,7 @@ class OrdersController {
       method: 'POST',
       baseURL: OrdersEndpoints.baseURL,
       url: OrdersEndpoints.orders,
-      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json' },
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
       data: params.data,
     };
     return Request.sendRequest(options);
@@ -31,7 +32,7 @@ class OrdersController {
       method: 'PUT',
       baseURL: OrdersEndpoints.baseURL,
       url: OrdersEndpoints.orders,
-      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json' },
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
       data: params.data,
     };
     return Request.sendRequest(options);
@@ -42,7 +43,7 @@ class OrdersController {
       method: 'DELETE',
       baseURL: OrdersEndpoints.baseURL,
       url: OrdersEndpoints.orderById(params.data._id),
-      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json' },
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
     };
     return Request.sendRequest(options);
   }
@@ -52,7 +53,7 @@ class OrdersController {
       method: 'DELETE',
       baseURL: OrdersEndpoints.baseURL,
       url: OrdersEndpoints.orderComment,
-      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': 'application/json' },
+      headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
       data: params.data,
     };
     return Request.sendRequest(options);

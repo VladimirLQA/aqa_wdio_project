@@ -1,6 +1,6 @@
 import { getNewProduct } from '../../data/products/product.data';
 import { IProduct } from '../../ui/types/products.types';
-import ProductsStorage from '../../utils/storages/products.storage';
+import { productsStorage } from '../../utils/storages/storages';
 import ProductsController from '../controllers/products.controller';
 import { reqAsLoggedUser } from '../request/request-as-logged-user';
 
@@ -64,9 +64,9 @@ class ApiProductsActions {
   async createProducts(count: number) {
     for (let i = 1; i <= count; i++) {
       const product = getNewProduct();
-      ProductsStorage.addEntity((await reqAsLoggedUser(ProductsController.create, { data: product })).data.Product);
+      productsStorage.addEntity((await reqAsLoggedUser(ProductsController.create, { data: product })).data.Product);
     }
-    return ProductsStorage;
+    return productsStorage;
   }
 }
 

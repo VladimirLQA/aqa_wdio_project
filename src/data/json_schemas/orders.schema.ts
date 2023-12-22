@@ -3,7 +3,7 @@ import { DELIVERY, ORDER_STATUSES } from '../../ui/types/order.types';
 import { MANUFACTURERS } from '../../ui/types/products.types';
 
 export const DELIVERY_SCHEMA = {
-  type: 'object',
+  type: ['object', 'null'],
   properties: {
     finalDate: { type: 'string' },
     condition: {
@@ -55,37 +55,33 @@ export const CREATE_ORDER_SCHEMA = {
         total_price: { type: 'integer' },
         comments: {
           type: 'array',
-          items: [
-            {
-              type: 'object',
-              properties: {
-                createdOn: { type: 'string' },
-                _id: {
-                  type: 'string',
-                  description: 'The unique identifier for a comment',
-                },
-                text: { type: 'string' },
+          items: {
+            type: 'object',
+            properties: {
+              createdOn: { type: 'string' },
+              _id: {
+                type: 'string',
+                description: 'The unique identifier for a comment',
               },
+              text: { type: 'string' },
             },
-          ],
+          },
         },
         createdOn: { type: 'string' },
         history: {
           type: 'array',
-          items: [
-            {
-              type: 'object',
-              properties: {
-                action: { type: 'string' },
-                changedOn: { type: 'string' },
-                customer: { type: 'string' },
-                status: { enum: Object.values(ORDER_STATUSES) },
-                total_price: { type: 'integer' },
-                products: PRODUCT_SCHEMA,
-                delivery: DELIVERY_SCHEMA,
-              },
+          items: {
+            type: 'object',
+            properties: {
+              action: { type: 'string' },
+              changedOn: { type: 'string' },
+              customer: { type: 'string' },
+              status: { enum: Object.values(ORDER_STATUSES) },
+              total_price: { type: 'integer' },
+              products: PRODUCT_SCHEMA,
+              delivery: DELIVERY_SCHEMA,
             },
-          ],
+          },
         },
         products: PRODUCT_SCHEMA,
         customer: {

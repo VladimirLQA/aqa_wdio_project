@@ -2,7 +2,7 @@ import CustomerController from '../controllers/customer.controller';
 import { ICustomer } from '../../ui/types/customers.types';
 import { getNewCustomer } from '../../data/customers/customers.data';
 import { reqAsLoggedUser } from '../request/request-as-logged-user';
-import CustomerStorage from '../../utils/storages/customers.storage';
+import { customersStorage } from '../../utils/storages/storages';
 
 class ApiCustomersActions {
   async createCustomer(token: string, customer: ICustomer) {
@@ -68,9 +68,9 @@ class ApiCustomersActions {
   async createCustomers(count: number) {
     for (let i = 1; i <= count; i++) {
       const customer = getNewCustomer();
-      CustomerStorage.addEntity<ICustomer>((await reqAsLoggedUser(CustomerController.create, { data: customer })).data.Customer);
+      customersStorage.addEntity((await reqAsLoggedUser(CustomerController.create, { data: customer })).data.Customer);
     }
-    return CustomerStorage;
+    return customersStorage;
   }
 }
 

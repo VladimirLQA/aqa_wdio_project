@@ -1,6 +1,5 @@
 import { ApiBaseAssertions } from './api-base.assertions';
 
-
 class ApiOrdersAssertions extends ApiBaseAssertions {
   // verify comment
   // verify order
@@ -10,3 +9,5 @@ class ApiOrdersAssertions extends ApiBaseAssertions {
   // verify total_price
   // ...
 }
+
+export default new ApiOrdersAssertions();
