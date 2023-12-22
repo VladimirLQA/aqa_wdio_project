@@ -1,21 +1,30 @@
-import { ICustomerResponse } from '../../api/type/api.customers.type';
-import { IProductResponse } from '../../api/type/api.product.type';
-import { ICustomer } from '../../ui/types/customers.types';
-import { IProduct } from '../../ui/types/products.types';
+export class Storage<T extends { _id: string }> {
+  protected storage: T[] = [];
 
-export type CombinedType<T> = T extends ICustomer | ICustomerResponse ? ICustomer & ICustomerResponse : IProduct & IProductResponse;
+  addEntity(entity: T): void {
+    const entityIndex = this.findEntityIndex(entity._id);
+    entityIndex !== -1 ? this.updateEntity(entity, entity._id) : this.storage.push(entity);
+  }
+  updateEntity(updatedEntity: T, _id: string): void {
+    const entityIndex = this.findEntityIndex(_id);
+    entityIndex !== -1 ? (this.storage[entityIndex] = updatedEntity) : console.log('Entity was not found');
+  }
 
-// type ElementType<T extends any[]> = T extends (infer U)[] ? U : never;
+  deleteEntity(entity: string): void {
+    const entityIndex = this.findEntityIndex(entity);
+    entityIndex !== -1 ? this.storage.splice(entityIndex, 1) : console.log('Entity was not found');
+  }
 
-type GenericStorage<T> = T[];
+  getAllEntities(): T[] {
+    return this.storage;
+  }
 
-export abstract class Storage<T> {
-  protected storage: GenericStorage<T> = [];
+  getEntity(entity: string) {
+    const entityIndex = this.findEntityIndex(entity);
+    return entityIndex !== -1 ? this.storage[entityIndex] : console.log(`Entity was not found`);
+  }
 
-  addEntity(entity: T): void {}
-  updateEntity(updatedEntity: T, searchValue: string): void {}
-  deleteEntity(searchValue: string): void {}
-  getAllEntities(): T[] | void {}
-  getEntity(searchValue: string): T | void {}
-  protected findEntityIndex(searchValue: string): number | void {}
+  protected findEntityIndex(id: string): number {
+    return this.storage.findIndex((entity: T) => entity._id === id);
+  }
 }
