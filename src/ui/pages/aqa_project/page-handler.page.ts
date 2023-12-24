@@ -13,7 +13,11 @@ export default class PageHandler {
     return elem;
   }
 
-  async waitForElementsArrayToBeDisplayed(selector: string, reverse = false, timeout: number = TIMEOUT['5 seconds']): Promise<WebdriverIO.Element[]> {
+  async waitForElementsArrayToBeDisplayed(
+    selector: string,
+    reverse = false,
+    timeout: number = TIMEOUT['5 seconds'],
+  ): Promise<WebdriverIO.ElementArray> {
     const elements = await elementFinder.findArrayElements(selector);
     await browser.waitUntil(
       async () => {

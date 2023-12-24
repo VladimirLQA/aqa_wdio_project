@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { IProduct, MANUFACTURERS } from '../../ui/types/products.types';
 
 export interface ProductsTestData extends IProduct {
@@ -8,19 +9,19 @@ export const productData: Record<string, Record<keyof IProduct, Partial<Products
   valid: {
     name: [
       {
-        name: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+        name: faker.string.alpha(40),
         description: '40 symbols value',
       },
       {
-        name: 'aaa',
+        name: faker.string.alpha(3),
         description: '3 symbols value',
       },
       {
-        name: 'FFFF',
+        name: faker.string.alpha({ casing: 'upper', length: 4 }),
         description: 'Upper case only',
       },
       {
-        name: 'One space',
+        name: faker.string.alpha(3) + ' ' + faker.string.alpha(4),
         description: 'Value with 1 space',
       },
     ],
@@ -68,7 +69,8 @@ export const productData: Record<string, Record<keyof IProduct, Partial<Products
         description: 'Empty value',
       },
       {
-        notes: '1234567890aaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt',
+        notes:
+          '1234567890aaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt',
         description: '250 symbols value',
       },
       {
@@ -96,24 +98,19 @@ export const productData: Record<string, Record<keyof IProduct, Partial<Products
         description: 'Value with 1 space',
       },
     ],
-    price: [
-      { price: 1 },
-      { price: 99999 },
-      { price: 332 },
-    ],
+    price: [{ price: 1 }, { price: 99999 }, { price: 332 }],
     manufacturer: [
       { manufacturer: MANUFACTURERS.GOOGLE },
       { manufacturer: MANUFACTURERS.TESLA },
       { manufacturer: MANUFACTURERS.MICROSOFT },
     ],
-    amount: [
-      { amount: 0 },
-      { amount: 999 },
-      { amount: 36 },
-    ],
+    amount: [{ amount: 0 }, { amount: 999 }, { amount: 36 }],
     notes: [
       { notes: '' },
-      { notes: 'aaaaaaaaaaaaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt' },
+      {
+        notes:
+          'aaaaaaaaaaaaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt',
+      },
       { notes: '!@#$%^&&*()_-++=.?,\\}{po[]' },
     ],
   },
