@@ -40,7 +40,7 @@ export function logApiActions(target: any, propertyName: string, descriptor: Pro
   descriptor.value = async function (...args: any[]) {
     const options: AxiosRequestConfig = args[0];
 
-    allure.startStep(`Request: ${options.method.toUpperCase()} ${options.url}`);
+    allure.startStep(`Request: ${options.method!.toUpperCase()} ${options.url}`);
     allure.addAttachment(`Request headers`, JSON.stringify(options.headers, null, 2), 'application/json');
     allure.addAttachment(`Request body`, JSON.stringify(options.data, null, 2), 'application/json');
     allure.endStep();

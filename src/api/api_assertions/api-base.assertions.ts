@@ -2,8 +2,8 @@ import { validateSchema } from '../../utils/json-schema-validator';
 import { AxiosResponse } from 'axios';
 
 export class ApiBaseAssertions {
-  public async verifyResponseSchema(schema, json) {
-    const valid = await validateSchema({ schema,  json});
+  public async verifyResponseSchema(schema: any, json: any) {
+    const valid = await validateSchema({ schema, json });
     expect(valid).toBe(true);
   }
 
@@ -12,5 +12,4 @@ export class ApiBaseAssertions {
     expect(response.data.IsSuccess).toBe(IsSuccess);
     expect(response.data.ErrorMessage).toBe(ErrorMessage);
   }
-
 }
