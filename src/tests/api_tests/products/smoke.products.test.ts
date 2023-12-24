@@ -1,12 +1,10 @@
-import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions';
 import ApiProductsActions from '../../../api/api_actions/api-products.actions';
-import { getNewProduct } from '../../../data/products/product.data';
-import { MANUFACTURERS} from '../../../ui/types/products.types';
+import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions';
 import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions';
-import { CREATE_PRODUCT_SCHEMA } from '../../../data/json_schemas/products.schema';
 import { IProductResponse } from '../../../api/type/api.product.type';
-import { IProduct } from '../../../ui/types/products.types';
-
+import { CREATE_PRODUCT_SCHEMA } from '../../../data/json_schemas/products.schema';
+import { getNewProduct } from '../../../data/products/product.data';
+import { IProduct, MANUFACTURERS } from '../../../ui/types/products.types';
 
 describe('Smoke products test', () => {
   let token: string, id: string, createdProduct: IProductResponse | IProduct;
@@ -16,7 +14,6 @@ describe('Smoke products test', () => {
   });
 
   context('Default flow', () => {
-
     it('Should create product', async () => {
       createdProduct = getNewProduct();
 
@@ -36,7 +33,11 @@ describe('Smoke products test', () => {
 
     it('Should update product by id', async () => {
       const forUpdate: IProduct = {
-        name: 'Updated name', notes: 'Updated notes', amount: 1, price: 1, manufacturer: MANUFACTURERS.AMAZON,
+        name: 'Updated name',
+        notes: 'Updated notes',
+        amount: 1,
+        price: 1,
+        manufacturer: MANUFACTURERS.AMAZON,
       };
 
       const response = await ApiProductsActions.updateProduct(token, id, forUpdate);
@@ -51,7 +52,7 @@ describe('Smoke products test', () => {
 
     it('Should verify that product is deleted from server', async () => {
       const response = await ApiProductsActions.getProductByID(token, id);
-      await ApiProductsAssertions.verifyResponse(response, 404, false , `Product with id '${id}' wasn't found`);
+      await ApiProductsAssertions.verifyResponse(response, 404, false, `Product with id '${id}' wasn't found`);
     });
   });
 });
