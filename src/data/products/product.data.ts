@@ -9,6 +9,11 @@ export const productToastMessages = {
   'already exist': (name?: string) => `Product with name '${name}' already exists`,
 };
 
+export const errorMessage = {
+  'already exist': (name: string) => `Product with name '${name}' already exists`,
+  'incorrect request body': () => `Incorrect request body`,
+};
+
 export const getNewProduct = (customProductParams?: Partial<IProduct>): IProduct => {
   return {
     name: faker.commerce.product() + faker.number.int({ min: 1, max: 100 }),

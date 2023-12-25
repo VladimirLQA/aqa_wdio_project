@@ -4,8 +4,8 @@ import { IProduct, MANUFACTURERS } from '../../ui/types/products.types';
 export interface ProductsTestData extends IProduct {
   description: string;
 }
-
-export const productData: Record<string, Record<keyof IProduct, Partial<ProductsTestData>[]>> = {
+// Record<string, Record<keyof IProduct, Partial<ProductsTestData>[]>>
+export const productData: any = {
   valid: {
     name: [
       {
@@ -24,6 +24,10 @@ export const productData: Record<string, Record<keyof IProduct, Partial<Products
         name: faker.string.alpha(3) + ' ' + faker.string.alpha(4),
         description: 'Value with 1 space',
       },
+      // {
+      //   name: faker.number.int({ min: 100, max: 333 }),
+      //   description: 'only digits',
+      // },
     ],
     price: [
       {
@@ -52,11 +56,11 @@ export const productData: Record<string, Record<keyof IProduct, Partial<Products
     amount: [
       {
         amount: 0,
-        description: 'Min value',
+        description: 'Min value - 0',
       },
       {
         amount: 999,
-        description: 'Max value',
+        description: 'Max value - 999',
       },
       {
         amount: 36,
@@ -66,12 +70,11 @@ export const productData: Record<string, Record<keyof IProduct, Partial<Products
     notes: [
       {
         notes: '',
-        description: 'Empty value',
+        description: 'Empty string',
       },
       {
-        notes:
-          '1234567890aaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt',
-        description: '250 symbols value',
+        notes: faker.string.alpha({ length: 250, casing: 'mixed' }),
+        description: '250 symbols value: string (upper, lower)',
       },
       {
         notes: '!@#$%^&&*()_-++=.?,\\}{po[]',
@@ -86,19 +89,29 @@ export const productData: Record<string, Record<keyof IProduct, Partial<Products
         description: 'Empty value',
       },
       {
-        name: 'aaa',
-        description: '3 symbols value',
+        name: faker.string.alpha(3) + '  ' + faker.string.alpha(2),
+        description: 'Value with two spaces in a row',
       },
       {
-        name: 'FFFF',
-        description: 'Upper case only',
+        name: faker.string.alpha(2),
+        description: '2 symbols value',
       },
       {
-        name: 'One space',
-        description: 'Value with 1 space',
+        name: faker.string.alpha(41),
+        description: '41 symbols value',
+      },
+      {
+        name: 'Назва продукту',
+        description: 'cyrillic name',
       },
     ],
-    price: [{ price: 1 }, { price: 99999 }, { price: 332 }],
+    price: [
+      { price: 0, description: '0 value' },
+      { price: 100000, description: '6 digits value' },
+      { price: faker.number.float({ min: 2, max: 11 }), description: 'Float value with two values after period' },
+      { price: -2, description: 'negative value' },
+      { price: '1', description: 'string value' },
+    ],
     manufacturer: [
       { manufacturer: MANUFACTURERS.GOOGLE },
       { manufacturer: MANUFACTURERS.TESLA },
