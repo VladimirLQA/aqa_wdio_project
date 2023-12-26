@@ -21,7 +21,8 @@ export async function asyncMap<T, U>(array: T[], callback: MapAsyncCallback<T, U
 }
 
 export async function asyncReduce<T, U>(array: T[], asyncReducer: ReduceAsyncCallback<T, U>, initialValue?: U): Promise<U> {
-  let accumulator = initialValue || array[0];
+  // @ts-ignore
+  let accumulator: U = initialValue || array[0];
   for (let i = 0; i < array.length; i++) {
     accumulator = await asyncReducer(accumulator, array[i], i, array);
   }

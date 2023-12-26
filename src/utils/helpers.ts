@@ -1,7 +1,6 @@
-import { elementFinder } from './element-finder';
-import { IProduct } from '../ui/types/products.types';
-import { apiKeysMapper, apiKeysForMapping } from './mapper-keys';
 import { IInitObject } from '../ui/types/common.types';
+import { elementFinder } from './element-finder';
+import { apiKeysForMapping, apiKeysMapper } from './mapper-keys';
 
 const isAttributeContainClass = async (element: string, className: string): Promise<boolean> => {
   const elem = await elementFinder.findElement(element);
@@ -14,7 +13,7 @@ const browserPause = async (timeout: number): Promise<void> => {
 };
 
 const modalParser = async (modalData: string[]) => {
-  return modalData.reduce((parsed, info) => {
+  return modalData.reduce((parsed: { [key: string]: string }, info) => {
     const [k, v] = info.split('\n');
     const clearedK = k.slice(0, -1); // remove semicolon
     parsed[clearedK] = v;
@@ -22,15 +21,15 @@ const modalParser = async (modalData: string[]) => {
   }, {});
 };
 
-const filterObjKeys = (obj, f) => {
-  const res = Object.fromEntries(Object.entries(obj).filter(([k, v]) => f(k)));
-  return res;
-};
+// const filterObjKeys = (obj, f) => {
+//   const res = Object.fromEntries(Object.entries(obj).filter(([k, v]) => f(k)));
+//   return res;
+// };
 
-const select = (obj, ...props) => filterObjKeys(obj, (k) => props.includes(k));
-const omit = async (obj, ...props) => filterObjKeys(obj, (k) => !props.includes(k));
+// const select = (obj, ...props) => filterObjKeys(obj, (k) => props.includes(k));
+// const omit = async (obj, ...props) => filterObjKeys(obj, (k) => !props.includes(k));
 
-const sortByNameASC = <T>(array: T) => {
+const sortByNameASC = <T extends any[]>(array: T) => {
   return [...array].sort((a, b) => {
     if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
     if (a.name.toLowerCase() > b.name.toLowerCase()) return 1;
@@ -48,4 +47,4 @@ const apiKeyMapper = async (entity: any, pageName: string) => {
   return mappedEntity;
 };
 
-export { isAttributeContainClass, browserPause, modalParser, filterObjKeys, omit, select, sortByNameASC, capitalize, apiKeyMapper };
+export { apiKeyMapper, browserPause, capitalize, isAttributeContainClass, modalParser, sortByNameASC };

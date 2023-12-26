@@ -11,7 +11,6 @@ export const productToastMessages = {
 
 export const errorMessage = {
   'already exist': (name: string) => `Product with name '${name}' already exists`,
-  'incorrect request body': () => `Incorrect request body`,
 };
 
 export const getNewProduct = (customProductParams?: Partial<IProduct>): IProduct => {
@@ -24,14 +23,6 @@ export const getNewProduct = (customProductParams?: Partial<IProduct>): IProduct
     ...customProductParams,
   };
 };
-
-export const inputError = {
-  nameField: "Products's name should contain only 3-40 alphanumerical characters and one space between",
-  priceField: 'Price should be in range 1-99999',
-  amountField: 'Amount should be in range 0-999',
-};
-
-export const errorToastMessage = 'Incorrect request body';
 
 export const actionButtonsTableRow = {
   details: 'Details',

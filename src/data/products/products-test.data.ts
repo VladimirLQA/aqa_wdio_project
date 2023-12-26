@@ -24,10 +24,6 @@ export const productData: any = {
         name: faker.string.alpha(3) + ' ' + faker.string.alpha(4),
         description: 'Value with 1 space',
       },
-      // {
-      //   name: faker.number.int({ min: 100, max: 333 }),
-      //   description: 'only digits',
-      // },
     ],
     price: [
       {
@@ -80,6 +76,10 @@ export const productData: any = {
         notes: '!@#$%^&&*()_-++=.?,\\}{po[]',
         description: 'Special characters except "<>"',
       },
+      {
+        notes: 'Нотатки продукту',
+        description: 'cyrillic value',
+      },
     ],
   },
   invalid: {
@@ -102,29 +102,42 @@ export const productData: any = {
       },
       {
         name: 'Назва продукту',
-        description: 'cyrillic name',
+        description: 'cyrillic value',
+      },
+      {
+        name: faker.number.int({ min: 100, max: 333 }),
+        description: 'integer value',
+      },
+      {
+        name: faker.string.alpha({ length: 5 }) + '!/',
+        description: 'value with special character',
       },
     ],
     price: [
       { price: 0, description: '0 value' },
       { price: 100000, description: '6 digits value' },
-      { price: faker.number.float({ min: 2, max: 11 }), description: 'Float value with two values after period' },
+      { price: faker.number.float({ min: 2, max: 11 }), description: 'Float value' },
       { price: -2, description: 'negative value' },
       { price: '1', description: 'string value' },
     ],
     manufacturer: [
-      { manufacturer: MANUFACTURERS.GOOGLE },
-      { manufacturer: MANUFACTURERS.TESLA },
-      { manufacturer: MANUFACTURERS.MICROSOFT },
+      { manufacturer: faker.string.alpha({ length: 7 }), description: 'value is not in the list of allowed values' },
+      { manufacturer: faker.number.int({ min: 10, max: 100 }), description: 'integer value' },
+      { manufacturer: '', description: 'empty value' },
     ],
-    amount: [{ amount: 0 }, { amount: 999 }, { amount: 36 }],
+    amount: [
+      { amount: -1, description: 'negative value' },
+      { amount: 1000, description: '4 digits value' },
+      { amount: faker.number.float({ min: 2, max: 11 }), description: 'Float value' },
+      { amount: '1', description: 'string value' },
+    ],
     notes: [
-      { notes: '' },
+      { notes: faker.number.int({ min: 10, max: 100 }), description: 'integer value' },
       {
-        notes:
-          'aaaaaaaaaaaaAAaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsFGDhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhdaaaaaaaaaaaaaaaaaasdfhgsdfewjehfkwjhefjkhwekjrghsdjkghsdkfhvsidufwiuendfnaskdjfhgajkshdgaksjdhgkasjhddfgsdgfhsdfbsdfgnghjrtwertgsdrsdrgwerwgerwyertrt',
+        notes: faker.string.alpha(251),
+        description: '251 symbols value',
       },
-      { notes: '!@#$%^&&*()_-++=.?,\\}{po[]' },
+      { notes: faker.string.alpha(5) + '<>', description: 'forbidden symbols in value' },
     ],
   },
 };

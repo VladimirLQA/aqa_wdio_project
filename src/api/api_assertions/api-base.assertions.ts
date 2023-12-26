@@ -1,5 +1,5 @@
-import { validateSchema } from '../../utils/json-schema-validator';
 import { AxiosResponse } from 'axios';
+import { validateSchema } from '../../utils/json-schema-validator';
 
 export class ApiBaseAssertions {
   public async verifyResponseSchema(schema: any, json: any) {
