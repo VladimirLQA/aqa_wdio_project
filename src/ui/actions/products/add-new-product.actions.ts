@@ -5,8 +5,7 @@ import { browserPause } from '../../../utils/helpers';
 import { MANUFACTURERS } from '../../types/products.types';
 
 class AddNewProductActions extends BaseActions {
-  public async fillProductInputs<T>(product: T): Promise<void> {
-
+  public async fillProductInputs<T extends IProduct>(product: T): Promise<void> {
     await AddNewProductPage.waitForElemAndSetValue(AddNewProductPage['Name input field'], product.name);
     await AddNewProductPage.waitForElemAndSetValue(AddNewProductPage['Price input field'], product.price);
     await AddNewProductPage.waitForElemAndSetValue(AddNewProductPage['Amount input field'], product.amount);
@@ -35,7 +34,6 @@ class AddNewProductActions extends BaseActions {
   }
 
   public async createProduct(product: IProduct) {
-
     await this.fillProductInputs(product);
     await this.chooseDropdownItem(AddNewProductPage['Manufacturer dropdown'], AddNewProductPage['Dropdown option'](product.manufacturer));
     await this.clickOnSaveNewProductButton();

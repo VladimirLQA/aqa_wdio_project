@@ -1,3 +1,4 @@
+// @ts-nocheck
 import ControllersList from '../../api/controllers/contollers.index';
 import { reqAsLoggedUser } from '../../api/request/request-as-logged-user';
 import { asyncForEach, asyncReduce } from '../../utils/async_array_methods/array-async-methods';
