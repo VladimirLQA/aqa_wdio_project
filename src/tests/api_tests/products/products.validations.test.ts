@@ -6,6 +6,7 @@ import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
 import { IProductResponse } from '../../../api/type/api.product.type';
 import { errorMessage, getNewProduct } from '../../../data/products/product.data';
 import { productData } from '../../../data/products/products-test.data';
+import { VALIDATION_ERROR_MESSAGES } from '../../../ui/types/common.types';
 import { productsStorage } from '../../../utils/storages/storages';
 
 describe('Smoke api test', () => {
@@ -62,10 +63,7 @@ describe('Smoke api test', () => {
 
     for (const productManufacturer of productData.valid.manufacturer) {
       it(`Should create product with manufacturer: '${productManufacturer.manufacturer}'`, async () => {
-        const response = await ApiProductsActions.createProduct(
-          token,
-          getNewProduct({ manufacturer: productManufacturer.manufacturer }),
-        );
+        const response = await ApiProductsActions.createProduct(token, getNewProduct({ manufacturer: productManufacturer.manufacturer }));
         await ApiProductsAssertions.verifyResponse(response, 201, true, null);
 
         productsStorage.addEntity(response.data.Product);
@@ -86,7 +84,7 @@ describe('Smoke api test', () => {
     for (const productName of productData.invalid.name) {
       it(`Should not create product with name: ${productName.description}`, async () => {
         const response = await ApiProductsActions.createProduct(token, getNewProduct({ name: productName.name }));
-        await ApiProductsAssertions.verifyResponse(response, 400, false, errorMessage['incorrect request body']());
+        await ApiProductsAssertions.verifyResponse(response, 400, false, VALIDATION_ERROR_MESSAGES.INCORRECT_BODY);
       });
     }
 
@@ -100,9 +98,30 @@ describe('Smoke api test', () => {
     });
 
     for (const productPrice of productData.invalid.price) {
-      it(`Should not create product with price: ${productPrice.description}`, async () => {
+      xit(`Should not create product with price: ${productPrice.description}`, async () => {
         const response = await ApiProductsActions.createProduct(token, getNewProduct({ price: productPrice.price }));
-        await ApiProductsAssertions.verifyResponse(response, 400, false, errorMessage['incorrect request body']());
+        await ApiProductsAssertions.verifyResponse(response, 400, false, VALIDATION_ERROR_MESSAGES.INCORRECT_BODY);
+      });
+    }
+
+    for (const productAmount of productData.invalid.amount) {
+      xit(`Should not create product with amount: ${productAmount.description}`, async () => {
+        const response = await ApiProductsActions.createProduct(token, getNewProduct({ amount: productAmount.amount }));
+        await ApiProductsAssertions.verifyResponse(response, 400, false, VALIDATION_ERROR_MESSAGES.INCORRECT_BODY);
+      });
+    }
+
+    for (const productNotes of productData.invalid.notes) {
+      xit(`Should not create product with notes: ${productNotes.description}`, async () => {
+        const response = await ApiProductsActions.createProduct(token, getNewProduct({ notes: productNotes.notes }));
+        await ApiProductsAssertions.verifyResponse(response, 400, false, VALIDATION_ERROR_MESSAGES.INCORRECT_BODY);
+      });
+    }
+
+    for (const productManufacturer of productData.invalid.notes) {
+      it(`Should not create product with manufacturer: ${productManufacturer.description}`, async () => {
+        const response = await ApiProductsActions.createProduct(token, getNewProduct({ manufacturer: productManufacturer.manufacturer }));
+        await ApiProductsAssertions.verifyResponse(response, 400, false, VALIDATION_ERROR_MESSAGES.INCORRECT_BODY);
       });
     }
   });

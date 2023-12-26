@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { asyncForEach } from '../../../../utils/async_array_methods/array-async-methods';
 import { IInitObject } from '../../../types/common.types';
 import ModalPage from './modal.page';

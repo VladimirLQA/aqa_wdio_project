@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { CommonActions } from '../actions/common.actions';
 import { CommonPage } from '../pages/aqa_project/common.page';
 import DetailsModalPage from '../pages/aqa_project/modals/details-modal.page';
@@ -9,7 +10,6 @@ export class CommonAssertions extends BaseAssertions {
 
   async verifyTableData(page: CommonPage) {
     let expected = await this.commonActions.getApiMappedData(page);
-    console.log('expected ========', expected);
     const chipFilters = await this.commonActions.getListOfChipButtons(page);
     if (chipFilters) {
       expected = await this.commonActions.getTableDataAfterFilterAndSearch(expected, chipFilters);

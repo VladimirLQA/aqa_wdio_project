@@ -3,10 +3,10 @@ import { productData } from '../../../data/products/products-test.data';
 import HomeActions from '../../../ui/actions/home.actions';
 import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
 import ProductsActions from '../../../ui/actions/products/products.actions';
+import SideBarActions from '../../../ui/actions/side-bar.actions';
 import SignInActions from '../../../ui/actions/sign-in.actions';
 import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
 import { IProduct } from '../../../ui/types/products.types';
-import ProductsStorage from '../../../utils/storages/products.storage';
 
 describe('Notifications test on products page', () => {
   let productToCreate: IProduct;
@@ -21,16 +21,12 @@ describe('Notifications test on products page', () => {
   });
 
   afterEach('Clear state after test', async () => {
-    await HomeActions.clickOnSignOutButton();
+    await SideBarActions.clickOnSignOutButton();
   });
 
   after('Tear down after test suite', async () => {
     await SignInActions.signIn();
     await HomeActions.openProductsPage();
-
-    for (const product of ProductsStorage.getAllEntities()) {
-      await ProductsActions.deleteProduct(product.name);
-    }
   });
 
   context('Positive tests on input fields validation', async () => {
@@ -38,7 +34,6 @@ describe('Notifications test on products page', () => {
     for (const product of productData.valid.name) {
       it(`Should create product with valid name: '${product.description}'`, async () => {
         productToCreate = getNewProduct({ name: product.name });
-        ProductsStorage.addEntity(productToCreate);
         tempProductName = productToCreate.name;
 
         await AddNewProductActions.fillProductInputs(productToCreate);

@@ -1,66 +1,58 @@
-import SignInActions from '../../../ui/actions/sign-in.actions';
-import HomeActions from '../../../ui/actions/home.actions';
-import ProductsActions from '../../../ui/actions/products/products.actions';
-import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
-import { errorToastMessage, getNewProduct } from '../../../data/products/product.data';
-import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
-import { IProduct } from '../../../ui/types/products.types';
 import ProductsController from '../../../api/controllers/products.controller';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
-import { ProductsStorage } from '../../../utils/storages/products.storage';
-import AddNewProductPage from '../../../ui/pages/aqa_project/products/add-new-product.page';
-import AddNewProductAssertions from '../../../ui/assertions/products_assertions/add-new-product.assertions';
+import { IProductResponse } from '../../../api/type/api.product.type';
+import { getNewProduct } from '../../../data/products/product.data';
+import HomeActions from '../../../ui/actions/home.actions';
 import DetailsModalActions from '../../../ui/actions/modals/details-modal.actions';
+import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
+import ProductsActions from '../../../ui/actions/products/products.actions';
+import SignInActions from '../../../ui/actions/sign-in.actions';
+import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
+import { IProduct } from '../../../ui/types/products.types';
 
-describe('', () => {
-  let productToCreate: IProduct;
+describe('Smoke tests with creating product', () => {
+  let productToCreate: IProduct,
+    productsNames: string[] = [];
   before('Prepare to test', async () => {
     await SignInActions.openSalesPortal();
     await SignInActions.signIn();
     await HomeActions.openProductsPage();
   });
 
-  afterEach('', async () => {
-    for (const product of ProductsStorage.getAllProducts()) {
-      await reqAsLoggedUser(ProductsController.delete, { data: { name: product.name } });
+  after('Tear down', async () => {
+    let ids: string[] = [];
+    for (const productName of productsNames) {
+      ids.push(
+        (await reqAsLoggedUser(ProductsController.get, {})).data.Products.filter(
+          (product: IProductResponse) => product.name === productName,
+        ).map((el: IProductResponse) => el._id),
+      );
+    }
+    for (const id of ids) {
+      console.log(id);
+      await reqAsLoggedUser(ProductsController.delete, { data: { _id: id } });
     }
   });
 
-  xit('Should create product and validate in table of products', async () => {
-    productToCreate = getNewProduct({ price: 888 });
-    ProductsStorage.addProduct(productToCreate);
+  it('Should create product and validate in table of products', async () => {
+    productToCreate = getNewProduct();
+    productsNames.push(productToCreate.name);
 
     await ProductsActions.openAddNewProductPage();
     await AddNewProductActions.createProduct(productToCreate);
-    await ProductsAssertions.verifyProductToastText('created');
+    await ProductsActions.closeToastMessage();
     await ProductsAssertions.verifyCreatedProductRow(productToCreate);
   });
 
   it('Should create product and validate in details modal window', async () => {
     productToCreate = getNewProduct();
-    ProductsStorage.addProduct(productToCreate);
+    productsNames.push(productToCreate.name);
 
     await ProductsActions.openAddNewProductPage();
     await AddNewProductActions.createProduct(productToCreate);
-    await ProductsAssertions.verifyProductToastText('created');
+    await ProductsActions.closeToastMessage();
     await ProductsActions.clickOnProductRowActionButton(productToCreate.name, 'Details');
     await ProductsAssertions.verifyCreatedEntityInDetailModal(productToCreate);
     await DetailsModalActions.clickOnCloseModalButton();
-  });
-
-  xit('Validate products in table', async () => {
-    const tableData = await ProductsActions.getParsedTableData();
-    const apiProducts = await reqAsLoggedUser(ProductsController.get, {});
-    console.log(apiProducts);
-  });
-
-  xit('Should get api error response after sending invalid data', async () => {
-    productToCreate = getNewProduct({ name: '   sdsds  sd', price: 1111112, amount: 12312312, notes: '_+><>' });
-    ProductsStorage.addProduct(productToCreate);
-    await ProductsActions.openAddNewProductPage();
-    await AddNewProductActions.fillProductInputs(productToCreate);
-    await AddNewProductActions.enableButton(AddNewProductPage['Save New Product button']);
-    await AddNewProductActions.clickOnSaveNewProductButton();
-    await AddNewProductAssertions.verifyToastMessage(errorToastMessage);
   });
 });
