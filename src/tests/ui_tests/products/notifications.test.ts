@@ -1,15 +1,14 @@
-import { getNewProduct } from '../../../data/products/product.data';
-import { productData } from '../../../data/products/products-test.data';
+import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
+import { IProductResponse } from '../../../api/type/api.product.type';
 import HomeActions from '../../../ui/actions/home.actions';
-import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
 import ProductsActions from '../../../ui/actions/products/products.actions';
 import SideBarActions from '../../../ui/actions/side-bar.actions';
 import SignInActions from '../../../ui/actions/sign-in.actions';
-import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
 import { IProduct } from '../../../ui/types/products.types';
+import ProductsController from '../../../api/controllers/products.controller';
 
 describe('Notifications test on products page', () => {
-  let productToCreate: IProduct;
+  let productToCreate: IProduct, productsNames: string[];
   before('Up browser', async () => {
     await SignInActions.openSalesPortal();
   });
@@ -17,7 +16,7 @@ describe('Notifications test on products page', () => {
   beforeEach('Prepare to test', async () => {
     await SignInActions.signIn();
     await HomeActions.openProductsPage();
-    await ProductsActions.openAddNewProductPage();
+    await ProductsActions.clickOnAddProductButton();
   });
 
   afterEach('Clear state after test', async () => {
@@ -25,21 +24,18 @@ describe('Notifications test on products page', () => {
   });
 
   after('Tear down after test suite', async () => {
-    await SignInActions.signIn();
-    await HomeActions.openProductsPage();
-  });
-
-  context('Positive tests on input fields validation', async () => {
-    let tempProductName: string;
-    for (const product of productData.valid.name) {
-      it(`Should create product with valid name: '${product.description}'`, async () => {
-        productToCreate = getNewProduct({ name: product.name });
-        tempProductName = productToCreate.name;
-
-        await AddNewProductActions.fillProductInputs(productToCreate);
-        await AddNewProductActions.clickOnSaveNewProductButton();
-        await ProductsAssertions.verifyProductToastText('created');
-      });
+    let ids: string[] = [];
+    for (const productName of productsNames) {
+      ids.push(
+        (await reqAsLoggedUser(ProductsController.get, {})).data.Products.filter(
+          (product: IProductResponse) => product.name === productName,
+        ).map((el: IProductResponse) => el._id),
+      );
+    }
+    for (const id of ids) {
+      await reqAsLoggedUser(ProductsController.delete, { data: { _id: id } });
     }
   });
+
+  // TODO implement test for each case of toast message, ex. 'created', 'updated', etc.
 });
