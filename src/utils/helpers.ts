@@ -1,12 +1,5 @@
 import { IInitObject } from '../ui/types/common.types';
-import { elementFinder } from './element-finder';
 import { apiKeysForMapping, apiKeysMapper } from './mapper-keys';
-
-const isAttributeContainClass = async (element: string, className: string): Promise<boolean> => {
-  const elem = await elementFinder.findElement(element);
-  const classAttribute = await elem.getAttribute('class');
-  return classAttribute.toLowerCase().includes(className);
-};
 
 const browserPause = async (timeout: number): Promise<void> => {
   await browser.pause(timeout);
@@ -46,5 +39,5 @@ const apiKeyMapper = async (entity: any, pageName: string) => {
   }
   return mappedEntity;
 };
-
-export { apiKeyMapper, browserPause, capitalize, isAttributeContainClass, modalParser, sortByNameASC };
+// TODO implement Helper class
+export { apiKeyMapper, browserPause, capitalize, modalParser, sortByNameASC };

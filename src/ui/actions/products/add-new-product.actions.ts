@@ -6,18 +6,14 @@ import { MANUFACTURERS } from '../../types/products.types';
 
 class AddNewProductActions extends BaseActions {
   public async fillProductInputs<T extends IProduct>(product: T): Promise<void> {
-    await AddNewProductPage.waitForElemAndSetValue(AddNewProductPage['Name input field'], product.name);
-    await AddNewProductPage.waitForElemAndSetValue(AddNewProductPage['Price input field'], product.price);
-    await AddNewProductPage.waitForElemAndSetValue(AddNewProductPage['Amount input field'], product.amount);
+    await this.fillInputField(AddNewProductPage['Name input field'], product.name);
+    await this.fillInputField(AddNewProductPage['Price input field'], product.price);
+    await this.fillInputField(AddNewProductPage['Amount input field'], product.amount);
 
     if (product.notes) {
-      await AddNewProductPage.waitForElemAndSetValue(AddNewProductPage['Notes input field'], product.notes);
+      await this.fillInputField(AddNewProductPage['Notes input field'], product.notes);
     }
     await browserPause(200);
-  }
-
-  public async fillProductInputField(inputField: string, inputValue: string) {
-    await AddNewProductPage.waitForElemAndSetValue(inputField, inputValue);
   }
 
   public async clickOnSaveNewProductButton() {

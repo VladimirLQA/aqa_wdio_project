@@ -1,7 +1,7 @@
-import BasePage from '../pages/aqa_project/base.page';
 import { elementFinder } from '../../utils/element-finder';
 import { browserPause } from '../../utils/helpers';
 import { logAction } from '../../utils/reporter/allure.reporter';
+import BasePage from '../pages/aqa_project/base.page';
 
 export default class BaseActions {
   public basePage: BasePage;
@@ -10,7 +10,7 @@ export default class BaseActions {
     this.basePage = new BasePage();
   }
 
-  @logAction('Wait for page loading')
+  @logAction('Wait for page is loaded')
   async waitForPageLoad() {
     const spinner = await elementFinder.findElement(this.basePage['Spinner']);
     await spinner.waitForDisplayed({ reverse: true });
@@ -45,7 +45,12 @@ export default class BaseActions {
     await this.basePage.waitForElemAndClick(item);
   }
 
+  @logAction('Enable button')
   async enableButton(selector: string) {
     return browser.execute(`$('button${selector}').removeAttr("disabled")`);
+  }
+
+  public async fillInputField(inputField: string, inputValue: string | number) {
+    await this.basePage.waitForElemAndSetValue(inputField, inputValue);
   }
 }

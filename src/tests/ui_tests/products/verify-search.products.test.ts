@@ -22,7 +22,7 @@ describe('WDIO - 7', () => {
     const quickFilters = [MANUFACTURERS.APPLE, MANUFACTURERS.AMAZON, MANUFACTURERS.XIAOMI];
     await ProductsActions.checkQuickFilters(quickFilters);
     const actualQuickFilters = (await ProductsActions.getListOfChipButtons(ProductsPage)).quickFilters;
-    expect(quickFilters.every((filter) => actualQuickFilters.includes(filter))).toBe(true);
+    expect(quickFilters.every((filter) => actualQuickFilters!.includes(filter))).toBe(true);
     await ProductsAssertions.verifyTableData(ProductsPage);
   });
 

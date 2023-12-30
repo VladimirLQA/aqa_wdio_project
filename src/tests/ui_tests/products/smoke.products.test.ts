@@ -3,7 +3,6 @@ import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
 import { IProductResponse } from '../../../api/type/api.product.type';
 import { getNewProduct } from '../../../data/products/product.data';
 import HomeActions from '../../../ui/actions/home.actions';
-import DetailsModalActions from '../../../ui/actions/modals/details-modal.actions';
 import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
 import ProductsActions from '../../../ui/actions/products/products.actions';
 import SignInActions from '../../../ui/actions/sign-in.actions';
@@ -29,30 +28,23 @@ describe('Smoke tests with creating product', () => {
       );
     }
     for (const id of ids) {
-      console.log(id);
       await reqAsLoggedUser(ProductsController.delete, { data: { _id: id } });
     }
   });
 
-  it('Should create product and validate in table of products', async () => {
+  it('Should create product and verify in tale of products', async () => {
     productToCreate = getNewProduct();
     productsNames.push(productToCreate.name);
 
-    await ProductsActions.openAddNewProductPage();
+    await ProductsActions.clickOnAddProductButton();
     await AddNewProductActions.createProduct(productToCreate);
-    await ProductsActions.closeToastMessage();
     await ProductsAssertions.verifyCreatedProductRow(productToCreate);
   });
 
-  it('Should create product and validate in details modal window', async () => {
-    productToCreate = getNewProduct();
-    productsNames.push(productToCreate.name);
-
-    await ProductsActions.openAddNewProductPage();
-    await AddNewProductActions.createProduct(productToCreate);
-    await ProductsActions.closeToastMessage();
-    await ProductsActions.clickOnProductRowActionButton(productToCreate.name, 'Details');
+  it('Should validate created product in details modal window', async () => {
+    await ProductsActions.clickOnRowActionButton(productToCreate.name, 'Details');
     await ProductsAssertions.verifyCreatedEntityInDetailModal(productToCreate);
-    await DetailsModalActions.clickOnCloseModalButton();
   });
+
+  // TODO implement tests for update, delete + verify for each
 });
