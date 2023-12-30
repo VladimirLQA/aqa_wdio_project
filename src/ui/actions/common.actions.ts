@@ -120,4 +120,31 @@ export class CommonActions extends BaseActions {
   async fillSearchInput(searchValue: string) {
     await this.basePage.waitForElemAndSetValue(this.commonPage['Search input'], searchValue);
   }
+
+  @logAction('Click on row action button')
+  async clickOnRowActionButton(value: string, action: ActionButtons) {
+    await this.basePage.waitForElemAndClick(this.commonPage['Table row action button'](value, action));
+    await this.waitForPageLoad();
+  }
+
+  @logAction('Click on "edit" button in table')
+  async clickOnEditActionButton(value: string) {
+    await this.clickOnRowActionButton(value, 'Edit');
+    await DeleteModalActions.clickOnDeleteButton();
+    await this.waitForPageLoad();
+  }
+
+  @logAction('Click on "delete" button in table')
+  async clickOnDeleteActionButton(value: string) {
+    await this.clickOnRowActionButton(value, 'Delete');
+    await DeleteModalActions.clickOnDeleteButton();
+    await this.waitForPageLoad();
+  }
+
+  @logAction('Click on "details" button in table')
+  async clickOnDetailsActionButton(value: string) {
+    await this.clickOnRowActionButton(value, 'Details');
+    await DeleteModalActions.clickOnDeleteButton();
+    await this.waitForPageLoad();
+  }
 }

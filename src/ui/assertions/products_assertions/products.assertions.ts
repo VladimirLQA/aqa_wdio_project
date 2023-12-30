@@ -1,6 +1,6 @@
-import { IProduct, ToastMessage } from '../../types/products.types';
-import ProductsActions from '../../actions/products/products.actions';
 import { browserPause } from '../../../utils/helpers';
+import ProductsActions from '../../actions/products/products.actions';
+import { IProduct, ToastMessage } from '../../types/products.types';
 import { CommonAssertions } from '../common.assertions';
 
 class ProductsAssertions extends CommonAssertions {
@@ -16,7 +16,6 @@ class ProductsAssertions extends CommonAssertions {
     await this.baseActions.closeToastMessage();
     await browserPause(300);
   }
-
 }
 
 export default new ProductsAssertions();
