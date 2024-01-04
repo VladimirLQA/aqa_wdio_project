@@ -32,7 +32,7 @@ describe('Smoke tests with creating product', () => {
     }
   });
 
-  it('Should create product and verify in tale of products', async () => {
+  it('Should create product and verify in table of products', async () => {
     productToCreate = getNewProduct();
     productsNames.push(productToCreate.name);
 

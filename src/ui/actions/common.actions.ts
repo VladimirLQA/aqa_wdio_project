@@ -1,5 +1,4 @@
-// @ts-nocheck
-import ControllersList from '../../api/controllers/contollers.index';
+import { ControllersList } from '../../api/controllers/contollers.index';
 import { reqAsLoggedUser } from '../../api/request/request-as-logged-user';
 import { asyncForEach, asyncReduce } from '../../utils/async_array_methods/array-async-methods';
 import { elementFinder } from '../../utils/element-finder';
@@ -7,7 +6,7 @@ import { apiKeyMapper, capitalize } from '../../utils/helpers';
 import { logAction } from '../../utils/reporter/allure.reporter';
 import { CommonPage } from '../pages/aqa_project/common.page';
 import FilterModalPage from '../pages/aqa_project/modals/filter-modal.page';
-import { IChipsFilterOptions, UnionFilterModalLabels } from '../types/common.types';
+import { ActionButtons, IChipsFilterOptions, UnionFilterModalLabels } from '../types/common.types';
 import BaseActions from './base.actions';
 import FiltersModalActions from './modals/filters-modal.actions';
 
@@ -15,7 +14,7 @@ export class CommonActions extends BaseActions {
   commonPage: CommonPage = new CommonPage();
 
   async getListOfChipButtons(page: CommonPage): Promise<IChipsFilterOptions> {
-    const chips = await elementFinder.findArrayElements(page['Chip buttons']);
+    const chips = await Promise.all(await elementFinder.findArrayElements(page['Chip buttons']));
     const chipsFilters: IChipsFilterOptions = {
       quickFilters: [],
     };
@@ -35,7 +34,7 @@ export class CommonActions extends BaseActions {
     const data = (await reqAsLoggedUser(ControllersList[page.pageName].get, {})).data[capitalize(page.pageName)];
     const res = await asyncReduce(
       data,
-      async (result, entity) => {
+      async (result: any[], entity: { [key: string]: string }) => {
         if (entity['price']) entity['price'] = `$${entity.price}`;
 
         result.push(await apiKeyMapper(entity, page.pageName));
@@ -47,7 +46,7 @@ export class CommonActions extends BaseActions {
     return res;
   }
 
-  // TODO rename method getTableDataAfterFilterAndSearch
+  // TODO rename method getTableDataAfterFilterAndSearch + typings
   async getTableDataAfterFilterAndSearch(tableData: Record<string, string>[], chipFilters: IChipsFilterOptions) {
     const { search, quickFilters } = chipFilters;
     const filteredAndSearchedData: Record<string, string>[] = [];
@@ -92,7 +91,7 @@ export class CommonActions extends BaseActions {
 
   async clearQuickAndSearchFilterChips(page: CommonPage, chipsToClose: 'search' | 'quick filters' | 'all') {
     const chips = await elementFinder.findArrayElements(page['Chip buttons']);
-
+    // todo typings
     await asyncForEach(chips, async (chip) => {
       const actualFilters = await chip.getAttribute(`data-chip-${page.pageName}`);
 
@@ -130,21 +129,18 @@ export class CommonActions extends BaseActions {
   @logAction('Click on "edit" button in table')
   async clickOnEditActionButton(value: string) {
     await this.clickOnRowActionButton(value, 'Edit');
-    await DeleteModalActions.clickOnDeleteButton();
     await this.waitForPageLoad();
   }
 
   @logAction('Click on "delete" button in table')
   async clickOnDeleteActionButton(value: string) {
     await this.clickOnRowActionButton(value, 'Delete');
-    await DeleteModalActions.clickOnDeleteButton();
     await this.waitForPageLoad();
   }
 
   @logAction('Click on "details" button in table')
   async clickOnDetailsActionButton(value: string) {
     await this.clickOnRowActionButton(value, 'Details');
-    await DeleteModalActions.clickOnDeleteButton();
     await this.waitForPageLoad();
   }
 }

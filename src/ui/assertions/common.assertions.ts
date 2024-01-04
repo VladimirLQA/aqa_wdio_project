@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { CommonActions } from '../actions/common.actions';
 import { CommonPage } from '../pages/aqa_project/common.page';
 import DetailsModalPage from '../pages/aqa_project/modals/details-modal.page';
@@ -26,6 +25,7 @@ export class CommonAssertions extends BaseAssertions {
     const actualEntity = await DetailsModalPage.getParsedDetailsData();
     for (const key in createdEntity) {
       if (key !== 'createdOn' && key !== '_id') {
+        // TODO typings
         expect(actualEntity[key]).toBe(createdEntity[key].toString());
       }
     }
