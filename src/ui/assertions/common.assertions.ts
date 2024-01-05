@@ -21,12 +21,11 @@ export class CommonAssertions extends BaseAssertions {
     }
   }
 
-  async verifyCreatedEntityInDetailModal(createdEntity: IProduct) {
+  async verifyCreatedEntityInDetailModal<T extends IProduct>(createdEntity: T) {
     const actualEntity = await DetailsModalPage.getParsedDetailsData();
     for (const key in createdEntity) {
       if (key !== 'createdOn' && key !== '_id') {
-        // TODO typings
-        expect(actualEntity[key]).toBe(createdEntity[key].toString());
+        expect(actualEntity[key]).toBe(String(createdEntity[key]));
       }
     }
   }

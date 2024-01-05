@@ -46,12 +46,12 @@ export class CommonActions extends BaseActions {
     return res;
   }
 
-  // TODO rename method getTableDataAfterFilterAndSearch + typings
   async getTableDataAfterFilterAndSearch(tableData: Record<string, string>[], chipFilters: IChipsFilterOptions) {
     const { search, quickFilters } = chipFilters;
     const filteredAndSearchedData: Record<string, string>[] = [];
     await asyncForEach(tableData, async (entity) => {
-      const isMatchQuickFilter = quickFilters?.some((filter) => Object.values(entity).at(-1).includes(filter));
+      const isMatchQuickFilter = quickFilters?.some((filter) => Object.values(entity).at(-1)!.includes(filter));
+      // @ts-ignore
       const isMatchSearch = Object.values(entity).some((value) => value.toLowerCase().includes(search?.toLowerCase()));
 
       if (search && quickFilters?.length) {
@@ -90,8 +90,7 @@ export class CommonActions extends BaseActions {
   }
 
   async clearQuickAndSearchFilterChips(page: CommonPage, chipsToClose: 'search' | 'quick filters' | 'all') {
-    const chips = await elementFinder.findArrayElements(page['Chip buttons']);
-    // todo typings
+    const chips = await Promise.all(await elementFinder.findArrayElements(page['Chip buttons']));
     await asyncForEach(chips, async (chip) => {
       const actualFilters = await chip.getAttribute(`data-chip-${page.pageName}`);
 
@@ -120,7 +119,6 @@ export class CommonActions extends BaseActions {
     await this.basePage.waitForElemAndSetValue(this.commonPage['Search input'], searchValue);
   }
 
-  @logAction('Click on row action button')
   async clickOnRowActionButton(value: string, action: ActionButtons) {
     await this.basePage.waitForElemAndClick(this.commonPage['Table row action button'](value, action));
     await this.waitForPageLoad();
