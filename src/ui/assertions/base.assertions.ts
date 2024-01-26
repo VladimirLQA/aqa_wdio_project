@@ -1,7 +1,7 @@
-import BaseActions from '../actions/base.actions';
-import PageHandler from '../pages/aqa_project/page-handler.page';
-import BasePage from '../pages/aqa_project/base.page';
-import { browserPause } from '../../utils/helpers';
+import BaseActions from '../actions/base.actions.js';
+import PageHandler from '../pages/aqa_project/page-handler.page.js';
+import BasePage from '../pages/aqa_project/base.page.js';
+import Utils from '../../utils/helpers.js';
 
 export class BaseAssertions {
   pageHandler: PageHandler = new PageHandler();
@@ -28,9 +28,12 @@ export class BaseAssertions {
     expect(isContain).toBe(expected);
   }
 
-  public async verifyInputField(borderColorActual: string, borderColorExpected: string, 
-    messageActual?: string, messageExpected?: string) {
-
+  public async verifyInputField(
+    borderColorActual: string,
+    borderColorExpected: string,
+    messageActual?: string,
+    messageExpected?: string,
+  ) {
     expect(borderColorActual).toBe(borderColorExpected);
     if (messageActual && messageExpected) {
       expect(messageActual).toBe(messageExpected);
@@ -40,6 +43,6 @@ export class BaseAssertions {
   public async verifyToastMessage(text: string) {
     await this.verifyElementText(this.basePage['Toast text'], text);
     await this.baseActions.closeToastMessage();
-    await browserPause(300);
+    await Utils.browserPause(300);
   }
 }

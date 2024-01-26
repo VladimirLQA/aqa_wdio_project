@@ -1,6 +1,6 @@
-import FilterModalPage from '../../pages/aqa_project/modals/filter-modal.page';
-import { UnionFilterModalLabels } from '../../types/common.types';
-import ModalActions from '../modal.actions';
+import FilterModalPage from '../../pages/aqa_project/modals/filter-modal.page.js';
+import { UnionFilterModalLabels } from '../../types/common.types.js';
+import ModalActions from '../modal.actions.js';
 
 class FiltersModalActions extends ModalActions {
   async clickOnApplyButton() {

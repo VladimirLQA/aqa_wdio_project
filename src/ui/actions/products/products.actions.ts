@@ -1,10 +1,10 @@
-import { productToastMessages } from '../../../data/products/product.data';
-import { logAction } from '../../../utils/reporter/allure.reporter';
-import ProductsPage from '../../pages/aqa_project/products/products.page';
-import { ActionButtons } from '../../types/common.types';
-import { ToastMessage } from '../../types/products.types';
-import { CommonActions } from '../common.actions';
-import DeleteModalActions from '../modals/delete-modal.actions';
+import { productToastMessages } from '../../../data/products/product.data.js';
+import { logAction } from '../../../utils/reporter/allure.reporter.js';
+import ProductsPage from '../../pages/aqa_project/products/products.page.js';
+import { ActionButtons } from '../../types/common.types.js';
+import { ToastMessage } from '../../types/products.types.js';
+import { CommonActions } from '../common.actions.js';
+import DeleteModalActions from '../modals/delete-modal.actions.js';
 
 class ProductsActions extends CommonActions {
   @logAction('Click on "Add product" button')

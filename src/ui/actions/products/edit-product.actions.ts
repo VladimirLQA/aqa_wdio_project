@@ -1,9 +1,9 @@
 // TODO impolement actions for edit product page
 
-import { browserPause } from '../../../utils/helpers';
-import EditProductPage from '../../pages/aqa_project/products/edit-product.page';
-import { IProduct, MANUFACTURERS } from '../../types/products.types';
-import BaseActions from '../base.actions';
+import Utils from '../../../utils/helpers.js';
+import EditProductPage from '../../pages/aqa_project/products/edit-product.page.js';
+import { IProduct, MANUFACTURERS } from '../../types/products.types.js';
+import BaseActions from '../base.actions.js';
 
 class EditProductActions extends BaseActions {
   public async fillProductInputs<T extends IProduct>(product: T): Promise<void> {
@@ -14,7 +14,7 @@ class EditProductActions extends BaseActions {
     if (product.notes) {
       await this.fillInputField(EditProductPage['Notes input field'], product.notes);
     }
-    await browserPause(200);
+    await Utils.browserPause(200);
   }
 
   public async clickOnSaveChangesButton() {
@@ -32,7 +32,10 @@ class EditProductActions extends BaseActions {
 
   public async updateProduct(product: IProduct) {
     await this.fillProductInputs(product);
-    await this.chooseDropdownItem(EditProductPage['Manufacturer dropdown'], EditProductPage['Dropdown option'](product.manufacturer));
+    await this.chooseDropdownItem(
+      EditProductPage['Manufacturer dropdown'],
+      EditProductPage['Dropdown option'](product.manufacturer),
+    );
     await this.clickOnSaveChangesButton();
     await this.waitForPageLoad();
   }

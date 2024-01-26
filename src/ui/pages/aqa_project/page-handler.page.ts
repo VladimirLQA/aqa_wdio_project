@@ -1,9 +1,13 @@
-import { TIMEOUT } from '../../../utils/aqa_project_const';
-import { elementFinder } from '../../../utils/element-finder';
-import { browserPause } from '../../../utils/helpers';
+import { TIMEOUT } from '../../../utils/aqa_project_const.js';
+import { elementFinder } from '../../../utils/element-finder.js';
+import Utils from '../../../utils/helpers.js';
 
 export default class PageHandler {
-  async waitForElement(selector: string, reverse = false, timeout: number = TIMEOUT['5 seconds']): Promise<WebdriverIO.Element> {
+  async waitForElement(
+    selector: string,
+    reverse: boolean = false,
+    timeout: number = TIMEOUT['5 seconds'],
+  ): Promise<WebdriverIO.Element> {
     const elem = await elementFinder.findElement(selector);
     await elem.waitForDisplayed({
       reverse,
@@ -15,10 +19,12 @@ export default class PageHandler {
 
   async waitForElementsArrayToBeDisplayed(
     selector: string,
-    reverse = false,
+    reverse: boolean = false,
     timeout: number = TIMEOUT['5 seconds'],
+    // @ts-ignore
   ): Promise<WebdriverIO.ElementArray> {
     const elements = await elementFinder.findArrayElements(selector);
+    // @ts-ignore
     await browser.waitUntil(
       async () => {
         for (const elem of elements) {
@@ -54,7 +60,7 @@ export default class PageHandler {
     const elem = await this.waitForElementAndScroll(selector);
     await elem.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
     await elem.setValue(text);
-    await browserPause(200);
+    await Utils.browserPause(200);
   }
 
   async waitForElemAndClick(selector: string, timeout: number = TIMEOUT['5 seconds']): Promise<void> {

@@ -1,6 +1,6 @@
-import { logAction } from '../../../utils/reporter/allure.reporter';
-import BasePage from '../../pages/aqa_project/base.page';
-import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page';
+import { logAction } from '../../../utils/reporter/allure.reporter.js';
+import BasePage from '../../pages/aqa_project/base.page.js';
+import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page.js';
 
 class OrdersDetailsActions extends BasePage {
   @logAction('Click on refresh order button')

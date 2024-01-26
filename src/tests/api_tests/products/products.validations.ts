@@ -1,15 +1,16 @@
-import ApiProductsActions from '../../../api/api_actions/api-products.actions';
-import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions';
-import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions';
-import ProductsController from '../../../api/controllers/products.controller';
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
-import { IProductResponse } from '../../../api/type/api.product.type';
-import { errorMessage, getNewProduct } from '../../../data/products/product.data';
-import { productData } from '../../../data/products/products-test.data';
-import { VALIDATION_ERROR_MESSAGES } from '../../../ui/types/common.types';
-import { productsStorage } from '../../../utils/storages/storages';
+import ApiProductsActions from '../../../api/api_actions/api-products.actions.js';
+import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions.js';
+import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions.js';
+import ProductsController from '../../../api/controllers/products.controller.js';
+import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
+import { STATUS_CODES } from '../../../api/type/api.common.type.js';
+import { IProductResponse } from '../../../api/type/api.product.type.js';
+import { errorMessage, getNewProduct } from '../../../data/products/product.data.js';
+import { productData } from '../../../data/products/products-test.data.js';
+import { VALIDATION_ERROR_MESSAGES } from '../../../ui/types/common.types.js';
+import { productsStorage } from '../../../utils/storages/storages.js';
 
-describe('Smoke api test', () => {
+describe('Product validation data', () => {
   let token: string;
 
   before(async () => {
@@ -32,12 +33,12 @@ describe('Smoke api test', () => {
     }
   });
 
-  xcontext('Tests with valid data', () => {
+  context('Tests with valid data', () => {
     for (const productName of productData.valid.name) {
       it(`Should create product with name: '${productName.description}'`, async () => {
         const response = await ApiProductsActions.createProduct(token, getNewProduct({ name: productName.name }));
         console.log(response.data);
-        await ApiProductsAssertions.verifyResponse(response, 201, true, null);
+        await ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
 
         productsStorage.addEntity(response.data.Product);
       });
@@ -46,7 +47,7 @@ describe('Smoke api test', () => {
     for (const productPrice of productData.valid.price) {
       it(`Should create product with price: '${productPrice.description}'`, async () => {
         const response = await ApiProductsActions.createProduct(token, getNewProduct({ price: productPrice.price }));
-        await ApiProductsAssertions.verifyResponse(response, 201, true, null);
+        await ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
 
         productsStorage.addEntity(response.data.Product);
       });
@@ -55,7 +56,7 @@ describe('Smoke api test', () => {
     for (const productAmount of productData.valid.amount) {
       it(`Should create product with amount: '${productAmount.amount}'`, async () => {
         const response = await ApiProductsActions.createProduct(token, getNewProduct({ amount: productAmount.amount }));
-        await ApiProductsAssertions.verifyResponse(response, 201, true, null);
+        await ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
 
         productsStorage.addEntity(response.data.Product);
       });
@@ -63,8 +64,11 @@ describe('Smoke api test', () => {
 
     for (const productManufacturer of productData.valid.manufacturer) {
       it(`Should create product with manufacturer: '${productManufacturer.manufacturer}'`, async () => {
-        const response = await ApiProductsActions.createProduct(token, getNewProduct({ manufacturer: productManufacturer.manufacturer }));
-        await ApiProductsAssertions.verifyResponse(response, 201, true, null);
+        const response = await ApiProductsActions.createProduct(
+          token,
+          getNewProduct({ manufacturer: productManufacturer.manufacturer }),
+        );
+        await ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
 
         productsStorage.addEntity(response.data.Product);
       });
@@ -73,7 +77,7 @@ describe('Smoke api test', () => {
     for (const productNotes of productData.valid.notes) {
       it(`Should create product with notes: '${productNotes.notes}'`, async () => {
         const response = await ApiProductsActions.createProduct(token, getNewProduct({ notes: productNotes.notes }));
-        await ApiProductsAssertions.verifyResponse(response, 201, true, null);
+        await ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
 
         productsStorage.addEntity(response.data.Product);
       });
@@ -84,7 +88,12 @@ describe('Smoke api test', () => {
     for (const productName of productData.invalid.name) {
       it(`Should not create product with name: ${productName.description}`, async () => {
         const response = await ApiProductsActions.createProduct(token, getNewProduct({ name: productName.name }));
-        await ApiProductsAssertions.verifyResponse(response, 400, false, VALIDATION_ERROR_MESSAGES.INCORRECT_BODY);
+        await ApiProductsAssertions.verifyResponse(
+          response,
+          STATUS_CODES.BAD_REQUEST,
+          false,
+          VALIDATION_ERROR_MESSAGES.INCORRECT_BODY,
+        );
       });
     }
 
@@ -92,7 +101,12 @@ describe('Smoke api test', () => {
       const product = getNewProduct();
       const preparedProduct = await ApiProductsActions.createProduct(token, product);
       const response = await ApiProductsActions.createProduct(token, product);
-      await ApiProductsAssertions.verifyResponse(response, 409, false, errorMessage['already exist'](product.name));
+      await ApiProductsAssertions.verifyResponse(
+        response,
+        STATUS_CODES.CONFLICT,
+        false,
+        errorMessage['already exist'](product.name),
+      );
 
       productsStorage.addEntity(preparedProduct.data.Product);
     });
@@ -100,28 +114,53 @@ describe('Smoke api test', () => {
     for (const productPrice of productData.invalid.price) {
       xit(`Should not create product with price: ${productPrice.description}`, async () => {
         const response = await ApiProductsActions.createProduct(token, getNewProduct({ price: productPrice.price }));
-        await ApiProductsAssertions.verifyResponse(response, 400, false, VALIDATION_ERROR_MESSAGES.INCORRECT_BODY);
+        await ApiProductsAssertions.verifyResponse(
+          response,
+          STATUS_CODES.BAD_REQUEST,
+          false,
+          VALIDATION_ERROR_MESSAGES.INCORRECT_BODY,
+        );
       });
     }
 
     for (const productAmount of productData.invalid.amount) {
       xit(`Should not create product with amount: ${productAmount.description}`, async () => {
         const response = await ApiProductsActions.createProduct(token, getNewProduct({ amount: productAmount.amount }));
-        await ApiProductsAssertions.verifyResponse(response, 400, false, VALIDATION_ERROR_MESSAGES.INCORRECT_BODY);
+        await ApiProductsAssertions.verifyResponse(
+          response,
+          STATUS_CODES.BAD_REQUEST,
+          false,
+          VALIDATION_ERROR_MESSAGES.INCORRECT_BODY,
+        );
       });
     }
 
     for (const productNotes of productData.invalid.notes) {
       xit(`Should not create product with notes: ${productNotes.description}`, async () => {
         const response = await ApiProductsActions.createProduct(token, getNewProduct({ notes: productNotes.notes }));
-        await ApiProductsAssertions.verifyResponse(response, 400, false, VALIDATION_ERROR_MESSAGES.INCORRECT_BODY);
+        await ApiProductsAssertions.verifyResponse(
+          response,
+          STATUS_CODES.BAD_REQUEST,
+          false,
+          VALIDATION_ERROR_MESSAGES.INCORRECT_BODY,
+        );
       });
     }
 
-    for (const productManufacturer of productData.invalid.notes) {
+    for (const productManufacturer of productData.invalid.manufacturer) {
       it(`Should not create product with manufacturer: ${productManufacturer.description}`, async () => {
-        const response = await ApiProductsActions.createProduct(token, getNewProduct({ manufacturer: productManufacturer.manufacturer }));
-        await ApiProductsAssertions.verifyResponse(response, 400, false, VALIDATION_ERROR_MESSAGES.INCORRECT_BODY);
+        const response = await ApiProductsActions.createProduct(
+          token,
+          getNewProduct({ manufacturer: productManufacturer.manufacturer }),
+        );
+        console.log('data', response.data);
+        console.log(response.status);
+        await ApiProductsAssertions.verifyResponse(
+          response,
+          STATUS_CODES.BAD_REQUEST,
+          false,
+          VALIDATION_ERROR_MESSAGES.INCORRECT_BODY,
+        );
       });
     }
   });

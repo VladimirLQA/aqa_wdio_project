@@ -1,11 +1,11 @@
-import { MANUFACTURERS } from '../../../data/products/product.data';
-import HomeActions from '../../../ui/actions/home.actions';
-import FiltersModalActions from '../../../ui/actions/modals/filters-modal.actions';
-import ProductsActions from '../../../ui/actions/products/products.actions';
-import SignInActions from '../../../ui/actions/sign-in.actions';
-import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
-import ProductsPage from '../../../ui/pages/aqa_project/products/products.page';
-import { manufacturersArray } from '../../../ui/types/products.types';
+import { MANUFACTURERS } from '../../../data/products/product.data.js';
+import HomeActions from '../../../ui/actions/home.actions.js';
+import FiltersModalActions from '../../../ui/actions/modals/filters-modal.actions.js';
+import ProductsActions from '../../../ui/actions/products/products.actions.js';
+import SignInActions from '../../../ui/actions/sign-in.actions.js';
+import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions.js';
+import ProductsPage from '../../../ui/pages/aqa_project/products/products.page.js';
+import { manufacturersArray } from '../../../ui/types/products.types.js';
 
 describe('WDIO - 7', () => {
   before('Up browser and open products page', async () => {

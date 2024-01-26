@@ -1,4 +1,4 @@
-import BasePage from './base.page';
+import BasePage from './base.page.js';
 
 class SidebarPage extends BasePage {
   readonly ['User dropdown menu'] = '#sidebar #dropdownUser1';

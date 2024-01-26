@@ -1,8 +1,8 @@
-import { logAction } from '../../../utils/reporter/allure.reporter';
-import CreateOrderModalPage from '../../pages/aqa_project/modals/orders_modals/create-order.modal.page';
-import OrdersPage from '../../pages/aqa_project/orders/orders.page';
-import { CommonActions } from '../common.actions';
-import CreateOrderModalActions from '../modals/orders_modals/create-order.modal.actions';
+import { logAction } from '../../../utils/reporter/allure.reporter.js';
+import CreateOrderModalPage from '../../pages/aqa_project/modals/orders_modals/create-order.modal.page.js';
+import OrdersPage from '../../pages/aqa_project/orders/orders.page.js';
+import { CommonActions } from '../common.actions.js';
+import CreateOrderModalActions from '../modals/orders_modals/create-order.modal.actions.js';
 
 class OrdersActions extends CommonActions {
   @logAction('Click on details row button')
@@ -18,7 +18,10 @@ class OrdersActions extends CommonActions {
   @logAction('Create order')
   async createOrder(customerName: string, products: string[]) {
     await this.clickOnCreateOrderButton();
-    await this.chooseDropdownItem(CreateOrderModalPage['Customer dropdown'], CreateOrderModalPage['Dropdown option'](customerName));
+    await this.chooseDropdownItem(
+      CreateOrderModalPage['Customer dropdown'],
+      CreateOrderModalPage['Dropdown option'](customerName),
+    );
     await CreateOrderModalActions.addProductsToOrder(products);
     await CreateOrderModalActions.clickOnCreateButton();
   }

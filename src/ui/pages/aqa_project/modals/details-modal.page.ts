@@ -1,6 +1,6 @@
-import { asyncForEach } from '../../../../utils/async_array_methods/array-async-methods';
-import { IInitObject } from '../../../types/common.types';
-import ModalPage from './modal.page';
+import { asyncForEach } from '../../../../utils/async_array_methods/array-async-methods.js';
+import { IInitObject } from '../../../types/common.types.js';
+import ModalPage from './modal.page.js';
 
 class DetailsModalPage extends ModalPage {
   readonly ['Modal title'] = 'h5.modal-title';

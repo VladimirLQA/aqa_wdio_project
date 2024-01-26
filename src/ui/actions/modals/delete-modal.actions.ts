@@ -1,6 +1,5 @@
-import ModalActions from '../modal.actions';
-import DeleteModalPage from '../../pages/aqa_project/modals/delete-modal.page';
-
+import ModalActions from '../modal.actions.js';
+import DeleteModalPage from '../../pages/aqa_project/modals/delete-modal.page.js';
 
 class DeleteProductModalActions extends ModalActions {
   public async clickOnDeleteButton() {

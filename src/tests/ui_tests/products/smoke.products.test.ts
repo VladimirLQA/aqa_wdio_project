@@ -1,13 +1,13 @@
-import ProductsController from '../../../api/controllers/products.controller';
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
-import { IProductResponse } from '../../../api/type/api.product.type';
-import { getNewProduct } from '../../../data/products/product.data';
-import HomeActions from '../../../ui/actions/home.actions';
-import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions';
-import ProductsActions from '../../../ui/actions/products/products.actions';
-import SignInActions from '../../../ui/actions/sign-in.actions';
-import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions';
-import { IProduct } from '../../../ui/types/products.types';
+import ProductsController from '../../../api/controllers/products.controller.js';
+import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
+import { IProductResponse } from '../../../api/type/api.product.type.js';
+import { getNewProduct } from '../../../data/products/product.data.js';
+import HomeActions from '../../../ui/actions/home.actions.js';
+import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions.js';
+import ProductsActions from '../../../ui/actions/products/products.actions.js';
+import SignInActions from '../../../ui/actions/sign-in.actions.js';
+import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions.js';
+import { IProduct } from '../../../ui/types/products.types.js';
 
 describe('Smoke tests with creating product', () => {
   let productToCreate: IProduct,

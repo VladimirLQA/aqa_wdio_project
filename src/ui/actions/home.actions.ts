@@ -1,6 +1,6 @@
-import { logAction } from '../../utils/reporter/allure.reporter';
-import HomePage from '../pages/aqa_project/home.page';
-import BaseActions from './base.actions';
+import { logAction } from '../../utils/reporter/allure.reporter.js';
+import HomePage from '../pages/aqa_project/home.page.js';
+import BaseActions from './base.actions.js';
 
 class HomeActions extends BaseActions {
   @logAction('Click on products view details button')

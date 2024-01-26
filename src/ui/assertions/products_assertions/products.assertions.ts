@@ -1,7 +1,7 @@
-import { browserPause } from '../../../utils/helpers';
-import ProductsActions from '../../actions/products/products.actions';
-import { IProduct, ToastMessage } from '../../types/products.types';
-import { CommonAssertions } from '../common.assertions';
+import Utils from '../../../utils/helpers.js';
+import ProductsActions from '../../actions/products/products.actions.js';
+import { IProduct, ToastMessage } from '../../types/products.types.js';
+import { CommonAssertions } from '../common.assertions.js';
 
 class ProductsAssertions extends CommonAssertions {
   async verifyCreatedProductRow(expectedProduct: IProduct) {
@@ -14,7 +14,7 @@ class ProductsAssertions extends CommonAssertions {
   async verifyProductToastText(text: ToastMessage, name?: string) {
     await this.verifyElementText(this.basePage['Toast text'], await ProductsActions.getProductToastText(text, name));
     await this.baseActions.closeToastMessage();
-    await browserPause(300);
+    await Utils.browserPause(300);
   }
 }
 

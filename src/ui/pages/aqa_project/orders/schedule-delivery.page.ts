@@ -1,5 +1,4 @@
-import BasePage from '../base.page';
-
+import BasePage from '../base.page.js';
 
 class EditDeliveryPage extends BasePage {
   readonly ['Delivery Type dropdown'] = '#inputType';
@@ -36,7 +35,6 @@ class EditDeliveryPage extends BasePage {
   readonly ['Save delivery button'] = '#save-delivery';
 
   readonly ['Cancel button'] = '#back-to-order-details-page';
-
 }
 
 export default new EditDeliveryPage();

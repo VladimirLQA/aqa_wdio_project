@@ -1,5 +1,4 @@
-import { CommonPage } from '../common.page';
-
+import { CommonPage } from '../common.page.js';
 
 class OrdersPage extends CommonPage {
   readonly pageName: string = 'orders';
@@ -19,7 +18,7 @@ class OrdersPage extends CommonPage {
   readonly ['Delivery by table row'] = (orderNum: string) => `${this['Table row selector'](orderNum)}/td[5]`;
 
   readonly ['Status by table row'] = (orderNum: string) => `${this['Table row selector'](orderNum)}/td[6]`;
- 
+
   readonly ['Chip label'] = (chipName: string) => `.chip[data-chip-orders='${chipName}']`;
 }
 

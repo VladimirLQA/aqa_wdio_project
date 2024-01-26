@@ -1,4 +1,4 @@
-import BasePage from '../base.page';
+import BasePage from '../base.page.js';
 
 class AddNewProductPage extends BasePage {
   readonly ['Page title'] = '.page-title-text';
