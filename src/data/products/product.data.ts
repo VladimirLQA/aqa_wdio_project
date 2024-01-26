@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { IProduct, MANUFACTURERS } from '../../ui/types/products.types';
+import { IProduct, MANUFACTURERS } from '../../ui/types/products.types.js';
 
 export const productToastMessages = {
   created: () => `Product was successfully created`,

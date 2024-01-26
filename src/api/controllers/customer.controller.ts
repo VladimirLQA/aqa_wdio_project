@@ -1,7 +1,7 @@
-import { ICustomer } from '../../ui/types/customers.types';
-import CustomerEndpoints from '../endpoints/customer-endpoints';
-import Request from '../request/request';
-import { Id, RequestOptions, RequestParams } from '../type/api-request.type';
+import { ICustomer } from '../../ui/types/customers.types.js';
+import CustomerEndpoints from '../endpoints/customer-endpoints.js';
+import Request from '../request/request.js';
+import { Id, RequestOptions, RequestParams } from '../type/api-request.type.js';
 
 class CustomersController {
   async get(params: RequestParams<Id>) {

@@ -1,8 +1,8 @@
-import SignInController from '../controllers/sign-in.controller';
+import SignInController from '../controllers/sign-in.controller.js';
 
 class ApiSignInActions {
   public async signInAsAdminAndGetToken() {
-    let resp = await SignInController.login({ data: { username: "aqacourse@gmail.com", password: "password" } });
+    let resp = await SignInController.login({ data: { username: 'aqacourse@gmail.com', password: 'password' } });
     return resp.data.token;
   }
 }

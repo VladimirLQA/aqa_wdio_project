@@ -1,10 +1,11 @@
-import CustomersController from './customer.controller';
-import ProductsController from './products.controller';
-import SignInController from './sign-in.controller';
+import CustomersController from './customer.controller.js';
+import ProductsController from './products.controller.js';
+import SignInController from './sign-in.controller.js';
+import OrdersController from './orders.controller.js';
 
 export const ControllersList: { [key: string]: any } = {
   products: ProductsController,
   signIn: SignInController,
   customers: CustomersController,
-  orders: '',
+  orders: OrdersController,
 };
