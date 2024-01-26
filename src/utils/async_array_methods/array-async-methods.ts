@@ -1,5 +1,5 @@
-import { FindAsyncCallback, ForEachAsyncCallback, ReduceAsyncCallback } from '../../ui/types/async-array-method-callback.types';
-import { MapAsyncCallback } from '../../ui/types/async-array-method-callback.types';
+import { FindAsyncCallback, ForEachAsyncCallback, ReduceAsyncCallback } from '../../ui/types/async-array-method-callback.types.js';
+import { MapAsyncCallback } from '../../ui/types/async-array-method-callback.types.js';
 
 export async function asyncFind<T>(array: T[], callback: FindAsyncCallback<T>): Promise<T | undefined> {
   for (let i = 0; i < array?.length; i++) {
@@ -20,8 +20,7 @@ export async function asyncMap<T, U>(array: T[], callback: MapAsyncCallback<T, U
   return mappedArray;
 }
 
-export async function asyncReduce<T, U>(array: T[], asyncReducer: ReduceAsyncCallback<T, U>, initialValue?: U): Promise<U> {
-  // @ts-ignore
+export async function asyncReduce<T extends U, U>(array: T[], asyncReducer: ReduceAsyncCallback<T, U>, initialValue?: U): Promise<U> {
   let accumulator: U = initialValue || array[0];
   for (let i = 0; i < array.length; i++) {
     accumulator = await asyncReducer(accumulator, array[i], i, array);

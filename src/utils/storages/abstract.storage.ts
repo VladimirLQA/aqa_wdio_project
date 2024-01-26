@@ -1,3 +1,5 @@
+import { utils } from 'mocha';
+import Utils from '../../utils/helpers.js';
 export class Storage<T extends { _id: string }> {
   protected storage: T[] = [];
 
@@ -16,7 +18,7 @@ export class Storage<T extends { _id: string }> {
   }
 
   getAllEntities(): T[] {
-    return this.storage;
+    return Utils.sortById(this.storage);
   }
 
   getEntity(entity: string) {

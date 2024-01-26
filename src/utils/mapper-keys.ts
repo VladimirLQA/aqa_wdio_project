@@ -22,14 +22,10 @@ const apiKeysMapper: { [key: string]: string } = {
   customer: 'Customer',
 };
 
-interface ApiKeysForMapping {
-  [key: string]: string[];
-}
-
-const apiKeysForMapping: ApiKeysForMapping = {
+const apiKeysForMapping: { [key: string]: string[] } = {
   products: ['name', 'price', 'manufacturer'],
-  customers: [''],
-  orders: [''],
+  customers: ['email', 'name', 'country'],
+  orders: ['order number', 'customer', 'price', 'status'],
 };
 
 export { apiKeysForMapping, apiKeysMapper };
