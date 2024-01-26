@@ -10,7 +10,7 @@ import { ICustomer } from '../../../ui/types/customers.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
 
-describe('Smoke customers test', () => {
+describe('[CRUD] CUSTOMERS test', () => {
   let token: string, id: string, createdCustomer: ICustomerResponse | ICustomer, response: AxiosResponse;
 
   before(async () => {

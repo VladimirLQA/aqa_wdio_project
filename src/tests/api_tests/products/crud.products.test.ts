@@ -9,7 +9,7 @@ import { AxiosResponse } from 'axios';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
 
-describe('Smoke products test', () => {
+describe('[CRUD] PRODUCTS test', () => {
   let token: string, id: string, createdProduct: IProductResponse | IProduct;
   let response: AxiosResponse;
 

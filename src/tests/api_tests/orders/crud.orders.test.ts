@@ -20,13 +20,8 @@ import { expect } from 'chai';
 import { AxiosResponse } from 'axios';
 import { scheduleOrder } from '../../../data/orders/orders.data.js';
 
-describe('Smoke create order', () => {
-  let token: string,
-    orderId: string,
-    response: AxiosResponse,
-    createdProducts: IProductResponse[],
-    createdCustomers: ICustomerResponse[],
-    totalPrice: number;
+describe('[CRUD] ORDERS test', () => {
+  let token: string, orderId: string, response: AxiosResponse, totalPrice: number;
   let [product_01, product_02]: IProductResponse[] = [];
   let [customer]: ICustomerResponse[] = [];
 
