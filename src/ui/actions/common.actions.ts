@@ -1,21 +1,20 @@
-// @ts-nocheck
-import ControllersList from '../../api/controllers/contollers.index';
-import { reqAsLoggedUser } from '../../api/request/request-as-logged-user';
-import { asyncForEach, asyncReduce } from '../../utils/async_array_methods/array-async-methods';
-import { elementFinder } from '../../utils/element-finder';
-import { apiKeyMapper, capitalize } from '../../utils/helpers';
-import { logAction } from '../../utils/reporter/allure.reporter';
-import { CommonPage } from '../pages/aqa_project/common.page';
-import FilterModalPage from '../pages/aqa_project/modals/filter-modal.page';
-import { IChipsFilterOptions, UnionFilterModalLabels } from '../types/common.types';
-import BaseActions from './base.actions';
-import FiltersModalActions from './modals/filters-modal.actions';
+import { ControllersList } from '../../api/controllers/contollers.index.js';
+import { reqAsLoggedUser } from '../../api/request/request-as-logged-user.js';
+import { asyncForEach, asyncReduce } from '../../utils/async_array_methods/array-async-methods.js';
+import { elementFinder } from '../../utils/element-finder.js';
+import { logAction } from '../../utils/reporter/allure.reporter.js';
+import { CommonPage } from '../pages/aqa_project/common.page.js';
+import FilterModalPage from '../pages/aqa_project/modals/filter-modal.page.js';
+import { ActionButtons, IChipsFilterOptions, UnionFilterModalLabels } from '../types/common.types.js';
+import BaseActions from './base.actions.js';
+import FiltersModalActions from './modals/filters-modal.actions.js';
+import Utils from '../../utils/helpers.js';
 
 export class CommonActions extends BaseActions {
   commonPage: CommonPage = new CommonPage();
 
   async getListOfChipButtons(page: CommonPage): Promise<IChipsFilterOptions> {
-    const chips = await elementFinder.findArrayElements(page['Chip buttons']);
+    const chips = await Promise.all(await elementFinder.findArrayElements(page['Chip buttons']));
     const chipsFilters: IChipsFilterOptions = {
       quickFilters: [],
     };
@@ -32,13 +31,13 @@ export class CommonActions extends BaseActions {
   }
 
   async getApiMappedData(page: CommonPage) {
-    const data = (await reqAsLoggedUser(ControllersList[page.pageName].get, {})).data[capitalize(page.pageName)];
+    const data = (await reqAsLoggedUser(ControllersList[page.pageName].get, {})).data[Utils.capitalize(page.pageName)];
     const res = await asyncReduce(
       data,
-      async (result, entity) => {
+      async (result: any[], entity: { [key: string]: string }) => {
         if (entity['price']) entity['price'] = `$${entity.price}`;
 
-        result.push(await apiKeyMapper(entity, page.pageName));
+        result.push(await Utils.apiKeyMapper(entity, page.pageName));
         return result;
       },
       [],
@@ -47,12 +46,12 @@ export class CommonActions extends BaseActions {
     return res;
   }
 
-  // TODO rename method getTableDataAfterFilterAndSearch
   async getTableDataAfterFilterAndSearch(tableData: Record<string, string>[], chipFilters: IChipsFilterOptions) {
     const { search, quickFilters } = chipFilters;
     const filteredAndSearchedData: Record<string, string>[] = [];
     await asyncForEach(tableData, async (entity) => {
-      const isMatchQuickFilter = quickFilters?.some((filter) => Object.values(entity).at(-1).includes(filter));
+      const isMatchQuickFilter = quickFilters?.some((filter) => Object.values(entity).at(-1)!.includes(filter));
+      // @ts-ignore
       const isMatchSearch = Object.values(entity).some((value) => value.toLowerCase().includes(search?.toLowerCase()));
 
       if (search && quickFilters?.length) {
@@ -91,8 +90,7 @@ export class CommonActions extends BaseActions {
   }
 
   async clearQuickAndSearchFilterChips(page: CommonPage, chipsToClose: 'search' | 'quick filters' | 'all') {
-    const chips = await elementFinder.findArrayElements(page['Chip buttons']);
-
+    const chips = await Promise.all(await elementFinder.findArrayElements(page['Chip buttons']));
     await asyncForEach(chips, async (chip) => {
       const actualFilters = await chip.getAttribute(`data-chip-${page.pageName}`);
 
@@ -121,7 +119,6 @@ export class CommonActions extends BaseActions {
     await this.basePage.waitForElemAndSetValue(this.commonPage['Search input'], searchValue);
   }
 
-  @logAction('Click on row action button')
   async clickOnRowActionButton(value: string, action: ActionButtons) {
     await this.basePage.waitForElemAndClick(this.commonPage['Table row action button'](value, action));
     await this.waitForPageLoad();
@@ -130,21 +127,18 @@ export class CommonActions extends BaseActions {
   @logAction('Click on "edit" button in table')
   async clickOnEditActionButton(value: string) {
     await this.clickOnRowActionButton(value, 'Edit');
-    await DeleteModalActions.clickOnDeleteButton();
     await this.waitForPageLoad();
   }
 
   @logAction('Click on "delete" button in table')
   async clickOnDeleteActionButton(value: string) {
     await this.clickOnRowActionButton(value, 'Delete');
-    await DeleteModalActions.clickOnDeleteButton();
     await this.waitForPageLoad();
   }
 
   @logAction('Click on "details" button in table')
   async clickOnDetailsActionButton(value: string) {
     await this.clickOnRowActionButton(value, 'Details');
-    await DeleteModalActions.clickOnDeleteButton();
     await this.waitForPageLoad();
   }
 }

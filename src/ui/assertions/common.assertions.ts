@@ -1,9 +1,8 @@
-// @ts-nocheck
-import { CommonActions } from '../actions/common.actions';
-import { CommonPage } from '../pages/aqa_project/common.page';
-import DetailsModalPage from '../pages/aqa_project/modals/details-modal.page';
-import { IProduct } from '../types/products.types';
-import { BaseAssertions } from './base.assertions';
+import { CommonActions } from '../actions/common.actions.js';
+import { CommonPage } from '../pages/aqa_project/common.page.js';
+import DetailsModalPage from '../pages/aqa_project/modals/details-modal.page.js';
+import { IProduct } from '../types/products.types.js';
+import { BaseAssertions } from './base.assertions.js';
 
 export class CommonAssertions extends BaseAssertions {
   private commonActions: CommonActions = new CommonActions();
@@ -22,11 +21,11 @@ export class CommonAssertions extends BaseAssertions {
     }
   }
 
-  async verifyCreatedEntityInDetailModal(createdEntity: IProduct) {
+  async verifyCreatedEntityInDetailModal<T extends IProduct>(createdEntity: T) {
     const actualEntity = await DetailsModalPage.getParsedDetailsData();
     for (const key in createdEntity) {
       if (key !== 'createdOn' && key !== '_id') {
-        expect(actualEntity[key]).toBe(createdEntity[key].toString());
+        expect(actualEntity[key]).toBe(String(createdEntity[key]));
       }
     }
   }

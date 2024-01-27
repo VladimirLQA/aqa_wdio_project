@@ -1,8 +1,8 @@
-import CustomerController from '../controllers/customer.controller';
-import { ICustomer } from '../../ui/types/customers.types';
-import { getNewCustomer } from '../../data/customers/customers.data';
-import { reqAsLoggedUser } from '../request/request-as-logged-user';
-import { customersStorage } from '../../utils/storages/storages';
+import CustomerController from '../controllers/customer.controller.js';
+import { ICustomer } from '../../ui/types/customers.types.js';
+import { getNewCustomer } from '../../data/customers/customers.data.js';
+import { reqAsLoggedUser } from '../request/request-as-logged-user.js';
+import { customersStorage } from '../../utils/storages/storages.js';
 
 class ApiCustomersActions {
   async createCustomer(token: string, customer: ICustomer) {
@@ -34,7 +34,8 @@ class ApiCustomersActions {
 
   async updateCustomer(token: string, id: string, newCustomer?: Partial<ICustomer>) {
     try {
-      const { email, country, street, notes, flat, phone, name, city, house } = (await this.getCustomerByID(token, id)).data.Customer;
+      const { email, country, street, notes, flat, phone, name, city, house } = (await this.getCustomerByID(token, id)).data
+        .Customer;
       const updatedCustomer = {
         _id: id,
         email,
@@ -70,7 +71,7 @@ class ApiCustomersActions {
       const customer = getNewCustomer();
       customersStorage.addEntity((await reqAsLoggedUser(CustomerController.create, { data: customer })).data.Customer);
     }
-    return customersStorage;
+    return customersStorage.getAllEntities();
   }
 }
 

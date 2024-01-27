@@ -1,7 +1,6 @@
-// @ts-nocheck
-import { asyncForEach } from '../../../../utils/async_array_methods/array-async-methods';
-import { IInitObject } from '../../../types/common.types';
-import ModalPage from './modal.page';
+import { asyncForEach } from '../../../../utils/async_array_methods/array-async-methods.js';
+import { IInitObject } from '../../../types/common.types.js';
+import ModalPage from './modal.page.js';
 
 class DetailsModalPage extends ModalPage {
   readonly ['Modal title'] = 'h5.modal-title';
@@ -21,7 +20,9 @@ class DetailsModalPage extends ModalPage {
   async getParsedDetailsData() {
     const parsedData: IInitObject = {};
     const modalRowsData = await this.waitForElementsArrayToBeDisplayed(this['Modal data rows']);
-    await asyncForEach(modalRowsData, async (row) => {
+    const rows = await Promise.all(await modalRowsData.map((elem) => elem));
+
+    await asyncForEach(rows, async (row) => {
       const [name, value] = (await row.getText()).split(':\n');
       parsedData[name.toLowerCase()] = value;
     });

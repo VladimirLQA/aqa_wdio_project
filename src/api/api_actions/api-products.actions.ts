@@ -1,8 +1,8 @@
-import { getNewProduct } from '../../data/products/product.data';
-import { IProduct } from '../../ui/types/products.types';
-import { productsStorage } from '../../utils/storages/storages';
-import ProductsController from '../controllers/products.controller';
-import { reqAsLoggedUser } from '../request/request-as-logged-user';
+import { getNewProduct } from '../../data/products/product.data.js';
+import { IProduct } from '../../ui/types/products.types.js';
+import { productsStorage } from '../../utils/storages/storages.js';
+import ProductsController from '../controllers/products.controller.js';
+import { reqAsLoggedUser } from '../request/request-as-logged-user.js';
 
 class ApiProductsActions {
   async createProduct(token: string, product: IProduct) {
@@ -66,7 +66,7 @@ class ApiProductsActions {
       const product = getNewProduct();
       productsStorage.addEntity((await reqAsLoggedUser(ProductsController.create, { data: product })).data.Product);
     }
-    return productsStorage;
+    return productsStorage.getAllEntities();
   }
 }
 

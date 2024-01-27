@@ -1,11 +1,11 @@
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
-import { IProductResponse } from '../../../api/type/api.product.type';
-import HomeActions from '../../../ui/actions/home.actions';
-import ProductsActions from '../../../ui/actions/products/products.actions';
-import SideBarActions from '../../../ui/actions/side-bar.actions';
-import SignInActions from '../../../ui/actions/sign-in.actions';
-import { IProduct } from '../../../ui/types/products.types';
-import ProductsController from '../../../api/controllers/products.controller';
+import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
+import { IProductResponse } from '../../../api/type/api.product.type.js';
+import HomeActions from '../../../ui/actions/home.actions.js';
+import ProductsActions from '../../../ui/actions/products/products.actions.js';
+import SideBarActions from '../../../ui/actions/side-bar.actions.js';
+import SignInActions from '../../../ui/actions/sign-in.actions.js';
+import { IProduct } from '../../../ui/types/products.types.js';
+import ProductsController from '../../../api/controllers/products.controller.js';
 
 describe('Notifications test on products page', () => {
   let productToCreate: IProduct, productsNames: string[];

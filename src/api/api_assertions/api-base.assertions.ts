@@ -1,15 +1,16 @@
 import { AxiosResponse } from 'axios';
-import { validateSchema } from '../../utils/json-schema-validator';
+import { validateSchema } from '../../utils/json-schema-validator.js';
+import Expect from '../../utils/chai-expect/expect-collection.js';
 
 export class ApiBaseAssertions {
-  public async verifyResponseSchema(schema: any, json: any) {
-    const valid = await validateSchema({ schema, json });
-    expect(valid).toBe(true);
+  verifyResponseSchema(schema: any, json: any) {
+    const valid = validateSchema({ schema, json });
+    Expect.toEqual({ actual: valid, expected: true });
   }
 
-  public async verifyResponse(response: AxiosResponse, statusCode: number, IsSuccess?: boolean, ErrorMessage?: null | string) {
-    expect(response.status).toBe(statusCode);
-    expect(response.data.IsSuccess).toBe(IsSuccess);
-    expect(response.data.ErrorMessage).toBe(ErrorMessage);
+  verifyResponse(response: AxiosResponse, statusCode: number, IsSuccess?: boolean, ErrorMessage?: null | string) {
+    Expect.toEqual({ actual: response.status, expected: statusCode });
+    Expect.toEqual({ actual: response.data.IsSuccess, expected: IsSuccess });
+    Expect.toEqual({ actual: response.data.ErrorMessage, expected: ErrorMessage });
   }
 }

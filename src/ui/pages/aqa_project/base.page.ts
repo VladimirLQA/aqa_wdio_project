@@ -1,6 +1,6 @@
-import PageHandler from './page-handler.page';
-import { MANUFACTURERS } from '../../types/products.types';
-import { COUNTRIES } from '../../types/customers.types';
+import { COUNTRIES } from '../../types/customers.types.js';
+import { MANUFACTURERS } from '../../types/products.types.js';
+import PageHandler from './page-handler.page.js';
 
 export default class BasePage extends PageHandler {
   readonly ['Spinner'] = '.spinner-border';

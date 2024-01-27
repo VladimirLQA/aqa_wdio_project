@@ -1,4 +1,4 @@
-import  BasePage  from './base.page';
+import BasePage from './base.page.js';
 
 class SignInPage extends BasePage {
   readonly ['Email input'] = '#emailinput';

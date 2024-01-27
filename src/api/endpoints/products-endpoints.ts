@@ -1,4 +1,4 @@
-import { BaseEndpoints } from './base-endpoints';
+import { BaseEndpoints } from './base-endpoints.js';
 
 class ProductsEndpoints extends BaseEndpoints {
   readonly products = `api/products/`;

@@ -1,10 +1,14 @@
+# Dependencies
 node_modules
+
+# Allure docs
 allure-results
 allure-report
-dist
-.idea
-aqa-wdio-1.iml
+
 package-lock.json
+
+# Environment variables
 .env
-.vscode/
-credential.ts
+src/credential.ts
+
+**/.DS_Store

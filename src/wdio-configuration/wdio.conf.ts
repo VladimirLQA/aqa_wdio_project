@@ -1,6 +1,5 @@
 import type { Options } from '@wdio/types';
-import reporters from './reporters';
-import spec from './specs';
+import test_runner from './test-runners.js';
 
 export const config: Options.Testrunner = {
   //
@@ -29,18 +28,8 @@ export const config: Options.Testrunner = {
   // worker process. In order to have a group of spec files run in the same worker
   // process simply enclose them in an array within the specs array.
   //
-  // If you are calling `wdio` from an NPM script (see https://docs.npmjs.com/cli/run-script),
-  // then the current working directory is where your `package.json` resides, so `wdio`
-  // will be called from there.
-  //
-  specs: spec,
-  suites: {
-    cucumber: ['../ui/features/**/*.feature'],
-  },
   // Patterns to exclude.
-  exclude: [
-    '../tests/other/'
-  ],
+  exclude: ['../tests/other'],
   //
   // ============
   // Capabilities
@@ -66,7 +55,9 @@ export const config: Options.Testrunner = {
   capabilities: [
     {
       browserName: 'chrome',
-
+      'goog:chromeOptions': {
+        args: ['--headless', '--disable-gpu', '--no-sandbox'],
+      },
     },
   ],
 
@@ -104,7 +95,7 @@ export const config: Options.Testrunner = {
   baseUrl: 'http://localhost',
   //
   // Default timeout for all waitFor* commands.
-  waitforTimeout: 60000,
+  waitforTimeout: 10000,
   //
   // Default timeout in milliseconds for request
   // if browser driver or grid doesn't send response
@@ -112,6 +103,20 @@ export const config: Options.Testrunner = {
   //
   // Default request retries count
   connectionRetryCount: 3,
+  //
+  // Test runner services
+  // Services take over a specific job you don't want to take care of. They enhance
+  // your test setup with almost no effort. Unlike plugins, they don't add new
+  // commands. Instead, they hook themselves up into the test process.
+  services: ['chromedriver'],
+  //
+  // Framework you want to run your specs with.
+  // The following are supported: Mocha, Jasmine, and Cucumber
+  // see also: https://webdriver.io/docs/frameworks
+  //
+  // Make sure you have the wdio adapter package for the specific framework installed
+  // before running any tests.
+
   //
   // The number of times to retry the entire specfile when it fails as a whole
   // specFileRetries: 1,
@@ -125,8 +130,28 @@ export const config: Options.Testrunner = {
   // Test reporter for stdout.
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
-  reporters: reporters,
+  reporters: [
+    [
+      'spec',
+      [
+        'allure',
+        {
+          outputDir: './src/report/allure-results',
+          disableWebdriverStepsReporting: true,
+          disableMochaHooks: true,
+          disableWebdriverScreenshotsReporting: false,
+          useCucumberStepReporter: process.env.TEST_RUNNER === 'cucumber',
+          reportedEnvironmentVars: {
+            test_runner: process.env.TEST_RUNNER,
+            environment: process.env.ENVIRONMENT,
+          },
+        },
+      ],
+    ],
+  ],
 
+  ...test_runner,
+  //
   // =====
   // Hooks
   // =====
@@ -142,7 +167,7 @@ export const config: Options.Testrunner = {
   // onPrepare: function (config, capabilities) {
   // },
   /**
-   * Gets executed before a worker process is spawned and can be used to initialise specific service
+   * Gets executed before a worker process is spawned and can be used to initialize specific service
    * for that worker as well as modify runtime environments in an async fashion.
    * @param  {string} cid      capability id (e.g 0-0)
    * @param  {object} caps     object containing capabilities for session that will be spawn in the worker
@@ -188,50 +213,65 @@ export const config: Options.Testrunner = {
   // beforeCommand: function (commandName, args) {
   // },
   /**
-   * Hook that gets executed before the suite starts
-   * @param {object} suite suite details
+   * Cucumber Hooks
+   *
+   * Runs before a Cucumber Feature.
+   * @param {string}                   uri      path to feature file
+   * @param {GherkinDocument.IFeature} feature  Cucumber feature object
    */
-  // beforeSuite: function (suite) {
+  // beforeFeature: function (uri, feature) {
   // },
   /**
-   * Function to be executed before a test (in Mocha/Jasmine) starts.
+   *
+   * Runs before a Cucumber Scenario.
+   * @param {ITestCaseHookParameter} world    world object containing information on pickle and test step
+   * @param {object}                 context  Cucumber World object
    */
-  // beforeTest: function (test, context) {
+  // beforeScenario: function (world, context) {
   // },
   /**
-   * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
-   * beforeEach in Mocha)
+   *
+   * Runs before a Cucumber Step.
+   * @param {Pickle.IPickleStep} step     step data
+   * @param {IPickle}            scenario scenario pickle
+   * @param {object}             context  Cucumber World object
    */
-  // beforeHook: function (test, context) {
+  // beforeStep: function (step, scenario, context) {
   // },
   /**
-   * Hook that gets executed _after_ a hook within the suite starts (e.g. runs after calling
-   * afterEach in Mocha)
+   *
+   * Runs after a Cucumber Step.
+   * @param {Pickle.IPickleStep} step             step data
+   * @param {IPickle}            scenario         scenario pickle
+   * @param {object}             result           results object containing scenario results
+   * @param {boolean}            result.passed    true if scenario has passed
+   * @param {string}             result.error     error stack if scenario failed
+   * @param {number}             result.duration  duration of scenario in milliseconds
+   * @param {object}             context          Cucumber World object
    */
-  // afterHook: function (test, context, { error, result, duration, passed, retries }) {
+  // afterStep: function (step, scenario, result, context) {
   // },
   /**
-   * Function to be executed after a test (in Mocha/Jasmine only)
-   * @param {object}  test             test object
-   * @param {object}  context          scope object the test was executed with
-   * @param {Error}   result.error     error object in case the test fails, otherwise `undefined`
-   * @param {*}       result.result    return object of test function
-   * @param {number}  result.duration  duration of test
-   * @param {boolean} result.passed    true if test has passed, otherwise false
-   * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
+   *
+   * Runs after a Cucumber Scenario.
+   * @param {ITestCaseHookParameter} world            world object containing information on pickle and test step
+   * @param {object}                 result           results object containing scenario results
+   * @param {boolean}                result.passed    true if scenario has passed
+   * @param {string}                 result.error     error stack if scenario failed
+   * @param {number}                 result.duration  duration of scenario in milliseconds
+   * @param {object}                 context          Cucumber World object
    */
-  async afterTest(test, context, { error, result, duration, passed, retries }) {
-    if (!passed) {
-      await browser.takeScreenshot();
-    }
-  },
+  // afterScenario: function (world, result, context) {
+  // },
+  /**
+   *
+   * Runs after a Cucumber Feature.
+   * @param {string}                   uri      path to feature file
+   * @param {GherkinDocument.IFeature} feature  Cucumber feature object
+   */
+  // afterFeature: function (uri, feature) {
+  // },
 
-  /**
-   * Hook that gets executed after the suite has ended
-   * @param {object} suite suite details
-   */
-  // afterSuite: function (suite) {
-  // },
   /**
    * Runs after a WebdriverIO command gets executed
    * @param {string} commandName hook command name
@@ -274,5 +314,17 @@ export const config: Options.Testrunner = {
    * @param {string} newSessionId session ID of the new session
    */
   // onReload: function(oldSessionId, newSessionId) {
+  // }
+  /**
+   * Hook that gets executed before a WebdriverIO assertion happens.
+   * @param {object} params information about the assertion to be executed
+   */
+  // beforeAssertion: function(params) {
+  // }
+  /**
+   * Hook that gets executed after a WebdriverIO assertion happened.
+   * @param {object} params information about the assertion that was executed, including its results
+   */
+  // afterAssertion: function(params) {
   // }
 };

@@ -1,4 +1,4 @@
-import { Id } from '../../api/type/api-request.type';
+import { Id } from '../../api/type/api-request.type.js';
 
 export interface IProduct {
   name: string;

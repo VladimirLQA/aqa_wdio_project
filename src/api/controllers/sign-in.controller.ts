@@ -1,7 +1,7 @@
-import { IUserCredentials } from '../../ui/types/user.types';
-import SignInEndpoints from '../endpoints/base-endpoints';
-import Request from '../request/request';
-import { RequestOptions, RequestParams } from '../type/api-request.type';
+import { IUserCredentials } from '../../ui/types/user.types.js';
+import SignInEndpoints from '../endpoints/base-endpoints.js';
+import Request from '../request/request.js';
+import { RequestOptions, RequestParams } from '../type/api-request.type.js';
 
 class SignInController {
   async login(params: RequestParams<IUserCredentials>) {

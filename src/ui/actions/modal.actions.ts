@@ -1,6 +1,6 @@
-import { logAction } from '../../utils/reporter/allure.reporter';
-import ModalPage from '../pages/aqa_project/modals/modal.page';
-import BaseActions from './base.actions';
+import { logAction } from '../../utils/reporter/allure.reporter.js';
+import ModalPage from '../pages/aqa_project/modals/modal.page.js';
+import BaseActions from './base.actions.js';
 
 export default class ModalActions extends BaseActions {
   modalPage: ModalPage = new ModalPage();

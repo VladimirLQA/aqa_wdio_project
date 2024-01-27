@@ -1,12 +1,12 @@
 import allure from '@wdio/allure-reporter';
 import { Status } from 'allure-js-commons';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import Logger from '../logger/logger';
+import Logger from '../logger/logger.js';
 
 export function logAction(stepName: string): MethodDecorator {
-  return function (target: any, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
+  return function (target: any, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) {
     const originalMethod = descriptor.value;
-    descriptor.value = async function (...args: any[]) {
+    descriptor.value = async function (this: any, ...args: any[]) {
       const selector = args[0]; // Extract the selector from the arguments
       const value = args[1]; // Extract the value from the arguments
 

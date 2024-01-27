@@ -1,7 +1,7 @@
-import { elementFinder } from '../../utils/element-finder';
-import { browserPause } from '../../utils/helpers';
-import { logAction } from '../../utils/reporter/allure.reporter';
-import BasePage from '../pages/aqa_project/base.page';
+import { elementFinder } from '../../utils/element-finder.js';
+import Utils from '../../utils/helpers.js';
+import { logAction } from '../../utils/reporter/allure.reporter.js';
+import BasePage from '../pages/aqa_project/base.page.js';
 
 export default class BaseActions {
   public basePage: BasePage;
@@ -41,7 +41,7 @@ export default class BaseActions {
 
   async chooseDropdownItem(dropdown: string, item: string) {
     await this.basePage.waitForElemAndClick(dropdown);
-    await browserPause(200);
+    await Utils.browserPause(200);
     await this.basePage.waitForElemAndClick(item);
   }
 

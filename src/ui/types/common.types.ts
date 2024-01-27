@@ -1,6 +1,6 @@
-import { COUNTRIES } from './customers.types';
-import { ORDER_STATUSES } from './order.types';
-import { MANUFACTURERS } from './products.types';
+import { COUNTRIES } from './customers.types.js';
+import { ORDER_STATUSES } from './order.types.js';
+import { MANUFACTURERS } from './products.types.js';
 
 export type ActionButtons = 'Delete' | 'Details' | 'Edit';
 

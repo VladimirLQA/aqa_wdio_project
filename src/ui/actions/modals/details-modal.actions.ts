@@ -1,7 +1,5 @@
-import ModalActions from '../modal.actions';
+import ModalActions from '../modal.actions.js';
 
-class DetailsModalActions extends ModalActions {
-
-}
+class DetailsModalActions extends ModalActions {}
 
 export default new DetailsModalActions();

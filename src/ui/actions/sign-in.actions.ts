@@ -1,8 +1,8 @@
-import { adminCredentials } from '../../../credential';
-import { logAction } from '../../utils/reporter/allure.reporter';
-import SignInPage from '../pages/aqa_project/sign-in.page';
-import { IUserCredentials } from '../types/user.types';
-import BaseActions from './base.actions';
+import { adminCredentials } from '../../credential.js';
+import { logAction } from '../../utils/reporter/allure.reporter.js';
+import SignInPage from '../pages/aqa_project/sign-in.page.js';
+import { IUserCredentials } from '../types/user.types.js';
+import BaseActions from './base.actions.js';
 
 class SignInActions extends BaseActions {
   @logAction('Sign into "Sales Portal"')

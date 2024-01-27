@@ -1,12 +1,5 @@
-import { BaseAssertions } from "../base.assertions"
+import { BaseAssertions } from '../base.assertions.js';
 
+class OrdersAssertions extends BaseAssertions {}
 
-
-class OrdersAssertions extends BaseAssertions {
-
-
-
-
-}
-
-export default new OrdersAssertions(); 
+export default new OrdersAssertions();

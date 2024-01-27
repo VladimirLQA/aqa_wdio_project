@@ -1,4 +1,4 @@
-import BasePage from './base.page';
+import BasePage from './base.page.js';
 
 export class CommonPage extends BasePage {
   readonly pageName: string = '';

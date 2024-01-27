@@ -1,6 +1,6 @@
-import { logAction } from '../../../../utils/reporter/allure.reporter';
-import CreateOrderModalPage from '../../../pages/aqa_project/modals/orders_modals/create-order.modal.page';
-import ModalActions from '../../modal.actions';
+import { logAction } from '../../../../utils/reporter/allure.reporter.js';
+import CreateOrderModalPage from '../../../pages/aqa_project/modals/orders_modals/create-order.modal.page.js';
+import ModalActions from '../../modal.actions.js';
 
 class CreateOrderModalActions extends ModalActions {
   @logAction('Click on "Add product" button')

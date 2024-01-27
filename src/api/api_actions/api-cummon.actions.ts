@@ -1,4 +1,4 @@
-import { Storage } from '../../utils/storages/abstract.storage';
+import { Storage } from '../../utils/storages/abstract.storage.js';
 
 export default class ApiCommonActions {
   //TODO

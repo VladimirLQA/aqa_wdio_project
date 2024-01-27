@@ -1,7 +1,7 @@
-import { IProduct, IProductWithID } from '../../ui/types/products.types';
-import ProductsEndpoints from '../endpoints/products-endpoints';
-import Request from '../request/request';
-import { Id, RequestOptions, RequestParams } from '../type/api-request.type';
+import { IProduct, IProductWithID } from '../../ui/types/products.types.js';
+import ProductsEndpoints from '../endpoints/products-endpoints.js';
+import Request from '../request/request.js';
+import { Id, RequestOptions, RequestParams } from '../type/api-request.type.js';
 
 class ProductsController {
   public async get(params: RequestParams<Id>) {
