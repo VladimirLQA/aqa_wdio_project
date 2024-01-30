@@ -1,6 +1,22 @@
-class CustomerOrderSectionPage {
+import { asyncForEach } from '../../../../utils/async_array_methods/array-async-methods.js';
+import { IInitObject } from '../../../types/common.types.js';
+import BasePage from '../base.page.js';
+
+class CustomerDetailsSectionPage extends BasePage {
   readonly ['Edit customer pencil button'] = '#edit-customer-pencil';
-  readonly ['Customer details'] = '#customer-section div.modal-body';
+  readonly ['Customer details'] = '#customer-section div.modal-body div';
+
+  async getParsedCustomerInSection() {
+    const parsedData: IInitObject = {};
+    const modalRowsData = await this.waitForElementsArrayToBeDisplayed(this['Customer details']);
+    const rows = await Promise.all(await modalRowsData.map((elem) => elem));
+
+    await asyncForEach(rows, async (row) => {
+      const [name, value] = (await row.getText()).split('\n');
+      if (name !== 'created on') parsedData[name.toLowerCase()] = value;
+    });
+    return parsedData;
+  }
 }
 
-export default new CustomerOrderSectionPage();
+export default new CustomerDetailsSectionPage();

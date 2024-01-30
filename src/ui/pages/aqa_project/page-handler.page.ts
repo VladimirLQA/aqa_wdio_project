@@ -3,11 +3,7 @@ import { elementFinder } from '../../../utils/element-finder.js';
 import Utils from '../../../utils/helpers.js';
 
 export default class PageHandler {
-  async waitForElement(
-    selector: string,
-    reverse: boolean = false,
-    timeout: number = TIMEOUT['5 seconds'],
-  ): Promise<WebdriverIO.Element> {
+  async waitForElement(selector: string, reverse: boolean = false, timeout: number = TIMEOUT['5 seconds']): Promise<WebdriverIO.Element> {
     const elem = await elementFinder.findElement(selector);
     await elem.waitForDisplayed({
       reverse,

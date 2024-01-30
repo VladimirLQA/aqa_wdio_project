@@ -1,4 +1,4 @@
-import ModalPage from '../modal.page';
+import ModalPage from '../modal.page.js';
 
 class CreateOrderModalPage extends ModalPage {
   readonly ['Customer dropdown'] = '#inputCustomerOrder';

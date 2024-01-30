@@ -1,10 +1,10 @@
 import BasePage from '../base.page.js';
-import CustomerOrderSectionPage from './order-customer-section.page.js';
-import ProductsOrderSectionPage from './order-products-section.page copy.js';
+import CustomerDetailsSectionPage from './order-customer-section.page.js';
+import ProductsDetailsSectionPage from './order-products-section.page copy.js';
 
 class OrderDetailsPage extends BasePage {
-  readonly customerSection: typeof CustomerOrderSectionPage = CustomerOrderSectionPage;
-  readonly productsSection: typeof ProductsOrderSectionPage = ProductsOrderSectionPage;
+  readonly customerSection: typeof CustomerDetailsSectionPage = CustomerDetailsSectionPage;
+  readonly productsSection: typeof ProductsDetailsSectionPage = ProductsDetailsSectionPage;
   // TODO refact to add header section, bottom section
 
   readonly ['Page title'] = '#title h2';
@@ -21,8 +21,7 @@ class OrderDetailsPage extends BasePage {
 
   readonly ['Order details section tab button'] = (tabName: 'delivery' | 'history' | 'comments') => `#${tabName}-tab`;
 
-  readonly ['Details order tab title'] = (tabName: 'delivery' | 'history' | 'comments') =>
-    `#order-details-tabs-content > #${tabName} h4`;
+  readonly ['Details order tab title'] = (tabName: 'delivery' | 'history' | 'comments') => `#order-details-tabs-content > #${tabName} h4`;
 
   readonly ['Delivery information body'] = '#delivery > .modal-body';
 
