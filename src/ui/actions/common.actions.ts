@@ -34,6 +34,7 @@ export class CommonActions extends BaseActions {
     const data = (await reqAsLoggedUser(ControllersList[page.pageName].get, {})).data[Utils.capitalize(page.pageName)];
     const res = await asyncReduce(
       data,
+      // @ts-ignore
       async (result: any[], entity: { [key: string]: string }) => {
         if (entity['price']) entity['price'] = `$${entity.price}`;
 

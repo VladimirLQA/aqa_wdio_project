@@ -12,15 +12,6 @@ class ApiCustomersAssertions extends ApiBaseAssertions {
     Expect.toEqual({ actual: actual.country, expected: expected.country });
     Expect.toEqual({ actual: actual.house, expected: expected.house });
     Expect.toEqual({ actual: actual.phone, expected: expected.phone });
-
-    // expect(actual.name).toBe(expected.name);
-    // expect(actual.notes).toBe(expected.notes);
-    // expect(actual.email).toBe(expected.email);
-    // expect(actual.street).toBe(expected.street);
-    // expect(actual.flat).toBe(expected.flat);
-    // expect(actual.country).toBe(expected.country);
-    // expect(actual.house).toBe(expected.house);
-    // expect(actual.phone).toBe(expected.phone);
   }
 }
 

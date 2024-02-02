@@ -90,8 +90,6 @@ class ApiOrdersActions {
     }
   }
 
-  // TODO
-  // get order products
   async addCommentToOrder(token: string, comment: IApiCommentRequest) {
     console.log(comment);
     try {
@@ -161,15 +159,15 @@ class ApiOrdersActions {
     }
   }
 
-  async scheduleOrderPickup(token: string, delivery: IApiOrderDeliveryRequest) {
+  async scheduleOrderPickup(token: string, pickup: IApiOrderDeliveryRequest) {
     try {
       const response = await OrdersController.delivery({
         token,
-        data: delivery,
+        data: pickup,
       });
       return response;
     } catch (error) {
-      throw new Error(`Error while scheduling order pickup in order, order id - ${delivery._id}`);
+      throw new Error(`Error while scheduling order pickup in order, order id - ${pickup._id}`);
     }
   }
 
@@ -223,7 +221,7 @@ class ApiOrdersActions {
     }
   }
 
-  async getStatuFromOrder(token: string, orderId: string) {
+  async getStatusFromOrder(token: string, orderId: string) {
     try {
       const status: ORDER_STATUSES = (await this.getOrderByID(token, orderId)).data.Order.status;
       return status;

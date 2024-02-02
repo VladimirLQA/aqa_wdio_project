@@ -15,17 +15,37 @@ class OrdersDetailsActions extends BasePage {
 
   @logAction('Click on customer details pencil button')
   async clickOnCustomerDetailsPencilbutton() {
-    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage['Edit customer pencil button']);
+    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage.customerSection['Edit customer pencil button']);
   }
 
   @logAction('Click on products pencil button')
   async clickOnProductsPencilbutton() {
-    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage['Edit products pencil button']);
+    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage.productsSection['Edit products pencil button']);
   }
 
-  @logAction('Click on order details tab')
   async clickOnDetailsOrderTab(tabName: 'delivery' | 'history' | 'comments') {
     await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage['Details order tab title'](tabName));
+  }
+
+  async clickOnDeliveryTabInOrderDetails() {
+    this.clickOnDetailsOrderTab('delivery');
+  }
+  async clickOnCommentsTabInOrderDetails() {
+    this.clickOnDetailsOrderTab('comments');
+  }
+  async clickOnHistoryTabInOrderDetails() {
+    this.clickOnDetailsOrderTab('history');
+  }
+
+  async clickOnAllAccordionButtonsInProductDetailsSection() {
+    const buttons = await OrderDetailsPage.getArrayOfElements(OrderDetailsPage.productsSection['Accordion button']);
+    for (let b of buttons) {
+      b.click();
+    }
+  }
+
+  async clickOnAccordionButtonWithNameInProductDetailsSection(productName: string) {
+    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage.productsSection['Accordion button with specified name'](productName));
   }
 }
 

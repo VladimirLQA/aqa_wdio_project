@@ -64,7 +64,7 @@ export interface IOrder {
   customer: ICustomerResponse;
   delivery: IDelivery;
   history: IHistory[];
-  products: Pick<IHistory, 'products'>;
+  products: (Omit<IProductResponse, 'createdOn'> & { received: string })[];
   status: ORDER_STATUSES;
   total_price: number;
   _id: string;
