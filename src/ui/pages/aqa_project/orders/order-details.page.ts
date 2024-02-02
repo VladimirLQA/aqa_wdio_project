@@ -1,6 +1,6 @@
 import BasePage from '../base.page.js';
 import CustomerDetailsSectionPage from './order-customer-section.page.js';
-import ProductsDetailsSectionPage from './order-products-section.page copy.js';
+import ProductsDetailsSectionPage from './order-products-section.page.js';
 
 class OrderDetailsPage extends BasePage {
   readonly customerSection: typeof CustomerDetailsSectionPage = CustomerDetailsSectionPage;

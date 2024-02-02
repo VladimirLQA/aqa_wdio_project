@@ -28,12 +28,7 @@ export class BaseAssertions {
     expect(isContain).toBe(expected);
   }
 
-  public async verifyInputField(
-    borderColorActual: string,
-    borderColorExpected: string,
-    messageActual?: string,
-    messageExpected?: string,
-  ) {
+  public async verifyInputField(borderColorActual: string, borderColorExpected: string, messageActual?: string, messageExpected?: string) {
     expect(borderColorActual).toBe(borderColorExpected);
     if (messageActual && messageExpected) {
       expect(messageActual).toBe(messageExpected);
@@ -43,6 +38,6 @@ export class BaseAssertions {
   public async verifyToastMessage(text: string) {
     await this.verifyElementText(this.basePage['Toast text'], text);
     await this.baseActions.closeToastMessage();
-    await Utils.browserPause(300);
+    await Utils.browserPause(500);
   }
 }

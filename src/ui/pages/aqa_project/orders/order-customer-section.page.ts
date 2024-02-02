@@ -8,12 +8,12 @@ class CustomerDetailsSectionPage extends BasePage {
 
   async getParsedCustomerInSection() {
     const parsedData: IInitObject = {};
-    const modalRowsData = await this.waitForElementsArrayToBeDisplayed(this['Customer details']);
-    const rows = await Promise.all(await modalRowsData.map((elem) => elem));
+    const sectionRowsData = await this.waitForElementsArrayToBeDisplayed(this['Customer details']);
+    const rows = await Promise.all(await sectionRowsData.map((elem) => elem));
 
     await asyncForEach(rows, async (row) => {
       const [name, value] = (await row.getText()).split('\n');
-      if (name !== 'created on') parsedData[name.toLowerCase()] = value;
+      if (name !== 'Created On') parsedData[name.toLowerCase()] = value;
     });
     return parsedData;
   }

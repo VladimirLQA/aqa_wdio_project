@@ -13,6 +13,7 @@ import OrdersDetailsActions from '../../../ui/actions/orders/orders-details.acti
 import { getNewCustomer } from '../../../data/customers/customers.data.js';
 import { IOrder } from '../../../ui/types/order.types.js';
 import helpers from '../../../utils/helpers.js';
+import ProductsDetailsSectionPage from '../../../ui/pages/aqa_project/orders/order-products-section.page.js';
 
 describe('Create order tests', () => {
   let orderId: string, order: IOrder;
@@ -47,9 +48,7 @@ describe('Create order tests', () => {
     // await OrdersAssertions.verifyCustomerInCustomerDetailsSection(customer);
     await OrdersDetailsActions.clickOnAllAccordionButtonsInProductDetailsSection();
     await helpers.browserPause(5000);
+
+    const products = await ProductsDetailsSectionPage.getParsedProductInSection();
   });
-
-  // TODO
-
-  //
 });
