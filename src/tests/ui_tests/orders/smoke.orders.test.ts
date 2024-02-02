@@ -14,6 +14,7 @@ import { getNewCustomer } from '../../../data/customers/customers.data.js';
 import { IOrder } from '../../../ui/types/order.types.js';
 import helpers from '../../../utils/helpers.js';
 import ProductsDetailsSectionPage from '../../../ui/pages/aqa_project/orders/order-products-section.page.js';
+import OrderDetailsPage from '../../../ui/pages/aqa_project/orders/order-details.page.js';
 
 describe('Create order tests', () => {
   let orderId: string, order: IOrder;
@@ -47,8 +48,6 @@ describe('Create order tests', () => {
     await OrderActions.clickOnDetailsActionButton(orderId);
     // await OrdersAssertions.verifyCustomerInCustomerDetailsSection(customer);
     await OrdersDetailsActions.clickOnAllAccordionButtonsInProductDetailsSection();
-    await helpers.browserPause(5000);
-
-    const products = await ProductsDetailsSectionPage.getParsedProductInSection();
+    await OrdersAssertions.verifyProductsInProductsDetailsSection([product_01, product_02]);
   });
 });

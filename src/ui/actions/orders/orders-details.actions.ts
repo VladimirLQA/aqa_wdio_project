@@ -1,6 +1,7 @@
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
 import BasePage from '../../pages/aqa_project/base.page.js';
 import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page.js';
+import Utils from '../../../utils/helpers.js';
 
 class OrdersDetailsActions extends BasePage {
   @logAction('Click on refresh order button')
@@ -42,6 +43,7 @@ class OrdersDetailsActions extends BasePage {
     for (let b of buttons) {
       b.click();
     }
+    await Utils.browserPause(500);
   }
 
   async clickOnAccordionButtonWithNameInProductDetailsSection(productName: string) {

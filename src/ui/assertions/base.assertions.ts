@@ -2,6 +2,7 @@ import BaseActions from '../actions/base.actions.js';
 import PageHandler from '../pages/aqa_project/page-handler.page.js';
 import BasePage from '../pages/aqa_project/base.page.js';
 import Utils from '../../utils/helpers.js';
+import Expect from '../../utils/chai-expect/expect-collection.js';
 
 export class BaseAssertions {
   pageHandler: PageHandler = new PageHandler();
@@ -10,7 +11,7 @@ export class BaseAssertions {
 
   async verifyElementText(selector: string, text: string) {
     const actual = await this.pageHandler.waitForElemAndGetText(selector);
-    expect(actual).toBe(text);
+    Expect.toEqual({ actual: actual, expected: text });
   }
 
   async verifyClickableButton(selector: string, expected: boolean) {
@@ -18,20 +19,20 @@ export class BaseAssertions {
     const isClickable = await elem.waitUntil(async () => {
       return await elem.isClickable();
     });
-    expect(isClickable).toBe(expected);
+    Expect.toEqual({ actual: isClickable, expected });
   }
 
   async verifyContainClass(selector: string, className: string, expected: boolean) {
     const elem = await this.pageHandler.waitForElement(selector);
     const classAttribute = await elem.getAttribute('class');
     const isContain = classAttribute.toLowerCase().includes(className);
-    expect(isContain).toBe(expected);
+    Expect.toEqual({ actual: isContain, expected });
   }
 
   public async verifyInputField(borderColorActual: string, borderColorExpected: string, messageActual?: string, messageExpected?: string) {
     expect(borderColorActual).toBe(borderColorExpected);
     if (messageActual && messageExpected) {
-      expect(messageActual).toBe(messageExpected);
+      Expect.toEqual({ actual: messageActual, expected: messageExpected });
     }
   }
 
