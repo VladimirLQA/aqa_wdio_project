@@ -1,14 +1,17 @@
+import Utils from '../../../utils/helpers.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import OrdersActions from '../../actions/orders/orders.actions.js';
 import CustomerDetailsSectionPage from '../../pages/aqa_project/orders/order-customer-section.page.js';
+import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page.js';
 import { ICustomer } from '../../types/customers.types.js';
 import { IOrder } from '../../types/order.types.js';
 import { IProduct } from '../../types/products.types.js';
 import { CommonAssertions } from '../common.assertions.js';
+import ProductsAssertions from '../products_assertions/products.assertions.js';
 
 class OrdersAssertions extends CommonAssertions {
   async verifyCustomerInCustomerDetailsSection<T extends ICustomer>(createdEntity: T) {
-    const actualEntity = await CustomerDetailsSectionPage.getParsedCustomerInSection();
+    const actualEntity = (await OrderDetailsPage.getSectionData(OrderDetailsPage.customerSection['Customer details']))[0];
     for (const key in createdEntity) {
       if (key !== 'createdOn' && key !== '_id') {
         Expect.toEqual({ actual: actualEntity[key], expected: String(createdEntity[key]) });
@@ -28,10 +31,14 @@ class OrdersAssertions extends CommonAssertions {
     Expect.toEqual({ actual: tableOrder.status, expected: createdOrder.status });
     Expect.toEqual({ actual: tableOrder.price, expected: `$${createdOrder.total_price}` });
   }
-  // Utils.sortByNameASC([product_01, product_02]).forEach((p, idx) => {
-  //   ApiProductsAssertions.verifyProduct(p, Utils.sortByNameASC(response.data.Order.products)[idx]);
-  // });
-  async verifyProductsInProductsDetailsSection<T extends IProduct[]>(orderProducts: T) {}
+
+  async verifyProductsInProductsDetailsSection<T extends IProduct[]>(orderProducts: T) {
+    const actualProducts = await OrderDetailsPage.getSectionData(OrderDetailsPage.productsSection['Product details body']);
+    console.log(actualProducts);
+    Utils.sortByNameASC(orderProducts).forEach((p, idx) => {
+      ProductsAssertions.verifyProduct(p, Utils.sortByNameASC(actualProducts)[idx]);
+    });
+  }
 }
 
 export default new OrdersAssertions();

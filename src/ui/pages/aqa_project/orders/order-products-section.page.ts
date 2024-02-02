@@ -16,29 +16,6 @@ class ProductsDetailsSectionPage extends BasePage {
   readonly ['Product details body'] = '#products-accordion-section .accordion-body';
   readonly ['Accordion button with specified name'] = (productName: string) =>
     `//div[@id="products-accordion-section"]//button[normalize-space(text())="${productName}"]`;
-
-  async getParsedProductInSection() {
-    const products = await this.waitForElementsArrayToBeDisplayed(this['Product details body']);
-    const parsedProducts = await asyncMap<WebdriverIO.ElementArray, IProduct[]>(products, async (p: WebdriverIO.Element) => {
-      const prodicts = await p.$$('div.c-details');
-
-      const a = await asyncReduce(
-        prodicts,
-        async (productData, row) => {
-          const key = await (await row.$('span:nth-of-type(1)')).getText();
-          const value = await (await row.$('span:nth-of-type(2)')).getText();
-          productData[key] = value;
-          return productData;
-        },
-        {},
-      );
-
-      return a;
-    });
-
-    console.log(parsedProducts);
-    return parsedProducts;
-  }
 }
 
 export default new ProductsDetailsSectionPage();
