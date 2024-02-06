@@ -34,9 +34,8 @@ class OrdersAssertions extends CommonAssertions {
 
   async verifyProductsInProductsDetailsSection<T extends IProduct[]>(orderProducts: T) {
     const actualProducts = await OrderDetailsPage.getSectionData(OrderDetailsPage.productsSection['Product details body']);
-    console.log(actualProducts);
-    Utils.sortByNameASC(orderProducts).forEach((p, idx) => {
-      ProductsAssertions.verifyProduct(p, Utils.sortByNameASC(actualProducts)[idx]);
+    Utils.sortByNameASC(actualProducts).forEach((p, idx) => {
+      ProductsAssertions.verifyProduct(p, Utils.sortByNameASC(orderProducts)[idx]);
     });
   }
 }
