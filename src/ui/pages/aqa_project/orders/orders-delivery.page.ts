@@ -1,10 +1,9 @@
 import BasePage from '../base.page.js';
 
-class EditDeliveryPage extends BasePage {
+class DeliveryPage extends BasePage {
   readonly ['Delivery Type dropdown'] = '#inputType';
 
-  readonly ['Delivery type dropdown option'] = (option: 'delivery' | 'pickup') =>
-    `${this['Delivery Type dropdown']} > [value="${option}"]`;
+  readonly ['Delivery type dropdown option'] = (option: 'delivery' | 'pickup') => `${this['Delivery Type dropdown']} > [value="${option}"]`;
 
   readonly ['Date picker'] = '#date-input';
 
@@ -37,4 +36,4 @@ class EditDeliveryPage extends BasePage {
   readonly ['Cancel button'] = '#back-to-order-details-page';
 }
 
-export default new EditDeliveryPage();
+export default new DeliveryPage();

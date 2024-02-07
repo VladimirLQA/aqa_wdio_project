@@ -1,24 +1,23 @@
-// @ts-nocheck
-import { productData } from '../../../../data/products/products-test.data.js';
-import { asyncForEach, asyncMap, asyncReduce } from '../../../../utils/async_array_methods/array-async-methods.js';
-import { IInitObject } from '../../../types/common.types.js';
-import { IProduct } from '../../../types/products.types.js';
-import BasePage from '../base.page.js';
-
-type TProduct<T extends {}> = {
-  [K in keyof T as string]: T[K];
-};
-
-class ProductsDetailsSectionPage extends BasePage {
+class ProductsDetailsSectionPage {
   readonly ['Edit products pencil button'] = '#edit-products-pencil';
   readonly ['Accordion button'] = '#products-section button.accordion-button';
   readonly ['Receive label'] = (id: string) => `#heading${id} span.received-label`;
   readonly ['Product details body'] = '#products-accordion-section .accordion-body';
   readonly ['Accordion button with specified name'] = (productName: string) =>
     `//div[@id="products-accordion-section"]//button[normalize-space(text())="${productName}"]`;
+  readonly ['Info whether product received'] = (productName: string) =>
+    `//div[@id="products-accordion-section"]//button[normalize-space(text())="${productName}"]/following-sibling::span`;
 }
 
-export default new ProductsDetailsSectionPage();
+class CustomerDetailsSectionPage {
+  readonly ['Edit customer pencil button'] = '#edit-customer-pencil';
+  readonly ['Customer details'] = '#customer-section div.modal-body';
+}
+
+export const orderSections = {
+  Customer: new CustomerDetailsSectionPage(),
+  Products: new ProductsDetailsSectionPage(),
+};
 
 // async getParsedProductInSection() {
 //   const sectionRowsData = await this.waitForElementsArrayToBeDisplayed(this['Product details body']);

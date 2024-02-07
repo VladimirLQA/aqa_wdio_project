@@ -1,4 +1,5 @@
 import { TIMEOUT } from '../../../utils/aqa_project_const.js';
+import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { elementFinder } from '../../../utils/element-finder.js';
 import Utils from '../../../utils/helpers.js';
 
@@ -43,11 +44,15 @@ export default class PageHandler {
 
   async waitForElementAndScroll(selector: string, timeout: number = TIMEOUT['5 seconds']) {
     try {
-      const element = await this.waitForElement(selector);
+      const element = await this.waitForElement(selector, false, timeout);
       await element.waitForExist({ timeout });
       await element.scrollIntoView({ block: 'center' });
+      await element.waitForClickable({ timeout });
+      const isScrolled = await this.isDisplayedInViewport(selector, timeout);
+      Expect.toBeTrue({ actual: isScrolled });
       return element;
     } catch (error) {
+      console.log('custome');
       throw error;
     }
   }
@@ -69,5 +74,11 @@ export default class PageHandler {
     const elem = await this.waitForElementAndScroll(selector);
     const text = await elem.getText();
     return text;
+  }
+
+  async isDisplayedInViewport(selector: string, timeout = TIMEOUT['5 seconds']) {
+    const element = await elementFinder.findElement(selector);
+    const isScrolledIntoView = await element.isDisplayedInViewport();
+    return isScrolledIntoView;
   }
 }
