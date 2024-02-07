@@ -9,11 +9,6 @@ import { CommonActions } from '../common.actions.js';
 import CreateOrderModalActions from '../modals/orders_modals/create-order.modal.actions.js';
 
 class OrdersActions extends CommonActions {
-  @logAction('Click on details row button')
-  async clickOnDetailsRowButton(orderNum: string, action: string) {
-    await OrdersPage.waitForElemAndClick(OrdersPage['Table row action button'](orderNum, action));
-  }
-
   @logAction('Click on "Create order" button')
   async clickOnCreateOrderButton() {
     await OrdersPage.waitForElemAndClick(OrdersPage['Create order button']);
