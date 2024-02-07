@@ -3,6 +3,10 @@ import { COUNTRIES } from './customers.types.js';
 import { CreatedChangedOn } from './common.types.js';
 import { IProductResponse } from '../../api/type/api.product.type.js';
 
+export enum LOCATION_TYPE {
+  HOME = 'Home',
+  OTHER = 'Other',
+}
 export enum DELIVERY {
   DELIVERY = 'Delivery',
   PICK_UP = 'Pickup',
@@ -68,4 +72,10 @@ export interface IOrder {
   status: ORDER_STATUSES;
   total_price: number;
   _id: string;
+}
+
+export interface ScheduleInfo extends IAddress {
+  location: LOCATION_TYPE;
+  delivery: DELIVERY;
+  finalDate: string;
 }
