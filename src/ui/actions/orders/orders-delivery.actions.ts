@@ -1,7 +1,7 @@
-import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page';
-import { COUNTRIES } from '../../types/customers.types';
-import { DELIVERY, LOCATION_TYPE } from '../../types/order.types';
-import BaseActions from '../base.actions';
+import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page.js';
+import { COUNTRIES } from '../../types/customers.types.js';
+import { DELIVERY, LOCATION_TYPE } from '../../types/order.types.js';
+import BaseActions from '../base.actions.js';
 
 class DeliveryActions extends BaseActions {
   async clickOnCancelButton() {

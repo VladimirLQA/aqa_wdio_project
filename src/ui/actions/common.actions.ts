@@ -122,7 +122,6 @@ export class CommonActions extends BaseActions {
 
   async clickOnRowActionButton(value: string, action: ActionButtons) {
     await this.basePage.waitForElemAndClick(this.commonPage['Table row action button'](value, action));
-    await this.waitForPageLoad();
   }
 
   @logAction('Click on "edit" button in table')

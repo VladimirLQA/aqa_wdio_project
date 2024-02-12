@@ -9,6 +9,8 @@ import { CommonActions } from '../common.actions.js';
 import CreateOrderModalActions from '../modals/orders_modals/create-order.modal.actions.js';
 
 class OrdersActions extends CommonActions {
+  readonly createOrderModal = CreateOrderModalActions;
+
   @logAction('Click on "Create order" button')
   async clickOnCreateOrderButton() {
     await OrdersPage.waitForElemAndClick(OrdersPage['Create order button']);
@@ -18,8 +20,8 @@ class OrdersActions extends CommonActions {
   async createOrder(customerName: string, products: string[]) {
     await this.clickOnCreateOrderButton();
     await this.chooseDropdownItem(CreateOrderModalPage['Customer dropdown'], CreateOrderModalPage['Dropdown option'](customerName));
-    await CreateOrderModalActions.addProductsToOrder(products);
-    await CreateOrderModalActions.clickOnCreateButton();
+    await this.createOrderModal.addProductsToOrder(products);
+    await this.createOrderModal.clickOnCreateButton();
     const order: IOrder = await this.getFilteredOrder(customerName, products);
     return order;
   }

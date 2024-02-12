@@ -11,19 +11,35 @@ class OrdersDetailsActions extends BaseActions {
   readonly tabsSection = OrdersTabsSectionActions;
   readonly delivery = DeliveryActions;
 
-  @logAction('Click on refresh order button')
+  @logAction('Click on "Refresh Order" button')
   async clickOnRefreshOrderButton() {
     await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage['Refresh order button']);
   }
 
-  @logAction('Click on cancel order button')
+  @logAction('Click on "Cancel Order" button')
   async clickOnCancelOrderButton() {
     await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage['Cancel order button']);
   }
 
-  @logAction('Click on process order button')
+  @logAction('Click on "Process Order" button')
   async clickOnProcessOrderButton() {
     await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage['Process order button']);
+  }
+
+  @logAction('Click on "Yes Process" button in "Process order" modal')
+  async clickOnYesProcessButtonInProcessOrderModal() {
+    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage['Confirm process modal button']);
+  }
+
+  @logAction('Click on "Cancel" button in "Process order" modal')
+  async clickOnCancelButtonInProcessOrderModal() {
+    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage['Cancel confirm process modal button']);
+  }
+
+  @logAction('Confirm process order')
+  async confirmProcessOrder() {
+    await this.clickOnProcessOrderButton();
+    await this.clickOnYesProcessButtonInProcessOrderModal();
   }
 }
 
