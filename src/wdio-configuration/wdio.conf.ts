@@ -131,22 +131,15 @@ export const config: Options.Testrunner = {
   // The only one supported by default is 'dot'
   // see also: https://webdriver.io/docs/dot-reporter
   reporters: [
+    'spec',
     [
-      'spec',
-      [
-        'allure',
-        {
-          outputDir: './src/report/allure-results',
-          disableWebdriverStepsReporting: true,
-          disableMochaHooks: true,
-          disableWebdriverScreenshotsReporting: false,
-          useCucumberStepReporter: process.env.TEST_RUNNER === 'cucumber',
-          reportedEnvironmentVars: {
-            test_runner: process.env.TEST_RUNNER,
-            environment: process.env.ENVIRONMENT,
-          },
-        },
-      ],
+      'allure',
+      {
+        outputDir: 'src/report/allure-results',
+        disableWebdriverStepsReporting: true,
+        disableMochaHooks: true,
+        disableWebdriverScreenshotsReporting: false,
+      },
     ],
   ],
 
