@@ -1,3 +1,4 @@
+import { property } from 'lodash';
 import { elementFinder } from '../../utils/element-finder.js';
 import Utils from '../../utils/helpers.js';
 import { logAction } from '../../utils/reporter/allure.reporter.js';
@@ -39,6 +40,12 @@ export default class BaseActions {
     return property;
   }
 
+  async getElementID(element: string) {
+    const elem = await this.basePage.waitForElement(element);
+    const id = await elem.getAttribute('id');
+    return id;
+  }
+
   async chooseDropdownItem(dropdown: string, item: string) {
     await this.basePage.waitForElemAndClick(dropdown);
     await Utils.browserPause(200);
@@ -50,7 +57,7 @@ export default class BaseActions {
     return browser.execute(`$('button${selector}').removeAttr("disabled")`);
   }
 
-  public async fillInputField(inputField: string, inputValue: string | number) {
+  async fillInputField(inputField: string, inputValue: string | number) {
     await this.basePage.waitForElemAndSetValue(inputField, inputValue);
   }
 }

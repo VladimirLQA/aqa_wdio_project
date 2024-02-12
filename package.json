@@ -30,11 +30,14 @@
     "test:mocha-api": "npm run test:api",
     "test:mocha-ui": "npm run test:ui",
     "test:cucumber-ui": "npm run test:api",
+    "report:generate": "allure generate src/report/allure-results --clean -o src/report/allure-report",
+    "report:open": "npm run report:generate && allure open src/report/allure-report",
     "build": "rimraf dist && npx tsc"
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
     "ajv": "^8.12.0",
+    "allure-commandline": "^2.27.0",
     "axios": "^1.6.5",
     "chai": "^5.0.0",
     "lodash": "^4.17.21",

@@ -1,7 +1,10 @@
-import ModalPage from '../modal.page';
+import ModalPage from '../modal.page.js';
 
 class EditProductsModalPage extends ModalPage {
   readonly ['Products dropdown'] = `(//select[@name="Product"])[last()]`;
+
+  readonly ['Products dropdown with name'] = (productName: string) =>
+    `(//select[@name="Product"])//option[@selected][text()="${productName}"]/ancestor::select`;
 
   readonly ['Products dropdown list'] = '#inputCustomerOrder > option';
 
@@ -16,4 +19,13 @@ class EditProductsModalPage extends ModalPage {
   readonly ['Delete product button'] = (dataId: string) => `button[data-delete-id="${dataId}"]`;
 }
 
-export default new EditProductsModalPage();
+class EditCustomerModalPage extends ModalPage {
+  readonly ['Customers dropdown'] = '#inputCustomerOrder';
+  readonly ['Save button'] = '#update-customer-btn';
+  readonly ['Cancel button'] = '#cancel-edit-customer-modal-btn';
+}
+
+export const editModalsPages = {
+  'Edit customer': new EditCustomerModalPage(),
+  'Edit products': new EditProductsModalPage(),
+};

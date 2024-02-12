@@ -7,7 +7,10 @@ class DeliveryPage extends BasePage {
 
   readonly ['Date picker'] = '#date-input';
 
-  readonly ['Date picker days'] = '.datepicker-days';
+  readonly ['Date picker active days'] = `//div[@class="datepicker-days"]//tbody//td[not(contains(@class, "disabled"))]`;
+
+  readonly ['Date picker pick day'] = (date: number) =>
+    `//div[@class="datepicker-days"]//tbody//td[not(contains(@class, "disabled"))][text()="${date}"]`;
 
   readonly ['Date picker months'] = '.datepicker-months';
 
