@@ -1,7 +1,10 @@
 import ModalPage from '../modal.page.js';
 
 class EditProductsModalPage extends ModalPage {
-  readonly ['Products dropdown'] = `(//select[@name="Product"])[last()]`;
+  readonly ['Products dropdown option with dropdown id'] = (id: string, productName: string) =>
+    `${this['Products dropdown with id'](id)}//option[text()="${productName}"]`;
+
+  readonly ['Products dropdown with id'] = (id: string) => `//select[@id="${id}"]`;
 
   readonly ['Products dropdown with name'] = (productName: string) =>
     `(//select[@name="Product"])//option[@selected][text()="${productName}"]/ancestor::select`;

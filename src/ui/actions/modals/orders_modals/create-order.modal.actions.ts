@@ -26,7 +26,10 @@ class CreateOrderModalActions extends ModalActions {
   @logAction('Add products to order')
   async addProductsToOrder(products: string[]) {
     for (const [index, product] of products.entries()) {
-      await this.chooseDropdownItem(CreateOrderModalPage['Products dropdown'], CreateOrderModalPage['Dropdown option'](product));
+      await this.chooseDropdownItem(
+        CreateOrderModalPage['Products last dropdown'],
+        CreateOrderModalPage['Dropdown option [last()]'](product),
+      );
       if (index !== products.length - 1) await this.clickOnAddProductButton();
     }
   }

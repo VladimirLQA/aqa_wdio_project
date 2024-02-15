@@ -1,6 +1,7 @@
+import BasePage from '../base.page.js';
 import { editModalsPages } from '../modals/orders_modals/edit-products.modal.page.js';
 
-class ProductsDetailsSectionPage {
+class ProductsDetailsSectionPage extends BasePage {
   readonly editProductsModal = editModalsPages['Edit products'];
 
   readonly ['Edit products pencil button'] = '#edit-products-pencil';

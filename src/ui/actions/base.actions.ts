@@ -1,5 +1,3 @@
-import { property } from 'lodash';
-import { elementFinder } from '../../utils/element-finder.js';
 import Utils from '../../utils/helpers.js';
 import { logAction } from '../../utils/reporter/allure.reporter.js';
 import BasePage from '../pages/aqa_project/base.page.js';
@@ -13,8 +11,11 @@ export default class BaseActions {
 
   @logAction('Wait for page is loaded')
   async waitForPageLoad() {
-    const spinner = await elementFinder.findElement(this.basePage['Spinner']);
-    await spinner.waitForDisplayed({ reverse: true });
+    try {
+      await this.basePage.waitForElement(this.basePage['Spinner'], true);
+    } catch (error) {
+      throw new Error(`Error while waiting page load`);
+    }
   }
 
   @logAction('Open "Sales portal"')
@@ -46,10 +47,10 @@ export default class BaseActions {
     return id;
   }
 
-  async chooseDropdownItem(dropdown: string, item: string) {
-    await this.basePage.waitForElemAndClick(dropdown);
+  async chooseDropdownItem(dropdownSelector: string, optionsSelector: string) {
+    await this.basePage.waitForElemAndClick(dropdownSelector);
     await Utils.browserPause(200);
-    await this.basePage.waitForElemAndClick(item);
+    await this.basePage.waitForElemAndClick(optionsSelector);
   }
 
   @logAction('Enable button')

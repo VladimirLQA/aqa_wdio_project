@@ -3,7 +3,7 @@ import ModalPage from '../modal.page.js';
 class CreateOrderModalPage extends ModalPage {
   readonly ['Customer dropdown'] = '#inputCustomerOrder';
 
-  readonly ['Products dropdown'] = `(//select[@name="Product"])[last()]`;
+  readonly ['Products last dropdown'] = `(//select[@name="Product"])[last()]`;
 
   readonly ['Customer dropdown list'] = '#inputCustomerOrder > option';
 

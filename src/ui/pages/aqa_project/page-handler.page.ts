@@ -1,26 +1,27 @@
 import { TIMEOUT } from '../../../utils/aqa_project_const.js';
+import { asyncFind } from '../../../utils/async_array_methods/array-async-methods.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
-import { elementFinder } from '../../../utils/element-finder.js';
+import ElementFinder from '../../../utils/element-finder.js';
 import Utils from '../../../utils/helpers.js';
 
 export default class PageHandler {
   async waitForElement(selector: string, reverse: boolean = false, timeout: number = TIMEOUT['5 seconds']): Promise<WebdriverIO.Element> {
-    const elem = await elementFinder.findElement(selector);
+    const elem = await ElementFinder.findElement(selector);
     await elem.waitForDisplayed({
       reverse,
       timeout,
-      timeoutMsg: `Element with selector ${selector} was not found`,
+      timeoutMsg: `Element with selector ${selector} was not displayed`,
     });
     return elem;
   }
 
-  async waitForElementsArrayToBeDisplayed(
+  async waitForElementsArray(
     selector: string,
     reverse: boolean = false,
     timeout: number = TIMEOUT['5 seconds'],
     // @ts-ignore
   ): Promise<WebdriverIO.ElementArray> {
-    const elements = await elementFinder.findArrayElements(selector);
+    const elements = await ElementFinder.findArrayElements(selector);
     // @ts-ignore
     await browser.waitUntil(
       async () => {
@@ -32,13 +33,8 @@ export default class PageHandler {
         }
         return true;
       },
-      { timeout, timeoutMsg: `Error during waiting for array of elements with selector ${selector}` },
+      { timeout, timeoutMsg: `Error during waiting for array of elements with selector "${selector}"` },
     );
-    return elements;
-  }
-
-  async getArrayOfElements(selector: string) {
-    const elements = await elementFinder.findArrayElements(selector);
     return elements;
   }
 
@@ -52,32 +48,60 @@ export default class PageHandler {
       Expect.toBeTrue({ actual: isScrolled });
       return element;
     } catch (error) {
-      console.log('custome');
-      throw error;
+      throw new Error(`Error while scrolling to element with selector ${selector}`);
     }
   }
 
   async waitForElemAndSetValue(selector: string, text: string | number, timeout: number = TIMEOUT['5 seconds']): Promise<void> {
-    const elem = await this.waitForElementAndScroll(selector);
-    await elem.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
-    await elem.setValue(text);
-    await Utils.browserPause(200);
+    try {
+      const elem = await this.waitForElementAndScroll(selector);
+      await elem.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
+      await elem.setValue(text);
+    } catch (error) {
+      throw new Error(`Error while setting text "${text}" into element with selector "${selector}"`);
+    }
   }
 
-  async waitForElemAndClick(selector: string, timeout: number = TIMEOUT['5 seconds']): Promise<void> {
-    const elem = await this.waitForElementAndScroll(selector);
-    await elem.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
-    await elem.click();
+  async waitForElemAndClick(item: WebdriverIO.Element | string, timeout: number = TIMEOUT['5 seconds']): Promise<void> {
+    try {
+      if (typeof item === 'string') {
+        const elem = await this.waitForElement(item);
+        await elem.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
+        await elem.click();
+      } else {
+        await item.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
+        await item.click();
+      }
+    } catch (error) {
+      throw new Error(`Error while clicking on element with selector ${item}`);
+    }
+  }
+
+  async waitForDropdownAndSelectValue(
+    dropdownSelector: string,
+    optionsSelector: string,
+    text: string | number,
+    timeout = TIMEOUT['5 seconds'],
+  ) {
+    const options = await this.waitForElementsArray(optionsSelector);
+    await this.waitForElemAndClick(dropdownSelector);
+    const option = await asyncFind([...options], async (el: WebdriverIO.Element) => (await el.getText()) === text);
+    if (option) await this.waitForElemAndClick(option);
   }
 
   async waitForElemAndGetText(selector: string): Promise<string> {
-    const elem = await this.waitForElementAndScroll(selector);
-    const text = await elem.getText();
-    return text;
+    try {
+
+      const elem = await this.waitForElementAndScroll(selector);
+      const text = await elem.getText();
+      return text;
+    } catch (error) {
+      throw new Error(`Error while getting text from selector "${selector}"`)
+    }
   }
 
   async isDisplayedInViewport(selector: string, timeout = TIMEOUT['5 seconds']) {
-    const element = await elementFinder.findElement(selector);
+    const element = await ElementFinder.findElement(selector);
     const isScrolledIntoView = await element.isDisplayedInViewport();
     return isScrolledIntoView;
   }

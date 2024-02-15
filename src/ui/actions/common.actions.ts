@@ -1,7 +1,6 @@
 import { ControllersList } from '../../api/controllers/contollers.index.js';
 import { reqAsLoggedUser } from '../../api/request/request-as-logged-user.js';
 import { asyncForEach, asyncReduce } from '../../utils/async_array_methods/array-async-methods.js';
-import { elementFinder } from '../../utils/element-finder.js';
 import { logAction } from '../../utils/reporter/allure.reporter.js';
 import { CommonPage } from '../pages/aqa_project/common.page.js';
 import FilterModalPage from '../pages/aqa_project/modals/filter-modal.page.js';
@@ -14,7 +13,7 @@ export class CommonActions extends BaseActions {
   commonPage: CommonPage = new CommonPage();
 
   async getListOfChipButtons(page: CommonPage): Promise<IChipsFilterOptions> {
-    const chips = await Promise.all(await elementFinder.findArrayElements(page['Chip buttons']));
+    const chips = await Promise.all(await this.commonPage.waitForElementsArray(page['Chip buttons']));
     const chipsFilters: IChipsFilterOptions = {
       quickFilters: [],
     };

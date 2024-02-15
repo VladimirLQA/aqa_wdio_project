@@ -4,13 +4,12 @@ import OrderDetailsPage from '../../../pages/aqa_project/orders/order-details.pa
 import BaseActions from '../../base.actions.js';
 
 class ProductModalActions extends BaseActions {
-  async getDropdownByProductName(productName: string) {}
-
-  // TODO first take dropdown id than change products
+  @logAction('Change product in "Edit products" modal')
   async changeProductInOrder(productToFind: string, productToSelect: string) {
+    const dropdownId = await this.getElementID(editModalsPages['Edit products']['Products dropdown with name'](productToFind));
     await this.chooseDropdownItem(
-      editModalsPages['Edit products']['Products dropdown with name'](productToFind),
-      editModalsPages['Edit products']['Dropdown option'](productToSelect),
+      editModalsPages['Edit products']['Products dropdown with id'](dropdownId),
+      editModalsPages['Edit products']['Products dropdown option with dropdown id'](dropdownId, productToSelect),
     );
   }
 
