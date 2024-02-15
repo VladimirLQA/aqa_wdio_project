@@ -8,6 +8,7 @@ import { ActionButtons, IChipsFilterOptions, UnionFilterModalLabels } from '../t
 import BaseActions from './base.actions.js';
 import FiltersModalActions from './modals/filters-modal.actions.js';
 import Utils from '../../utils/helpers.js';
+import ElementFinder from '../../utils/element-finder';
 
 export class CommonActions extends BaseActions {
   commonPage: CommonPage = new CommonPage();
@@ -90,7 +91,7 @@ export class CommonActions extends BaseActions {
   }
 
   async clearQuickAndSearchFilterChips(page: CommonPage, chipsToClose: 'search' | 'quick filters' | 'all') {
-    const chips = await Promise.all(await elementFinder.findArrayElements(page['Chip buttons']));
+    const chips = await Promise.all(await this.commonPage.waitForElementsArray(page['Chip buttons']));
     await asyncForEach(chips, async (chip) => {
       const actualFilters = await chip.getAttribute(`data-chip-${page.pageName}`);
 
