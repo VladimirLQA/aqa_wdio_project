@@ -4,6 +4,7 @@ import Utils from '../../../utils/helpers.js';
 import BaseActions from '../base.actions.js';
 import CustomerModalActions from '../modals/orders_modals/edit-customer.modal.actions.js';
 import ProductModalActions from '../modals/orders_modals/edit-products.modal.actions.js';
+import { orderSections } from '../../pages/aqa_project/orders/order-products-customer-sections.page.js';
 
 class CustomerProductsActions extends BaseActions {
   public readonly editCustomerModal = CustomerModalActions;
@@ -46,14 +47,16 @@ class CustomerProductsActions extends BaseActions {
     );
   }
 
+  @logAction('Click on all accordion buttons in product section')
   async clickOnAllAccordionButtonsInProductSection() {
-    const buttons = await OrderDetailsPage.getArrayOfElements(OrderDetailsPage.orderSection['Products']['Accordion button']);
+    const buttons = await OrderDetailsPage.waitForElementsArray(OrderDetailsPage.orderSection['Products']['Accordion button']);
     for (let b of buttons) {
-      b.click();
+      orderSections['Products'].waitForElemAndClick(b);
     }
     await Utils.browserPause(500);
   }
 
+  @logAction('Click on accordion button in product section')
   async clickOnAccordionButtonByNameInProductSection(productName: string) {
     await OrderDetailsPage.waitForElemAndClick(
       OrderDetailsPage.orderSection['Products']['Accordion button with specified product name'](productName),

@@ -16,7 +16,7 @@ export const comment: string = 'dream';
 export const scheduleOrder = (schedule?: Partial<IDelivery>): IDelivery => {
   return {
     condition: DELIVERY.DELIVERY,
-    finalDate: new Date().toISOString(),
+    finalDate: new Date(new Date().setDate(new Date().getDate() + 3)).toISOString(),
     address: {
       city: faker.location.city(),
       country: COUNTRIES.GREAT_BRITAIN,
