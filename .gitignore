@@ -12,3 +12,5 @@ package-lock.json
 src/credential.ts
 
 **/.DS_Store
+
+.idea/
