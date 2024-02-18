@@ -67,7 +67,7 @@ export class CommonActions extends BaseActions {
   }
 
   async getParsedTableData() {
-    return browser.execute(` 
+    return this.basePage.browserExecute(` 
       const entities = []; 
       const columnNames = [...document.querySelectorAll('th')].reduce((res,e,i,arr) => {
         if(i < arr.length-2) res.push(e.innerText)
@@ -87,7 +87,7 @@ export class CommonActions extends BaseActions {
 
   @logAction('Click on filters button')
   async clickOnFiltersButton() {
-    await this.basePage.waitForElemAndClick(this.commonPage['Filter button']);
+    await this.basePage.click(this.commonPage['Filter button']);
   }
 
   async clearQuickAndSearchFilterChips(page: CommonPage, chipsToClose: 'search' | 'quick filters' | 'all') {
@@ -112,16 +112,16 @@ export class CommonActions extends BaseActions {
 
   @logAction('Click on search button')
   async clickOnSearchButton(page: CommonPage) {
-    await this.basePage.waitForElemAndClick(this.commonPage['Search button'](page.pageName));
+    await this.basePage.click(this.commonPage['Search button'](page.pageName));
   }
 
   @logAction('Fill search input')
   async fillSearchInput(searchValue: string) {
-    await this.basePage.waitForElemAndSetValue(this.commonPage['Search input'], searchValue);
+    await this.basePage.setValue(this.commonPage['Search input'], searchValue);
   }
 
   async clickOnRowActionButton(value: string, action: ActionButtons) {
-    await this.basePage.waitForElemAndClick(this.commonPage['Table row action button'](value, action));
+    await this.basePage.click(this.commonPage['Table row action button'](value, action));
   }
 
   @logAction('Click on "edit" button in table')

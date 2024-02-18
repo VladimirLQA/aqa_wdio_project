@@ -9,15 +9,15 @@ import DeleteModalActions from '../modals/delete-modal.actions.js';
 class ProductsActions extends CommonActions {
   @logAction('Click on "Add product" button')
   async clickOnAddProductButton() {
-    await ProductsPage.waitForElemAndClick(ProductsPage['Add product button']);
+    await ProductsPage.click(ProductsPage['Add product button']);
     await this.waitForPageLoad();
   }
 
   async getCreatedProductRow(productName: string) {
     return {
-      name: await ProductsPage.waitForElemAndGetText(ProductsPage['Name by table row'](productName)),
-      price: await ProductsPage.waitForElemAndGetText(ProductsPage['Price by table row'](productName)),
-      manufacturer: await ProductsPage.waitForElemAndGetText(ProductsPage['Manufacturer by table row'](productName)),
+      name: await ProductsPage.getText(ProductsPage['Name by table row'](productName)),
+      price: await ProductsPage.getText(ProductsPage['Price by table row'](productName)),
+      manufacturer: await ProductsPage.getText(ProductsPage['Manufacturer by table row'](productName)),
     };
   }
 

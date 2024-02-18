@@ -7,6 +7,6 @@ export default class ModalActions extends BaseActions {
 
   @logAction('Click on modal close button')
   public async clickOnCloseModalButton() {
-    await this.basePage.waitForElemAndClick(this.modalPage['Modal close button']);
+    await this.basePage.click(this.modalPage['Modal close button']);
   }
 }

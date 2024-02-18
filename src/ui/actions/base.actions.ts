@@ -20,8 +20,12 @@ export default class BaseActions {
 
   @logAction('Open "Sales portal"')
   async openSalesPortal() {
-    await browser.url('https://anatoly-karpovich.github.io/aqa-course-project/#');
-    await browser.maximizeWindow();
+    try {
+      await browser.url('https://anatoly-karpovich.github.io/aqa-course-project/#');
+      await browser.maximizeWindow();
+    } catch (error) {
+      throw new Error(`Error while opening "Sales portal"`);
+    }
   }
 
   @logAction('Get token from browser cookies')
@@ -32,33 +36,33 @@ export default class BaseActions {
 
   @logAction('Click on toast close button')
   async closeToastMessage() {
-    await this.basePage.waitForElemAndClick(this.basePage['Toast close button']);
+    await this.basePage.click(this.basePage['Toast close button']);
   }
 
   async getCssProperty(element: string, cssProperty: string) {
-    const elem = await this.basePage.waitForElement(element);
-    const property = await elem.getCSSProperty(cssProperty);
+    const property = await this.basePage.getElementCssProperty(element, cssProperty);
     return property;
   }
 
-  async getElementID(element: string) {
-    const elem = await this.basePage.waitForElement(element);
-    const id = await elem.getAttribute('id');
+  @logAction('Get "id" from element with {selector}')
+  async getElementID(elementSelector: string) {
+    const id = await this.basePage.getElementAttribute(elementSelector, 'id');
     return id;
   }
 
-  async chooseDropdownItem(dropdownSelector: string, optionsSelector: string) {
-    await this.basePage.waitForElemAndClick(dropdownSelector);
+  @logAction('Choose dropdown option {optionSelector} in dropdown with selector {selector}')
+  async chooseDropdownItem(dropdownSelector: string, optionSelector: string) {
+    await this.basePage.click(dropdownSelector);
     await Utils.browserPause(200);
-    await this.basePage.waitForElemAndClick(optionsSelector);
+    await this.basePage.click(optionSelector);
   }
 
-  @logAction('Enable button')
+  @logAction('Enable button with selector {selector}')
   async enableButton(selector: string) {
-    return browser.execute(`$('button${selector}').removeAttr("disabled")`);
+    return this.basePage.browserExecute(`$('button${selector}').removeAttr("disabled")`);
   }
 
   async fillInputField(inputField: string, inputValue: string | number) {
-    await this.basePage.waitForElemAndSetValue(inputField, inputValue);
+    await this.basePage.setValue(inputField, inputValue);
   }
 }

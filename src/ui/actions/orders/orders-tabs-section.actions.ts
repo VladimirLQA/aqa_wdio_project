@@ -1,10 +1,13 @@
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
+import { tabsSection } from '../../pages/aqa_project/orders/order-details-tabs-section.page.js';
 import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page.js';
+import DeliveryPage from '../../pages/aqa_project/orders/orders-delivery.page.js';
+import { IDelivery, LOCATION_TYPE } from '../../types/order.types.js';
 import BaseActions from '../base.actions.js';
 
 class OrderTabsSectionActions extends BaseActions {
   async clickOnOrderTab(tabName: 'delivery' | 'history' | 'comments') {
-    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage.tabsSection['Common']['Order details section tab button'](tabName));
+    await OrderDetailsPage.click(tabsSection['Common']['Order details section tab button'](tabName));
   }
 
   @logAction('Click on "Delivery" tab')
@@ -23,11 +26,11 @@ class OrderTabsSectionActions extends BaseActions {
   }
 
   async fillCommentText(text: string) {
-    await OrderDetailsPage.waitForElemAndSetValue(OrderDetailsPage.tabsSection['Comment']['Comments input text area'], text);
+    await OrderDetailsPage.setValue(tabsSection['Comment']['Comments input text area'], text);
   }
 
   async clickOnCreateCommentButton() {
-    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage.tabsSection['Comment']['Create comment button']);
+    await OrderDetailsPage.click(tabsSection['Comment']['Create comment button']);
   }
 
   @logAction('Add comment to order')
@@ -38,12 +41,12 @@ class OrderTabsSectionActions extends BaseActions {
 
   @logAction('Click on delete comment button')
   async cliclOnDeleteCommentButtonWithCommentText(commentSubstr: string) {
-    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage.tabsSection['Comment']['Delete comment button'](commentSubstr));
+    await OrderDetailsPage.click(tabsSection['Comment']['Delete comment button'](commentSubstr));
   }
 
   @logAction('Click on "Schedule / Edit" delivery button')
   async clickOnScheduleEditDeliveryButton() {
-    await OrderDetailsPage.waitForElemAndClick(OrderDetailsPage.tabsSection['Delivery']['Schedule delivery button']);
+    await OrderDetailsPage.click(tabsSection['Delivery']['Schedule delivery button']);
   }
 }
 

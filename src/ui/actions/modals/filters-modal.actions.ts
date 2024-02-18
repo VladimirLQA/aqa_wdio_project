@@ -4,11 +4,11 @@ import ModalActions from '../modal.actions.js';
 
 class FiltersModalActions extends ModalActions {
   async clickOnApplyButton() {
-    await this.basePage.waitForElemAndClick(FilterModalPage['Apply button']);
+    await this.basePage.click(FilterModalPage['Apply button']);
   }
 
   async clickOnClearFiltersButton() {
-    await this.basePage.waitForElemAndClick(FilterModalPage['Clear filters button']);
+    await this.basePage.click(FilterModalPage['Clear filters button']);
   }
 
   async checkAllBoxesInFiltersModal(labels: UnionFilterModalLabels[]) {
@@ -17,7 +17,7 @@ class FiltersModalActions extends ModalActions {
 
   async checkFiltersBox(modalSelector: typeof FilterModalPage, labels: UnionFilterModalLabels[]) {
     for (const label of labels) {
-      await this.basePage.waitForElemAndClick(modalSelector['Filter checkbox'](label));
+      await this.basePage.click(modalSelector['Filter checkbox'](label));
     }
   }
 }

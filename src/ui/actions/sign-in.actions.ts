@@ -7,9 +7,9 @@ import BaseActions from './base.actions.js';
 class SignInActions extends BaseActions {
   @logAction('Sign into "Sales Portal"')
   public async signIn(credentials: IUserCredentials = adminCredentials) {
-    await SignInPage.waitForElemAndSetValue(SignInPage['Email input'], credentials.username);
-    await SignInPage.waitForElemAndSetValue(SignInPage['Password input'], credentials.password);
-    await SignInPage.waitForElemAndClick(SignInPage['Login button']);
+    await SignInPage.setValue(SignInPage['Email input'], credentials.username);
+    await SignInPage.setValue(SignInPage['Password input'], credentials.password);
+    await SignInPage.click(SignInPage['Login button']);
     await this.waitForPageLoad();
   }
 }
