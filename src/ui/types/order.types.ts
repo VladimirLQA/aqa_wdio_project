@@ -48,7 +48,7 @@ export interface IAddress {
 
 export interface IDelivery {
   condition: DELIVERY | null;
-  finalDate: string;
+  finalDate: string | number;
   address: IAddress;
 }
 

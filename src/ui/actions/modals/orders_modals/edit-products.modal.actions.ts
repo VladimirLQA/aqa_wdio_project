@@ -15,12 +15,12 @@ class ProductModalActions extends BaseActions {
 
   @logAction('Click on "Save" button in "Edit products" modal')
   async clickOnSaveButton() {
-    await editModalsPages['Edit products'].waitForElemAndClick(editModalsPages['Edit products']['Save button']);
+    await editModalsPages['Edit products'].click(editModalsPages['Edit products']['Save button']);
   }
 
   @logAction('Click on "Cancel" button in "Edit products" modal')
   async clickOnCancelButton() {
-    await editModalsPages['Edit products'].waitForElemAndClick(editModalsPages['Edit products']['Cancel button']);
+    await editModalsPages['Edit products'].click(editModalsPages['Edit products']['Cancel button']);
   }
 }
 

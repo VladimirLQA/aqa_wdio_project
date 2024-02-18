@@ -17,35 +17,32 @@ class AddNewProductActions extends BaseActions {
   }
 
   public async clickOnSaveNewProductButton() {
-    await AddNewProductPage.waitForElemAndClick(AddNewProductPage['Save New Product button']);
+    await AddNewProductPage.click(AddNewProductPage['Save New Product button']);
     await this.waitForPageLoad();
   }
 
   public async clickOnManufacturerDropdown() {
-    await AddNewProductPage.waitForElemAndClick(AddNewProductPage['Manufacturer dropdown']);
+    await AddNewProductPage.click(AddNewProductPage['Manufacturer dropdown']);
   }
 
   public async clickOnManufacturerBrand(manufacturer: MANUFACTURERS) {
-    await AddNewProductPage.waitForElemAndClick(AddNewProductPage['Dropdown option'](manufacturer));
+    await AddNewProductPage.click(AddNewProductPage['Dropdown option'](manufacturer));
   }
 
   public async createProduct(product: IProduct) {
     await this.fillProductInputs(product);
-    await this.chooseDropdownItem(
-      AddNewProductPage['Manufacturer dropdown'],
-      AddNewProductPage['Dropdown option'](product.manufacturer),
-    );
+    await this.chooseDropdownItem(AddNewProductPage['Manufacturer dropdown'], AddNewProductPage['Dropdown option'](product.manufacturer));
     await this.clickOnSaveNewProductButton();
     await this.waitForPageLoad();
   }
 
   public async clickOnBackButton() {
-    await AddNewProductPage.waitForElemAndClick(AddNewProductPage['Back button']);
+    await AddNewProductPage.click(AddNewProductPage['Back button']);
     await this.waitForPageLoad();
   }
 
   public async clickOnClearAllButton() {
-    await AddNewProductPage.waitForElemAndClick(AddNewProductPage['Clear inputs button']);
+    await AddNewProductPage.click(AddNewProductPage['Clear inputs button']);
   }
 }
 

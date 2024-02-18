@@ -13,31 +13,34 @@ class OrdersActions extends CommonActions {
 
   @logAction('Click on "Create order" button')
   async clickOnCreateOrderButton() {
-    await OrdersPage.waitForElemAndClick(OrdersPage['Create order button']);
+    await OrdersPage.click(OrdersPage['Create order button']);
   }
 
   @logAction('Create order')
   async createOrder(customerName: string, products: string[]) {
     await this.clickOnCreateOrderButton();
-    await this.chooseDropdownItem(CreateOrderModalPage['Customer dropdown'], CreateOrderModalPage['Dropdown option'](customerName));
+    await this.chooseDropdownItem(
+      CreateOrderModalPage['Customer dropdown'],
+      CreateOrderModalPage['Dropdown option [last()]'](customerName),
+    );
     await this.createOrderModal.addProductsToOrder(products);
     await this.createOrderModal.clickOnCreateButton();
-    const order: IOrder = await this.getFilteredOrder(customerName, products);
+    const order: IOrder = await this.getCreatedOrder(customerName, products);
     return order;
   }
 
   @logAction('Get created order table row')
   async getCreatedOrderRowInTable(orderId: string) {
     return {
-      name: await OrdersPage.waitForElemAndGetText(OrdersPage['Name by table row'](orderId)),
-      price: await OrdersPage.waitForElemAndGetText(OrdersPage['Price by table row'](orderId)),
-      status: await OrdersPage.waitForElemAndGetText(OrdersPage['Status by table row'](orderId)),
-      orderNumber: await OrdersPage.waitForElemAndGetText(OrdersPage['Order number by table row'](orderId)),
-      delivery: await OrdersPage.waitForElemAndGetText(OrdersPage['Delivery by table row'](orderId)),
+      name: await OrdersPage.getText(OrdersPage['Name by table row'](orderId)),
+      price: await OrdersPage.getText(OrdersPage['Price by table row'](orderId)),
+      status: await OrdersPage.getText(OrdersPage['Status by table row'](orderId)),
+      orderNumber: await OrdersPage.getText(OrdersPage['Order number by table row'](orderId)),
+      delivery: await OrdersPage.getText(OrdersPage['Delivery by table row'](orderId)),
     };
   }
 
-  async getFilteredOrder(customerName: string, products: string[]) {
+  async getCreatedOrder(customerName: string, products: string[]) {
     const order: IOrder = (await reqAsLoggedUser(OrdersController.getOrder, {})).data.Orders.find(
       (o: IOrder) =>
         o.customer.name === customerName &&

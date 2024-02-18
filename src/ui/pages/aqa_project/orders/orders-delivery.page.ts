@@ -5,12 +5,14 @@ class DeliveryPage extends BasePage {
 
   readonly ['Delivery type dropdown option'] = (option: 'delivery' | 'pickup') => `${this['Delivery Type dropdown']} > [value="${option}"]`;
 
+  readonly ['Delivery dropdown options'] = `${this['Delivery Type dropdown']} > option`;
+
   readonly ['Date picker'] = '#date-input';
 
   readonly ['Date picker active days'] = `//div[@class="datepicker-days"]//tbody//td[not(contains(@class, "disabled"))]`;
 
-  readonly ['Date picker pick day'] = (date: number) =>
-    `//div[@class="datepicker-days"]//tbody//td[not(contains(@class, "disabled"))][text()="${date}"]`;
+  readonly ['Date picker pick day'] = (day: number) =>
+    `//div[@class="datepicker-days"]//tbody//td[not(contains(@class, "disabled"))][text()="${day}"]`;
 
   readonly ['Date picker months'] = '.datepicker-months';
 
@@ -22,7 +24,7 @@ class DeliveryPage extends BasePage {
 
   readonly ['Country dropdown'] = '#selectCountry';
 
-  readonly ['Country dropdown list'] = '#selectCountry > option';
+  readonly ['Country dropdown list'] = (option: string) => `${this['Country dropdown']} > [value="${option}"]`;
 
   readonly ['City field'] = '#inputCity';
 

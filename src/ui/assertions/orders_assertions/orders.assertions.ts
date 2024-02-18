@@ -10,7 +10,9 @@ import ProductsAssertions from '../products_assertions/products.assertions.js';
 
 class OrdersAssertions extends CommonAssertions {
   async verifyCustomerInCustomerDetailsSection<T extends ICustomer>(createdEntity: T) {
-    const actualEntity = (await OrderDetailsPage.getSectionData(OrderDetailsPage.orderSection['Customer']['Customer details']))[0];
+    const actualEntity = (
+      await OrderDetailsPage.getSectionData(OrderDetailsPage.customerProductSection['Customer']['Customer details'])
+    )[0];
     for (const key in createdEntity) {
       if (key !== 'createdOn' && key !== '_id') {
         Expect.toEqual({ actual: actualEntity[key], expected: String(createdEntity[key]) });
@@ -32,7 +34,9 @@ class OrdersAssertions extends CommonAssertions {
   }
 
   async verifyProductsInProductsDetailsSection<T extends IProduct[]>(orderProducts: T) {
-    const actualProducts = await OrderDetailsPage.getSectionData(OrderDetailsPage.orderSection['Products']['Product details body']);
+    const actualProducts = await OrderDetailsPage.getSectionData(
+      OrderDetailsPage.customerProductSection['Products']['Product details body'],
+    );
     Utils.sortByNameASC(actualProducts).forEach((p, idx) => {
       ProductsAssertions.verifyProduct(p, Utils.sortByNameASC(orderProducts)[idx]);
     });

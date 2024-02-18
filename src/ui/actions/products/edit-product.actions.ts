@@ -18,35 +18,32 @@ class EditProductActions extends BaseActions {
   }
 
   public async clickOnSaveChangesButton() {
-    await EditProductPage.waitForElemAndClick(EditProductPage['Save changes button']);
+    await EditProductPage.click(EditProductPage['Save changes button']);
     await this.waitForPageLoad();
   }
 
   public async clickOnManufacturerDropdown() {
-    await EditProductPage.waitForElemAndClick(EditProductPage['Manufacturer dropdown']);
+    await EditProductPage.click(EditProductPage['Manufacturer dropdown']);
   }
 
   public async clickOnManufacturerBrand(manufacturer: MANUFACTURERS) {
-    await EditProductPage.waitForElemAndClick(EditProductPage['Dropdown option'](manufacturer));
+    await EditProductPage.click(EditProductPage['Dropdown option'](manufacturer));
   }
 
   public async updateProduct(product: IProduct) {
     await this.fillProductInputs(product);
-    await this.chooseDropdownItem(
-      EditProductPage['Manufacturer dropdown'],
-      EditProductPage['Dropdown option'](product.manufacturer),
-    );
+    await this.chooseDropdownItem(EditProductPage['Manufacturer dropdown'], EditProductPage['Dropdown option'](product.manufacturer));
     await this.clickOnSaveChangesButton();
     await this.waitForPageLoad();
   }
 
   public async clickOnBackButton() {
-    await EditProductPage.waitForElemAndClick(EditProductPage['Back button']);
+    await EditProductPage.click(EditProductPage['Back button']);
     await this.waitForPageLoad();
   }
 
   public async clickOnDeleteProductButton() {
-    await EditProductPage.waitForElemAndClick(EditProductPage['Delete product button']);
+    await EditProductPage.click(EditProductPage['Delete product button']);
   }
 }
 
