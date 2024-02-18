@@ -10,7 +10,7 @@ export class BaseAssertions {
   baseActions: BaseActions = new BaseActions();
 
   async verifyElementText(selector: string, text: string) {
-    const actual = await this.pageHandler.waitForElemAndGetText(selector);
+    const actual = await this.pageHandler.getText(selector);
     Expect.toEqual({ actual: actual, expected: text });
   }
 
