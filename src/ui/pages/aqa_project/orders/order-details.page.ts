@@ -5,7 +5,7 @@ import { orderSections } from './order-products-customer-sections.page.js';
 import DeliveryPage from './orders-delivery.page.js';
 
 class OrderDetailsPage extends BasePage {
-  readonly orderSection = orderSections;
+  readonly customerProductSection = orderSections;
   readonly delivery = DeliveryPage;
   readonly tabsSection = tabsSection;
 
@@ -34,7 +34,7 @@ class OrderDetailsPage extends BasePage {
   readonly ['Check box by id'] = (id: number) => `#chekc${id}`;
 
   async getSectionData(section: string) {
-    const bodyData = await this.waitForElementsArrayToBeDisplayed(section);
+    const bodyData = await this.waitForElementsArray(section);
     const parsedData = await asyncMap([...bodyData], async (elem: WebdriverIO.Element) => {
       const rows = await elem.$$('.c-details');
 
