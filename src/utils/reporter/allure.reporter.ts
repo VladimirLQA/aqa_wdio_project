@@ -10,7 +10,13 @@ export function logAction(stepName: string): MethodDecorator {
       const selector = args[0]; // Extract the selector from the arguments
       const value = args[1]; // Extract the value from the arguments
 
-      let newStepName = stepName.replace('{selector}', `"${selector}"`).replace('{text}', `"${value}"`);
+      let newStepName = stepName
+        .replace('{selector}', `"${selector}"`)
+        .replace('{text}', `"${value}"`)
+        .replace('{attribute}', `"${value}"`)
+        .replace('{script}', `"${selector}"`)
+        .replace('{optionSelector}', `"${value}"`)
+        .replace('{cssProperty}', `"${value}"`);
 
       allure.startStep(newStepName);
       try {
