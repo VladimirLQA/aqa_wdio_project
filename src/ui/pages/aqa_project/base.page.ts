@@ -7,5 +7,6 @@ export default class BasePage extends PageHandler {
   readonly ['Spinner'] = '.spinner-border';
   readonly ['Toast text'] = '.toast-body';
   readonly ['Toast close button'] = '.toast-container button';
-  readonly ['Dropdown option [last()]'] = (option: MANUFACTURERS | COUNTRIES | DELIVERY | string) => `(//option[text()="${option}"])`;
+  readonly ['Dropdown option [last()]'] = (option: MANUFACTURERS | COUNTRIES | DELIVERY | string) =>
+    `(//option[text()="${option}"])[last()]`;
 }

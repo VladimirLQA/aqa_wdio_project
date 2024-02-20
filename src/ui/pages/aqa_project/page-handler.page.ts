@@ -64,17 +64,17 @@ export default class PageHandler {
   }
 
   @logAction('Click on element with selector {selector}')
-  async click(selectorElement: WebdriverIO.Element | string, timeout: number = TIMEOUT['5 seconds']) {
+  async click(selectorElement: WebdriverIO.Element | string, timeout = TIMEOUT['5 seconds']) {
     try {
       if (typeof selectorElement === 'string') {
         const elem = await this.waitForElement(selectorElement);
         await elem.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
         await elem.click();
-        Logger.log(`Successfully clicked on element with selector ${selectorElement}`);
+        Logger.log(`Successfully click on element with selector ${selectorElement}`);
       } else {
         await selectorElement.waitForEnabled({ timeout, timeoutMsg: 'Element is not enabled after 5 seconds' });
         await selectorElement.click();
-        Logger.log(`Successfully clicked on element with selector ${selectorElement}`);
+        Logger.log(`Successfully click on element with selector ${selectorElement}`);
       }
     } catch (error) {
       Logger.log(`Failed to click on element with selector ${selectorElement}`, 'error');
@@ -87,7 +87,7 @@ export default class PageHandler {
     try {
       const elem = await this.waitForElement(selector);
       const text = await elem.getText();
-      Logger.log(`Successfully get "${text}" from element with selector ${selector}`);
+      Logger.log(`Successfully get text "${text}" from element with selector ${selector}`);
       return text;
     } catch (error) {
       Logger.log(`Failed to get text from element with selector ${selector}`, 'error');
@@ -96,9 +96,9 @@ export default class PageHandler {
   }
 
   @logAction('Clear value from element with selector {selector}')
-  async clear(selector: string, timeout?: number) {
+  async clear(selector: string) {
     try {
-      const element = await this.waitForElementAndScroll(selector, timeout);
+      const element = await this.waitForElement(selector);
       if (element) {
         await element.clearValue();
         Logger.log(`Successfully cleared value from element with selector ${selector}`);
