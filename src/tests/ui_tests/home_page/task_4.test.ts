@@ -34,26 +34,26 @@
 //   });
 
 //   it('Should verify that \'AQA User\' is logged', async () => {
-//     const userName = await SidebarPage.waitForElemAndGetText(SidebarPage['User dropdown menu']);
+//     const userName = await SidebarPage.getText(SidebarPage['User dropdown menu']);
 //     expect(userName).toBe('AQA User');
 //   });
 
 //   it('Should have blue \'background-color\' on \'Orders\' sidebar button after clicking', async () => {
-//     await SidebarPage.waitForElemAndClick(SidebarPage['Orders page']);
+//     await SidebarPage.click(SidebarPage['Orders page']);
 //     await browserPause(500);
 //     isBgColorRead = await isAttributeContainClass(SidebarPage['Orders page'], 'bg-danger');
 //     expect(isBgColorRead).toBe(false);
 //   });
 
 //   it('Should have blue \'background-color\' on \'Products\' sidebar button after clicking', async () => {
-//     await SidebarPage.waitForElemAndClick(SidebarPage['Products page']);
+//     await SidebarPage.click(SidebarPage['Products page']);
 //     await browserPause(500);
 //     isBgColorRead = await isAttributeContainClass(SidebarPage['Products page'], 'bg-danger');
 //     expect(isBgColorRead).toBe(false);
 //   });
 
 //   it('Should have blue \'background-color\' on \'Customers\' sidebar button after clicking', async () => {
-//     await SidebarPage.waitForElemAndClick(SidebarPage['Customers page']);
+//     await SidebarPage.click(SidebarPage['Customers page']);
 //     await browserPause(500);
 //     isBgColorRead = await isAttributeContainClass(SidebarPage['Customers page'], 'bg-danger');
 //     expect(isBgColorRead).toBe(false);

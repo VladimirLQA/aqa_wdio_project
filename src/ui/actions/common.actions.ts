@@ -8,7 +8,6 @@ import { ActionButtons, IChipsFilterOptions, UnionFilterModalLabels } from '../t
 import BaseActions from './base.actions.js';
 import FiltersModalActions from './modals/filters-modal.actions.js';
 import Utils from '../../utils/helpers.js';
-import ElementFinder from '../../utils/element-finder';
 
 export class CommonActions extends BaseActions {
   commonPage: CommonPage = new CommonPage();
