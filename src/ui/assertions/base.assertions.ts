@@ -9,6 +9,7 @@ export class BaseAssertions {
   basePage: BasePage = new BasePage();
   baseActions: BaseActions = new BaseActions();
 
+  // encapsulation for actual values
   async verifyElementText(selector: string, text: string) {
     const actual = await this.pageHandler.getText(selector);
     Expect.toEqual({ actual: actual, expected: text });
@@ -36,6 +37,7 @@ export class BaseAssertions {
     }
   }
 
+  // TODO refactor method to deal with single unit of behaviour
   public async verifyToastMessage(text: string) {
     await this.verifyElementText(this.basePage['Toast text'], text);
     await this.baseActions.closeToastMessage();
