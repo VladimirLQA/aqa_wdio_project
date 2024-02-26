@@ -66,7 +66,7 @@ export class CommonActions extends BaseActions {
   }
 
   async getParsedTableData() {
-    return this.basePage.browserExecute(` 
+    return await this.basePage.browserExecute(` 
       const entities = []; 
       const columnNames = [...document.querySelectorAll('th')].reduce((res,e,i,arr) => {
         if(i < arr.length-2) res.push(e.innerText)

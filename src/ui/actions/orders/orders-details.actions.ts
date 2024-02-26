@@ -5,8 +5,9 @@ import BaseActions from '../base.actions.js';
 import CustomerProductsActions from './orders-cust-prod-sections.actions.js';
 import OrdersTabsSectionActions from './orders-tabs-section.actions.js';
 import DeliveryActions from './orders-delivery.actions.js';
+import { CommonActions } from '../common.actions.js';
 
-class OrdersDetailsActions extends BaseActions {
+class OrdersDetailsActions extends CommonActions {
   readonly customerProductSection = CustomerProductsActions;
   readonly tabsSection = OrdersTabsSectionActions;
   readonly delivery = DeliveryActions;

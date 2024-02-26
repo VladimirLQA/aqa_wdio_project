@@ -2,6 +2,8 @@ import Utils from '../../utils/helpers.js';
 import { logAction } from '../../utils/reporter/allure.reporter.js';
 import BasePage from '../pages/aqa_project/base.page.js';
 
+// todo refactor inheritance
+// todo refactor logActions
 export default class BaseActions {
   public basePage: BasePage;
 
@@ -44,6 +46,7 @@ export default class BaseActions {
     return property;
   }
 
+  // TODO maybe move it to page-handler component
   @logAction('Get "id" from element with {selector}')
   async getElementID(elementSelector: string) {
     const id = await this.basePage.getElementAttribute(elementSelector, 'id');

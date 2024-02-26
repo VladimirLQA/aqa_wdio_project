@@ -1,8 +1,8 @@
 import { COUNTRIES } from '../../types/customers.types.js';
 import { DELIVERY, IAddress, IDelivery, LOCATION_TYPE } from '../../types/order.types.js';
 import BaseActions from '../base.actions.js';
-import OrderTabsSectionActions from './orders-tabs-section.actions.js';
 import DeliveryPage from '../../pages/aqa_project/orders/orders-delivery.page.js';
+import Utils from '../../../utils/helpers.js';
 
 class DeliveryActions extends BaseActions {
   async clickOnCancelButton() {
@@ -40,10 +40,6 @@ class DeliveryActions extends BaseActions {
     await this.clickOnActiveDayInDatePicker(day);
   }
 
-  async chooseUSACountry() {
-    await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Country dropdown list'](COUNTRIES.USA));
-  }
-
   async fillCityInputField(text: string) {
     await this.fillInputField(DeliveryPage['City field'], text);
   }
@@ -60,34 +56,34 @@ class DeliveryActions extends BaseActions {
     await this.fillInputField(DeliveryPage['House field'], text);
   }
 
+  // todo simplify method
   async chooseCountry(country: COUNTRIES) {
     switch (country) {
       case COUNTRIES.BELARUS:
-        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
+        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](COUNTRIES.BELARUS));
         break;
       case COUNTRIES.USA:
-        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
+        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](COUNTRIES.USA));
         break;
       case COUNTRIES.CANADA:
-        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
+        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](COUNTRIES.CANADA));
         break;
       case COUNTRIES.UKRAINE:
-        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
+        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](COUNTRIES.UKRAINE));
         break;
       case COUNTRIES.RUSSIA:
-        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
+        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](COUNTRIES.RUSSIA));
         break;
       case COUNTRIES.FRANCE:
-        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
+        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](COUNTRIES.FRANCE));
         break;
       case COUNTRIES.GERMANY:
-        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
+        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](COUNTRIES.GERMANY));
         break;
       case COUNTRIES.GREAT_BRITAIN:
-        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
+        await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](COUNTRIES.GREAT_BRITAIN));
         break;
     }
-
   }
 
   async fillAddress(address: IAddress) {
@@ -98,13 +94,15 @@ class DeliveryActions extends BaseActions {
     await this.chooseCountry(address?.country!);
   }
 
+
   // TODO deal with lag after choosing option in location dropdown
-  // TODO add separate business logic methods for delivery, location, country dropdown
-  async scheduleOrder(schedule: Partial<IDelivery & { location: LOCATION_TYPE }>) {
-    await OrderTabsSectionActions.clickOnScheduleEditDeliveryButton();
+  async scheduleOrder(schedule: IDelivery & { location: LOCATION_TYPE }) {
     await this.chooseScheduleDeliveryType(schedule.condition!);
-    await this.chooseLocationType(schedule.location!);
+    await this.chooseLocationType(schedule.location);
+    await Utils.browserPause(3000)
+    await this.chooseLocationType(LOCATION_TYPE.HOME);
     await this.chooseDate(+schedule.finalDate!);
+    await Utils.browserPause(5000);
     if (schedule.location === LOCATION_TYPE.OTHER && schedule.condition === DELIVERY.DELIVERY) {
       await this.fillAddress(schedule!.address!);
     } else if (schedule.condition === DELIVERY.PICK_UP) {

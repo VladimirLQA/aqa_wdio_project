@@ -10,12 +10,12 @@ class CustomerProductsActions extends BaseActions {
   public readonly editProductModal = ProductModalActions;
 
   @logAction('Click on customer details pencil button')
-  async clickOnCustomerDetailsPencilbutton() {
-    await orderSections['Customer'].click(orderSections['Customer']['Edit customer pencil button']);
+  async clickOnCustomerDetailsPencilButton() {
+    await this.basePage.click(orderSections['Customer']['Edit customer pencil button']);
   }
 
   @logAction('Click on products pencil button')
-  async clickOnProductsPencilbutton() {
+  async clickOnProductsPencilButton() {
     await orderSections['Products'].click(orderSections['Products']['Edit products pencil button']);
   }
 
@@ -48,7 +48,7 @@ class CustomerProductsActions extends BaseActions {
   async clickOnAllAccordionButtonsInProductSection() {
     const buttons = await orderSections['Products'].waitForElementsArray(orderSections['Products']['Accordion button']);
     for (let b of buttons) {
-      orderSections['Products'].click(b);
+      await orderSections['Products'].click(b);
     }
     await Utils.browserPause(500);
   }
