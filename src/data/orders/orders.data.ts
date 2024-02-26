@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
-import { DELIVERY, IDelivery, LOCATION_TYPE } from '../../ui/types/order.types.js';
+import { LOCATION_TYPE } from '../../ui/types/order.types.js';
+import { DELIVERY, IDelivery } from '../../api/type/api.orders.type.js';
 import { COUNTRIES } from '../customers/customers.data.js';
 
 export const orderPageToastMessages = {
@@ -13,6 +14,12 @@ export const orderPageToastMessages = {
 
 export const comment: string = 'dream';
 
+const formatDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}/${month}/${day}`;
+};
 export const scheduleOrder = (schedule?: Partial<IDelivery>): IDelivery => {
   return {
     condition: DELIVERY.DELIVERY,
@@ -28,10 +35,14 @@ export const scheduleOrder = (schedule?: Partial<IDelivery>): IDelivery => {
   };
 };
 
-export const scheduleOrderUI = (schedule?: Partial<IDelivery & { location: LOCATION_TYPE }>): IDelivery & { location: LOCATION_TYPE } => {
+export const scheduleOrderUI = (
+  schedule?: Partial<IDelivery & { location: LOCATION_TYPE }>,
+): IDelivery & {
+  location: LOCATION_TYPE;
+} => {
   return {
     condition: DELIVERY.DELIVERY,
-    finalDate: new Date(new Date().setDate(new Date().getDate() + 3)).getDate(),
+    finalDate: new Date(new Date().setDate(new Date().getDate() + 3)).getDate().toString(),
     location: LOCATION_TYPE.HOME,
     address: {
       city: faker.location.city(),

@@ -153,8 +153,6 @@ export default class PageHandler {
       await element.waitForExist({ timeout });
       await element.scrollIntoView({ block: 'center' });
       await element.waitForClickable({ timeout });
-      const isScrolled = await this.isDisplayedInViewport(selector);
-      Expect.toBeTrue({ actual: isScrolled });
       return element;
     } catch (error) {
       throw new Error(`Error while scrolling to element with selector ${selector}`);

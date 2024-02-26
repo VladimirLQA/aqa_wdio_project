@@ -35,7 +35,7 @@ class OrderDetailsPage extends BasePage {
 
   async getSectionData(section: string) {
     const bodyData = await this.waitForElementsArray(section);
-    const parsedData = await asyncMap([...bodyData], async (elem: WebdriverIO.Element) => {
+    return await asyncMap([...bodyData], async (elem: WebdriverIO.Element) => {
       const rows = await elem.$$('.c-details');
 
       const data = await asyncReduce(
@@ -51,43 +51,7 @@ class OrderDetailsPage extends BasePage {
 
       return data;
     });
-    return parsedData;
   }
-
-  // async getParsedCustomerInSection() {
-  //   const parsedData: IInitObject = {};
-  //   const sectionRowsData = await this.waitForElementsArrayToBeDisplayed(this['Customer details']);
-  //   const rows = await Promise.all(await sectionRowsData.map((elem) => elem));
-
-  //   await asyncForEach(rows, async (row) => {
-  //     const [name, value] = (await row.getText()).split('\n');
-  //     if (name !== 'Created On') parsedData[name.toLowerCase()] = value;
-  //   });
-  //   return parsedData;
-  // }
-
-  // async getParsedProductInSection() {
-  //   const products = await this.waitForElementsArrayToBeDisplayed(this['Product details body']);
-  //   const parsedProducts = await asyncMap<WebdriverIO.ElementArray, IProduct[]>(products, async (p: WebdriverIO.Element) => {
-  //     const prodicts = await p.$$('div.c-details');
-
-  //     const a = await asyncReduce(
-  //       prodicts,
-  //       async (productData, row) => {
-  //         const key = await (await row.$('span:nth-of-type(1)')).getText();
-  //         const value = await (await row.$('span:nth-of-type(2)')).getText();
-  //         productData[key] = value;
-  //         return productData;
-  //       },
-  //       {},
-  //     );
-
-  //     return a;
-  //   });
-
-  //   console.log(parsedProducts);
-  //   return parsedProducts;
-  // }
 }
 
 export default new OrderDetailsPage();
