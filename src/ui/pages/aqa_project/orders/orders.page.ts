@@ -7,17 +7,23 @@ class OrdersPage extends CommonPage {
 
   readonly ['Create order button'] = 'button.page-title-button';
 
-  readonly ['Order number by table row'] = (orderNum: string) => `${this['Table row selector'](orderNum)}/td[1]`;
+  readonly ['Order number by table row'] = (orderNum: string) =>
+    `${this['Table row selector'](orderNum)}/td[1]`;
 
-  readonly ['Name by table row'] = (orderNum: string) => `${this['Table row selector'](orderNum)}/td[2]`;
+  readonly ['Name by table row'] = (orderNum: string) =>
+    `${this['Table row selector'](orderNum)}/td[2]`;
 
-  readonly ['Email by table row'] = (orderNum: string) => `${this['Table row selector'](orderNum)}/td[3]`;
+  readonly ['Email by table row'] = (orderNum: string) =>
+    `${this['Table row selector'](orderNum)}/td[3]`;
 
-  readonly ['Price by table row'] = (orderNum: string) => `${this['Table row selector'](orderNum)}/td[4]`;
+  readonly ['Price by table row'] = (orderNum: string) =>
+    `${this['Table row selector'](orderNum)}/td[4]`;
 
-  readonly ['Delivery by table row'] = (orderNum: string) => `${this['Table row selector'](orderNum)}/td[5]`;
+  readonly ['Delivery by table row'] = (orderNum: string) =>
+    `${this['Table row selector'](orderNum)}/td[5]`;
 
-  readonly ['Status by table row'] = (orderNum: string) => `${this['Table row selector'](orderNum)}/td[6]`;
+  readonly ['Status by table row'] = (orderNum: string) =>
+    `${this['Table row selector'](orderNum)}/td[6]`;
 
   readonly ['Chip label'] = (chipName: string) => `.chip[data-chip-orders='${chipName}']`;
 }

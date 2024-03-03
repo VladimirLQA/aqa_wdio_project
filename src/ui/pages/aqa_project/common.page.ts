@@ -9,7 +9,8 @@ export class CommonPage extends BasePage {
 
   readonly ['Table page'] = (pageName: string) => `#table-${pageName}`;
 
-  readonly ['Chip label'] = (pageName: string, chipName: string) => `.chip[data-chip-${pageName}='${chipName}']`;
+  readonly ['Chip label'] = (pageName: string, chipName: string) =>
+    `.chip[data-chip-${pageName}='${chipName}']`;
 
   readonly ['Filter button'] = '#filter';
 

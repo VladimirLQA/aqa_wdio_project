@@ -3,7 +3,8 @@ import BasePage from '../base.page.js';
 class DeliveryPage extends BasePage {
   readonly ['Delivery Type dropdown'] = '#inputType';
 
-  readonly ['Delivery type dropdown option'] = (option: 'delivery' | 'pickup') => `${this['Delivery Type dropdown']} > [value="${option}"]`;
+  readonly ['Delivery type dropdown option'] = (option: 'delivery' | 'pickup') =>
+    `${this['Delivery Type dropdown']} > [value="${option}"]`;
 
   readonly ['Delivery dropdown options'] = `${this['Delivery Type dropdown']} > option`;
 
@@ -24,7 +25,8 @@ class DeliveryPage extends BasePage {
 
   readonly ['Country dropdown'] = '#selectCountry';
 
-  readonly ['Country dropdown list'] = (option: string) => `${this['Country dropdown']} > [value="${option}"]`;
+  readonly ['Country dropdown list'] = (option: string) =>
+    `${this['Country dropdown']} > [value="${option}"]`;
 
   readonly ['City field'] = '#inputCity';
 
@@ -34,7 +36,9 @@ class DeliveryPage extends BasePage {
 
   readonly ['Flat field'] = '#inputFlat';
 
-  readonly ['Error field'] = (fieldName: 'inputCity' | 'inputStreet' | 'inputHouse' | 'inputFlat') => `#error-${fieldName}`;
+  readonly ['Error field'] = (
+    fieldName: 'inputCity' | 'inputStreet' | 'inputHouse' | 'inputFlat',
+  ) => `#error-${fieldName}`;
 
   readonly ['Save delivery button'] = '#save-delivery';
 

@@ -19,7 +19,8 @@ class EditProductsModalPage extends ModalPage {
 
   readonly ['Total price'] = '#total-price-order-modal';
 
-  readonly ['Delete product button'] = (dataId: string) => `button[data-delete-id="${dataId}"]`;
+  readonly ['Delete product button with id'] = (dataId: string) =>
+    `button[data-delete-id="${dataId}"]`;
 }
 
 class EditCustomerModalPage extends ModalPage {

@@ -1,5 +1,3 @@
-// TODO implement page
-
 import BasePage from '../base.page.js';
 
 class EditProductPage extends BasePage {

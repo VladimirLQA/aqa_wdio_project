@@ -19,7 +19,7 @@ class DetailsModalPage extends ModalPage {
 
   async getParsedDetailsData() {
     const parsedData: IInitObject = {};
-    const modalRowsData = await this.waitForElementsArrayToBeDisplayed(this['Modal data rows']);
+    const modalRowsData = await this.waitForElementsArray(this['Modal data rows']);
     const rows = await Promise.all(await modalRowsData.map((elem) => elem));
 
     await asyncForEach(rows, async (row) => {

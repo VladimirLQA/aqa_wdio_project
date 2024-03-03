@@ -1,17 +1,30 @@
-import BasePage from '../base.page.js';
 import { ORDER_HISTORY_ACTIONS } from '../../../types/order.types.js';
 
-class CommonTabsSectionPage extends BasePage {
-  readonly ['Order details section tab button'] = (tabName: 'delivery' | 'history' | 'comments') => `#${tabName}-tab`;
-  readonly ['Tab title'] = (tabName: 'delivery' | 'history' | 'comments') => `#order-details-tabs-content > #${tabName} h4`;
+class CommonTabsSectionPage {
+  readonly ['Order details section tab button'] = (tabName: 'delivery' | 'history' | 'comments') =>
+    `#${tabName}-tab`;
+
+  readonly ['Tab title'] = (tabName: 'delivery' | 'history' | 'comments') =>
+    `#order-details-tabs-content > #${tabName} h4`;
 }
 
 class OrderDetailsTabPage extends CommonTabsSectionPage {
-  readonly ['Collapse button order history tab'] = (action: ORDER_HISTORY_ACTIONS | string) => `//span[text()="${action}"]/preceding-sibling::button`;
-  readonly ['"Order created" collapse button'] = `${this['Collapse button order history tab'](ORDER_HISTORY_ACTIONS.CREATED)}`;
+  readonly ['Collapse button order history tab'] = (action: ORDER_HISTORY_ACTIONS | string) =>
+    `//span[text()="${action}"]/preceding-sibling::button`;
+
+  readonly ['"Order created" collapse button'] = `${this['Collapse button order history tab'](
+    ORDER_HISTORY_ACTIONS.CREATED,
+  )}`;
 
   readonly ['Action'] = (action: ORDER_HISTORY_ACTIONS | string) => `//span[text()="${action}"]`;
-  readonly ['Action id'] = (action: ORDER_HISTORY_ACTIONS | string) => `${this['Action'](action)}//..`;
+
+  readonly ['Action id'] = (action: ORDER_HISTORY_ACTIONS | string) =>
+    `${this['Action'](action)}//..`;
+
+  readonly ['Get action with id'] = (id: string) => `#${id} > span:nth-of-type(1)`;
+
+  readonly ['Action data by actioin id'] = (id: string) =>
+    `[aria-labelledby="${id}"] .his-col.fst-italic`;
 
   // previous updated - //*[@class="fw-bold his-col"]
 
@@ -28,7 +41,6 @@ class OrderDetailsTabPage extends CommonTabsSectionPage {
   //   }
   // };
 
-
   // const action = document.querySelector('#heading21 > span:nth-of-type(1)').innerText
   // 'Order created'
 
@@ -37,7 +49,6 @@ class OrderDetailsTabPage extends CommonTabsSectionPage {
 
   // const [prev, updated] = [...document.querySelectorAll('[aria-labelledby="heading21"] .fw-bold.his-col')].map(c => c.innerText).filter(v => v);
   // ['Previous', 'Updated']
-
 
   // const data  = [...document.querySelectorAll('[aria-labelledby="heading21"] .his-col.fst-italic')].map(c => c.innerText).filter(v => v);
   //   if (data.length > 3) do the chunk
@@ -48,7 +59,8 @@ class CommentTabSectionPage extends CommonTabsSectionPage {
   readonly ['Create comment button'] = '#create-comment-btn';
   readonly ['Comments input text area'] = '#textareaComments';
   readonly ['Error input text area'] = '#error-textareaComments';
-  readonly ['Delete comment button'] = (substr: string) => `//p[contains(., "${substr}")]/following-sibling::button`;
+  readonly ['Delete comment button'] = (substr: string) =>
+    `//p[contains(., "${substr}")]/following-sibling::button`;
   readonly ['Comment text'] = (substr: string) => `//p[contains(., "${substr}")]`;
 }
 

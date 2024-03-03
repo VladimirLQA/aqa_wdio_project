@@ -3,7 +3,8 @@ import ModalPage from './modal.page.js';
 class FilterModalPage extends ModalPage {
   readonly ['Modal title'] = '.modal-title';
 
-  readonly ['Filter checkbox'] = (filterName: string) => `.modal-filters-body input#${filterName}-filter`;
+  readonly ['Filter checkbox'] = (filterName: string) =>
+    `.modal-filters-body input#${filterName}-filter`;
 
   readonly ['Apply button'] = '#apply-filters';
 
