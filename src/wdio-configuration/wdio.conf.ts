@@ -57,7 +57,7 @@ export const config: Options.Testrunner = {
       browserName: 'chrome',
       browserVersion: '121.0.6167.85',
       'goog:chromeOptions': {
-        // args: ['--headless', '--disable-gpu', '--no-sandbox'],
+      //   // args: ['--headless', '--disable-gpu', '--no-sandbox'],
       },
     },
   ],

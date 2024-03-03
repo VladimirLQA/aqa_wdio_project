@@ -10,7 +10,12 @@ export interface IProduct {
 
 export type IProductWithID = IProduct & Id;
 
-export type ToastMessage = 'created' | 'updated' | 'deleted' | 'already exist' | 'assigned to order';
+export type ProductToastMessage =
+  | 'created'
+  | 'updated'
+  | 'deleted'
+  | 'already exist'
+  | 'assigned to order';
 
 export enum MANUFACTURERS {
   APPLE = 'Apple',

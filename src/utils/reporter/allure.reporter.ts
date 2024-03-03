@@ -4,7 +4,11 @@ import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Logger from '../logger/logger.js';
 
 export function logAction(stepName: string): MethodDecorator {
-  return function (target: any, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<any>) {
+  return function (
+    target: any,
+    propertyKey: string | symbol,
+    descriptor: TypedPropertyDescriptor<any>,
+  ) {
     const originalMethod = descriptor.value;
     descriptor.value = async function (this: any, ...args: any[]) {
       const selector = args[0]; // Extract the selector from the arguments
@@ -47,7 +51,11 @@ export function logApiActions(target: any, propertyName: string, descriptor: Pro
     const options: AxiosRequestConfig = args[0];
 
     allure.startStep(`Request: ${options.method!.toUpperCase()} ${options.url}`);
-    allure.addAttachment(`Request headers`, JSON.stringify(options.headers, null, 2), 'application/json');
+    allure.addAttachment(
+      `Request headers`,
+      JSON.stringify(options.headers, null, 2),
+      'application/json',
+    );
     allure.addAttachment(`Request body`, JSON.stringify(options.data, null, 2), 'application/json');
     allure.endStep();
 
@@ -57,11 +65,21 @@ export function logApiActions(target: any, propertyName: string, descriptor: Pro
       const response: AxiosResponse = await originalMethod.apply(this, args);
 
       allure.startStep(`Response: ${response.status} ${response.config.url}`);
-      allure.addAttachment(`Response headers`, JSON.stringify(response.headers, null, 2), 'application/json');
-      allure.addAttachment(`Response body`, JSON.stringify(response.data, null, 2), 'application/json');
+      allure.addAttachment(
+        `Response headers`,
+        JSON.stringify(response.headers, null, 2),
+        'application/json',
+      );
+      allure.addAttachment(
+        `Response body`,
+        JSON.stringify(response.data, null, 2),
+        'application/json',
+      );
       allure.endStep(response.status >= 400 ? Status.FAILED : Status.PASSED);
 
-      Logger.logApiResponse(JSON.stringify({ status: response.status, body: response.data }, null, 2));
+      Logger.logApiResponse(
+        JSON.stringify({ status: response.status, body: response.data }, null, 2),
+      );
 
       return response;
     } catch (error) {
