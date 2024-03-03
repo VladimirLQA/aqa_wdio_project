@@ -5,39 +5,39 @@ import BaseActions from './base.actions.js';
 class SidebarActions extends BaseActions {
   @logAction('Click on "Sign out" button')
   async clickOnSignOutButton() {
-    await SidebarPage.click(SidebarPage['User dropdown menu']);
-    await SidebarPage.click(SidebarPage['Sign out button']);
+    await this.basePage.click(SidebarPage['User dropdown menu']);
+    await this.basePage.click(SidebarPage['Sign out button']);
     await this.waitForPageLoad();
   }
 
   @logAction('Click on "Home" button')
   async clickOnSidebarHomeButton() {
-    await SidebarPage.click(SidebarPage['Home button']);
+    await this.basePage.click(SidebarPage['Home button']);
   }
 
   @logAction('Click on "Products" button')
   async clickOnSidebarProductsButton() {
-    await SidebarPage.click(SidebarPage['Products button']);
+    await this.basePage.click(SidebarPage['Products button']);
   }
 
   @logAction('Click on "Orders" button')
   async clickOnSidebarOrdersButton() {
-    await SidebarPage.click(SidebarPage['Orders button']);
+    await this.basePage.click(SidebarPage['Orders button']);
   }
 
   @logAction('Click on "Customers" button')
   async clickOnSidebarCustomersButton() {
-    await SidebarPage.click(SidebarPage['Customers button']);
+    await this.basePage.click(SidebarPage['Customers button']);
   }
 
   @logAction('Click on "Customers" button')
   async clickOnSidebarCurrencyBuyButton() {
-    await SidebarPage.click(SidebarPage["Currency 'Buy' button"]);
+    await this.basePage.click(SidebarPage["Currency 'Buy' button"]);
   }
 
   @logAction('Fill currency input')
   async fillValueInCurrencyInput(value: number) {
-    await SidebarPage.setValue(SidebarPage['Currency input'], value);
+    await this.basePage.setValue(SidebarPage['Currency input'], value);
   }
 }
 

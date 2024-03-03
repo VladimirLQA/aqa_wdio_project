@@ -2,14 +2,8 @@ import Utils from '../../utils/helpers.js';
 import { logAction } from '../../utils/reporter/allure.reporter.js';
 import BasePage from '../pages/aqa_project/base.page.js';
 
-// todo refactor inheritance
-// todo refactor logActions
 export default class BaseActions {
-  public basePage: BasePage;
-
-  constructor() {
-    this.basePage = new BasePage();
-  }
+  basePage: BasePage = new BasePage();
 
   @logAction('Wait for page is loaded')
   async waitForPageLoad() {
@@ -36,7 +30,6 @@ export default class BaseActions {
     return token;
   }
 
-  @logAction('Click on toast close button')
   async closeToastMessage() {
     await this.basePage.click(this.basePage['Toast close button']);
   }
@@ -46,8 +39,6 @@ export default class BaseActions {
     return property;
   }
 
-  // TODO maybe move it to page-handler component
-  @logAction('Get "id" from element with {selector}')
   async getElementID(elementSelector: string) {
     const id = await this.basePage.getElementAttribute(elementSelector, 'id');
     return id;

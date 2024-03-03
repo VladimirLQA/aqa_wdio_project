@@ -5,6 +5,7 @@ import CreateOrderModalPage from '../../pages/aqa_project/modals/orders_modals/c
 import OrdersPage from '../../pages/aqa_project/orders/orders.page.js';
 import { IOrder, ORDER_STATUSES } from '../../types/order.types.js';
 import { IProduct } from '../../types/products.types.js';
+import BaseActions from '../base.actions.js';
 import { CommonActions } from '../common.actions.js';
 import CreateOrderModalActions from '../modals/orders_modals/create-order.modal.actions.js';
 
@@ -44,7 +45,9 @@ class OrdersActions extends CommonActions {
     const order: IOrder = (await reqAsLoggedUser(OrdersController.getOrder, {})).data.Orders.find(
       (o: IOrder) =>
         o.customer.name === customerName &&
-        o.products.filter((p: IProduct) => products.includes(p.name) && o.status === ORDER_STATUSES.DRAFT),
+        o.products.filter(
+          (p: IProduct) => products.includes(p.name) && o.status === ORDER_STATUSES.DRAFT,
+        ),
     );
     return order;
   }

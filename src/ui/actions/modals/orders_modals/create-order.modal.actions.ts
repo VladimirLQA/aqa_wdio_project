@@ -1,26 +1,27 @@
 import { logAction } from '../../../../utils/reporter/allure.reporter.js';
 import CreateOrderModalPage from '../../../pages/aqa_project/modals/orders_modals/create-order.modal.page.js';
-import ModalActions from '../../modal.actions.js';
+// import ModalActions from '../../modal.actions.js';
+import BaseActions from '../../base.actions.js';
 
-class CreateOrderModalActions extends ModalActions {
+class CreateOrderModalActions extends BaseActions {
   @logAction('Click on "Add product" button')
   async clickOnAddProductButton() {
-    await CreateOrderModalPage.click(CreateOrderModalPage['Add product button']);
+    await this.basePage.click(CreateOrderModalPage['Add product button']);
   }
 
   @logAction('Click on "Create" button')
   async clickOnCreateButton() {
-    await CreateOrderModalPage.click(CreateOrderModalPage['Create order button']);
+    await this.basePage.click(CreateOrderModalPage['Create order button']);
   }
 
   @logAction('Click on "Cancel" button')
   async clickOnCancelButton() {
-    await CreateOrderModalPage.click(CreateOrderModalPage['Cancel button']);
+    await this.basePage.click(CreateOrderModalPage['Cancel button']);
   }
 
   @logAction('Click on "Delete" product button')
   async clickOnDeleteProductButtonFromList(dataId: string) {
-    await CreateOrderModalPage.click(CreateOrderModalPage['Delete product button'](dataId));
+    await this.basePage.click(CreateOrderModalPage['Delete product button'](dataId));
   }
 
   @logAction('Add products to order')
@@ -28,7 +29,7 @@ class CreateOrderModalActions extends ModalActions {
     for (const [index, product] of products.entries()) {
       await this.chooseDropdownItem(
         CreateOrderModalPage['Products last dropdown'],
-        CreateOrderModalPage['Dropdown option [last()]'](product),
+        this.basePage['Dropdown option [last()]'](product),
       );
       if (index !== products.length - 1) await this.clickOnAddProductButton();
     }
