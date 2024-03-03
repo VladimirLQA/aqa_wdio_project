@@ -5,13 +5,15 @@ import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page.
 import { ICustomer } from '../../types/customers.types.js';
 import { IOrder } from '../../types/order.types.js';
 import { IProduct } from '../../types/products.types.js';
-import { CommonAssertions } from '../common.assertions.js';
 import ProductsAssertions from '../products_assertions/products.assertions.js';
+import { BaseAssertions } from '../base.assertions.js';
 
-class OrdersAssertions extends CommonAssertions {
+class OrdersAssertions extends BaseAssertions {
   async verifyCustomerInCustomerDetailsSection<T extends ICustomer>(createdEntity: T) {
     const actualEntity = (
-      await OrderDetailsPage.getSectionData(OrderDetailsPage.customerProductSection['Customer']['Customer details'])
+      await OrderDetailsPage.getSectionData(
+        OrderDetailsPage.customerProductSection['Customer']['Customer details'],
+      )
     )[0];
     for (const key in createdEntity) {
       if (key !== 'createdOn' && key !== '_id') {

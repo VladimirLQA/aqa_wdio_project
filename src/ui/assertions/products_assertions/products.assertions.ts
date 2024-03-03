@@ -1,8 +1,9 @@
 import Utils from '../../../utils/helpers.js';
 import ProductsActions from '../../actions/products/products.actions.js';
-import { IProduct, ToastMessage } from '../../types/products.types.js';
-import { CommonAssertions } from '../common.assertions.js';
+import { IProduct, ProductToastMessage } from '../../types/products.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
+import { BaseAssertions } from '../base.assertions.js';
+import { CommonAssertions } from '../common.assertions.js';
 
 class ProductsAssertions extends CommonAssertions {
   async verifyCreatedProductRow(expectedProduct: IProduct) {
@@ -18,10 +19,9 @@ class ProductsAssertions extends CommonAssertions {
     Expect.toEqual({ actual: actualProduct.manufacturer, expected: expectedProduct.manufacturer });
     Expect.toEqual({ actual: actualProduct.notes, expected: expectedProduct.notes });
   }
-  async verifyProductToastText(text: ToastMessage, name?: string) {
-    await this.verifyElementText(this.basePage['Toast text'], await ProductsActions.getProductToastText(text, name));
-    await this.baseActions.closeToastMessage();
-    await Utils.browserPause(300);
+  async verifyProductToastText(text: ProductToastMessage, name?: string) {
+    const productToastText = await ProductsActions.getProductToastText(text, name);
+    await this.verifyToastMessageAndCloseToast(productToastText);
   }
 }
 

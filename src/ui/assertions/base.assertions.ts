@@ -3,6 +3,8 @@ import PageHandler from '../pages/aqa_project/page-handler.page.js';
 import BasePage from '../pages/aqa_project/base.page.js';
 import Utils from '../../utils/helpers.js';
 import Expect from '../../utils/chai-expect/expect-collection.js';
+import { IProduct } from '../types/products.types.js';
+import DetailsModalPage from '../pages/aqa_project/modals/details-modal.page.js';
 
 export class BaseAssertions {
   pageHandler: PageHandler = new PageHandler();
@@ -30,17 +32,20 @@ export class BaseAssertions {
     Expect.toEqual({ actual: isContain, expected });
   }
 
-  public async verifyInputField(borderColorActual: string, borderColorExpected: string, messageActual?: string, messageExpected?: string) {
+  async verifyInputField(
+    borderColorActual: string,
+    borderColorExpected: string,
+    messageActual?: string,
+    messageExpected?: string,
+  ) {
     expect(borderColorActual).toBe(borderColorExpected);
     if (messageActual && messageExpected) {
       Expect.toEqual({ actual: messageActual, expected: messageExpected });
     }
   }
 
-  // TODO refactor method to deal with single unit of behaviour
-  public async verifyToastMessage(text: string) {
+  async verifyToastMessageAndCloseToast(text: string) {
     await this.verifyElementText(this.basePage['Toast text'], text);
     await this.baseActions.closeToastMessage();
-    await Utils.browserPause(500);
   }
 }
