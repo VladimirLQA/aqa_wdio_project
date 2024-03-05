@@ -1,6 +1,11 @@
 import { ORDER_STATUSES } from '../../ui/types/order.types.js';
 import OrdersController from '../controllers/orders.controller.js';
-import { IApiCommentRequest, IApiOrderDeliveryRequest, IApiOrdersRequest, IOrderData } from '../type/api.orders.type.js';
+import {
+  IApiCommentRequest,
+  IApiOrderDeliveryRequest,
+  IApiOrdersRequest,
+  IOrderData,
+} from '../type/api.orders.type.js';
 import { IProductResponse } from '../type/api.product.type.js';
 import Utils from '../../utils/helpers.js';
 import { ICustomerResponse } from '../type/api.customers.type.js';
@@ -37,7 +42,7 @@ class ApiOrdersActions {
 
   async getAllOrders(token: string) {
     try {
-      const response = await OrdersController.getOrder({ token });
+      const response = await OrdersController.get({ token });
       return response;
     } catch (error) {
       throw new Error('Error while getting all orders');
@@ -83,7 +88,7 @@ class ApiOrdersActions {
 
   async getOrderByID(token: string, orderId: string) {
     try {
-      const response = await OrdersController.getOrder({ token, data: { _id: orderId } });
+      const response = await OrdersController.get({ token, data: { _id: orderId } });
       return response;
     } catch (error) {
       throw new Error(`Error while getting order by id - ${orderId}`);
@@ -143,7 +148,11 @@ class ApiOrdersActions {
   }
 
   async updateOrderStatusToPartialyReceived(token: string, orderId: string) {
-    const response = await this.updateOrderStatus(token, orderId, ORDER_STATUSES.PARTIALLY_RECEIVED);
+    const response = await this.updateOrderStatus(
+      token,
+      orderId,
+      ORDER_STATUSES.PARTIALLY_RECEIVED,
+    );
     return response;
   }
 
@@ -171,7 +180,10 @@ class ApiOrdersActions {
     }
   }
 
-  async receiveProductInOrder(token: string, productId: Pick<IApiOrdersRequest, '_id' | 'products'>) {
+  async receiveProductInOrder(
+    token: string,
+    productId: Pick<IApiOrdersRequest, '_id' | 'products'>,
+  ) {
     try {
       const response = await OrdersController.receive({
         token,
@@ -179,10 +191,15 @@ class ApiOrdersActions {
       });
       return response;
     } catch (error) {
-      throw new Error(`Error while receiving product in order, order id - ${productId.products?.at(-1)}`);
+      throw new Error(
+        `Error while receiving product in order, order id - ${productId.products?.at(-1)}`,
+      );
     }
   }
-  async receiveAllProductsInOrder(token: string, productsId: Pick<IApiOrdersRequest, '_id' | 'products'>) {
+  async receiveAllProductsInOrder(
+    token: string,
+    productsId: Pick<IApiOrdersRequest, '_id' | 'products'>,
+  ) {
     try {
       const response = await OrdersController.receive({
         token,
@@ -196,7 +213,8 @@ class ApiOrdersActions {
 
   async getAllProductsFromOrder(token: string, orderId: string) {
     try {
-      const products: IProductResponse[] = (await this.getOrderByID(token, orderId)).data.Order.products;
+      const products: IProductResponse[] = (await this.getOrderByID(token, orderId)).data.Order
+        .products;
       return Utils.sortById(products);
     } catch (error) {
       throw new Error(`Error while getting all products from order, order id - ${orderId}`);
@@ -205,7 +223,8 @@ class ApiOrdersActions {
 
   async getCustomerFromOrder(token: string, orderId: string) {
     try {
-      const customer: ICustomerResponse = (await this.getOrderByID(token, orderId)).data.Order.customer;
+      const customer: ICustomerResponse = (await this.getOrderByID(token, orderId)).data.Order
+        .customer;
       return customer;
     } catch (error) {
       throw new Error(`Error while getting customer from order, order id - ${orderId}`);
