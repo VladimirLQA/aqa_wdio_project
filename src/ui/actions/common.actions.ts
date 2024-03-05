@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { ControllersList } from '../../api/controllers/contollers.index.js';
 import { reqAsLoggedUser } from '../../api/request/request-as-logged-user.js';
 import { asyncForEach, asyncReduce } from '../../utils/async_array_methods/array-async-methods.js';
@@ -43,6 +44,7 @@ export class CommonActions extends BaseActions {
       // @ts-ignore
       async (result: any[], entity: { [key: string]: string }) => {
         if (entity['price']) entity['price'] = `$${entity.price}`;
+        else if (entity['total_price']) entity['total_price'] = `$${entity.total_price}`;
 
         result.push(await Utils.apiKeyMapper(entity, page.pageName));
         return result;
@@ -60,15 +62,13 @@ export class CommonActions extends BaseActions {
     const { search, quickFilters } = chipFilters;
     const filteredAndSearchedData: Record<string, string>[] = [];
     await asyncForEach(tableData, async (entity) => {
-      const isMatchQuickFilter = quickFilters?.some((filter) =>
-        Object.values(entity).at(-1)!.includes(filter),
+      const isMatchQuickFilter: boolean = quickFilters?.some((filter) =>
+        Object.values(entity).at(-1)?.includes(filter),
       );
-
-      const isMatchSearch = Object.values(entity).some((value) =>
+      const isMatchSearch: boolean = Object.values(entity).some((value) =>
         // @ts-ignore
         value.toLowerCase().includes(search?.toLowerCase()),
       );
-
       if (search && quickFilters?.length) {
         if (isMatchQuickFilter && isMatchSearch) filteredAndSearchedData.push(entity);
       } else if (search) {
@@ -78,7 +78,49 @@ export class CommonActions extends BaseActions {
       }
     });
     return filteredAndSearchedData;
+    // const { search, quickFilters } = chipFilters;
+    // const searchedAndFiltered = tableData.reduce((result, entiti) => {
+    //   if (search && quickFilters && quickFilters.length) {
+    //     if (
+    //       Object.values(entiti).some((v) => v.toLowerCase().includes(search.toLowerCase())) &&
+    //       quickFilters.includes(Object.values(entiti).at(-1))
+    //     ) {
+    //       result.push(entiti);
+    //     }
+    //   } else if (search) {
+    //     if (Object.values(entiti).some((v) => v.toLowerCase().includes(search.toLowerCase()))) {
+    //       result.push(entiti);
+    //     }
+    //   } else if (quickFilters && quickFilters.length) {
+    //     console.log('if quickFilters, entiti values', Object.values(entiti).at(-1));
+    //     if (quickFilters.includes(Object.values(entiti).at(-1))) {
+    //       result.push(entiti);
+    //     }
+    //   }
+    //   return result;
+    // }, []);
+    // return searchedAndFiltered;
   }
+  // const { search, quickFilters } = chipFilters;
+  // const filteredAndSearchedData: Record<string, string>[] = [];
+  // await asyncForEach(tableData, async (entity) => {
+  //   const isMatchQuickFilter: boolean = quickFilters?.some((filter) =>
+  //     Object.values(entity).at(-1)?.includes(filter),
+  //   );
+  //   const isMatchSearch: boolean = Object.values(entity).some((value) =>
+  //     // @ts-ignore
+  //     value.toLowerCase().includes(search?.toLowerCase()),
+  //   );
+  //   if (search && quickFilters?.length) {
+  //     if (isMatchQuickFilter && isMatchSearch) filteredAndSearchedData.push(entity);
+  //   } else if (search) {
+  //     if (isMatchSearch) filteredAndSearchedData.push(entity);
+  //   } else if (quickFilters?.length) {
+  //     if (isMatchQuickFilter) filteredAndSearchedData.push(entity);
+  //   }
+  // });
+  // return filteredAndSearchedData;
+  // }
 
   async getParsedTableData() {
     return (await this.basePage.browserExecute(` 

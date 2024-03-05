@@ -6,9 +6,9 @@ import { ICustomer } from '../../types/customers.types.js';
 import { IOrder } from '../../types/order.types.js';
 import { IProduct } from '../../types/products.types.js';
 import ProductsAssertions from '../products_assertions/products.assertions.js';
-import { BaseAssertions } from '../base.assertions.js';
+import { CommonAssertions } from '../common.assertions.js';
 
-class OrdersAssertions extends BaseAssertions {
+class OrdersAssertions extends CommonAssertions {
   async verifyCustomerInCustomerDetailsSection<T extends ICustomer>(createdEntity: T) {
     const actualEntity = (
       await OrderDetailsPage.getSectionData(
