@@ -87,3 +87,5 @@ export const orderStatusesArray = [
   ORDER_STATUSES.PARTIALLY_RECEIVED,
   ORDER_STATUSES.IN_PROCESS,
 ];
+
+export type HeaderDetailsTitles = 'Order Status' | 'Total Price' | 'Delivery';

@@ -42,7 +42,7 @@ class OrdersActions extends CommonActions {
   }
 
   async getCreatedOrder(customerName: string, products: string[]) {
-    const order: IOrder = (await reqAsLoggedUser(OrdersController.getOrder, {})).data.Orders.find(
+    const order: IOrder = (await reqAsLoggedUser(OrdersController.get, {})).data.Orders.find(
       (o: IOrder) =>
         o.customer.name === customerName &&
         o.products.filter(
