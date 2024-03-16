@@ -1,8 +1,6 @@
-import { capitalize } from 'lodash';
 import { IInitObject } from '../ui/types/common.types.js';
-import { ICustomer } from '../ui/types/customers.types.js';
-import { IOrder } from '../ui/types/order.types.js';
 import { apiKeysForMapping, apiKeysMapper } from './mapper-keys.js';
+import { isWebElement } from './type-guards.js';
 
 export type MappedOptionalType<T> = {
   [K in keyof T]+?: T[K];
@@ -72,6 +70,7 @@ class Utils {
       return parsed;
     }, {});
   }
+
   sortByNameASC<T extends { name: string }[]>(array: T) {
     return [...array].sort((a, b) => {
       if (a.name.toLowerCase() < b.name.toLowerCase()) return -1;
@@ -79,6 +78,7 @@ class Utils {
       return 0;
     });
   }
+
   capitalize(word: string): string {
     return word.slice(0, 1).toUpperCase() + word.slice(1);
   }
@@ -110,17 +110,11 @@ class Utils {
   }
 
   getElementSelector(item: WebdriverIO.Element | string) {
-    if (this.isWebElement(item)) {
+    if (isWebElement(item)) {
       return item.selector.toString();
     } else {
       return item;
     }
-  }
-
-  isWebElement(value: WebdriverIO.Element | string): value is WebdriverIO.Element {
-    return (
-      value !== undefined && value !== null && (value as WebdriverIO.Element).selector !== undefined
-    );
   }
 
   getStringInDoubleQuotes(input: string) {

@@ -1,5 +1,5 @@
 import { utils } from 'mocha';
-import Utils from '../../utils/helpers.js';
+import Utils from '../utils.js';
 export class Storage<T extends { _id: string }> {
   protected storage: T[] = [];
 
@@ -9,7 +9,9 @@ export class Storage<T extends { _id: string }> {
   }
   updateEntity(updatedEntity: T, _id: string): void {
     const entityIndex = this.findEntityIndex(_id);
-    entityIndex !== -1 ? (this.storage[entityIndex] = updatedEntity) : console.log('Entity was not found');
+    entityIndex !== -1
+      ? (this.storage[entityIndex] = updatedEntity)
+      : console.log('Entity was not found');
   }
 
   deleteEntity(entity: string): void {

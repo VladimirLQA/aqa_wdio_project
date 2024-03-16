@@ -9,7 +9,7 @@ import OrdersDetailsActions from '../../../ui/actions/orders/orders-details.acti
 import { IOrder, LOCATION_TYPE, ORDER_HISTORY_ACTIONS } from '../../../ui/types/order.types.js';
 import ApiProductsActions from '../../../api/api_actions/api-products.actions.js';
 import ApiCustomersActions from '../../../api/api_actions/api-customers.actions.js';
-import Utils from '../../../utils/helpers.js';
+import Utils from '../../../utils/utils.js';
 
 describe('Create order tests', () => {
   let orderId: string, order: IOrder;

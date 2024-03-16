@@ -2,12 +2,13 @@ import Logger from '../../../utils/logger/logger.js';
 import { TIMEOUT } from '../../../utils/aqa_project_const.js';
 import { asyncFind } from '../../../utils/async_array_methods/array-async-methods.js';
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
-import Utils from '../../../utils/helpers.js';
+import Utils from '../../../utils/utils.js';
+import { isWebElement } from '../../../utils/type-guards.js';
 
 export default class PageHandler {
   async findElement(selector: string | WebdriverIO.Element): Promise<WebdriverIO.Element> {
     try {
-      if (Utils.isWebElement(selector)) {
+      if (isWebElement(selector)) {
         return selector;
       } else {
         const element = await $(selector);

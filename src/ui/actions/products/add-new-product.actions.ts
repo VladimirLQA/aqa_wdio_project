@@ -1,7 +1,7 @@
 import BaseActions from '../base.actions.js';
 import { IProduct } from '../../types/products.types.js';
 import AddNewProductPage from '../../pages/aqa_project/products/add-new-product.page.js';
-import Utils from '../../../utils/helpers.js';
+import Utils from '../../../utils/utils.js';
 import { MANUFACTURERS } from '../../types/products.types.js';
 
 class AddNewProductActions extends BaseActions {

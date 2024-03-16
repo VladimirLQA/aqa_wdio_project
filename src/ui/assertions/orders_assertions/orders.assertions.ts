@@ -1,4 +1,4 @@
-import Utils from '../../../utils/helpers.js';
+import Utils from '../../../utils/utils.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import OrdersActions from '../../actions/orders/orders.actions.js';
 import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page.js';

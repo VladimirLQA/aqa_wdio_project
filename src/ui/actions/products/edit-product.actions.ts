@@ -1,6 +1,6 @@
 // TODO impolement actions for edit product page
 
-import Utils from '../../../utils/helpers.js';
+import Utils from '../../../utils/utils.js';
 import EditProductPage from '../../pages/aqa_project/products/edit-product.page.js';
 import { IProduct, MANUFACTURERS } from '../../types/products.types.js';
 import BaseActions from '../base.actions.js';

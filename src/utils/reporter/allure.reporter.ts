@@ -2,7 +2,7 @@ import allure from '@wdio/allure-reporter';
 import { Status } from 'allure-js-commons';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Logger from '../logger/logger.js';
-import Utils from '../helpers.js';
+import Utils from '../utils.js';
 
 export function logAction(stepName: string): MethodDecorator {
   return function (

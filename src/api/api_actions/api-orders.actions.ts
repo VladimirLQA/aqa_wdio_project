@@ -7,7 +7,7 @@ import {
   IOrderData,
 } from '../type/api.orders.type.js';
 import { IProductResponse } from '../type/api.product.type.js';
-import Utils from '../../utils/helpers.js';
+import Utils from '../../utils/utils.js';
 import { ICustomerResponse } from '../type/api.customers.type.js';
 import ApiProductsActions from './api-products.actions.js';
 import ApiCustomersActions from './api-customers.actions.js';

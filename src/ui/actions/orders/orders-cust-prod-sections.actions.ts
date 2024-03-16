@@ -1,5 +1,5 @@
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
-import Utils from '../../../utils/helpers.js';
+import Utils from '../../../utils/utils.js';
 import BaseActions from '../base.actions.js';
 import CustomerModalActions from '../modals/orders_modals/edit-customer.modal.actions.js';
 import ProductModalActions from '../modals/orders_modals/edit-products.modal.actions.js';

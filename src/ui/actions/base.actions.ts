@@ -1,4 +1,4 @@
-import Utils from '../../utils/helpers.js';
+import Utils from '../../utils/utils.js';
 import { logAction } from '../../utils/reporter/allure.reporter.js';
 import BasePage from '../pages/aqa_project/base.page.js';
 

@@ -1,6 +1,6 @@
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
 import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page.js';
-import Utils from '../../../utils/helpers.js';
+import Utils from '../../../utils/utils.js';
 import BaseActions from '../base.actions.js';
 import CustomerProductsActions from './orders-cust-prod-sections.actions.js';
 import OrdersTabsSectionActions from './orders-tabs-section.actions.js';

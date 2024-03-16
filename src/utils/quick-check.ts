@@ -1,6 +1,6 @@
 import { IInitObject } from '../ui/types/common.types.js';
 import { ICustomer } from '../ui/types/customers.types.js';
-import Utils from './helpers.js';
+import Utils from './utils.js';
 
 const test1 = {
   customer: {

@@ -13,8 +13,13 @@ import { ICustomerResponse } from '../../../api/type/api.customers.type.js';
 import { IProductResponse } from '../../../api/type/api.product.type.js';
 import { CREATE_ORDER_SCHEMA } from '../../../data/json_schemas/orders.schema.js';
 import { STATUS_CODES } from '../../../api/type/api.common.type.js';
-import { IHistory, IOrder, ORDER_HISTORY_ACTIONS, ORDER_STATUSES } from '../../../ui/types/order.types.js';
-import Utils from '../../../utils/helpers.js';
+import {
+  IHistory,
+  IOrder,
+  ORDER_HISTORY_ACTIONS,
+  ORDER_STATUSES,
+} from '../../../ui/types/order.types.js';
+import Utils from '../../../utils/utils.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
 import { AxiosResponse } from 'axios';
@@ -70,12 +75,18 @@ describe('[CRUD] ORDERS test', () => {
       ApiOrdersAssertions.verifyResponseSchema(CREATE_ORDER_SCHEMA, response.data);
 
       Utils.sortByNameASC([product_01, product_02]).forEach((p, idx) => {
-        ApiProductsAssertions.verifyProduct(p, Utils.sortByNameASC(response.data.Order.products)[idx]);
+        ApiProductsAssertions.verifyProduct(
+          p,
+          Utils.sortByNameASC(response.data.Order.products)[idx],
+        );
       });
       ApiCustomersAssertions.verifyCustomer(response.data.Order.customer, customer);
       Expect.toEqual({ actual: response.data.Order.total_price, expected: totalPrice });
       Expect.toEqual({ actual: response.data.Order.status, expected: ORDER_STATUSES.DRAFT });
-      Expect.toEqual({ actual: response.data.Order.history[0].action, expected: ORDER_HISTORY_ACTIONS.CREATED });
+      Expect.toEqual({
+        actual: response.data.Order.history[0].action,
+        expected: ORDER_HISTORY_ACTIONS.CREATED,
+      });
       Expect.toBeNotEmpty({ actual: response.data.Order._id });
       orderId = response.data?.Order._id;
     });
@@ -101,7 +112,9 @@ describe('[CRUD] ORDERS test', () => {
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       ApiOrdersAssertions.verifyOrderSchedule(response.data?.Order.delivery, delivery);
       Expect.toBeTrue({
-        actual: response.data?.Order.history.some((v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.DELIVERY_SCHEDULED),
+        actual: response.data?.Order.history.some(
+          (v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.DELIVERY_SCHEDULED,
+        ),
       });
     });
 
@@ -111,10 +124,14 @@ describe('[CRUD] ORDERS test', () => {
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       Expect.toEqual({ actual: response.data?.Order.status, expected: ORDER_STATUSES.IN_PROCESS });
       Expect.toBeTrue({
-        actual: response.data?.Order.history.some((v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.PROCESSED),
+        actual: response.data?.Order.history.some(
+          (v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.PROCESSED,
+        ),
       });
       Expect.toBeTrue({
-        actual: response.data?.Order.history.some((v: IHistory) => v.status === ORDER_STATUSES.IN_PROCESS),
+        actual: response.data?.Order.history.some(
+          (v: IHistory) => v.status === ORDER_STATUSES.IN_PROCESS,
+        ),
       });
     });
 
@@ -127,10 +144,14 @@ describe('[CRUD] ORDERS test', () => {
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       Expect.toEqual({ actual: response.data?.Order.status, expected: ORDER_STATUSES.RECEIVED });
       Expect.toBeTrue({
-        actual: response.data?.Order.history.some((v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.RECEIVED_ALL),
+        actual: response.data?.Order.history.some(
+          (v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.RECEIVED_ALL,
+        ),
       });
       Expect.toBeTrue({
-        actual: response.data?.Order.history.some((v: IHistory) => v.status === ORDER_STATUSES.RECEIVED),
+        actual: response.data?.Order.history.some(
+          (v: IHistory) => v.status === ORDER_STATUSES.RECEIVED,
+        ),
       });
     });
   });

@@ -1,4 +1,4 @@
-import Utils from '../../../utils/helpers.js';
+import Utils from '../../../utils/utils.js';
 import ProductsActions from '../../actions/products/products.actions.js';
 import { IProduct, ProductToastMessage } from '../../types/products.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';

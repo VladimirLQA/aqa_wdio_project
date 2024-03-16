@@ -2,7 +2,7 @@ import { COUNTRIES } from '../../types/customers.types.js';
 import { DELIVERY, IAddress, IDelivery, LOCATION_TYPE } from '../../types/order.types.js';
 import BaseActions from '../base.actions.js';
 import DeliveryPage from '../../pages/aqa_project/orders/orders-delivery.page.js';
-import Utils from '../../../utils/helpers.js';
+import Utils from '../../../utils/utils.js';
 
 class DeliveryActions extends BaseActions {
   async clickOnCancelButton() {

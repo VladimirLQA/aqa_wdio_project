@@ -12,7 +12,7 @@ import {
 } from '../types/common.types.js';
 import BaseActions from './base.actions.js';
 import FiltersModalActions from './modals/filters-modal.actions.js';
-import Utils from '../../utils/helpers.js';
+import Utils from '../../utils/utils.js';
 
 export class CommonActions extends BaseActions {
   commonPage: CommonPage = new CommonPage();

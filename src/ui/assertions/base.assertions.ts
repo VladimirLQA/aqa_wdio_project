@@ -1,7 +1,7 @@
 import BaseActions from '../actions/base.actions.js';
 import PageHandler from '../pages/aqa_project/page-handler.page.js';
 import BasePage from '../pages/aqa_project/base.page.js';
-import Utils from '../../utils/helpers.js';
+import Utils from '../../utils/utils.js';
 import Expect from '../../utils/chai-expect/expect-collection.js';
 import { IProduct } from '../types/products.types.js';
 import DetailsModalPage from '../pages/aqa_project/modals/details-modal.page.js';
