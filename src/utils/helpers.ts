@@ -1,5 +1,20 @@
+import { capitalize } from 'lodash';
 import { IInitObject } from '../ui/types/common.types.js';
+import { ICustomer } from '../ui/types/customers.types.js';
+import { IOrder } from '../ui/types/order.types.js';
 import { apiKeysForMapping, apiKeysMapper } from './mapper-keys.js';
+
+export type MappedOptionalType<T> = {
+  [K in keyof T]+?: T[K];
+};
+
+export interface IOrderMappedObj {
+  ['Order Number']: string;
+  ['Order Status']: string;
+  Price: string;
+  Name: string;
+  Delivery: string;
+}
 
 class Utils {
   filterObjKeys<T extends { [key: string]: any }>(obj: T, fn: Function) {
@@ -19,7 +34,30 @@ class Utils {
     for (const key of apiKeysForMapping[pageName]) {
       mappedEntity[apiKeysMapper[key]] = entity[key];
     }
+    if ('Customer' in mappedEntity || 'Delivery' in mappedEntity) {
+      return { ...this.rebuildObj(mappedEntity) };
+    }
     return mappedEntity;
+  }
+
+  rebuildObj(obj: any) {
+    return {
+      'Order Number': obj['Order Number'],
+      Delivery: obj?.Delivery?.finalDate ? this.dateToYYYYMMDD(obj.Delivery!.finalDate) : '-',
+      Name: obj.Customer.name,
+      Email: obj.Customer.email,
+      Price: obj['Price'],
+      Status: obj['Status'],
+    };
+  }
+
+  dateToYYYYMMDD(date: string) {
+    const inputDate = new Date(date);
+    const year = inputDate.getFullYear();
+    const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = inputDate.getDate().toString().padStart(2, '0');
+
+    return `${year}/${month}/${day}`;
   }
 
   async browserPause(timeout: number) {
@@ -69,15 +107,6 @@ class Utils {
         this.objectsEquals(obj, arr2[idx]);
       })
     );
-  }
-
-  dateToYYYYMMDD(date: string) {
-    const inputDate = new Date(date);
-    const year = inputDate.getFullYear();
-    const month = (inputDate.getMonth() + 1).toString().padStart(2, '0');
-    const day = inputDate.getDate().toString().padStart(2, '0');
-
-    return `${year}/${month}/${day}`;
   }
 }
 

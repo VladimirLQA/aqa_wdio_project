@@ -14,18 +14,18 @@ const apiKeysMapper: { [key: string]: string } = {
   manufacturer: 'Manufacturer',
   price: 'Price',
   amount: 'Amount',
-  status: 'Order Status',
+  status: 'Status',
   delivery: 'Delivery',
   condition: 'Delivery Type',
   finalDate: 'Delivery Date',
-  total_price: 'Total Price',
+  total_price: 'Price',
   customer: 'Customer',
 };
 
 const apiKeysForMapping: { [key: string]: string[] } = {
   products: ['name', 'price', 'manufacturer'],
   customers: ['email', 'name', 'country'],
-  orders: ['order number', 'customer', 'price', 'status'],
+  orders: ['_id', 'total_price', 'customer', 'status', 'delivery'],
 };
 
 export { apiKeysForMapping, apiKeysMapper };

@@ -10,7 +10,7 @@ import {
 } from '../type/api.orders.type.js';
 
 class OrdersController {
-  async getOrder(params: RequestParams<Id>) {
+  async get(params: RequestParams<Id>) {
     const options: RequestOptions = {
       method: 'GET',
       baseURL: OrdersEndpoints.baseURL,

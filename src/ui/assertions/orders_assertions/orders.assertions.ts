@@ -3,12 +3,13 @@ import Expect from '../../../utils/chai-expect/expect-collection.js';
 import OrdersActions from '../../actions/orders/orders.actions.js';
 import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page.js';
 import { ICustomer } from '../../types/customers.types.js';
-import { IOrder } from '../../types/order.types.js';
+import { HeaderDetailsTitles, IOrder } from '../../types/order.types.js';
 import { IProduct } from '../../types/products.types.js';
 import ProductsAssertions from '../products_assertions/products.assertions.js';
-import { BaseAssertions } from '../base.assertions.js';
+import { CommonAssertions } from '../common.assertions.js';
+import PageHandler from '../../pages/aqa_project/page-handler.page.js';
 
-class OrdersAssertions extends BaseAssertions {
+class OrdersAssertions extends CommonAssertions {
   async verifyCustomerInCustomerDetailsSection<T extends ICustomer>(createdEntity: T) {
     const actualEntity = (
       await OrderDetailsPage.getSectionData(
@@ -42,6 +43,13 @@ class OrdersAssertions extends BaseAssertions {
     Utils.sortByNameASC(actualProducts).forEach((p, idx) => {
       ProductsAssertions.verifyProduct(p, Utils.sortByNameASC(orderProducts)[idx]);
     });
+  }
+
+  async verifyHeaderDetailsOnOrderDetailsPage(info: HeaderDetailsTitles, expected: string) {
+    const actualInfo = await OrderDetailsPage.getText(
+      OrderDetailsPage['Header order details info'](info),
+    );
+    Expect.toEqual({ actual: actualInfo, expected: expected });
   }
 }
 

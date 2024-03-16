@@ -2,6 +2,7 @@ import {
   asyncMap,
   asyncReduce,
 } from '../../../../utils/async_array_methods/array-async-methods.js';
+import { HeaderDetailsTitles } from '../../../types/order.types.js';
 import BasePage from '../base.page.js';
 import { tabsSection } from './order-details-tabs-section.page.js';
 import { orderSection } from './order-products-customer-sections.page.js';
@@ -35,6 +36,9 @@ class OrderDetailsPage extends BasePage {
   readonly ['Select all checkbox'] = `#selectAll`;
 
   readonly ['Check box by id'] = (id: number) => `#chekc${id}`;
+
+  readonly ['Header order details info'] = (info: HeaderDetailsTitles) =>
+    `//*[text()='${info}']//following-sibling::span`;
 
   async getSectionData(section: string) {
     const bodyData = await this.waitForElementsArray(section);

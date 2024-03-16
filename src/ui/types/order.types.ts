@@ -79,3 +79,13 @@ export interface ScheduleInfo extends IAddress {
   delivery: DELIVERY;
   finalDate: string;
 }
+
+export const orderStatusesArray = [
+  ORDER_STATUSES.CANCELED,
+  ORDER_STATUSES.DRAFT,
+  ORDER_STATUSES.RECEIVED,
+  ORDER_STATUSES.PARTIALLY_RECEIVED,
+  ORDER_STATUSES.IN_PROCESS,
+];
+
+export type HeaderDetailsTitles = 'Order Status' | 'Total Price' | 'Delivery';
