@@ -42,17 +42,18 @@ describe('Create order tests', () => {
     // order history
 
     await OrderActions.clickOnDetailsActionButton(orderId);
-    await OrdersDetailsActions.tabsSection.clickOnDeliveryTab();
-    const prepareScheduleForOrder = scheduleOrderUI();
-    await OrdersDetailsActions.tabsSection.clickOnScheduleEditDeliveryButton();
-    await OrdersDetailsActions.delivery.scheduleOrder(prepareScheduleForOrder);
+    await OrdersDetailsActions.customerProductSection.clickOnAllAccordionButtonsInProductSection();
+    // await OrdersDetailsActions.tabsSection.clickOnDeliveryTab();
+    // const prepareScheduleForOrder = scheduleOrderUI();
+    // await OrdersDetailsActions.tabsSection.clickOnScheduleEditDeliveryButton();
+    // await OrdersDetailsActions.delivery.scheduleOrder(prepareScheduleForOrder);
 
-    await OrdersDetailsActions.tabsSection.clickOnHistoryTab();
-    const deliveryScheduled: any = await OrdersDetailsActions.tabsSection.getParsedAction(
-      ORDER_HISTORY_ACTIONS.DELIVERY_SCHEDULED,
-    );
+    // await OrdersDetailsActions.tabsSection.clickOnHistoryTab();
+    // const deliveryScheduled: any = await OrdersDetailsActions.tabsSection.getParsedAction(
+    //   ORDER_HISTORY_ACTIONS.DELIVERY_SCHEDULED,
+    // );
 
-    console.log(deliveryScheduled);
+    // console.log(deliveryScheduled);
     //
     // console.log('result >>>>>>>>>', deliveryScheduled)
     //

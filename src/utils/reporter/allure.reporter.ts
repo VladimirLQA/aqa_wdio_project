@@ -2,6 +2,7 @@ import allure from '@wdio/allure-reporter';
 import { Status } from 'allure-js-commons';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import Logger from '../logger/logger.js';
+import Utils from '../helpers.js';
 
 export function logAction(stepName: string): MethodDecorator {
   return function (
@@ -15,11 +16,11 @@ export function logAction(stepName: string): MethodDecorator {
       const value = args[1]; // Extract the value from the arguments
 
       let newStepName = stepName
-        .replace('{selector}', `"${selector}"`)
+        .replace('{selector}', `"${Utils.getElementSelector(selector)}"`)
         .replace('{text}', `"${value}"`)
         .replace('{attribute}', `"${value}"`)
         .replace('{script}', `"${selector}"`)
-        .replace('{optionSelector}', `"${value}"`)
+        .replace('{optionSelector}', `"${Utils.getStringInDoubleQuotes(value)}"`)
         .replace('{cssProperty}', `"${value}"`);
 
       allure.startStep(newStepName);

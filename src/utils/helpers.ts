@@ -108,6 +108,28 @@ class Utils {
       })
     );
   }
+
+  getElementSelector(item: WebdriverIO.Element | string) {
+    if (this.isWebElement(item)) {
+      return item.selector.toString();
+    } else {
+      return item;
+    }
+  }
+
+  isWebElement(value: WebdriverIO.Element | string): value is WebdriverIO.Element {
+    return (
+      value !== undefined && value !== null && (value as WebdriverIO.Element).selector !== undefined
+    );
+  }
+
+  getStringInDoubleQuotes(input: string) {
+    if (typeof input === 'string') {
+      const matches = input.match(/"([^"]*)"/);
+
+      if (matches && matches.length > 1) return matches[1]; // The first capturing group contains the string inside double quotes
+    }
+  }
 }
 
 export default new Utils();

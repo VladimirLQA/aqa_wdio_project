@@ -2,12 +2,17 @@ import Logger from '../../../utils/logger/logger.js';
 import { TIMEOUT } from '../../../utils/aqa_project_const.js';
 import { asyncFind } from '../../../utils/async_array_methods/array-async-methods.js';
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
+import Utils from '../../../utils/helpers.js';
 
 export default class PageHandler {
-  async findElement(selector: string): Promise<WebdriverIO.Element> {
+  async findElement(selector: string | WebdriverIO.Element): Promise<WebdriverIO.Element> {
     try {
-      const element = await $(selector);
-      return element;
+      if (Utils.isWebElement(selector)) {
+        return selector;
+      } else {
+        const element = await $(selector);
+        return element;
+      }
     } catch (error: any) {
       throw new Error(`Error while finding element by selector: ${selector}`);
     }
@@ -23,7 +28,7 @@ export default class PageHandler {
   }
 
   async waitForElement(
-    selector: string,
+    selector: string | WebdriverIO.Element,
     reverse = false,
     timeout = TIMEOUT['5 seconds'],
   ): Promise<WebdriverIO.Element> {
@@ -78,25 +83,23 @@ export default class PageHandler {
   @logAction('Click on element with selector {selector}')
   async click(selectorElement: WebdriverIO.Element | string, timeout = TIMEOUT['5 seconds']) {
     try {
-      if (typeof selectorElement === 'string') {
-        const elem = await this.waitForElement(selectorElement);
-        await elem.waitForEnabled({
-          timeout,
-          timeoutMsg: 'Element is not enabled after 5 seconds',
-        });
-        await elem.click();
-        Logger.log(`Successfully click on element with selector ${selectorElement}`);
-      } else {
-        await selectorElement.waitForEnabled({
-          timeout,
-          timeoutMsg: 'Element is not enabled after 5 seconds',
-        });
-        await selectorElement.click();
-        Logger.log(`Successfully click on element with selector ${selectorElement}`);
-      }
+      const elem = await this.waitForElement(selectorElement);
+      await elem.waitForEnabled({
+        timeout,
+        timeoutMsg: 'Element is not enabled after 5 seconds',
+      });
+      await elem.click();
+      Logger.log(`Successfully click on element with selector ${Utils.getElementSelector(elem)}`);
     } catch (error) {
-      Logger.log(`Failed to click on element with selector ${selectorElement}`, 'error');
-      throw new Error(`Error while clicking on element with selector ${selectorElement}`);
+      Logger.log(
+        `Failed to click on element with selector ${Utils.getElementSelector(selectorElement)}`,
+        'error',
+      );
+      throw new Error(
+        `Error while clicking on element with selector ${Utils.getElementSelector(
+          selectorElement,
+        )}`,
+      );
     }
   }
 
