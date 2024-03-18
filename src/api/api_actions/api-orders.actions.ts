@@ -22,7 +22,10 @@ class ApiOrdersActions {
     }
   }
 
-  async createOrderWithProducts(token: string, productCount: number): Promise<IOrderData> {
+  async createOrderWithGeneratedProductsAndCustomer(
+    token: string,
+    productCount: number,
+  ): Promise<IOrderData> {
     const productsId = (await ApiProductsActions.createProducts(productCount)).map((p) => p._id);
     const customerId = (await ApiCustomersActions.createCustomers(1))[0]._id;
 
