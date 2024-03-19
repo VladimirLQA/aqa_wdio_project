@@ -118,16 +118,27 @@ export default class PageHandler {
   }
 
   @logAction('Clear value from element with selector {selector}')
-  async clear(selector: string) {
+  async clearValue(selector: string) {
     try {
       const element = await this.waitForElement(selector);
       if (element) {
         await element.clearValue();
-        Logger.log(`Successfully cleared value from element with selector ${selector}`);
+        Logger.log(
+          `Successfully cleared value from element with selector ${Utils.getElementSelector(
+            selector,
+          )}`,
+        );
       }
     } catch (error) {
-      Logger.log(`Failed to clear value from element with selector ${selector}`, 'error');
-      throw new Error(`Error while clearing value from element with selector "${selector}"`);
+      Logger.log(
+        `Failed to clear value from element with selector ${Utils.getElementSelector(selector)}`,
+        'error',
+      );
+      throw new Error(
+        `Error while clearing value from element with selector "${Utils.getElementSelector(
+          selector,
+        )}"`,
+      );
     }
   }
 

@@ -56,7 +56,11 @@ export default class BaseActions {
     return this.basePage.browserExecute(`$('button${selector}').removeAttr("disabled")`);
   }
 
-  async fillInputField(inputField: string, inputValue: string | number) {
-    await this.basePage.setValue(inputField, inputValue);
+  async fillInputField(selector: string, inputValue: string | number) {
+    await this.basePage.setValue(selector, inputValue);
+  }
+
+  async clearInputField(selector: string) {
+    await this.basePage.clearValue(selector);
   }
 }

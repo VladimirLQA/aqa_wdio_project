@@ -61,6 +61,7 @@ class CommentTabSectionPage extends CommonTabsSectionPage {
   readonly ['Error input text area'] = '#error-textareaComments';
   readonly ['Delete comment button'] = (substr: string) =>
     `//p[contains(., "${substr}")]/following-sibling::button`;
+
   readonly ['Comment text'] = (substr: string) => `//p[contains(., "${substr}")]`;
 }
 

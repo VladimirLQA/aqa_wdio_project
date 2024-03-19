@@ -33,7 +33,7 @@ class OrderTabsSectionActions extends BaseActions {
   }
 
   @logAction('Add comment to order')
-  async addComment(text: string) {
+  async addCommentAndClickOnCreateButton(text: string) {
     await this.fillCommentText(text);
     await this.clickOnCreateCommentButton();
   }

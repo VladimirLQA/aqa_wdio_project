@@ -19,9 +19,7 @@ export class BaseAssertions {
 
   async verifyClickableButton(selector: string, expected: boolean) {
     const elem = await this.pageHandler.waitForElement(selector);
-    const isClickable = await elem.waitUntil(async () => {
-      return await elem.isClickable();
-    });
+    const isClickable = await elem.isClickable();
     Expect.toEqual({ actual: isClickable, expected });
   }
 
@@ -47,5 +45,13 @@ export class BaseAssertions {
   async verifyToastMessageAndCloseToast(text: string) {
     await this.verifyElementText(this.basePage['Toast text'], text);
     await this.baseActions.closeToastMessage();
+  }
+
+  async verifyElementIsDisplayed(selector: string, expected: boolean) {
+    const elem = await this.pageHandler.waitForElement(selector);
+    console.log('selector', elem.selector);
+    const isVisible = await elem.isDisplayed();
+    console.log('isVisible', isVisible);
+    Expect.toEqual({ actual: isVisible, expected: expected });
   }
 }
