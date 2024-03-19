@@ -9,6 +9,7 @@ import OrdersAssertions from '../../../ui/assertions/orders_assertions/orders.as
 import OrderDetailsPage from '../../../ui/pages/aqa_project/orders/order-details.page.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import Utils from '../../../utils/utils.js';
+import SideBarActions from '../../../ui/actions/side-bar.actions.js';
 
 describe('Create order tests', () => {
   let token: string, comment: string, orderIdShared: string;
@@ -25,8 +26,8 @@ describe('Create order tests', () => {
     await OrdersActions.clickOnDetailsActionButton(orderId);
   });
 
-  beforeEach(async () => {
-    await HomeActions.openOrdersPage();
+  afterEach(async () => {
+    await SideBarActions.clickOnSidebarOrdersButton();
     await OrdersActions.clickOnDetailsActionButton(orderIdShared);
   });
 
@@ -51,6 +52,7 @@ describe('Create order tests', () => {
   it('Should delete comment', async () => {
     comment = getComment();
     await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
+    await OrderDetailsActions.closeToastMessage();
     await OrderDetailsActions.tabsSection.clickOnDeleteCommentButtonWithCommentText(comment);
 
     await OrdersAssertions.verifyToastMessageAndCloseToast(orderPageToastMessages.commentDeleted());
@@ -64,12 +66,12 @@ describe('Create order tests', () => {
     );
   });
 
-  it(`Should display error on incorrect input with "<>" symbols and clear error after correction`, async () => {});
+  // it(`Should display error on incorrect input with "<>" symbols and clear error after correction`, async () => {});
 
-  // todo as critical path
-  it('Should display added value to input comment field after clicking on "Delivery | Order history" tabs', async () => {});
-  it('Should add comment to canceled order', async () => {});
-  it('Should delete comment in canceled order', async () => {});
-  it('Should add comment to received order', async () => {});
-  it('Should delete comment in received order', async () => {});
+  // // todo as critical path
+  // it('Should display added value to input comment field after clicking on "Delivery | Order history" tabs', async () => {});
+  // it('Should add comment to canceled order', async () => {});
+  // it('Should delete comment in canceled order', async () => {});
+  // it('Should add comment to received order', async () => {});
+  // it('Should delete comment in received order', async () => {});
 });

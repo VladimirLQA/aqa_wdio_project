@@ -48,10 +48,8 @@ export class BaseAssertions {
   }
 
   async verifyElementIsDisplayed(selector: string, expected: boolean) {
-    const elem = await this.pageHandler.waitForElement(selector);
-    console.log('selector', elem.selector);
+    const elem = await this.pageHandler.findElement(selector);
     const isVisible = await elem.isDisplayed();
-    console.log('isVisible', isVisible);
     Expect.toEqual({ actual: isVisible, expected: expected });
   }
 }
