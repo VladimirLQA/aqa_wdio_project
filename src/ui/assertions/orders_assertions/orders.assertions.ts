@@ -47,7 +47,7 @@ class OrdersAssertions extends CommonAssertions {
 
   async verifyHeaderDetailsOnOrderDetailsPage(info: HeaderDetailsTitles, expected: string) {
     const actualInfo = await OrderDetailsPage.getText(
-      OrderDetailsPage['Header order details info'](info),
+      OrderDetailsPage['Header Order history info'](info),
     );
     Expect.toEqual({ actual: actualInfo, expected: expected });
   }

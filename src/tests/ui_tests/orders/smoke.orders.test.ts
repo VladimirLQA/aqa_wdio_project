@@ -35,7 +35,7 @@ describe('Create order tests', () => {
     await OrdersAssertions.verifyCreatedOrderInTableRow(order);
   });
 
-  it('Should verify order data on "Order details" page', async () => {
+  it('Should verify order data on "Order history" page', async () => {
     // verify products in section
     // total price
     // status

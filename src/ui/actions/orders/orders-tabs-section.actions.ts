@@ -49,13 +49,13 @@ class OrderTabsSectionActions extends BaseActions {
   }
 
   async getParsedAction(action: ORDER_HISTORY_ACTIONS) {
-    const id = await this.getElementID(tabsSection['Order details']['Action id'](action));
+    const id = await this.getElementID(tabsSection['Order history']['Action id'](action));
     return (await this.basePage.browserExecute(`
         const result = {};
-        const action = document.querySelector('${tabsSection['Order details']['Get action with id'](
+        const action = document.querySelector('${tabsSection['Order history']['Get action with id'](
           id,
         )}').innerText;
-        const data  = [...document.querySelectorAll('${tabsSection['Order details'][
+        const data  = [...document.querySelectorAll('${tabsSection['Order history'][
           'Action data by actioin id'
         ](id)}')].map(c => c.innerText).filter(v => v);
           const chunk = (arr, size) => {

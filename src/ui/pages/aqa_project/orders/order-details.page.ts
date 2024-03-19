@@ -37,7 +37,7 @@ class OrderDetailsPage extends BasePage {
 
   readonly ['Check box by id'] = (id: number) => `#chekc${id}`;
 
-  readonly ['Header order details info'] = (info: HeaderDetailsTitles) =>
+  readonly ['Header Order history info'] = (info: HeaderDetailsTitles) =>
     `//*[text()='${info}']//following-sibling::span`;
 
   async getSectionData(section: string) {
