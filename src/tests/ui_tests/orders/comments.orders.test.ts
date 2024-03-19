@@ -1,19 +1,23 @@
-import { orderPageToastMessages } from '../../../data/orders/orders.data';
-import SignInActions from '../../../ui/actions/sign-in.actions';
-import HomeActions from '../../../ui/actions/home.actions';
-import OrderDetailsActions from '../../../ui/actions/orders/orders-details.actions';
-import ApiOrdersActions from '../../../api/api_actions/api-orders.actions';
-import ApiSignInsActions from '../../../api/api_actions/api-sign-in.actions';
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user';
-import OrdersActions from '../../../ui/actions/orders/orders.actions';
+import { getComment, orderPageToastMessages } from '../../../data/orders/orders.data.js';
+import SignInActions from '../../../ui/actions/sign-in.actions.js';
+import HomeActions from '../../../ui/actions/home.actions.js';
+import OrderDetailsActions from '../../../ui/actions/orders/orders-details.actions.js';
+import ApiOrdersActions from '../../../api/api_actions/api-orders.actions.js';
+import ApiSignInsActions from '../../../api/api_actions/api-sign-in.actions.js';
+import OrdersActions from '../../../ui/actions/orders/orders.actions.js';
+import OrdersAssertions from '../../../ui/assertions/orders_assertions/orders.assertions.js';
+import OrderDetailsPage from '../../../ui/pages/aqa_project/orders/order-details.page.js';
+import Expect from '../../../utils/chai-expect/expect-collection.js';
+import Utils from '../../../utils/utils.js';
 
 describe('Create order tests', () => {
-  let token: string;
+  let token: string, comment: string, orderIdShared: string;
 
   before(async () => {
     token = await ApiSignInsActions.signInAsAdminAndGetToken();
     const { orderId, productsId, customerId } =
       await ApiOrdersActions.createOrderWithGeneratedProductsAndCustomer(token, 1);
+    orderIdShared = orderId;
 
     await SignInActions.openSalesPortal();
     await SignInActions.signIn();
@@ -21,25 +25,51 @@ describe('Create order tests', () => {
     await OrdersActions.clickOnDetailsActionButton(orderId);
   });
 
+  beforeEach(async () => {
+    await HomeActions.openOrdersPage();
+    await OrdersActions.clickOnDetailsActionButton(orderIdShared);
+  });
+
   after(async () => {});
 
   it('Should add comment', async () => {
-    // input value
-    // button is clickable
-    // has 'is-valid' class
-    // border color is green - #198754
-    // verify toast
-    // comment visible
-    // verify value of the comment
-    // button delete clickable
-    // button color is red - #dc3545
+    comment = getComment();
+
+    await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
+
+    await OrdersAssertions.verifyToastMessageAndCloseToast(orderPageToastMessages.commentPosted());
+    await OrdersAssertions.verifyElementIsDisplayed(
+      OrderDetailsPage.tabsSection['Comment']['Comment text'](comment),
+      true,
+    );
+    await OrdersAssertions.verifyClickableButton(
+      OrderDetailsPage.tabsSection['Comment']['Create comment button'],
+      false,
+    );
   });
+
   it('Should delete comment', async () => {
-    // verify toast
-    // comment not visible
+    comment = getComment();
+    await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
+    await OrderDetailsActions.tabsSection.clickOnDeleteCommentButtonWithCommentText(comment);
+
+    await OrdersAssertions.verifyToastMessageAndCloseToast(orderPageToastMessages.commentDeleted());
+    await OrdersAssertions.verifyElementIsDisplayed(
+      OrderDetailsPage.tabsSection['Comment']['Comment text'](comment),
+      false,
+    );
+    await OrdersAssertions.verifyClickableButton(
+      OrderDetailsPage.tabsSection['Comment']['Create comment button'],
+      false,
+    );
   });
-  it('Validation checks', async () => {
-    // todo create data to test validations
-  });
-  it('Should get an error after clicking on "Create" comment button with empty value', async () => {});
+
+  it(`Should display error on incorrect input with "<>" symbols and clear error after correction`, async () => {});
+
+  // todo as critical path
+  it('Should display added value to input comment field after clicking on "Delivery | Order history" tabs', async () => {});
+  it('Should add comment to canceled order', async () => {});
+  it('Should delete comment in canceled order', async () => {});
+  it('Should add comment to received order', async () => {});
+  it('Should delete comment in received order', async () => {});
 });

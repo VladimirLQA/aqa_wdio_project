@@ -5,6 +5,9 @@ const inputBorderColor = {
   inValid: '#dc3545',
 };
 
-const filterModalLabel: Record<string, MANUFACTURERS> = {};
+const inputBorderClass = {
+  valid: 'is-valid',
+  inValid: 'is-inValid',
+};
 
-export { inputBorderColor };
+export { inputBorderColor, inputBorderClass };

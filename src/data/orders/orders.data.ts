@@ -12,7 +12,7 @@ export const orderPageToastMessages = {
   orderCreated: () => 'Order was successfully created',
 };
 
-export const comment: string = 'dream';
+export const getComment = () => faker.commerce.productDescription();
 
 const formatDate = (date: Date) => {
   const year = date.getFullYear();
