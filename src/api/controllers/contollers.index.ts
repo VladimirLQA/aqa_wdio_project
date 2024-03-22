@@ -3,7 +3,7 @@ import ProductsController from './products.controller.js';
 import SignInController from './sign-in.controller.js';
 import OrdersController from './orders.controller.js';
 
-export const ControllersList: { [key: string]: any } = {
+export const ControllersList = {
   products: ProductsController,
   signIn: SignInController,
   customers: CustomersController,

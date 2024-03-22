@@ -21,7 +21,7 @@ export class CommonAssertions extends BaseAssertions {
     }
   }
 
-  async verifyCreatedEntityInDetailModal<T extends IProduct>(createdEntity: T) {
+  async verifyCreatedEntityInDetailModal<T>(createdEntity: T) {
     const actualEntity = await DetailsModalPage.getParsedDetailsData();
     for (const key in createdEntity) {
       if (key !== 'createdOn' && key !== '_id') {
