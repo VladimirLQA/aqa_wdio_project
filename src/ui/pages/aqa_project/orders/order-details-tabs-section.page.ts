@@ -32,9 +32,9 @@ class CommentTabSectionPage extends CommonTabsSectionPage {
   readonly ['Comments input text area'] = '#textareaComments';
   readonly ['Error input text area'] = '#error-textareaComments';
   readonly ['Delete comment button'] = (substr: string) =>
-    `//p[contains(., "${substr}")]/following-sibling::button`;
+    `${this['Comment by text'](substr)}/following-sibling::button`;
 
-  readonly ['Comment text'] = (substr: string) => `//p[contains(., "${substr}")]`;
+  readonly ['Comment by text'] = (substr: string) => `//p[contains(., "${substr}")]`;
 }
 
 class DeliveryTabPage extends CommonTabsSectionPage {

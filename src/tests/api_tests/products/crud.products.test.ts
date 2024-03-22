@@ -8,20 +8,21 @@ import { IProduct } from '../../../ui/types/products.types.js';
 import { AxiosResponse } from 'axios';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
+import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
 
 describe('[CRUD] PRODUCTS test', () => {
   let token: string, id: string, createdProduct: IProductResponse | IProduct;
   let response: AxiosResponse;
 
   before(async () => {
-    token = await ApiSignInActions.signInAsAdminAndGetToken();
+    token = await ApiActions.signIn.signInAsAdminAndGetToken();
   });
 
   context('[CRUD] test', () => {
     it('Should create product', async () => {
       createdProduct = getNewProduct();
 
-      response = await ApiProductsActions.createProduct(token, createdProduct);
+      response = await ApiActions.products.createProduct(token, createdProduct);
 
       ApiProductsAssertions.verifyResponse(response, 201, true, null);
       ApiProductsAssertions.verifyResponseSchema(CREATE_PRODUCT_SCHEMA, response.data);
@@ -30,7 +31,7 @@ describe('[CRUD] PRODUCTS test', () => {
     });
 
     it('Should get created product by id', async () => {
-      response = await ApiProductsActions.getProductByID(token, id);
+      response = await ApiActions.products.getProductByID(token, id);
 
       ApiProductsAssertions.verifyResponse(response, 200, true, null);
     });
@@ -38,14 +39,14 @@ describe('[CRUD] PRODUCTS test', () => {
     it('Should update product', async () => {
       const updatedProduct = getNewProduct();
 
-      const response = await ApiProductsActions.updateProduct(token, id, updatedProduct);
+      const response = await ApiActions.products.updateProduct(token, id, updatedProduct);
 
       ApiProductsAssertions.verifyResponse(response, 200, true, null);
       ApiProductsAssertions.verifyProduct(response.data.Product, updatedProduct);
     });
 
     it('Should get all products', async () => {
-      response = await ApiProductsActions.getAllProducts(token);
+      response = await ApiActions.products.getAllProducts(token);
 
       ApiProductsAssertions.verifyResponse(response, 200, true, null);
       Expect.toBeNotEmpty({ actual: response.data.Products });
@@ -53,11 +54,16 @@ describe('[CRUD] PRODUCTS test', () => {
     });
 
     it('Should delete product by id', async () => {
-      response = await ApiProductsActions.deleteProduct(token, id);
+      response = await ApiActions.products.deleteProduct(token, id);
       ApiProductsAssertions.verifyResponse(response, 204);
 
-      response = await ApiProductsActions.getProductByID(token, id);
-      ApiProductsAssertions.verifyResponse(response, 404, false, `Product with id '${id}' wasn't found`);
+      response = await ApiActions.products.getProductByID(token, id);
+      ApiProductsAssertions.verifyResponse(
+        response,
+        404,
+        false,
+        `Product with id '${id}' wasn't found`,
+      );
     });
   });
 });

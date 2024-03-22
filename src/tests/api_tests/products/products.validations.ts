@@ -1,6 +1,8 @@
+import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
 import ApiProductsActions from '../../../api/api_actions/api-products.actions.js';
 import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions.js';
 import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions.js';
+import { ControllersList } from '../../../api/controllers/contollers.index.js';
 import ProductsController from '../../../api/controllers/products.controller.js';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
 import { STATUS_CODES } from '../../../api/type/api.common.type.js';
@@ -14,31 +16,25 @@ describe('Product validation data', () => {
   let token: string;
 
   before(async () => {
-    token = await ApiSignInActions.signInAsAdminAndGetToken();
+    token = await ApiActions.signIn.signInAsAdminAndGetToken();
   });
   beforeEach(async () => {});
 
   after(async () => {
     for (const product of productsStorage.getAllEntities()) {
-      await reqAsLoggedUser(ProductsController.delete, { data: { _id: product._id } });
-    }
-  });
-
-  xit('....', async () => {
-    const ids = (await ApiProductsActions.getAllProducts(token)).data.Products.map((product: IProductResponse) => product._id);
-
-    for (const id of ids) {
-      const response = await ApiProductsActions.deleteProduct(token, id);
-      console.log(response.status);
+      await reqAsLoggedUser(ControllersList.products.delete, { data: { _id: product._id } });
     }
   });
 
   context('Tests with valid data', () => {
     for (const productName of productData.valid.name) {
       it(`Should create product with name: '${productName.description}'`, async () => {
-        const response = await ApiProductsActions.createProduct(token, getNewProduct({ name: productName.name }));
-        console.log(response.data);
-        await ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
+        const response = await ApiActions.products.createProduct(
+          token,
+          getNewProduct({ name: productName.name }),
+        );
+
+        ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
 
         productsStorage.addEntity(response.data.Product);
       });
@@ -46,8 +42,12 @@ describe('Product validation data', () => {
 
     for (const productPrice of productData.valid.price) {
       it(`Should create product with price: '${productPrice.description}'`, async () => {
-        const response = await ApiProductsActions.createProduct(token, getNewProduct({ price: productPrice.price }));
-        await ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
+        const response = await ApiActions.products.createProduct(
+          token,
+          getNewProduct({ price: productPrice.price }),
+        );
+
+        ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
 
         productsStorage.addEntity(response.data.Product);
       });
@@ -55,8 +55,12 @@ describe('Product validation data', () => {
 
     for (const productAmount of productData.valid.amount) {
       it(`Should create product with amount: '${productAmount.amount}'`, async () => {
-        const response = await ApiProductsActions.createProduct(token, getNewProduct({ amount: productAmount.amount }));
-        await ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
+        const response = await ApiActions.products.createProduct(
+          token,
+          getNewProduct({ amount: productAmount.amount }),
+        );
+
+        ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
 
         productsStorage.addEntity(response.data.Product);
       });
@@ -64,11 +68,12 @@ describe('Product validation data', () => {
 
     for (const productManufacturer of productData.valid.manufacturer) {
       it(`Should create product with manufacturer: '${productManufacturer.manufacturer}'`, async () => {
-        const response = await ApiProductsActions.createProduct(
+        const response = await ApiActions.products.createProduct(
           token,
           getNewProduct({ manufacturer: productManufacturer.manufacturer }),
         );
-        await ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
+
+        ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
 
         productsStorage.addEntity(response.data.Product);
       });
@@ -76,8 +81,12 @@ describe('Product validation data', () => {
 
     for (const productNotes of productData.valid.notes) {
       it(`Should create product with notes: '${productNotes.notes}'`, async () => {
-        const response = await ApiProductsActions.createProduct(token, getNewProduct({ notes: productNotes.notes }));
-        await ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
+        const response = await ApiActions.products.createProduct(
+          token,
+          getNewProduct({ notes: productNotes.notes }),
+        );
+
+        ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
 
         productsStorage.addEntity(response.data.Product);
       });
@@ -87,8 +96,11 @@ describe('Product validation data', () => {
   context('Tests with invalid data', () => {
     for (const productName of productData.invalid.name) {
       it(`Should not create product with name: ${productName.description}`, async () => {
-        const response = await ApiProductsActions.createProduct(token, getNewProduct({ name: productName.name }));
-        await ApiProductsAssertions.verifyResponse(
+        const response = await ApiActions.products.createProduct(
+          token,
+          getNewProduct({ name: productName.name }),
+        );
+        ApiProductsAssertions.verifyResponse(
           response,
           STATUS_CODES.BAD_REQUEST,
           false,
@@ -99,9 +111,10 @@ describe('Product validation data', () => {
 
     it('Should not create product with existed name', async () => {
       const product = getNewProduct();
-      const preparedProduct = await ApiProductsActions.createProduct(token, product);
-      const response = await ApiProductsActions.createProduct(token, product);
-      await ApiProductsAssertions.verifyResponse(
+      const preparedProduct = await ApiActions.products.createProduct(token, product);
+      const response = await ApiActions.products.createProduct(token, product);
+
+      ApiProductsAssertions.verifyResponse(
         response,
         STATUS_CODES.CONFLICT,
         false,
@@ -113,8 +126,12 @@ describe('Product validation data', () => {
 
     for (const productPrice of productData.invalid.price) {
       xit(`Should not create product with price: ${productPrice.description}`, async () => {
-        const response = await ApiProductsActions.createProduct(token, getNewProduct({ price: productPrice.price }));
-        await ApiProductsAssertions.verifyResponse(
+        const response = await ApiActions.products.createProduct(
+          token,
+          getNewProduct({ price: productPrice.price }),
+        );
+
+        ApiProductsAssertions.verifyResponse(
           response,
           STATUS_CODES.BAD_REQUEST,
           false,
@@ -125,8 +142,12 @@ describe('Product validation data', () => {
 
     for (const productAmount of productData.invalid.amount) {
       xit(`Should not create product with amount: ${productAmount.description}`, async () => {
-        const response = await ApiProductsActions.createProduct(token, getNewProduct({ amount: productAmount.amount }));
-        await ApiProductsAssertions.verifyResponse(
+        const response = await ApiActions.products.createProduct(
+          token,
+          getNewProduct({ amount: productAmount.amount }),
+        );
+
+        ApiProductsAssertions.verifyResponse(
           response,
           STATUS_CODES.BAD_REQUEST,
           false,
@@ -137,8 +158,12 @@ describe('Product validation data', () => {
 
     for (const productNotes of productData.invalid.notes) {
       xit(`Should not create product with notes: ${productNotes.description}`, async () => {
-        const response = await ApiProductsActions.createProduct(token, getNewProduct({ notes: productNotes.notes }));
-        await ApiProductsAssertions.verifyResponse(
+        const response = await ApiActions.products.createProduct(
+          token,
+          getNewProduct({ notes: productNotes.notes }),
+        );
+
+        ApiProductsAssertions.verifyResponse(
           response,
           STATUS_CODES.BAD_REQUEST,
           false,
@@ -149,13 +174,14 @@ describe('Product validation data', () => {
 
     for (const productManufacturer of productData.invalid.manufacturer) {
       it(`Should not create product with manufacturer: ${productManufacturer.description}`, async () => {
-        const response = await ApiProductsActions.createProduct(
+        const response = await ApiActions.products.createProduct(
           token,
           getNewProduct({ manufacturer: productManufacturer.manufacturer }),
         );
         console.log('data', response.data);
         console.log(response.status);
-        await ApiProductsAssertions.verifyResponse(
+
+        ApiProductsAssertions.verifyResponse(
           response,
           STATUS_CODES.BAD_REQUEST,
           false,

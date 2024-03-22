@@ -24,6 +24,8 @@ import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
 import { AxiosResponse } from 'axios';
 import { scheduleOrder } from '../../../data/orders/orders.data.js';
+import { ControllersList } from '../../../api/controllers/contollers.index.js';
+import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
 
 describe('[CRUD] ORDERS test', () => {
   let token: string, orderId: string, response: AxiosResponse, totalPrice: number;
@@ -31,20 +33,20 @@ describe('[CRUD] ORDERS test', () => {
   let [customer]: ICustomerResponse[] = [];
 
   before(async () => {
-    token = await ApiSignInActions.signInAsAdminAndGetToken();
-    [product_01, product_02] = await ApiProductsActions.createProducts(2);
-    [customer] = await ApiCustomersActions.createCustomers(1);
+    token = await ApiActions.signIn.signInAsAdminAndGetToken();
+    [product_01, product_02] = await ApiActions.products.createProducts(2);
+    [customer] = await ApiActions.customers.createCustomers(1);
 
     totalPrice = product_01.price + product_02.price;
   });
 
   after(async () => {
-    await reqAsLoggedUser(OrdersController.deleteOrder, { data: { _id: orderId } });
+    await reqAsLoggedUser(ControllersList.orders.deleteOrder, { data: { _id: orderId } });
 
     for (const product of [product_01, product_02]) {
-      await reqAsLoggedUser(ProductsController.delete, { data: { _id: product._id } });
+      await reqAsLoggedUser(ControllersList.products.delete, { data: { _id: product._id } });
     }
-    await reqAsLoggedUser(CustomerController.delete, { data: { _id: customer._id } });
+    await reqAsLoggedUser(ControllersList.customers.delete, { data: { _id: customer._id } });
 
     // const id2 = (await ApiOrdersActions.getAllOrders(token)).data.Orders.map((order: IOrder) => order._id);
     // for (const id of id2) {
@@ -66,7 +68,7 @@ describe('[CRUD] ORDERS test', () => {
 
   context('[CRUD] test', () => {
     it('Should create order', async () => {
-      response = await ApiOrdersActions.createOrder(token, {
+      response = await ApiActions.orders.createOrder(token, {
         customer: customer._id,
         products: [product_01._id, product_02._id],
       });
@@ -92,13 +94,13 @@ describe('[CRUD] ORDERS test', () => {
     });
 
     it('Should get created order by id', async () => {
-      response = await ApiOrdersActions.getOrderByID(token, orderId);
+      response = await ApiActions.orders.getOrderByID(token, orderId);
 
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
     });
 
     it('Should get all orders', async () => {
-      response = await ApiOrdersActions.getAllOrders(token);
+      response = await ApiActions.orders.getAllOrders(token);
 
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       Expect.toBeNotEmpty({ actual: response.data.Orders });
@@ -107,7 +109,7 @@ describe('[CRUD] ORDERS test', () => {
 
     it('Should schedule delivery', async () => {
       const delivery = scheduleOrder();
-      response = await ApiOrdersActions.scheduleOrderDelivery(token, { _id: orderId, delivery });
+      response = await ApiActions.orders.scheduleOrderDelivery(token, { _id: orderId, delivery });
 
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       ApiOrdersAssertions.verifyOrderSchedule(response.data?.Order.delivery, delivery);
@@ -119,7 +121,7 @@ describe('[CRUD] ORDERS test', () => {
     });
 
     it(`Should change status to ${ORDER_STATUSES.IN_PROCESS}`, async () => {
-      response = await ApiOrdersActions.updateOrderStatusToInProcess(token, orderId);
+      response = await ApiActions.orders.updateOrderStatusToInProcess(token, orderId);
 
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       Expect.toEqual({ actual: response.data?.Order.status, expected: ORDER_STATUSES.IN_PROCESS });
@@ -136,7 +138,7 @@ describe('[CRUD] ORDERS test', () => {
     });
 
     it(`Should receive all products in order`, async () => {
-      response = await ApiOrdersActions.receiveAllProductsInOrder(token, {
+      response = await ApiActions.orders.receiveAllProductsInOrder(token, {
         _id: orderId,
         products: [product_01._id, product_02._id],
       });

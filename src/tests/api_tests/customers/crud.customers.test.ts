@@ -9,9 +9,13 @@ import { CREATE_CUSTOMER_SCHEMA } from '../../../data/json_schemas/customers.sch
 import { ICustomer } from '../../../ui/types/customers.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
+import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
 
 describe('[CRUD] CUSTOMERS test', () => {
-  let token: string, id: string, createdCustomer: ICustomerResponse | ICustomer, response: AxiosResponse;
+  let token: string,
+    id: string,
+    createdCustomer: ICustomerResponse | ICustomer,
+    response: AxiosResponse;
 
   before(async () => {
     token = await ApiSignInActions.signInAsAdminAndGetToken();
@@ -21,7 +25,7 @@ describe('[CRUD] CUSTOMERS test', () => {
     it('Should create customer', async () => {
       createdCustomer = getNewCustomer();
 
-      response = await ApiCustomersActions.createCustomer(token, createdCustomer);
+      response = await ApiActions.customers.createCustomer(token, createdCustomer);
 
       ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
       ApiCustomersAssertions.verifyResponseSchema(CREATE_CUSTOMER_SCHEMA, response.data);
@@ -31,7 +35,7 @@ describe('[CRUD] CUSTOMERS test', () => {
     });
 
     it('Should get created customer by id', async () => {
-      response = await ApiCustomersActions.getCustomerByID(token, id);
+      response = await ApiActions.customers.getCustomerByID(token, id);
 
       ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       ApiCustomersAssertions.verifyResponseSchema(CREATE_CUSTOMER_SCHEMA, response.data);
@@ -40,13 +44,13 @@ describe('[CRUD] CUSTOMERS test', () => {
     it('Should update customer by id', async () => {
       const updatedCustomer = getNewCustomer();
 
-      response = await ApiCustomersActions.updateCustomer(token, id, updatedCustomer);
+      response = await ApiActions.customers.updateCustomer(token, id, updatedCustomer);
 
       ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       ApiCustomersAssertions.verifyCustomer(response.data.Customer, updatedCustomer);
     });
     it('Should get all customers', async () => {
-      response = await ApiCustomersActions.getAllPrCustomers(token);
+      response = await ApiActions.customers.getAllPrCustomers(token);
 
       ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       Expect.toBeNotEmpty({ actual: response.data.Customers });
@@ -54,11 +58,16 @@ describe('[CRUD] CUSTOMERS test', () => {
     });
 
     it('Should delete customer by id', async () => {
-      response = await ApiCustomersActions.deleteCustomer(token, id);
+      response = await ApiActions.customers.deleteCustomer(token, id);
       ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.NO_CONTENT);
 
-      response = await ApiCustomersActions.getCustomerByID(token, id);
-      ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.NOT_FOUND, false, `Customer with id '${id}' wasn't found`);
+      response = await ApiActions.customers.getCustomerByID(token, id);
+      ApiCustomersAssertions.verifyResponse(
+        response,
+        STATUS_CODES.NOT_FOUND,
+        false,
+        `Customer with id '${id}' wasn't found`,
+      );
     });
   });
 });
