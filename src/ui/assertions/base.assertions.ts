@@ -38,4 +38,12 @@ export class BaseAssertions {
     const isVisible = await elem.isDisplayed();
     Expect.toEqual({ actual: isVisible, expected: expected });
   }
+
+  async elementIsDisplayedAndContainText(selector: string, text: string): Promise<boolean> {
+    await Utils.browserPause(500);
+    const isVisible = await this.pageHandler.isDisplayed(selector);
+    const actual = (await this.pageHandler.getText(selector)).trim();
+    console.log(`isVisible: ${isVisible} ~ actual text: ${actual}.`);
+    return isVisible && actual === text;
+  }
 }

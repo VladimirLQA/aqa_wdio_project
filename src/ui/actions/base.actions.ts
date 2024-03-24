@@ -63,4 +63,12 @@ export default class BaseActions {
   async clearInputField(selector: string) {
     await this.basePage.clearValue(selector);
   }
+
+  async clickOnCancelButtonInModal() {
+    await this.basePage.click(this.basePage['Cancel modal button']);
+  }
+
+  async clickOnYesButtonInModal() {
+    await this.basePage.click(this.basePage['Yes modal button']);
+  }
 }

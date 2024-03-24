@@ -2,19 +2,15 @@ import { getComment, orderPageToastMessages } from '../../../../data/orders/orde
 import SignInActions from '../../../../ui/actions/sign-in.actions.js';
 import HomeActions from '../../../../ui/actions/home.actions.js';
 import OrderDetailsActions from '../../../../ui/actions/orders/orders-details.actions.js';
-import ApiOrdersActions from '../../../../api/api_actions/api-orders.actions.js';
-import ApiSignInsActions from '../../../../api/api_actions/api-sign-in.actions.js';
 import OrdersActions from '../../../../ui/actions/orders/orders.actions.js';
 import OrdersAssertions from '../../../../ui/assertions/orders_assertions/orders.assertions.js';
 import OrderDetailsPage from '../../../../ui/pages/aqa_project/orders/order-details.page.js';
-import Expect from '../../../../utils/chai-expect/expect-collection.js';
-import Utils from '../../../../utils/utils.js';
 import SideBarActions from '../../../../ui/actions/side-bar.actions.js';
 import { reqAsLoggedUser } from '../../../../api/request/request-as-logged-user.js';
 import { ControllersList } from '../../../../api/controllers/contollers.index.js';
 import { ApiActions } from '../../../../api/api_actions/api-actions.index.js';
 
-describe('Create order tests', () => {
+describe('Comments order details section', () => {
   let token: string, comment: string, orderIdShared: string, products: string[], customer: string;
 
   before(async () => {
@@ -45,60 +41,54 @@ describe('Create order tests', () => {
     await reqAsLoggedUser(ControllersList.customers.delete, { data: { _id: customer } });
   });
 
-  context('Smoke tests @smoke', () => {
-    it('Should add comment', async () => {
-      comment = getComment();
+  it('Should add comment @smoke', async () => {
+    comment = getComment();
 
-      await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
+    await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
 
-      await OrdersAssertions.verifyToastMessageAndCloseToast(
-        orderPageToastMessages.commentPosted(),
-      );
-      await OrdersAssertions.verifyElementIsDisplayed(
-        OrderDetailsPage.tabsSection['Comment']['Comment by text'](comment),
-        true,
-      );
-      await OrdersAssertions.verifyIsClickableButton(
-        OrderDetailsPage.tabsSection['Comment']['Create comment button'],
-        false,
-      );
-    });
+    await OrdersAssertions.verifyToastMessageAndCloseToast(orderPageToastMessages.commentPosted());
+    await OrdersAssertions.verifyElementIsDisplayed(
+      OrderDetailsPage.tabsSection['Comment']['Comment by text'](comment),
+      true,
+    );
+    await OrdersAssertions.verifyIsClickableButton(
+      OrderDetailsPage.tabsSection['Comment']['Create comment button'],
+      false,
+    );
+  });
 
-    it('Should delete comment', async () => {
-      comment = getComment();
-      await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
-      await OrderDetailsActions.closeToastMessage();
-      await OrderDetailsActions.tabsSection.clickOnDeleteCommentButtonWithCommentText(comment);
+  it('Should delete comment @smoke', async () => {
+    comment = getComment();
+    await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
+    await OrderDetailsActions.closeToastMessage();
+    await OrderDetailsActions.tabsSection.clickOnDeleteCommentButtonWithCommentText(comment);
 
-      await OrdersAssertions.verifyToastMessageAndCloseToast(
-        orderPageToastMessages.commentDeleted(),
-      );
-      await OrdersAssertions.verifyElementIsDisplayed(
-        OrderDetailsPage.tabsSection['Comment']['Comment by text'](comment),
-        false,
-      );
-      await OrdersAssertions.verifyIsClickableButton(
-        OrderDetailsPage.tabsSection['Comment']['Create comment button'],
-        false,
-      );
-    });
+    await OrdersAssertions.verifyToastMessageAndCloseToast(orderPageToastMessages.commentDeleted());
+    await OrdersAssertions.verifyElementIsDisplayed(
+      OrderDetailsPage.tabsSection['Comment']['Comment by text'](comment),
+      false,
+    );
+    await OrdersAssertions.verifyIsClickableButton(
+      OrderDetailsPage.tabsSection['Comment']['Create comment button'],
+      false,
+    );
+  });
 
-    it(`Should display error on incorrect input with "<>" symbols and clear error after correction`, async () => {
-      comment = getComment();
-      await OrderDetailsActions.tabsSection.fillCommentText(comment + '<>');
-      await OrdersAssertions.verifyElementIsDisplayed(
-        OrderDetailsPage.tabsSection['Comment']['Error input text area'],
-        true,
-      );
+  it(`Should display error on incorrect input with "<>" symbols and clear error after correction @smoke`, async () => {
+    comment = getComment();
+    await OrderDetailsActions.tabsSection.fillCommentText(comment + '<>');
+    await OrdersAssertions.verifyElementIsDisplayed(
+      OrderDetailsPage.tabsSection['Comment']['Error input text area'],
+      true,
+    );
 
-      await OrderDetailsActions.clearInputField(
-        OrderDetailsPage.tabsSection['Comment']['Comments input text area'],
-      );
-      await OrderDetailsActions.tabsSection.fillCommentText(comment);
-      await OrdersAssertions.verifyElementIsDisplayed(
-        OrderDetailsPage.tabsSection['Comment']['Error input text area'],
-        false,
-      );
-    });
+    await OrderDetailsActions.clearInputField(
+      OrderDetailsPage.tabsSection['Comment']['Comments input text area'],
+    );
+    await OrderDetailsActions.tabsSection.fillCommentText(comment);
+    await OrdersAssertions.verifyElementIsDisplayed(
+      OrderDetailsPage.tabsSection['Comment']['Error input text area'],
+      false,
+    );
   });
 });

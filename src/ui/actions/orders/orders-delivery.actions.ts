@@ -3,6 +3,7 @@ import { DELIVERY, IAddress, IDelivery, LOCATION_TYPE } from '../../types/order.
 import BaseActions from '../base.actions.js';
 import DeliveryPage from '../../pages/aqa_project/orders/orders-delivery.page.js';
 import Utils from '../../../utils/utils.js';
+import { getScheduleOrderUI } from '../../../data/orders/orders.data.js';
 
 class DeliveryActions extends BaseActions {
   async clickOnCancelButton() {
@@ -72,15 +73,16 @@ class DeliveryActions extends BaseActions {
   }
 
   // TODO deal with lag after choosing option in location dropdown
-  async scheduleOrder(schedule: IDelivery & { location: LOCATION_TYPE }) {
-    await this.chooseScheduleDeliveryType(schedule.condition!);
-    await this.chooseLocationType(schedule.location);
+  async scheduleOrder(schedule?: IDelivery & { location: LOCATION_TYPE }) {
+    const sch = { ...getScheduleOrderUI(), ...schedule };
+    await this.chooseScheduleDeliveryType(sch.condition!);
+    await this.chooseLocationType(sch.location);
     await this.chooseLocationType(LOCATION_TYPE.HOME);
-    await this.chooseDate(+schedule.finalDate!);
-    if (schedule.location === LOCATION_TYPE.OTHER && schedule.condition === DELIVERY.DELIVERY) {
-      await this.fillAddress(schedule!.address!);
-    } else if (schedule.condition === DELIVERY.PICK_UP) {
-      await this.chooseCountry(schedule.address?.country!);
+    await this.chooseDate(+sch.finalDate!);
+    if (sch.location === LOCATION_TYPE.OTHER && sch.condition === DELIVERY.DELIVERY) {
+      await this.fillAddress(sch!.address!);
+    } else if (sch.condition === DELIVERY.PICK_UP) {
+      await this.chooseCountry(sch.address?.country!);
     }
     await this.clickOnSaveDeliveryButton();
     await this.waitForPageLoad();

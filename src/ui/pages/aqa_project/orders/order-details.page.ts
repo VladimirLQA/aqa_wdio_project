@@ -19,10 +19,6 @@ class OrderDetailsPage extends BasePage {
 
   readonly ['Process order button'] = '#process-order';
 
-  readonly ['Confirm process modal button'] = `//button[@type='submit']`;
-
-  readonly ['Cancel confirm process modal button'] = `button.btn-secondary`;
-
   readonly ['Refresh order button'] = '#refresh-order';
 
   readonly ['Cancel order button'] = '#cancel-order';

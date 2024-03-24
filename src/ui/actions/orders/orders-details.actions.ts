@@ -27,19 +27,20 @@ class OrdersDetailsActions extends BaseActions {
   }
 
   @logAction('Click on "Yes Process" button in "Process order" modal')
-  async clickOnYesProcessButtonInProcessOrderModal() {
-    await this.basePage.click(OrderDetailsPage['Confirm process modal button']);
-  }
-
-  @logAction('Click on "Cancel" button in "Process order" modal')
-  async clickOnCancelButtonInProcessOrderModal() {
-    await this.basePage.click(OrderDetailsPage['Cancel confirm process modal button']);
+  async clickOnYesButtonInProcessOrderModal() {
+    await this.basePage.click(OrderDetailsPage['Yes modal button']);
   }
 
   @logAction('Confirm process order')
   async confirmProcessOrder() {
     await this.clickOnProcessOrderButton();
-    await this.clickOnYesProcessButtonInProcessOrderModal();
+    await this.clickOnYesButtonInModal();
+  }
+
+  @logAction('Confirm cancel order')
+  async confirmCancelOrder() {
+    await this.clickOnCancelOrderButton();
+    await this.clickOnYesButtonInModal();
   }
 }
 
