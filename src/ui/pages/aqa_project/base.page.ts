@@ -4,6 +4,10 @@ import { MANUFACTURERS } from '../../types/products.types.js';
 import PageHandler from './page-handler.page.js';
 
 export default class BasePage extends PageHandler {
+  readonly ['Cancel modal button'] = `button.btn-secondary`;
+
+  readonly ['Yes modal button'] = `//button[@type='submit']`;
+
   readonly ['Modal close button'] = 'button.btn-close';
 
   readonly ['Spinner'] = '.spinner-border';

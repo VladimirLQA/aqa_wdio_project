@@ -1,6 +1,6 @@
 import { ICustomerResponse } from '../../../api/type/api.customers.type.js';
 import { IProductResponse } from '../../../api/type/api.product.type.js';
-import { orderPageToastMessages, scheduleOrderUI } from '../../../data/orders/orders.data.js';
+import { orderPageToastMessages, getScheduleOrderUI } from '../../../data/orders/orders.data.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import OrderActions from '../../../ui/actions/orders/orders.actions.js';
 import SignInActions from '../../../ui/actions/sign-in.actions.js';

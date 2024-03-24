@@ -48,7 +48,9 @@ describe('[CRUD] ORDERS test', () => {
     }
     await reqAsLoggedUser(ControllersList.customers.delete, { data: { _id: customer._id } });
 
-    // const id2 = (await ApiOrdersActions.getAllOrders(token)).data.Orders.map((order: IOrder) => order._id);
+    // const id2 = (await ApiOrdersActions.getAllOrders(token)).data.Orders.map(
+    //   (order: IOrder) => order._id,
+    // );
     // for (const id of id2) {
     //   await ApiOrdersActions.deleteOrder(token, id);
     // }
@@ -59,7 +61,9 @@ describe('[CRUD] ORDERS test', () => {
     // for (const id of id3) {
     //   await ApiCustomersActions.deleteCustomer(token, id);
     // }
-    // const ids = (await ApiProductsActions.getAllProducts(token)).data.Products.map((product: IProductResponse) => product._id);
+    // const ids = (await ApiProductsActions.getAllProducts(token)).data.Products.map(
+    //   (product: IProductResponse) => product._id,
+    // );
 
     // for (const id of ids) {
     //   await ApiProductsActions.deleteProduct(token, id);

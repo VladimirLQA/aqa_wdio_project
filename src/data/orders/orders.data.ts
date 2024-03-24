@@ -12,7 +12,7 @@ export const orderPageToastMessages = {
   orderCreated: () => 'Order was successfully created',
 };
 
-export const getComment = () => faker.commerce.productDescription();
+export const getComment = () => faker.commerce.productDescription() + faker.number.int(100);
 
 const formatDate = (date: Date) => {
   const year = date.getFullYear();
@@ -35,7 +35,7 @@ export const scheduleOrder = (schedule?: Partial<IDelivery>): IDelivery => {
   };
 };
 
-export const scheduleOrderUI = (
+export const getScheduleOrderUI = (
   schedule?: Partial<IDelivery & { location: LOCATION_TYPE }>,
 ): IDelivery & {
   location: LOCATION_TYPE;
@@ -53,4 +53,11 @@ export const scheduleOrderUI = (
     },
     ...schedule,
   };
+};
+
+export const commentsForOrderStatus = {
+  draft: 'draft - order status',
+  received: 'received - order status',
+  inProcess: 'in process - order status',
+  partiallyReceived: 'partially received - order status',
 };

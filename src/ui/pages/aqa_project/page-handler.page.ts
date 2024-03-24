@@ -209,6 +209,12 @@ export default class PageHandler {
     return isScrolledIntoView;
   }
 
+  async isDisplayed(selector: string) {
+    const element = await this.findElement(selector);
+    const isDisplayed = await element.isDisplayed();
+    return isDisplayed;
+  }
+
   async waitForDropdownAndSelectValue(
     dropdownSelector: string,
     optionsSelector: string,
