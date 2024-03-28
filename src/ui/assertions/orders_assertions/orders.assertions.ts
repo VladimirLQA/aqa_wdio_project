@@ -8,6 +8,7 @@ import { IProduct } from '../../types/products.types.js';
 import ProductsAssertions from '../products_assertions/products.assertions.js';
 import { CommonAssertions } from '../common.assertions.js';
 import PageHandler from '../../pages/aqa_project/page-handler.page.js';
+import { info } from 'winston';
 
 class OrdersAssertions extends CommonAssertions {
   async verifyCustomerInCustomerDetailsSection<T extends ICustomer>(createdEntity: T) {
@@ -27,7 +28,10 @@ class OrdersAssertions extends CommonAssertions {
     const tableOrder = await OrdersActions.getCreatedOrderRowInTable(createdOrder._id);
     Expect.toEqual({ actual: tableOrder.orderNumber, expected: createdOrder._id });
     if (createdOrder.delivery !== null) {
-      Expect.toEqual({ actual: tableOrder.delivery, expected: createdOrder.delivery });
+      Expect.toEqual({
+        actual: tableOrder.delivery,
+        expected: Utils.dateToYYYYMMDD(createdOrder.delivery.finalDate.toString()),
+      });
     } else {
       Expect.toEqual({ actual: tableOrder.delivery, expected: '-' });
     }

@@ -10,6 +10,7 @@ import { IOrder, LOCATION_TYPE, ORDER_HISTORY_ACTIONS } from '../../../ui/types/
 import ApiProductsActions from '../../../api/api_actions/api-products.actions.js';
 import ApiCustomersActions from '../../../api/api_actions/api-customers.actions.js';
 import Utils from '../../../utils/utils.js';
+import SideBarActions from '../../../ui/actions/side-bar.actions.js';
 
 describe('Create order tests', () => {
   let orderId: string, order: IOrder;
@@ -35,37 +36,36 @@ describe('Create order tests', () => {
     await OrdersAssertions.verifyCreatedOrderInTableRow(order);
   });
 
-  it('Should verify order data on "Order history" page', async () => {
-    // verify products in section
-    // total price
-    // status
-    // order history
-
+  it('Should change order status to "In process"', async () => {
     await OrderActions.clickOnDetailsActionButton(orderId);
-    await OrdersDetailsActions.customerProductSection.clickOnAllAccordionButtonsInProductSection();
-    // await OrdersDetailsActions.tabsSection.clickOnDeliveryTab();
-    // const prepareScheduleForOrder = scheduleOrderUI();
-    // await OrdersDetailsActions.tabsSection.clickOnScheduleEditDeliveryButton();
-    // await OrdersDetailsActions.delivery.scheduleOrder(prepareScheduleForOrder);
+    await OrdersDetailsActions.tabsSection.clickOnDeliveryTab();
+    await OrdersDetailsActions.tabsSection.clickOnScheduleEditDeliveryButton();
+    await OrdersDetailsActions.delivery.scheduleOrder();
+    await OrdersDetailsActions.closeToastMessage();
+    await OrdersDetailsActions.clickOnProcessOrderButton();
+    await OrdersDetailsActions.clickOnYesButtonInProcessOrderModal();
 
-    // await OrdersDetailsActions.tabsSection.clickOnHistoryTab();
-    // const deliveryScheduled: any = await OrdersDetailsActions.tabsSection.getParsedAction(
-    //   ORDER_HISTORY_ACTIONS.DELIVERY_SCHEDULED,
-    // );
+    await OrdersAssertions.verifyToastMessageAndCloseToast(
+      orderPageToastMessages.orderProcessingStarted(),
+    );
+    await SideBarActions.clickOnSidebarOrdersButton();
 
-    // console.log(deliveryScheduled);
-    //
-    // console.log('result >>>>>>>>>', deliveryScheduled)
-    //
-    // await OrdersDetailsActions.customerProductSection.editCustomerModal
+    order = await OrderActions.getOrder(customer.name, [product_01.name, product_02.name]);
+    await OrdersAssertions.verifyCreatedOrderInTableRow(order);
+  });
 
-    // await OrdersAssertions.verifyToastMessage(orderPageToastMessages.deliverySaved());
-    // await OrdersDetailsActions.customerProductSection.clickOnAllAccordionButtonsInProductSection();
-    // await OrdersDetailsActions.customerProductSection.clickOnProductsPencilbutton();
-    // await OrdersDetailsActions.customerProductSection.editProductModal.changeProductInOrder('Pizza52', 'Bacon73');
-    // const totalPrice = await OrderDetailsPage.getText(
-    //   OrderDetailsPage.orderSection['Products'].editProductsModal['Total price'],
-    // );
-    // Expect.toEqual({ actual: totalPrice, expected: '$2103' });
+  it('Should change order status to "Received"', async () => {
+    await OrderActions.clickOnDetailsActionButton(orderId);
+    await OrdersDetailsActions.customerProductSection.clickOnReceiveButton();
+    await OrdersDetailsActions.customerProductSection.clickOnSelectAllCheckbox();
+    await OrdersDetailsActions.customerProductSection.clickOnSaveReceivedProductsButton();
+
+    await OrdersAssertions.verifyToastMessageAndCloseToast(
+      orderPageToastMessages.productReceived(),
+    );
+    await SideBarActions.clickOnSidebarOrdersButton();
+
+    order = await OrderActions.getOrder(customer.name, [product_01.name, product_02.name]);
+    await OrdersAssertions.verifyCreatedOrderInTableRow(order);
   });
 });

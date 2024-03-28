@@ -26,7 +26,7 @@ class OrdersActions extends CommonActions {
     );
     await this.createOrderModal.addProductsToOrder(products);
     await this.createOrderModal.clickOnCreateButton();
-    const order: IOrder = await this.getCreatedOrder(customerName, products);
+    const order: IOrder = await this.getOrder(customerName, products);
     return order;
   }
 
@@ -41,13 +41,11 @@ class OrdersActions extends CommonActions {
     };
   }
 
-  async getCreatedOrder(customerName: string, products: string[]) {
+  async getOrder(customerName: string, products: string[]) {
     const order: IOrder = (await reqAsLoggedUser(OrdersController.get, {})).data.Orders.find(
       (o: IOrder) =>
         o.customer.name === customerName &&
-        o.products.filter(
-          (p: IProduct) => products.includes(p.name) && o.status === ORDER_STATUSES.DRAFT,
-        ),
+        o.products.filter((p: IProduct) => products.includes(p.name)),
     );
     return order;
   }
