@@ -15,7 +15,7 @@ class CustomerProductsActions extends BaseActions {
   }
 
   @logAction('Click on products pencil button')
-  async clickOnProductsPencilButton() {
+  async clickOnProductsDetailsPencilButton() {
     await this.basePage.click(orderSection['Products']['Edit products pencil button']);
   }
 

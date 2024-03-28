@@ -19,10 +19,9 @@ import { ApiActions } from '../../../../api/api_actions/api-actions.index.js';
 import { ControllersList } from '../../../../api/controllers/contollers.index.js';
 import { reqAsLoggedUser } from '../../../../api/request/request-as-logged-user.js';
 
-describe('Create order tests', () => {
+describe('Order - comments tests @c-path', () => {
   let token: string,
     comment: string,
-    orderIdShared: string,
     orders: string[] = [],
     products: string[] = [],
     customers: string[] = [],
@@ -43,7 +42,6 @@ describe('Create order tests', () => {
       .name;
 
     await SideBarActions.clickOnSidebarOrdersButton();
-    console.log('orderId', orderId);
     await OrdersActions.clickOnDetailsActionButton(orderId);
 
     orders.push(orderId);
@@ -69,92 +67,90 @@ describe('Create order tests', () => {
     }
   });
 
-  context('Critical path @c-path', () => {
-    it('Should add and delete comment in cancelled order', async () => {
-      comment = getComment();
-      await OrderDetailsActions.confirmCancelOrder();
-      await OrderDetailsActions.closeToastMessage();
-      const toastMessages: boolean[] = [];
+  it('Should add and delete comment in cancelled order', async () => {
+    comment = getComment();
+    await OrderDetailsActions.confirmCancelOrder();
+    await OrderDetailsActions.closeToastMessage();
+    const toastMessages: boolean[] = [];
 
-      await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
-      toastMessages.push(
-        await OrdersAssertions.elementIsDisplayedAndContainText(
-          OrderDetailsPage['Toast text'],
-          orderPageToastMessages.commentPosted(),
-        ),
-      );
-      await OrderDetailsActions.closeToastMessage();
+    await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
+    toastMessages.push(
+      await OrdersAssertions.elementIsDisplayedAndContainText(
+        OrderDetailsPage['Toast text'],
+        orderPageToastMessages.commentPosted(),
+      ),
+    );
+    await OrderDetailsActions.closeToastMessage();
 
-      await OrderDetailsActions.tabsSection.clickOnDeleteCommentButtonWithCommentText(comment);
-      toastMessages.push(
-        await OrdersAssertions.elementIsDisplayedAndContainText(
-          OrderDetailsPage['Toast text'],
-          orderPageToastMessages.commentDeleted(),
-        ),
-      );
-      await OrderDetailsActions.closeToastMessage();
-      Expect.toBeTrue({ actual: toastMessages.every((item) => item) });
-    });
+    await OrderDetailsActions.tabsSection.clickOnDeleteCommentButtonWithCommentText(comment);
+    toastMessages.push(
+      await OrdersAssertions.elementIsDisplayedAndContainText(
+        OrderDetailsPage['Toast text'],
+        orderPageToastMessages.commentDeleted(),
+      ),
+    );
+    await OrderDetailsActions.closeToastMessage();
+    Expect.toBeTrue({ actual: toastMessages.every((item) => item) });
+  });
 
-    it('Should add comment on every positive order status', async () => {
-      comment = getComment();
-      const toastMessages: boolean[] = [];
-      await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
-      toastMessages.push(
-        await OrdersAssertions.elementIsDisplayedAndContainText(
-          OrderDetailsPage['Toast text'],
-          orderPageToastMessages.commentPosted(),
-        ),
-      );
-      await OrderDetailsActions.closeToastMessage();
+  it('Should add comment on every positive order status', async () => {
+    comment = getComment();
+    const toastMessages: boolean[] = [];
+    await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
+    toastMessages.push(
+      await OrdersAssertions.elementIsDisplayedAndContainText(
+        OrderDetailsPage['Toast text'],
+        orderPageToastMessages.commentPosted(),
+      ),
+    );
+    await OrderDetailsActions.closeToastMessage();
 
-      await OrderDetailsActions.tabsSection.clickOnDeliveryTab();
-      await OrderDetailsActions.tabsSection.clickOnScheduleEditDeliveryButton();
-      await OrdersDeliveryActions.scheduleOrder();
-      await OrderDetailsActions.closeToastMessage();
-      await OrderDetailsActions.confirmProcessOrder();
-      await OrderDetailsActions.closeToastMessage();
+    await OrderDetailsActions.tabsSection.clickOnDeliveryTab();
+    await OrderDetailsActions.tabsSection.clickOnScheduleEditDeliveryButton();
+    await OrdersDeliveryActions.scheduleOrder();
+    await OrderDetailsActions.closeToastMessage();
+    await OrderDetailsActions.confirmProcessOrder();
+    await OrderDetailsActions.closeToastMessage();
 
-      await OrderDetailsActions.tabsSection.clickOnCommentsTab();
-      await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
-      toastMessages.push(
-        await OrdersAssertions.elementIsDisplayedAndContainText(
-          OrderDetailsPage['Toast text'],
-          orderPageToastMessages.commentPosted(),
-        ),
-      );
-      await OrderDetailsActions.closeToastMessage();
+    await OrderDetailsActions.tabsSection.clickOnCommentsTab();
+    await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
+    toastMessages.push(
+      await OrdersAssertions.elementIsDisplayedAndContainText(
+        OrderDetailsPage['Toast text'],
+        orderPageToastMessages.commentPosted(),
+      ),
+    );
+    await OrderDetailsActions.closeToastMessage();
 
-      await OrderDetailsActions.customerProductSection.clickOnReceiveButton();
-      await OrderDetailsActions.customerProductSection.clickOnCheckboxWithSpecifiedProductName(
-        productName,
-      );
-      await OrderDetailsActions.customerProductSection.clickOnSaveReceivedProductsButton();
-      await OrderDetailsActions.closeToastMessage();
+    await OrderDetailsActions.customerProductSection.clickOnReceiveButton();
+    await OrderDetailsActions.customerProductSection.clickOnCheckboxWithSpecifiedProductName(
+      productName,
+    );
+    await OrderDetailsActions.customerProductSection.clickOnSaveReceivedProductsButton();
+    await OrderDetailsActions.closeToastMessage();
 
-      await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
-      toastMessages.push(
-        await OrdersAssertions.elementIsDisplayedAndContainText(
-          OrderDetailsPage['Toast text'],
-          orderPageToastMessages.commentPosted(),
-        ),
-      );
-      await OrderDetailsActions.closeToastMessage();
+    await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
+    toastMessages.push(
+      await OrdersAssertions.elementIsDisplayedAndContainText(
+        OrderDetailsPage['Toast text'],
+        orderPageToastMessages.commentPosted(),
+      ),
+    );
+    await OrderDetailsActions.closeToastMessage();
 
-      await OrderDetailsActions.customerProductSection.clickOnReceiveButton();
-      await OrderDetailsActions.customerProductSection.clickOnSelectAllCheckbox();
-      await OrderDetailsActions.customerProductSection.clickOnSaveReceivedProductsButton();
-      await OrderDetailsActions.closeToastMessage();
+    await OrderDetailsActions.customerProductSection.clickOnReceiveButton();
+    await OrderDetailsActions.customerProductSection.clickOnSelectAllCheckbox();
+    await OrderDetailsActions.customerProductSection.clickOnSaveReceivedProductsButton();
+    await OrderDetailsActions.closeToastMessage();
 
-      await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
-      toastMessages.push(
-        await OrdersAssertions.elementIsDisplayedAndContainText(
-          OrderDetailsPage['Toast text'],
-          orderPageToastMessages.commentPosted(),
-        ),
-      );
-      await OrderDetailsActions.closeToastMessage();
-      Expect.toBeTrue({ actual: toastMessages.every((item) => item) });
-    });
+    await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
+    toastMessages.push(
+      await OrdersAssertions.elementIsDisplayedAndContainText(
+        OrderDetailsPage['Toast text'],
+        orderPageToastMessages.commentPosted(),
+      ),
+    );
+    await OrderDetailsActions.closeToastMessage();
+    Expect.toBeTrue({ actual: toastMessages.every((item) => item) });
   });
 });

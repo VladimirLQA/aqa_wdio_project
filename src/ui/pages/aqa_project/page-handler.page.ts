@@ -1,9 +1,15 @@
 import Logger from '../../../utils/logger/logger.js';
 import { TIMEOUT } from '../../../utils/aqa_project_const.js';
-import { asyncFind } from '../../../utils/async_array_methods/array-async-methods.js';
+import {
+  asyncFind,
+  asyncForEach,
+  asyncMap,
+} from '../../../utils/async_array_methods/array-async-methods.js';
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
 import Utils from '../../../utils/utils.js';
 import { isWebElement } from '../../../utils/type-guards.js';
+import { util } from 'chai';
+import utils from '../../../utils/utils.js';
 
 export default class PageHandler {
   async findElement(selector: string | WebdriverIO.Element): Promise<WebdriverIO.Element> {
@@ -105,7 +111,7 @@ export default class PageHandler {
   }
 
   @logAction('Get text from element with selector {selector}')
-  async getText(selector: string) {
+  async getText(selector: WebdriverIO.Element | string) {
     try {
       const elem = await this.waitForElement(selector);
       const text = await elem.getText();
@@ -215,17 +221,48 @@ export default class PageHandler {
     return isDisplayed;
   }
 
+  async selectByAttribute(selector: string, attribute: string, value: string) {
+    try {
+      const elem = await this.waitForElement(selector);
+      await elem.selectByAttribute(attribute, value);
+      Logger.log(
+        `Successfully selected element: "${Utils.getElementSelector(
+          elem,
+        )}", by attribute: "${attribute}" with value: "${value}"`,
+      );
+    } catch (error) {
+      Logger.log(
+        `Failed select element "${Utils.getElementSelector(
+          selector,
+        )}", by attribute: "${attribute}" with value: "${value}"`,
+        'error',
+      );
+      throw new Error(
+        `Error while selecting element with attribute by value with selector ${Utils.getElementSelector(
+          selector,
+        )}`,
+      );
+    }
+  }
+
+  async selectDropdownValue(dropdownSelector: string, text: string) {
+    await this.selectByAttribute(dropdownSelector, 'value', text);
+  }
+
   async waitForDropdownAndSelectValue(
     dropdownSelector: string,
     optionsSelector: string,
     text: string | number,
   ) {
-    const options = await this.waitForElementsArray(optionsSelector);
+    const options = await this.findArrayElements(optionsSelector);
+    console.log('optionsLength', options.length);
     await this.click(dropdownSelector);
     const option = await asyncFind(
       [...options],
       async (el: WebdriverIO.Element) => (await el.getText()) === text,
     );
-    if (option) await this.click(option);
+    if (option) {
+      await this.click(option);
+    }
   }
 }

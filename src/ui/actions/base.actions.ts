@@ -47,7 +47,6 @@ export default class BaseActions {
   @logAction('Choose dropdown option {optionSelector} in dropdown with selector {selector}')
   async chooseDropdownItem(dropdownSelector: string, optionSelector: string) {
     await this.basePage.click(dropdownSelector);
-    await Utils.browserPause(200);
     await this.basePage.click(optionSelector);
   }
 

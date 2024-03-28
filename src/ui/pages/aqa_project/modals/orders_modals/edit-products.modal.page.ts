@@ -25,6 +25,8 @@ class EditProductsModalPage extends ModalPage {
 
 class EditCustomerModalPage extends ModalPage {
   readonly ['Customers dropdown'] = '#inputCustomerOrder';
+  readonly ['Customers dropdown options'] = `${this['Customers dropdown']} > option`;
+  readonly ['Customer dropdown label in modal'] = `#div-inputCustomerOrder > label`;
   readonly ['Save button'] = '#update-customer-btn';
   readonly ['Cancel button'] = '#cancel-edit-customer-modal-btn';
 }

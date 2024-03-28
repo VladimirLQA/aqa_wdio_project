@@ -10,6 +10,7 @@ export const orderPageToastMessages = {
   commentPosted: () => 'Comment was successfully posted',
   commentDeleted: () => 'Comment was successfully deleted',
   orderCreated: () => 'Order was successfully created',
+  orderUpdated: () => 'Order was successfully updated',
 };
 
 export const getComment = () => faker.commerce.productDescription() + faker.number.int(100);

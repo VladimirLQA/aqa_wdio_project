@@ -74,6 +74,7 @@ describe('Comments order details section', () => {
     );
   });
 
+  // more related to component (unit) tests
   it(`Should display error on incorrect input with "<>" symbols and clear error after correction @smoke`, async () => {
     comment = getComment();
     await OrderDetailsActions.tabsSection.fillCommentText(comment + '<>');
