@@ -1,0 +1,16 @@
+const ENVIRONMENT = {
+  LoginAuthorizationHeader: `${process.env.AUTHORIZATION}`,
+  projectName: `${process.env.PROJECT_NAME}`,
+  // ...conf[process.env.ENVIRONMENT || "web"],
+  ENVIRONMENT: `${process.env.ENVIRONMENT}`,
+  FRAMEWORK: `${process.env.FRAMEWORK}`,
+  DEBUG: `${process.env.DEBUG}`,
+  TEST_RUNNER: `${process.env.TEST_RUNNER}`,
+  MAX_INSTANCES: `${process.env.MAX_INSTANCES}`,
+  AUTHORIZATION: `${process.env.AUTHORIZATION}`,
+  API_CLIENT: `${process.env.API_CLIENT}`,
+  PROJECT_NAME: `${process.env.PROJECT_NAME}`,
+  LOGGER: `${process.env.LOGGER}`,
+};
+
+export default ENVIRONMENT;

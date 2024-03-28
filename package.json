@@ -22,17 +22,14 @@
     "wdio-chromedriver-service": "^8.1.1"
   },
   "scripts": {
-    "wdio": "wdio run ./src/wdio-configuration/wdio.conf.ts",
     "test:ui": "wdio run ./src/wdio-configuration/wdio.conf.ts --suite ui",
     "test:api": "wdio run ./src/wdio-configuration/wdio.conf.ts --suite api",
     "test:single": "wdio run ./src/wdio-configuration/wdio.conf.ts --suite single",
     "test:headless": "npm run test:api -- --headless",
-    "test:mocha-api": "npm run test:api",
-    "test:mocha-ui": "npm run test:ui",
-    "test:cucumber-ui": "npm run test:api",
+    "test:mocha-api": "cross-env FRAMEWORK=mocha npm run test:api",
+    "test:cucumber-ui": "cross-env FRAMEWORK=cucumber npm run test:ui",
     "report:generate": "allure generate src/report/allure-results --clean -o src/report/allure-report",
-    "report:open": "npm run report:generate && allure open src/report/allure-report",
-    "build": "rimraf dist && npx tsc"
+    "report:open": "npm run report:generate && allure open src/report/allure-report"
   },
   "dependencies": {
     "@faker-js/faker": "^8.3.1",
