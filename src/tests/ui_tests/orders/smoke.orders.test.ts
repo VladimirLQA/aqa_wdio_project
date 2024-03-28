@@ -11,6 +11,8 @@ import ApiProductsActions from '../../../api/api_actions/api-products.actions.js
 import ApiCustomersActions from '../../../api/api_actions/api-customers.actions.js';
 import Utils from '../../../utils/utils.js';
 import SideBarActions from '../../../ui/actions/side-bar.actions.js';
+import { ControllersList } from '../../../api/controllers/contollers.index.js';
+import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
 
 describe('Create order tests', () => {
   let orderId: string, order: IOrder;
@@ -26,7 +28,13 @@ describe('Create order tests', () => {
     await HomeActions.openOrdersPage();
   });
 
-  after(async () => {});
+  after(async () => {
+    await reqAsLoggedUser(ControllersList.orders.deleteOrder, { data: { _id: orderId } });
+    for (const product of [product_01, product_02]) {
+      await reqAsLoggedUser(ControllersList.products.delete, { data: { _id: product._id } });
+    }
+    await reqAsLoggedUser(ControllersList.customers.delete, { data: { _id: customer._id } });
+  });
 
   it('Create order', async () => {
     order = await OrderActions.createOrder(customer.name, [product_01.name, product_02.name]);

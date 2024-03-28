@@ -125,7 +125,7 @@ describe('Product validation data', () => {
     });
 
     for (const productPrice of productData.invalid.price) {
-      xit(`Should not create product with price: ${productPrice.description}`, async () => {
+      it(`Should not create product with price: ${productPrice.description}`, async () => {
         const response = await ApiActions.products.createProduct(
           token,
           getNewProduct({ price: productPrice.price }),
@@ -141,7 +141,7 @@ describe('Product validation data', () => {
     }
 
     for (const productAmount of productData.invalid.amount) {
-      xit(`Should not create product with amount: ${productAmount.description}`, async () => {
+      it(`Should not create product with amount: ${productAmount.description}`, async () => {
         const response = await ApiActions.products.createProduct(
           token,
           getNewProduct({ amount: productAmount.amount }),
@@ -157,7 +157,7 @@ describe('Product validation data', () => {
     }
 
     for (const productNotes of productData.invalid.notes) {
-      xit(`Should not create product with notes: ${productNotes.description}`, async () => {
+      it(`Should not create product with notes: ${productNotes.description}`, async () => {
         const response = await ApiActions.products.createProduct(
           token,
           getNewProduct({ notes: productNotes.notes }),
