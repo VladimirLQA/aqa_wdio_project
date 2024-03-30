@@ -25,7 +25,7 @@ export default class PageHandler {
     }
   }
 
-  async findArrayElements(selector: string): Promise<WebdriverIO.ElementArray> {
+  async findArrayElements(selector: string) {
     try {
       const elements = await $$(selector);
       return elements;
@@ -113,7 +113,7 @@ export default class PageHandler {
   @logAction('Get text from element with selector {selector}')
   async getText(selector: WebdriverIO.Element | string) {
     try {
-      const elem = await this.waitForElement(selector);
+      const elem = await this.findElement(selector);
       const text = await elem.getText();
       Logger.log(`Successfully get text "${text}" from element with selector ${selector}`);
       return text;

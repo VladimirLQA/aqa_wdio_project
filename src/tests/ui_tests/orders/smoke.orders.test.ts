@@ -1,12 +1,12 @@
 import { ICustomerResponse } from '../../../api/type/api.customers.type.js';
 import { IProductResponse } from '../../../api/type/api.product.type.js';
-import { orderPageToastMessages, getScheduleOrderUI } from '../../../data/orders/orders.data.js';
+import { orderPageToastMessages } from '../../../data/orders/orders.data.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import OrderActions from '../../../ui/actions/orders/orders.actions.js';
 import SignInActions from '../../../ui/actions/sign-in.actions.js';
 import OrdersAssertions from '../../../ui/assertions/orders_assertions/orders.assertions.js';
 import OrdersDetailsActions from '../../../ui/actions/orders/orders-details.actions.js';
-import { IOrder, LOCATION_TYPE, ORDER_HISTORY_ACTIONS } from '../../../ui/types/order.types.js';
+import { IOrder } from '../../../ui/types/order.types.js';
 import ApiProductsActions from '../../../api/api_actions/api-products.actions.js';
 import ApiCustomersActions from '../../../api/api_actions/api-customers.actions.js';
 import Utils from '../../../utils/utils.js';
@@ -24,8 +24,15 @@ describe('Create order tests', () => {
     [customer] = await ApiCustomersActions.createCustomers(1);
 
     await SignInActions.openSalesPortal();
+  });
+
+  beforeEach(async () => {
     await SignInActions.signIn();
     await HomeActions.openOrdersPage();
+  });
+
+  afterEach(async () => {
+    await SideBarActions.clickOnSignOutButton();
   });
 
   after(async () => {
@@ -40,7 +47,7 @@ describe('Create order tests', () => {
     order = await OrderActions.createOrder(customer.name, [product_01.name, product_02.name]);
     orderId = order._id;
 
-    await OrdersAssertions.verifyToastMessageAndCloseToast(orderPageToastMessages.orderCreated());
+    await OrdersAssertions.verifyAndCloseToast(orderPageToastMessages.orderCreated());
     await OrdersAssertions.verifyCreatedOrderInTableRow(order);
   });
 
@@ -53,9 +60,8 @@ describe('Create order tests', () => {
     await OrdersDetailsActions.clickOnProcessOrderButton();
     await OrdersDetailsActions.clickOnYesButtonInProcessOrderModal();
 
-    await OrdersAssertions.verifyToastMessageAndCloseToast(
-      orderPageToastMessages.orderProcessingStarted(),
-    );
+    await Utils.browserPause(500);
+    await OrdersAssertions.verifyAndCloseToast(orderPageToastMessages.orderProcessingStarted());
     await SideBarActions.clickOnSidebarOrdersButton();
 
     order = await OrderActions.getOrder(customer.name, [product_01.name, product_02.name]);
@@ -68,9 +74,8 @@ describe('Create order tests', () => {
     await OrdersDetailsActions.customerProductSection.clickOnSelectAllCheckbox();
     await OrdersDetailsActions.customerProductSection.clickOnSaveReceivedProductsButton();
 
-    await OrdersAssertions.verifyToastMessageAndCloseToast(
-      orderPageToastMessages.productReceived(),
-    );
+    await Utils.browserPause(500);
+    await OrdersAssertions.verifyAndCloseToast(orderPageToastMessages.productReceived());
     await SideBarActions.clickOnSidebarOrdersButton();
 
     order = await OrderActions.getOrder(customer.name, [product_01.name, product_02.name]);

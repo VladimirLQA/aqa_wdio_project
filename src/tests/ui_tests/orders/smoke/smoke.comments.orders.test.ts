@@ -46,7 +46,7 @@ describe('Comments order details section', () => {
 
     await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
 
-    await OrdersAssertions.verifyToastMessageAndCloseToast(orderPageToastMessages.commentPosted());
+    await OrdersAssertions.verifyAndCloseToast(orderPageToastMessages.commentPosted());
     await OrdersAssertions.verifyElementIsDisplayed(
       OrderDetailsPage.tabsSection['Comment']['Comment by text'](comment),
       true,
@@ -63,7 +63,7 @@ describe('Comments order details section', () => {
     await OrderDetailsActions.closeToastMessage();
     await OrderDetailsActions.tabsSection.clickOnDeleteCommentButtonWithCommentText(comment);
 
-    await OrdersAssertions.verifyToastMessageAndCloseToast(orderPageToastMessages.commentDeleted());
+    await OrdersAssertions.verifyAndCloseToast(orderPageToastMessages.commentDeleted());
     await OrdersAssertions.verifyElementIsDisplayed(
       OrderDetailsPage.tabsSection['Comment']['Comment by text'](comment),
       false,

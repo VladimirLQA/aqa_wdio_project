@@ -21,7 +21,7 @@ class ProductsAssertions extends CommonAssertions {
   }
   async verifyProductToastText(text: ProductToastMessage, name?: string) {
     const productToastText = await ProductsActions.getProductToastText(text, name);
-    await this.verifyToastMessageAndCloseToast(productToastText);
+    await this.verifyAndCloseToast(productToastText);
   }
 }
 

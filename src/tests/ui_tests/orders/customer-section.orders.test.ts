@@ -1,7 +1,7 @@
 import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
 import { ControllersList } from '../../../api/controllers/contollers.index.js';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
-import { getComment, orderPageToastMessages } from '../../../data/orders/orders.data.js';
+import { orderPageToastMessages } from '../../../data/orders/orders.data.js';
 import SignInActions from '../../../ui/actions/sign-in.actions.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import OrderDetailsActions from '../../../ui/actions/orders/orders-details.actions.js';
@@ -42,11 +42,11 @@ describe('Customer order section', () => {
   });
 
   after(async () => {
-    // await reqAsLoggedUser(ControllersList.orders.deleteOrder, { data: { _id: orderIdShared } });
-    // for (const product of [products]) {
-    //   await reqAsLoggedUser(ControllersList.products.delete, { data: { _id: product } });
-    // }
-    // await reqAsLoggedUser(ControllersList.customers.delete, { data: { _id: customer } });
+    await reqAsLoggedUser(ControllersList.orders.deleteOrder, { data: { _id: orderIdShared } });
+    for (const product of [products]) {
+      await reqAsLoggedUser(ControllersList.products.delete, { data: { _id: product } });
+    }
+    await reqAsLoggedUser(ControllersList.customers.delete, { data: { _id: customer } });
   });
 
   it('Should verify customer info in "Customer" section after order is created', async () => {
@@ -87,7 +87,7 @@ describe('Customer order section', () => {
     );
     await OrderDetailsActions.customerProductSection.editCustomerModal.clickOnSaveButton();
 
-    await OrdersAssertions.verifyToastMessageAndCloseToast(orderPageToastMessages.orderUpdated());
+    await OrdersAssertions.verifyAndCloseToast(orderPageToastMessages.orderUpdated());
     await OrdersAssertions.verifyCustomerInCustomerDetailsSection(newOrderCustomer);
     const orderHistory = await OrderDetailsActions.tabsSection.getParsedAction(
       ORDER_HISTORY_ACTIONS.CUSTOMER_CHANGED,
