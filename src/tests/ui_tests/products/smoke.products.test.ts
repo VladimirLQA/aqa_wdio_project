@@ -1,6 +1,4 @@
-import ProductsController from '../../../api/controllers/products.controller.js';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
-import { IProductResponse } from '../../../api/type/api.product.type.js';
 import { getNewProduct } from '../../../data/products/product.data.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions.js';
@@ -20,16 +18,16 @@ describe('Smoke tests with creating product', () => {
 
   after('Tear down', async () => {
     let ids: string[] = [];
-    for (const productName of productsNames) {
-      ids.push(
-        (await reqAsLoggedUser(ProductsController.get, {})).data.Products.filter(
-          (product: IProductResponse) => product.name === productName,
-        ).map((el: IProductResponse) => el._id),
-      );
-    }
-    for (const id of ids) {
-      await reqAsLoggedUser(ProductsController.delete, { data: { _id: id } });
-    }
+    // for (const productName of productsNames) {
+    //   ids.push(
+    //     (await reqAsLoggedUser(ProductsController.get, {})).data.Products.filter(
+    //       (product: IProductResponse) => product.name === productName,
+    //     ).map((el: IProductResponse) => el._id),
+    //   );
+    // }
+    // for (const id of ids) {
+    //   await reqAsLoggedUser(ProductsController.delete, { data: { _id: id } });
+    // }
   });
 
   it('Should create product and verify in table of products', async () => {

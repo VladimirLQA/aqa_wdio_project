@@ -1,11 +1,6 @@
-import { ORDER_STATUSES } from '../../ui/types/order.types.js';
+import { IOrder, ORDER_STATUSES } from '../../ui/types/order.types.js';
 import OrdersController from '../controllers/orders.controller.js';
-import {
-  IApiCommentRequest,
-  IApiOrderDeliveryRequest,
-  IApiOrdersRequest,
-  IOrderData,
-} from '../type/api.orders.type.js';
+import { IApiCommentRequest, IApiOrderDeliveryRequest, IApiOrdersRequest, IOrderData } from '../type/api.orders.type.js';
 import { IProductResponse } from '../type/api.product.type.js';
 import Utils from '../../utils/utils.js';
 import { ICustomerResponse } from '../type/api.customers.type.js';
@@ -22,22 +17,29 @@ class ApiOrdersActions {
     }
   }
 
-  async createOrderWithGeneratedProductsAndCustomer(
-    token: string,
-    productCount: number,
-  ): Promise<IOrderData> {
-    const productsId = (await ApiProductsActions.createProducts(productCount)).map((p) => p._id);
-    const customerId = (await ApiCustomersActions.createCustomers(1))[0]._id;
+  async createOrderWithDraftStatus(token: string, orderData: Partial<IOrderData>): Promise<IOrderData> {
+    const data: IApiOrdersRequest = {
+      customer: orderData.customerId ?? (await ApiCustomersActions.createCustomers(1))[0]._id,
+      products: [],
+    };
+
+    if (!data.products.length) {
+      const productsId = (await ApiProductsActions.createProducts(2)).map((p) => p._id);
+      data.products.push(...productsId);
+    } else {
+      data.products.push(...orderData.productsId!);
+    }
 
     try {
       const response = await OrdersController.createOrder({
         token,
-        data: {
-          customer: customerId,
-          products: [...productsId],
-        },
+        data,
       });
-      return { orderId: response.data?.Order._id, productsId, customerId };
+      return {
+        orderId: response.data?.Order._id,
+        productsId: data.products,
+        customerId: data.customer,
+      };
     } catch (error: any) {
       throw new Error('Error during creating order');
     }
@@ -151,11 +153,7 @@ class ApiOrdersActions {
   }
 
   async updateOrderStatusToPartialyReceived(token: string, orderId: string) {
-    const response = await this.updateOrderStatus(
-      token,
-      orderId,
-      ORDER_STATUSES.PARTIALLY_RECEIVED,
-    );
+    const response = await this.updateOrderStatus(token, orderId, ORDER_STATUSES.PARTIALLY_RECEIVED);
     return response;
   }
 
@@ -183,10 +181,7 @@ class ApiOrdersActions {
     }
   }
 
-  async receiveProductInOrder(
-    token: string,
-    productId: Pick<IApiOrdersRequest, '_id' | 'products'>,
-  ) {
+  async receiveProductInOrder(token: string, productId: Pick<IApiOrdersRequest, '_id' | 'products'>) {
     try {
       const response = await OrdersController.receive({
         token,
@@ -194,15 +189,10 @@ class ApiOrdersActions {
       });
       return response;
     } catch (error) {
-      throw new Error(
-        `Error while receiving product in order, order id - ${productId.products?.at(-1)}`,
-      );
+      throw new Error(`Error while receiving product in order, order id - ${productId.products?.at(-1)}`);
     }
   }
-  async receiveAllProductsInOrder(
-    token: string,
-    productsId: Pick<IApiOrdersRequest, '_id' | 'products'>,
-  ) {
+  async receiveAllProductsInOrder(token: string, productsId: Pick<IApiOrdersRequest, '_id' | 'products'>) {
     try {
       const response = await OrdersController.receive({
         token,
@@ -216,8 +206,7 @@ class ApiOrdersActions {
 
   async getAllProductsFromOrder(token: string, orderId: string) {
     try {
-      const products: IProductResponse[] = (await this.getOrderByID(token, orderId)).data.Order
-        .products;
+      const products: IProductResponse[] = (await this.getOrderByID(token, orderId)).data.Order.products;
       return Utils.sortById(products);
     } catch (error) {
       throw new Error(`Error while getting all products from order, order id - ${orderId}`);
@@ -226,8 +215,7 @@ class ApiOrdersActions {
 
   async getCustomerFromOrder(token: string, orderId: string) {
     try {
-      const customer: ICustomerResponse = (await this.getOrderByID(token, orderId)).data.Order
-        .customer;
+      const customer: ICustomerResponse = (await this.getOrderByID(token, orderId)).data.Order.customer;
       return customer;
     } catch (error) {
       throw new Error(`Error while getting customer from order, order id - ${orderId}`);

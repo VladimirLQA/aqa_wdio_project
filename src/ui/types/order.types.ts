@@ -48,9 +48,10 @@ export interface IAddress {
 
 export interface IDelivery {
   condition: DELIVERY | null;
-  finalDate: string | number;
+  finalDate: string;
   address: IAddress;
 }
+export type IDeliveryWithLocation = IDelivery & { location: LOCATION_TYPE };
 
 export interface IHistory {
   action: ORDER_HISTORY_ACTIONS;
@@ -89,3 +90,18 @@ export const orderStatusesArray = [
 ];
 
 export type HeaderDetailsTitles = 'Order Status' | 'Total Price' | 'Delivery';
+
+export interface IOrderHistoryPreviousUpdated {
+  previous: string;
+  updated: string;
+}
+
+export interface IDeliveryScheduleHistory {
+  city: IOrderHistoryPreviousUpdated;
+  country: IOrderHistoryPreviousUpdated;
+  'delivery date': IOrderHistoryPreviousUpdated;
+  'delivery type': IOrderHistoryPreviousUpdated;
+  flat: IOrderHistoryPreviousUpdated;
+  house: IOrderHistoryPreviousUpdated;
+  street: IOrderHistoryPreviousUpdated;
+}

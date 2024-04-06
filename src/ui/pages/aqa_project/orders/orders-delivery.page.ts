@@ -1,6 +1,7 @@
 import BasePage from '../base.page.js';
 
 class DeliveryPage extends BasePage {
+  readonly ['Page title'] = `//div[@id='title']`;
   readonly ['Delivery Type dropdown'] = '#inputType';
 
   readonly ['Delivery type dropdown option'] = (option: 'delivery' | 'pickup') =>

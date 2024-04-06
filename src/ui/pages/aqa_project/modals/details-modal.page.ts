@@ -1,4 +1,5 @@
 import { asyncForEach } from '../../../../utils/async_array_methods/array-async-methods.js';
+import utils from '../../../../utils/utils.js';
 import { IInitObject } from '../../../types/common.types.js';
 import ModalPage from './modal.page.js';
 
@@ -19,6 +20,7 @@ class DetailsModalPage extends ModalPage {
 
   async getParsedDetailsData() {
     const parsedData: IInitObject = {};
+    await utils.browserPause(1000);
     const modalRowsData = await this.waitForElementsArray(this['Modal data rows']);
     const rows = await Promise.all(await modalRowsData.map((elem) => elem));
 

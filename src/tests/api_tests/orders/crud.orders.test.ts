@@ -1,29 +1,17 @@
-import ApiCustomersActions from '../../../api/api_actions/api-customers.actions.js';
-import ApiOrdersActions from '../../../api/api_actions/api-orders.actions.js';
-import ApiProductsActions from '../../../api/api_actions/api-products.actions.js';
-import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions.js';
 import ApiCustomersAssertions from '../../../api/api_assertions/api-customers.assertions.js';
 import ApiOrdersAssertions from '../../../api/api_assertions/api-orders.assertions.js';
 import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions.js';
-import CustomerController from '../../../api/controllers/customer.controller.js';
-import OrdersController from '../../../api/controllers/orders.controller.js';
-import ProductsController from '../../../api/controllers/products.controller.js';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
 import { ICustomerResponse } from '../../../api/type/api.customers.type.js';
 import { IProductResponse } from '../../../api/type/api.product.type.js';
 import { CREATE_ORDER_SCHEMA } from '../../../data/json_schemas/orders.schema.js';
 import { STATUS_CODES } from '../../../api/type/api.common.type.js';
-import {
-  IHistory,
-  IOrder,
-  ORDER_HISTORY_ACTIONS,
-  ORDER_STATUSES,
-} from '../../../ui/types/order.types.js';
+import { IHistory, IOrder, ORDER_HISTORY_ACTIONS, ORDER_STATUSES } from '../../../ui/types/order.types.js';
 import Utils from '../../../utils/utils.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
 import { AxiosResponse } from 'axios';
-import { scheduleOrder } from '../../../data/orders/orders.data.js';
+import { getScheduleOrder } from '../../../data/orders/orders.data.js';
 import { ControllersList } from '../../../api/controllers/contollers.index.js';
 import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
 
@@ -81,10 +69,7 @@ describe('[CRUD] ORDERS test', () => {
       ApiOrdersAssertions.verifyResponseSchema(CREATE_ORDER_SCHEMA, response.data);
 
       Utils.sortByNameASC([product_01, product_02]).forEach((p, idx) => {
-        ApiProductsAssertions.verifyProduct(
-          p,
-          Utils.sortByNameASC(response.data.Order.products)[idx],
-        );
+        ApiProductsAssertions.verifyProduct(p, Utils.sortByNameASC(response.data.Order.products)[idx]);
       });
       ApiCustomersAssertions.verifyCustomer(response.data.Order.customer, customer);
       Expect.toEqual({ actual: response.data.Order.total_price, expected: totalPrice });
@@ -112,15 +97,13 @@ describe('[CRUD] ORDERS test', () => {
     });
 
     it('Should schedule delivery', async () => {
-      const delivery = scheduleOrder();
+      const delivery = getScheduleOrder();
       response = await ApiActions.orders.scheduleOrderDelivery(token, { _id: orderId, delivery });
 
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       ApiOrdersAssertions.verifyOrderSchedule(response.data?.Order.delivery, delivery);
       Expect.toBeTrue({
-        actual: response.data?.Order.history.some(
-          (v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.DELIVERY_SCHEDULED,
-        ),
+        actual: response.data?.Order.history.some((v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.DELIVERY_SCHEDULED),
       });
     });
 
@@ -130,14 +113,10 @@ describe('[CRUD] ORDERS test', () => {
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       Expect.toEqual({ actual: response.data?.Order.status, expected: ORDER_STATUSES.IN_PROCESS });
       Expect.toBeTrue({
-        actual: response.data?.Order.history.some(
-          (v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.PROCESSED,
-        ),
+        actual: response.data?.Order.history.some((v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.PROCESSED),
       });
       Expect.toBeTrue({
-        actual: response.data?.Order.history.some(
-          (v: IHistory) => v.status === ORDER_STATUSES.IN_PROCESS,
-        ),
+        actual: response.data?.Order.history.some((v: IHistory) => v.status === ORDER_STATUSES.IN_PROCESS),
       });
     });
 
@@ -150,14 +129,10 @@ describe('[CRUD] ORDERS test', () => {
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
       Expect.toEqual({ actual: response.data?.Order.status, expected: ORDER_STATUSES.RECEIVED });
       Expect.toBeTrue({
-        actual: response.data?.Order.history.some(
-          (v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.RECEIVED_ALL,
-        ),
+        actual: response.data?.Order.history.some((v: IHistory) => v.action === ORDER_HISTORY_ACTIONS.RECEIVED_ALL),
       });
       Expect.toBeTrue({
-        actual: response.data?.Order.history.some(
-          (v: IHistory) => v.status === ORDER_STATUSES.RECEIVED,
-        ),
+        actual: response.data?.Order.history.some((v: IHistory) => v.status === ORDER_STATUSES.RECEIVED),
       });
     });
   });

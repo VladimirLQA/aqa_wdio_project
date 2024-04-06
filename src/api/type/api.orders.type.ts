@@ -5,8 +5,8 @@ export interface IApiOrderId {
   _id?: string;
 }
 export interface IApiOrdersRequest extends IApiOrderId {
-  customer?: string;
-  products?: string[];
+  customer: string;
+  products: string[];
 }
 
 export interface IApiCommentRequest extends IApiOrderId {

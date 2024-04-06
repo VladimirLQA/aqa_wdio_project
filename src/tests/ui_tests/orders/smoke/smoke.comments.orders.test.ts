@@ -15,8 +15,7 @@ describe('Comments order details section', () => {
 
   before(async () => {
     token = await ApiActions.signIn.signInAsAdminAndGetToken();
-    const { orderId, productsId, customerId } =
-      await ApiActions.orders.createOrderWithGeneratedProductsAndCustomer(token, 1);
+    const { orderId, productsId, customerId } = await ApiActions.orders.createOrderWithDraftStatus(token, {});
     orderIdShared = orderId;
     products = productsId;
     customer = customerId;
@@ -35,7 +34,7 @@ describe('Comments order details section', () => {
   after(async () => {
     await reqAsLoggedUser(ControllersList.orders.deleteOrder, { data: { _id: orderIdShared } });
 
-    for (const product of [products]) {
+    for (const product of [...products]) {
       await reqAsLoggedUser(ControllersList.products.delete, { data: { _id: product } });
     }
     await reqAsLoggedUser(ControllersList.customers.delete, { data: { _id: customer } });
@@ -47,14 +46,8 @@ describe('Comments order details section', () => {
     await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
 
     await OrdersAssertions.verifyAndCloseToast(orderPageToastMessages.commentPosted());
-    await OrdersAssertions.verifyElementIsDisplayed(
-      OrderDetailsPage.tabsSection['Comment']['Comment by text'](comment),
-      true,
-    );
-    await OrdersAssertions.verifyIsClickableButton(
-      OrderDetailsPage.tabsSection['Comment']['Create comment button'],
-      false,
-    );
+    await OrdersAssertions.verifyElementIsDisplayed(OrderDetailsPage.tabsSection['Comment']['Comment by text'](comment), true);
+    await OrdersAssertions.verifyIsClickableButton(OrderDetailsPage.tabsSection['Comment']['Create comment button'], false);
   });
 
   it('Should delete comment @smoke', async () => {
@@ -64,32 +57,18 @@ describe('Comments order details section', () => {
     await OrderDetailsActions.tabsSection.clickOnDeleteCommentButtonWithCommentText(comment);
 
     await OrdersAssertions.verifyAndCloseToast(orderPageToastMessages.commentDeleted());
-    await OrdersAssertions.verifyElementIsDisplayed(
-      OrderDetailsPage.tabsSection['Comment']['Comment by text'](comment),
-      false,
-    );
-    await OrdersAssertions.verifyIsClickableButton(
-      OrderDetailsPage.tabsSection['Comment']['Create comment button'],
-      false,
-    );
+    await OrdersAssertions.verifyElementIsDisplayed(OrderDetailsPage.tabsSection['Comment']['Comment by text'](comment), false);
+    await OrdersAssertions.verifyIsClickableButton(OrderDetailsPage.tabsSection['Comment']['Create comment button'], false);
   });
 
   // more related to component (unit) tests
   it(`Should display error on incorrect input with "<>" symbols and clear error after correction @smoke`, async () => {
     comment = getComment();
     await OrderDetailsActions.tabsSection.fillCommentText(comment + '<>');
-    await OrdersAssertions.verifyElementIsDisplayed(
-      OrderDetailsPage.tabsSection['Comment']['Error input text area'],
-      true,
-    );
+    await OrdersAssertions.verifyElementIsDisplayed(OrderDetailsPage.tabsSection['Comment']['Error input text area'], true);
 
-    await OrderDetailsActions.clearInputField(
-      OrderDetailsPage.tabsSection['Comment']['Comments input text area'],
-    );
+    await OrderDetailsActions.clearInputField(OrderDetailsPage.tabsSection['Comment']['Comments input text area']);
     await OrderDetailsActions.tabsSection.fillCommentText(comment);
-    await OrdersAssertions.verifyElementIsDisplayed(
-      OrderDetailsPage.tabsSection['Comment']['Error input text area'],
-      false,
-    );
+    await OrdersAssertions.verifyElementIsDisplayed(OrderDetailsPage.tabsSection['Comment']['Error input text area'], false);
   });
 });

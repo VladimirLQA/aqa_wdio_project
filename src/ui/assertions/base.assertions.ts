@@ -28,16 +28,20 @@ export class BaseAssertions {
   }
 
   async verifyAndCloseToast(text: string) {
-    const notifications = await this.basePage.findArrayElements(this.basePage['Toast text']);
-    const expectedNotification = await asyncFind<WebdriverIO.Element>(
-      [...notifications],
-      async (notification) => (await this.basePage.getText(notification)) === text,
-    );
-    if (!expectedNotification) throw new Error(`Toast message with text ${text} was not found`);
-
-    const actualText = await this.basePage.getText(expectedNotification);
-    Expect.toEqual({ actual: actualText, expected: text });
+    const notification = await this.basePage.getText(this.basePage['Toast text']);
+    Expect.toEqual({ actual: notification, expected: text });
     await this.baseActions.closeToastMessage();
+    // const notifications = await this.basePage.findArrayElements(this.basePage['Toast text']);
+    // const expectedNotification = await asyncFind<WebdriverIO.Element>([...notifications], async (notification) => {
+    //   const not = (await this.basePage.getText(notification)).trim();
+    //   console.log('notification', not);
+    //   return not === text;
+    // });
+    // if (!expectedNotification) throw new Error(`Toast message with text ${text} was not found`);
+
+    // const actualText = await this.basePage.getText(expectedNotification);
+    // Expect.toEqual({ actual: actualText, expected: text });
+    // await this.baseActions.closeToastMessage();
   }
 
   async verifyElementIsDisplayed(selector: string, expected: boolean) {

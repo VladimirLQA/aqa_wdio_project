@@ -26,11 +26,9 @@ describe('Customer order section', () => {
   before(async () => {
     token = await ApiActions.signIn.signInAsAdminAndGetToken();
 
-    newOrderCustomer = (await ApiActions.customers.createCustomer(token, getNewCustomer())).data
-      .Customer;
+    newOrderCustomer = (await ApiActions.customers.createCustomer(token, getNewCustomer())).data.Customer;
 
-    const { orderId, productsId, customerId } =
-      await ApiActions.orders.createOrderWithGeneratedProductsAndCustomer(token, 1);
+    const { orderId, productsId, customerId } = await ApiActions.orders.createOrderWithDraftStatus(token, {});
     orderIdShared = orderId;
     products = productsId;
     customer.push(customerId, newOrderCustomer._id);
@@ -50,16 +48,12 @@ describe('Customer order section', () => {
   });
 
   it('Should verify customer info in "Customer" section after order is created', async () => {
-    const apiCustomer: ICustomer = (await ApiActions.customers.getCustomerByID(token, customer[0]))
-      .data.Customer;
+    const apiCustomer: ICustomer = (await ApiActions.customers.getCustomerByID(token, customer[0])).data.Customer;
     await OrdersAssertions.verifyCustomerInCustomerDetailsSection(apiCustomer);
   });
 
   it('Should change customer in order', async () => {
-    await OrdersAssertions.verifyIsClickableButton(
-      OrderDetailsPage.customerProductSection['Customer']['Edit customer pencil button'],
-      true,
-    );
+    await OrdersAssertions.verifyIsClickableButton(OrderDetailsPage.customerProductSection['Customer']['Edit customer pencil button'], true);
 
     console.log('newCustomer', newOrderCustomer.name);
     await OrderDetailsActions.customerProductSection.clickOnCustomerDetailsPencilButton();
@@ -74,24 +68,18 @@ describe('Customer order section', () => {
     //   newOrderCustomer.name,
     // );
     await OrderDetailsActions.customerProductSection.chooseDropdownItem(
-      OrderDetailsPage.customerProductSection['Customer']['editCustomerModal'][
-        'Customers dropdown'
-      ],
+      OrderDetailsPage.customerProductSection['Customer']['editCustomerModal']['Customers dropdown'],
       OrderDetailsPage['Dropdown option [last()]'](newOrderCustomer.name),
     );
     await utils.browserPause(3000);
     await OrderDetailsActions.customerProductSection.basePage.click(
-      OrderDetailsPage.customerProductSection['Customer']['editCustomerModal'][
-        'Customer dropdown label in modal'
-      ],
+      OrderDetailsPage.customerProductSection['Customer']['editCustomerModal']['Customer dropdown label in modal'],
     );
     await OrderDetailsActions.customerProductSection.editCustomerModal.clickOnSaveButton();
 
     await OrdersAssertions.verifyAndCloseToast(orderPageToastMessages.orderUpdated());
     await OrdersAssertions.verifyCustomerInCustomerDetailsSection(newOrderCustomer);
-    const orderHistory = await OrderDetailsActions.tabsSection.getParsedAction(
-      ORDER_HISTORY_ACTIONS.CUSTOMER_CHANGED,
-    );
+    const orderHistory = await OrderDetailsActions.tabsSection.getParsedAction(ORDER_HISTORY_ACTIONS.CUSTOMER_CHANGED);
     console.log('orderHistory', orderHistory);
     // Expect.toEqual({ actual: orderHistory.previous });
   });

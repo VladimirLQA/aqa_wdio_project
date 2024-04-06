@@ -48,16 +48,14 @@ class OrderTabsSectionActions extends BaseActions {
     await this.basePage.click(tabsSection['Delivery']['Schedule delivery button']);
   }
 
-  async getParsedAction(action: ORDER_HISTORY_ACTIONS) {
+  async getParsedAction<T>(action: ORDER_HISTORY_ACTIONS) {
     const id = await this.getElementID(tabsSection['Order history']['Action id'](action));
     return (await this.basePage.browserExecute(`
         const result = {};
-        const action = document.querySelector('${tabsSection['Order history']['Get action with id'](
+        const action = document.querySelector('${tabsSection['Order history']['Get action with id'](id)}').innerText;
+        const data  = [...document.querySelectorAll('${tabsSection['Order history']['Action data by actioin id'](
           id,
-        )}').innerText;
-        const data  = [...document.querySelectorAll('${tabsSection['Order history'][
-          'Action data by actioin id'
-        ](id)}')].map(c => c.innerText).filter(v => v);
+        )}')].map(c => c.innerText).filter(v => v);
           const chunk = (arr, size) => {
               if (arr.length <= size) {
               return [arr];
@@ -75,7 +73,7 @@ class OrderTabsSectionActions extends BaseActions {
           };
         }); 
         return result;
-    `)) as Promise<{}>;
+    `)) as Promise<T>;
   }
 }
 

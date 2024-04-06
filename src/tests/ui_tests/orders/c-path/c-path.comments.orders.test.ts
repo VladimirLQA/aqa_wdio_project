@@ -1,8 +1,4 @@
-import {
-  commentsForOrderStatus,
-  getComment,
-  orderPageToastMessages,
-} from '../../../../data/orders/orders.data.js';
+import { commentsForOrderStatus, getComment, orderPageToastMessages } from '../../../../data/orders/orders.data.js';
 import SignInActions from '../../../../ui/actions/sign-in.actions.js';
 import HomeActions from '../../../../ui/actions/home.actions.js';
 import OrderDetailsActions from '../../../../ui/actions/orders/orders-details.actions.js';
@@ -36,10 +32,8 @@ describe('Order - comments tests @c-path', () => {
   });
 
   beforeEach(async () => {
-    let { orderId, productsId, customerId } =
-      await ApiOrdersActions.createOrderWithGeneratedProductsAndCustomer(token, 2);
-    productName = (await ApiActions.products.getProductByID(token, productsId[0])).data.Product
-      .name;
+    let { orderId, productsId, customerId } = await ApiOrdersActions.createOrderWithDraftStatus(token, {});
+    productName = (await ApiActions.products.getProductByID(token, productsId[0])).data.Product.name;
 
     await SideBarActions.clickOnSidebarOrdersButton();
     await OrdersActions.clickOnDetailsActionButton(orderId);
@@ -75,19 +69,13 @@ describe('Order - comments tests @c-path', () => {
 
     await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
     toastMessages.push(
-      await OrdersAssertions.elementIsDisplayedAndContainText(
-        OrderDetailsPage['Toast text'],
-        orderPageToastMessages.commentPosted(),
-      ),
+      await OrdersAssertions.elementIsDisplayedAndContainText(OrderDetailsPage['Toast text'], orderPageToastMessages.commentPosted()),
     );
     await OrderDetailsActions.closeToastMessage();
 
     await OrderDetailsActions.tabsSection.clickOnDeleteCommentButtonWithCommentText(comment);
     toastMessages.push(
-      await OrdersAssertions.elementIsDisplayedAndContainText(
-        OrderDetailsPage['Toast text'],
-        orderPageToastMessages.commentDeleted(),
-      ),
+      await OrdersAssertions.elementIsDisplayedAndContainText(OrderDetailsPage['Toast text'], orderPageToastMessages.commentDeleted()),
     );
     await OrderDetailsActions.closeToastMessage();
     Expect.toBeTrue({ actual: toastMessages.every((item) => item) });
@@ -98,10 +86,7 @@ describe('Order - comments tests @c-path', () => {
     const toastMessages: boolean[] = [];
     await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
     toastMessages.push(
-      await OrdersAssertions.elementIsDisplayedAndContainText(
-        OrderDetailsPage['Toast text'],
-        orderPageToastMessages.commentPosted(),
-      ),
+      await OrdersAssertions.elementIsDisplayedAndContainText(OrderDetailsPage['Toast text'], orderPageToastMessages.commentPosted()),
     );
     await OrderDetailsActions.closeToastMessage();
 
@@ -115,26 +100,18 @@ describe('Order - comments tests @c-path', () => {
     await OrderDetailsActions.tabsSection.clickOnCommentsTab();
     await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
     toastMessages.push(
-      await OrdersAssertions.elementIsDisplayedAndContainText(
-        OrderDetailsPage['Toast text'],
-        orderPageToastMessages.commentPosted(),
-      ),
+      await OrdersAssertions.elementIsDisplayedAndContainText(OrderDetailsPage['Toast text'], orderPageToastMessages.commentPosted()),
     );
     await OrderDetailsActions.closeToastMessage();
 
     await OrderDetailsActions.customerProductSection.clickOnReceiveButton();
-    await OrderDetailsActions.customerProductSection.clickOnCheckboxWithSpecifiedProductName(
-      productName,
-    );
+    await OrderDetailsActions.customerProductSection.clickOnCheckboxWithSpecifiedProductName(productName);
     await OrderDetailsActions.customerProductSection.clickOnSaveReceivedProductsButton();
     await OrderDetailsActions.closeToastMessage();
 
     await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
     toastMessages.push(
-      await OrdersAssertions.elementIsDisplayedAndContainText(
-        OrderDetailsPage['Toast text'],
-        orderPageToastMessages.commentPosted(),
-      ),
+      await OrdersAssertions.elementIsDisplayedAndContainText(OrderDetailsPage['Toast text'], orderPageToastMessages.commentPosted()),
     );
     await OrderDetailsActions.closeToastMessage();
 
@@ -145,10 +122,7 @@ describe('Order - comments tests @c-path', () => {
 
     await OrderDetailsActions.tabsSection.addCommentAndClickOnCreateButton(comment);
     toastMessages.push(
-      await OrdersAssertions.elementIsDisplayedAndContainText(
-        OrderDetailsPage['Toast text'],
-        orderPageToastMessages.commentPosted(),
-      ),
+      await OrdersAssertions.elementIsDisplayedAndContainText(OrderDetailsPage['Toast text'], orderPageToastMessages.commentPosted()),
     );
     await OrderDetailsActions.closeToastMessage();
     Expect.toBeTrue({ actual: toastMessages.every((item) => item) });

@@ -8,7 +8,6 @@ import {
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
 import Utils from '../../../utils/utils.js';
 import { isWebElement } from '../../../utils/type-guards.js';
-import { util } from 'chai';
 import utils from '../../../utils/utils.js';
 
 export default class PageHandler {
@@ -115,11 +114,20 @@ export default class PageHandler {
     try {
       const elem = await this.findElement(selector);
       const text = await elem.getText();
-      Logger.log(`Successfully get text "${text}" from element with selector ${selector}`);
+      Logger.log(
+        `Successfully get text "${text}" from element with selector ${Utils.getElementSelector(
+          selector,
+        )}`,
+      );
       return text;
     } catch (error) {
-      Logger.log(`Failed to get text from element with selector ${selector}`, 'error');
-      throw new Error(`Error while getting text from selector "${selector}"`);
+      Logger.log(
+        `Failed to get text from element with selector ${Utils.getElementSelector(selector)}`,
+        'error',
+      );
+      throw new Error(
+        `Error while getting text from selector "${Utils.getElementSelector(selector)}"`,
+      );
     }
   }
 

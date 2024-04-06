@@ -23,6 +23,7 @@ export class CommonAssertions extends BaseAssertions {
 
   async verifyCreatedEntityInDetailModal<T>(createdEntity: T) {
     const actualEntity = await DetailsModalPage.getParsedDetailsData();
+    console.log('actualEntity', actualEntity);
     for (const key in createdEntity) {
       if (key !== 'createdOn' && key !== '_id') {
         expect(actualEntity[key]).toBe(String(createdEntity[key]));

@@ -1,9 +1,10 @@
 import { COUNTRIES } from '../../types/customers.types.js';
-import { DELIVERY, IAddress, IDelivery, LOCATION_TYPE } from '../../types/order.types.js';
+import { DELIVERY, IAddress, IDelivery, IDeliveryWithLocation, LOCATION_TYPE } from '../../types/order.types.js';
 import BaseActions from '../base.actions.js';
 import DeliveryPage from '../../pages/aqa_project/orders/orders-delivery.page.js';
 import Utils from '../../../utils/utils.js';
 import { getScheduleOrderUI } from '../../../data/orders/orders.data.js';
+import utils from '../../../utils/utils.js';
 
 class DeliveryActions extends BaseActions {
   async clickOnCancelButton() {
@@ -15,28 +16,23 @@ class DeliveryActions extends BaseActions {
   }
 
   async chooseScheduleDeliveryType(type: DELIVERY) {
-    await this.chooseDropdownItem(
-      DeliveryPage['Delivery Type dropdown'],
-      DeliveryPage['Dropdown option [last()]'](type),
-    );
+    await this.chooseDropdownItem(DeliveryPage['Delivery Type dropdown'], DeliveryPage['Dropdown option [last()]'](type));
   }
 
   async chooseLocationType(location: LOCATION_TYPE) {
-    await this.chooseDropdownItem(
-      DeliveryPage['Location dropdown'],
-      DeliveryPage['Dropdown option [last()]'](location),
-    );
+    await this.chooseDropdownItem(DeliveryPage['Location dropdown'], DeliveryPage['Dropdown option [last()]'](location));
   }
 
   async clickOnDatePicker() {
     await DeliveryPage.click(DeliveryPage['Date picker']);
   }
 
-  async clickOnActiveDayInDatePicker(day: number) {
-    await DeliveryPage.click(DeliveryPage['Date picker active day'](day));
+  async clickOnActiveDayInDatePicker(date: string) {
+    const day = +date.split('/').at(-1)!;
+    await DeliveryPage.click(DeliveryPage['Date picker active day'](+day));
   }
 
-  async chooseDate(day: number) {
+  async chooseDate(day: string) {
     await this.clickOnDatePicker();
     await this.clickOnActiveDayInDatePicker(day);
   }
@@ -58,10 +54,7 @@ class DeliveryActions extends BaseActions {
   }
 
   async chooseCountry(country: COUNTRIES) {
-    await this.chooseDropdownItem(
-      DeliveryPage['Country dropdown'],
-      DeliveryPage['Dropdown option [last()]'](country),
-    );
+    await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
   }
 
   async fillAddress(address: IAddress) {
@@ -72,13 +65,13 @@ class DeliveryActions extends BaseActions {
     await this.chooseCountry(address?.country!);
   }
 
-  // TODO deal with lag after choosing option in location dropdown
-  async scheduleOrder(schedule?: IDelivery & { location: LOCATION_TYPE }) {
+  async scheduleOrder(schedule?: IDeliveryWithLocation) {
     const sch = { ...getScheduleOrderUI(), ...schedule };
     await this.chooseScheduleDeliveryType(sch.condition!);
     await this.chooseLocationType(sch.location);
-    await this.chooseLocationType(LOCATION_TYPE.HOME);
-    await this.chooseDate(+sch.finalDate!);
+    // await this.chooseLocationType(LOCATION_TYPE.HOME);
+
+    await this.chooseDate(sch.finalDate);
     if (sch.location === LOCATION_TYPE.OTHER && sch.condition === DELIVERY.DELIVERY) {
       await this.fillAddress(sch!.address!);
     } else if (sch.condition === DELIVERY.PICK_UP) {
