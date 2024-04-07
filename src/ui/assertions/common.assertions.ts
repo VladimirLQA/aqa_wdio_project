@@ -1,7 +1,6 @@
 import { CommonActions } from '../actions/common.actions.js';
 import { CommonPage } from '../pages/aqa_project/common.page.js';
 import DetailsModalPage from '../pages/aqa_project/modals/details-modal.page.js';
-import { IProduct } from '../../types/products.types.js';
 import { BaseAssertions } from './base.assertions.js';
 
 export class CommonAssertions extends BaseAssertions {

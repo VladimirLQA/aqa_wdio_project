@@ -1,10 +1,6 @@
-import Logger from '../../../utils/logger/logger.js';
+import Logger from '../../../utils/logger/winston-logger.js';
 import { TIMEOUT } from '../../../utils/aqa_project_const.js';
-import {
-  asyncFind,
-  asyncForEach,
-  asyncMap,
-} from '../../../utils/async_array_methods/array-async-methods.js';
+import { asyncFind, asyncForEach, asyncMap } from '../../../utils/async_array_methods/array-async-methods.js';
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
 import Utils from '../../../utils/utils.js';
 import { isWebElement } from '../../../utils/type-guards.js';
@@ -33,11 +29,7 @@ export default class PageHandler {
     }
   }
 
-  async waitForElement(
-    selector: string | WebdriverIO.Element,
-    reverse = false,
-    timeout = TIMEOUT['5 seconds'],
-  ): Promise<WebdriverIO.Element> {
+  async waitForElement(selector: string | WebdriverIO.Element, reverse = false, timeout = TIMEOUT['5 seconds']): Promise<WebdriverIO.Element> {
     const elem = await this.findElement(selector);
     await elem.waitForDisplayed({
       reverse,
@@ -47,11 +39,7 @@ export default class PageHandler {
     return elem;
   }
 
-  async waitForElementsArray(
-    selector: string,
-    reverse = false,
-    timeout = TIMEOUT['5 seconds'],
-  ): Promise<WebdriverIO.ElementArray> {
+  async waitForElementsArray(selector: string, reverse = false, timeout = TIMEOUT['5 seconds']): Promise<WebdriverIO.ElementArray> {
     const elements = await this.findArrayElements(selector);
     await browser.waitUntil(
       async () => {
@@ -80,9 +68,7 @@ export default class PageHandler {
       Logger.log(`Successfully set "${text}" into element with selector ${selector}`);
     } catch (error) {
       Logger.log(`Failed to set "${text}" into element with selector ${selector}`, 'error');
-      throw new Error(
-        `Error while setting text "${text}" into element with selector "${selector}"`,
-      );
+      throw new Error(`Error while setting text "${text}" into element with selector "${selector}"`);
     }
   }
 
@@ -97,15 +83,8 @@ export default class PageHandler {
       await elem.click();
       Logger.log(`Successfully click on element with selector ${Utils.getElementSelector(elem)}`);
     } catch (error) {
-      Logger.log(
-        `Failed to click on element with selector ${Utils.getElementSelector(selectorElement)}`,
-        'error',
-      );
-      throw new Error(
-        `Error while clicking on element with selector ${Utils.getElementSelector(
-          selectorElement,
-        )}`,
-      );
+      Logger.log(`Failed to click on element with selector ${Utils.getElementSelector(selectorElement)}`, 'error');
+      throw new Error(`Error while clicking on element with selector ${Utils.getElementSelector(selectorElement)}`);
     }
   }
 
@@ -114,20 +93,11 @@ export default class PageHandler {
     try {
       const elem = await this.findElement(selector);
       const text = await elem.getText();
-      Logger.log(
-        `Successfully get text "${text}" from element with selector ${Utils.getElementSelector(
-          selector,
-        )}`,
-      );
+      Logger.log(`Successfully get text "${text}" from element with selector ${Utils.getElementSelector(selector)}`);
       return text;
     } catch (error) {
-      Logger.log(
-        `Failed to get text from element with selector ${Utils.getElementSelector(selector)}`,
-        'error',
-      );
-      throw new Error(
-        `Error while getting text from selector "${Utils.getElementSelector(selector)}"`,
-      );
+      Logger.log(`Failed to get text from element with selector ${Utils.getElementSelector(selector)}`, 'error');
+      throw new Error(`Error while getting text from selector "${Utils.getElementSelector(selector)}"`);
     }
   }
 
@@ -137,22 +107,11 @@ export default class PageHandler {
       const element = await this.waitForElement(selector);
       if (element) {
         await element.clearValue();
-        Logger.log(
-          `Successfully cleared value from element with selector ${Utils.getElementSelector(
-            selector,
-          )}`,
-        );
+        Logger.log(`Successfully cleared value from element with selector ${Utils.getElementSelector(selector)}`);
       }
     } catch (error) {
-      Logger.log(
-        `Failed to clear value from element with selector ${Utils.getElementSelector(selector)}`,
-        'error',
-      );
-      throw new Error(
-        `Error while clearing value from element with selector "${Utils.getElementSelector(
-          selector,
-        )}"`,
-      );
+      Logger.log(`Failed to clear value from element with selector ${Utils.getElementSelector(selector)}`, 'error');
+      throw new Error(`Error while clearing value from element with selector "${Utils.getElementSelector(selector)}"`);
     }
   }
 
@@ -161,15 +120,11 @@ export default class PageHandler {
     try {
       const elem = await this.waitForElement(selector);
       const attr = await elem.getAttribute(attribute);
-      Logger.log(
-        `Successfully get element attribute ${attribute} from element with selector ${selector}`,
-      );
+      Logger.log(`Successfully get element attribute ${attribute} from element with selector ${selector}`);
       return attr;
     } catch (error) {
       Logger.log(`Failed to get element attribute from element with selector ${selector}`, 'error');
-      throw new Error(
-        `Error while getting element attribute from element with selector "${selector}"`,
-      );
+      throw new Error(`Error while getting element attribute from element with selector "${selector}"`);
     }
   }
 
@@ -178,18 +133,11 @@ export default class PageHandler {
     try {
       const elem = await this.waitForElement(selector);
       const property = await elem.getCSSProperty(cssProperty);
-      Logger.log(
-        `Successfully get element css property "${cssProperty}" from element with selector "${selector}"`,
-      );
+      Logger.log(`Successfully get element css property "${cssProperty}" from element with selector "${selector}"`);
       return property;
     } catch (error) {
-      Logger.log(
-        `Failed to get element css property from element with selector "${selector}"`,
-        'error',
-      );
-      throw new Error(
-        `Error while getting element css property from element with selector "${selector}"`,
-      );
+      Logger.log(`Failed to get element css property from element with selector "${selector}"`, 'error');
+      throw new Error(`Error while getting element css property from element with selector "${selector}"`);
     }
   }
 
@@ -233,23 +181,10 @@ export default class PageHandler {
     try {
       const elem = await this.waitForElement(selector);
       await elem.selectByAttribute(attribute, value);
-      Logger.log(
-        `Successfully selected element: "${Utils.getElementSelector(
-          elem,
-        )}", by attribute: "${attribute}" with value: "${value}"`,
-      );
+      Logger.log(`Successfully selected element: "${Utils.getElementSelector(elem)}", by attribute: "${attribute}" with value: "${value}"`);
     } catch (error) {
-      Logger.log(
-        `Failed select element "${Utils.getElementSelector(
-          selector,
-        )}", by attribute: "${attribute}" with value: "${value}"`,
-        'error',
-      );
-      throw new Error(
-        `Error while selecting element with attribute by value with selector ${Utils.getElementSelector(
-          selector,
-        )}`,
-      );
+      Logger.log(`Failed select element "${Utils.getElementSelector(selector)}", by attribute: "${attribute}" with value: "${value}"`, 'error');
+      throw new Error(`Error while selecting element with attribute by value with selector ${Utils.getElementSelector(selector)}`);
     }
   }
 
@@ -257,18 +192,11 @@ export default class PageHandler {
     await this.selectByAttribute(dropdownSelector, 'value', text);
   }
 
-  async waitForDropdownAndSelectValue(
-    dropdownSelector: string,
-    optionsSelector: string,
-    text: string | number,
-  ) {
+  async waitForDropdownAndSelectValue(dropdownSelector: string, optionsSelector: string, text: string | number) {
     const options = await this.findArrayElements(optionsSelector);
     console.log('optionsLength', options.length);
     await this.click(dropdownSelector);
-    const option = await asyncFind(
-      [...options],
-      async (el: WebdriverIO.Element) => (await el.getText()) === text,
-    );
+    const option = await asyncFind([...options], async (el: WebdriverIO.Element) => (await el.getText()) === text);
     if (option) {
       await this.click(option);
     }

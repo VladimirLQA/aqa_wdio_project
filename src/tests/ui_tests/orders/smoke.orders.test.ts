@@ -11,13 +11,13 @@ import Utils from '../../../utils/utils.js';
 import SideBarActions from '../../../ui/actions/side-bar.actions.js';
 import { ControllersList } from '../../../api/controllers/contollers.index.js';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
-import { ICustomerResponse } from '../../../types/customers.types.js';
+import { ICustomerFromResponse } from '../../../types/customers.types.js';
 import { IProductFromResponse } from '../../../types/products.types.js';
 
 describe('Create order tests', () => {
   let orderId: string, order: IOrder;
   let [product_01, product_02]: IProductFromResponse[] = [];
-  let [customer]: ICustomerResponse[] = [];
+  let [customer]: ICustomerFromResponse[] = [];
 
   before(async () => {
     [product_01, product_02] = await ApiProductsActions.createProducts(2);

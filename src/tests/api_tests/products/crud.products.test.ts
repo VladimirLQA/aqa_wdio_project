@@ -1,6 +1,6 @@
 import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions.js';
 import { CREATE_PRODUCT_SCHEMA } from '../../../data/json_schemas/products.schema.js';
-import { getNewProduct } from '../../../data/products/product.data.js';
+import { generateProduct } from '../../../data/products/product.data.js';
 import { IProduct, IProductFromResponse } from '../../../types/products.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
@@ -18,12 +18,12 @@ describe('[CRUD] PRODUCTS test', () => {
 
   context('[CRUD] test', () => {
     it('Should create product', async () => {
-      createdProduct = getNewProduct();
+      createdProduct = generateProduct();
 
       response = await ApiActions.products.createProduct(token, createdProduct);
 
       ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
-      ApiProductsAssertions.verifyResponseSchema(CREATE_PRODUCT_SCHEMA, response);
+      ApiProductsAssertions.verifyResponseSchema(CREATE_PRODUCT_SCHEMA, response.data);
       ApiProductsAssertions.verifyProduct(response.data.Product, createdProduct);
       productID = response.data.Product._id;
     });
@@ -35,7 +35,7 @@ describe('[CRUD] PRODUCTS test', () => {
     });
 
     it('Should update product', async () => {
-      const updatedProduct = getNewProduct();
+      const updatedProduct = generateProduct();
 
       const response = await ApiActions.products.updateProduct(token, productID, updatedProduct);
 

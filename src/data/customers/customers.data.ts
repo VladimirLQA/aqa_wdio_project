@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { ICustomer, COUNTRIES } from '../../types/customers.types.js';
 
-export const getNewCustomer = (customProductParams?: Partial<ICustomer>) => {
+export const generateCustomer = (customerData?: Partial<ICustomer>) => {
   return {
     email: faker.internet.email(),
     country: COUNTRIES.CANADA,
@@ -12,8 +12,6 @@ export const getNewCustomer = (customProductParams?: Partial<ICustomer>) => {
     name: `${faker.person.firstName()} ${faker.person.lastName()}`,
     city: faker.location.city(),
     house: faker.number.int({ min: 1, max: 300 }),
-    ...customProductParams,
+    ...customerData,
   };
 };
-
-export { COUNTRIES };

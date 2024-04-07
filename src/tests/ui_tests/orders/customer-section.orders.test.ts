@@ -8,8 +8,8 @@ import OrderDetailsActions from '../../../ui/actions/orders/orders-details.actio
 import OrdersActions from '../../../ui/actions/orders/orders.actions.js';
 import OrdersAssertions from '../../../ui/assertions/orders_assertions/orders.assertions.js';
 import OrderDetailsPage from '../../../ui/pages/aqa_project/orders/order-details.page.js';
-import { ICustomer, ICustomerResponse } from '../../../types/customers.types.js';
-import { getNewCustomer } from '../../../data/customers/customers.data.js';
+import { ICustomer, ICustomerFromResponse } from '../../../types/customers.types.js';
+import { generateCustomer } from '../../../data/customers/customers.data.js';
 import { ORDER_HISTORY_ACTIONS } from '../../../types/order.types.js';
 import utils from '../../../utils/utils.js';
 
@@ -18,12 +18,12 @@ describe('Customer order section', () => {
     orderIdShared: string,
     products: string[] = [],
     customer: string[] = [],
-    newOrderCustomer: ICustomerResponse;
+    newOrderCustomer: ICustomerFromResponse;
 
   before(async () => {
     token = await ApiActions.signIn.signInAsAdminAndGetToken();
 
-    newOrderCustomer = (await ApiActions.customers.createCustomer(token, getNewCustomer())).data.Customer;
+    newOrderCustomer = (await ApiActions.customers.createCustomer(token, generateCustomer())).data.Customer;
 
     const { orderId, productsId, customerId } = await ApiActions.orders.createOrderWithDraftStatus(token, {});
     orderIdShared = orderId;

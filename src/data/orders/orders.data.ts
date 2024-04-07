@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { DELIVERY, IAddress, IDelivery, IDeliveryWithLocation, LOCATION_TYPE } from '../../types/order.types.js';
-import { COUNTRIES } from '../customers/customers.data.js';
 import utils from '../../utils/utils.js';
+import { COUNTRIES } from '../../types/customers.types.js';
 
 export const orderPageToastMessages = {
   deliverySaved: () => 'Delivery was successfully saved',
@@ -64,9 +64,9 @@ export const DeliveryPageTitles = {
   edit: 'Edit Delivery',
 };
 
-export const getShopAddress = (country: COUNTRIES) => {
+export const getShopAddress = (country: COUNTRIES | string) => {
   return {
-    ...shopAddressByCountry[country],
+    ...shopAddressByCountry[country as COUNTRIES],
     country,
   };
 };

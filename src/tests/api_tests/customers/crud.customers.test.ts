@@ -1,8 +1,8 @@
 import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions.js';
 import ApiCustomersAssertions from '../../../api/api_assertions/api-customers.assertions.js';
-import { getNewCustomer } from '../../../data/customers/customers.data.js';
+import { generateCustomer } from '../../../data/customers/customers.data.js';
 import { CREATE_CUSTOMER_SCHEMA } from '../../../data/json_schemas/customers.schema.js';
-import { ICustomer, ICustomerResponse } from '../../../types/customers.types.js';
+import { ICustomer, ICustomerFromResponse } from '../../../types/customers.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
 import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
@@ -10,7 +10,7 @@ import { IResponse } from '../../../types/api-request.type.js';
 import { STATUS_CODES } from '../../../types/http.types.js';
 
 describe('[CRUD] CUSTOMERS test', () => {
-  let token: string, id: string, createdCustomer: ICustomerResponse | ICustomer, response: IResponse;
+  let token: string, id: string, createdCustomer: ICustomerFromResponse | ICustomer, response: IResponse;
 
   before(async () => {
     token = await ApiSignInActions.signInAsAdminAndGetToken();
@@ -18,9 +18,10 @@ describe('[CRUD] CUSTOMERS test', () => {
 
   context('[CRUD] test', () => {
     it('Should create customer', async () => {
-      createdCustomer = getNewCustomer();
+      createdCustomer = generateCustomer();
 
       response = await ApiActions.customers.createCustomer(token, createdCustomer);
+      console.log('response', JSON.stringify(response, null, 2));
 
       ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
       ApiCustomersAssertions.verifyResponseSchema(CREATE_CUSTOMER_SCHEMA, response.data);
@@ -37,7 +38,7 @@ describe('[CRUD] CUSTOMERS test', () => {
     });
 
     it('Should update customer by id', async () => {
-      const updatedCustomer = getNewCustomer();
+      const updatedCustomer = generateCustomer();
 
       response = await ApiActions.customers.updateCustomer(token, id, updatedCustomer);
 

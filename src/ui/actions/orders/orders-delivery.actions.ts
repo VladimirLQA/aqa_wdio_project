@@ -51,7 +51,7 @@ class DeliveryActions extends BaseActions {
     await this.fillInputField(DeliveryPage['House field'], text);
   }
 
-  async chooseCountry(country: COUNTRIES) {
+  async chooseCountry(country: COUNTRIES | string) {
     await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
   }
 

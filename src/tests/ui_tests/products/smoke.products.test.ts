@@ -1,5 +1,5 @@
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
-import { getNewProduct } from '../../../data/products/product.data.js';
+import { generateProduct } from '../../../data/products/product.data.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions.js';
 import ProductsActions from '../../../ui/actions/products/products.actions.js';
@@ -31,7 +31,7 @@ describe('Smoke tests with creating product', () => {
   });
 
   it('Should create product and verify in table of products', async () => {
-    productToCreate = getNewProduct();
+    productToCreate = generateProduct();
     productsNames.push(productToCreate.name);
 
     await ProductsActions.clickOnAddProductButton();
