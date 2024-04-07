@@ -6,8 +6,6 @@ export type ActionButtons = 'Delete' | 'Details' | 'Edit';
 
 export type UnionFilterModalLabels = MANUFACTURERS | ORDER_STATUSES | COUNTRIES;
 
-export type CreatedChangedOn = string;
-
 export interface IChipsFilterOptions {
   search?: string;
   quickFilters?: string[];

@@ -1,6 +1,6 @@
-import { COUNTRIES } from '../../types/customers.types.js';
-import { DELIVERY } from '../../types/order.types.js';
-import { MANUFACTURERS } from '../../types/products.types.js';
+import { COUNTRIES } from '../../../types/customers.types.js';
+import { DELIVERY } from '../../../types/order.types.js';
+import { MANUFACTURERS } from '../../../types/products.types.js';
 import PageHandler from './page-handler.page.js';
 
 export default class BasePage extends PageHandler {
@@ -16,8 +16,7 @@ export default class BasePage extends PageHandler {
 
   readonly ['Toast close button'] = '.toast-container button';
 
-  readonly ['Dropdown option [last()]'] = (option: MANUFACTURERS | COUNTRIES | DELIVERY | string) =>
-    `(//option[text()="${option}"])[last()]`;
+  readonly ['Dropdown option [last()]'] = (option: MANUFACTURERS | COUNTRIES | DELIVERY | string) => `(//option[text()="${option}"])[last()]`;
 
   readonly ['Chip buttons'] = '#chip-buttons .chip';
 
@@ -25,8 +24,7 @@ export default class BasePage extends PageHandler {
 
   readonly ['Table page'] = (pageName: string) => `#table-${pageName}`;
 
-  readonly ['Chip label'] = (pageName: string, chipName: string) =>
-    `.chip[data-chip-${pageName}='${chipName}']`;
+  readonly ['Chip label'] = (pageName: string, chipName: string) => `.chip[data-chip-${pageName}='${chipName}']`;
 
   readonly ['Filter button'] = '#filter';
 

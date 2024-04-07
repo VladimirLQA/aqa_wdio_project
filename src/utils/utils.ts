@@ -1,4 +1,4 @@
-import { IInitObject } from '../ui/types/common.types.js';
+import { IInitObject } from '../types/common.types.js';
 import { apiKeysForMapping, apiKeysMapper } from './mapper-keys.js';
 import { isWebElement } from './type-guards.js';
 
