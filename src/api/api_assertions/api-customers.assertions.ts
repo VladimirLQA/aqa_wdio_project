@@ -1,9 +1,9 @@
 import { ApiBaseAssertions } from './api-base.assertions.js';
-import { ICustomerResponse } from '../type/api.customers.type.js';
 import Expect from '../../utils/chai-expect/expect-collection.js';
+import { ICustomerFromResponse } from '../../types/customers.types.js';
 
 class ApiCustomersAssertions extends ApiBaseAssertions {
-  verifyCustomer(actual: ICustomerResponse, expected: Partial<ICustomerResponse>) {
+  verifyCustomer(actual: ICustomerFromResponse, expected: Partial<ICustomerFromResponse>) {
     Expect.toEqual({ actual: actual.name, expected: expected.name });
     Expect.toEqual({ actual: actual.notes, expected: expected.notes });
     Expect.toEqual({ actual: actual.email, expected: expected.email });

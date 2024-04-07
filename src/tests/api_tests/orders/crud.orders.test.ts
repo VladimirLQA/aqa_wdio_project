@@ -2,23 +2,23 @@ import ApiCustomersAssertions from '../../../api/api_assertions/api-customers.as
 import ApiOrdersAssertions from '../../../api/api_assertions/api-orders.assertions.js';
 import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions.js';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
-import { ICustomerResponse } from '../../../api/type/api.customers.type.js';
-import { IProductResponse } from '../../../api/type/api.product.type.js';
 import { CREATE_ORDER_SCHEMA } from '../../../data/json_schemas/orders.schema.js';
-import { STATUS_CODES } from '../../../api/type/api.common.type.js';
-import { IHistory, IOrder, ORDER_HISTORY_ACTIONS, ORDER_STATUSES } from '../../../ui/types/order.types.js';
+import { IHistory, ORDER_HISTORY_ACTIONS, ORDER_STATUSES } from '../../../types/order.types.js';
 import Utils from '../../../utils/utils.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
-import { AxiosResponse } from 'axios';
 import { getScheduleOrder } from '../../../data/orders/orders.data.js';
 import { ControllersList } from '../../../api/controllers/contollers.index.js';
 import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
+import { ICustomerFromResponse } from '../../../types/customers.types.js';
+import { STATUS_CODES } from '../../../types/http.types.js';
+import { IProductFromResponse } from '../../../types/products.types.js';
+import { IResponse } from '../../../types/api-request.type.js';
 
 describe('[CRUD] ORDERS test', () => {
-  let token: string, orderId: string, response: AxiosResponse, totalPrice: number;
-  let [product_01, product_02]: IProductResponse[] = [];
-  let [customer]: ICustomerResponse[] = [];
+  let token: string, orderId: string, response: IResponse, totalPrice: number;
+  let [product_01, product_02]: IProductFromResponse[] = [];
+  let [customer]: ICustomerFromResponse[] = [];
 
   before(async () => {
     token = await ApiActions.signIn.signInAsAdminAndGetToken();
@@ -44,13 +44,13 @@ describe('[CRUD] ORDERS test', () => {
     // }
 
     // const id3 = (await ApiCustomersActions.getAllPrCustomers(token)).data.Customers.map(
-    //   (customer: ICustomerResponse) => customer._id,
+    //   (customer: ICustomerFromResponse) => customer._id,
     // );
     // for (const id of id3) {
     //   await ApiCustomersActions.deleteCustomer(token, id);
     // }
     // const ids = (await ApiProductsActions.getAllProducts(token)).data.Products.map(
-    //   (product: IProductResponse) => product._id,
+    //   (product: IProductFromResponse) => product._id,
     // );
 
     // for (const id of ids) {

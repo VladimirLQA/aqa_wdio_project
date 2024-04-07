@@ -1,6 +1,6 @@
 import { asyncForEach } from '../../../../utils/async_array_methods/array-async-methods.js';
 import utils from '../../../../utils/utils.js';
-import { IInitObject } from '../../../types/common.types.js';
+import { IInitObject } from '../../../../types/common.types.js';
 import ModalPage from './modal.page.js';
 
 class DetailsModalPage extends ModalPage {

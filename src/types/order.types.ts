@@ -1,7 +1,6 @@
-import { ICustomerResponse } from '../../api/type/api.customers.type.js';
-import { COUNTRIES } from './customers.types.js';
-import { CreatedChangedOn } from './common.types.js';
-import { IProductResponse } from '../../api/type/api.product.type.js';
+import { ResponseFields } from './api-request.type.js';
+import { COUNTRIES, ICustomerFromResponse } from './customers.types.js';
+import { IProductFromResponse } from './products.types.js';
 
 export enum LOCATION_TYPE {
   HOME = 'Home',
@@ -33,14 +32,14 @@ export enum ORDER_HISTORY_ACTIONS {
 }
 
 export interface IComment {
-  createdOn: CreatedChangedOn;
+  createdOn: string;
   text: string;
   _id: string;
 }
 
 export interface IAddress {
   city: string;
-  country: COUNTRIES;
+  country: string | COUNTRIES;
   flat: number;
   house: number;
   street: string;
@@ -55,21 +54,22 @@ export type IDeliveryWithLocation = IDelivery & { location: LOCATION_TYPE };
 
 export interface IHistory {
   action: ORDER_HISTORY_ACTIONS;
-  changedOn: CreatedChangedOn;
+  changedOn: string;
   customer: string;
   delivery: IDelivery | null;
-  products: (Omit<IProductResponse, 'createdOn'> & { received: string })[];
+  products: (Omit<IProductFromResponse, 'createdOn'> & { received: string })[];
   status: ORDER_STATUSES;
   total_price: number;
 }
 
 export interface IOrder {
   comments: [] | IComment[];
-  createdOn: CreatedChangedOn;
-  customer: ICustomerResponse;
+  createdOn: string;
+  customer: ICustomerFromResponse;
   delivery: IDelivery;
   history: IHistory[];
-  products: (Omit<IProductResponse, 'createdOn'> & { received: string })[];
+  products: IProductFromResponse[];
+  // products: (Omit<IProductFromResponse, 'createdOn'> & { received: string })[];
   status: ORDER_STATUSES;
   total_price: number;
   _id: string;
@@ -104,4 +104,49 @@ export interface IDeliveryScheduleHistory {
   flat: IOrderHistoryPreviousUpdated;
   house: IOrderHistoryPreviousUpdated;
   street: IOrderHistoryPreviousUpdated;
+}
+export interface IOrderId {
+  _id?: string;
+}
+export interface IOrdersRequest extends IOrderId {
+  customer: string;
+  products: string[];
+}
+export interface IOrderFromResponse extends IOrder {
+  readonly _id: string;
+}
+
+export interface IOrderResponseData extends ResponseFields {
+  Order: IOrderFromResponse;
+}
+
+export interface IOrdersResponseData extends ResponseFields {
+  Orders: IOrderFromResponse[];
+}
+
+export interface ICommentRequest extends IOrderId {
+  comments: {
+    text?: string;
+    _id?: string;
+  };
+}
+
+export interface IOrderStatusRequest extends IOrderId {
+  status: ORDER_STATUSES;
+}
+
+export interface IOrderDeliveryRequest extends IOrderId {
+  delivery: IDelivery;
+}
+
+export interface IOrderData {
+  orderId: string;
+  customerId: string;
+  productsId: string[];
+}
+interface IOrderCreationData<T extends ORDER_STATUSES> {
+  status: T;
+  customer: ICustomerFromResponse;
+  products: IProductFromResponse[];
+  delivery: T extends ORDER_STATUSES.DRAFT | ORDER_STATUSES.CANCELED ? IDelivery | DELIVERY | undefined : IDelivery | DELIVERY;
 }

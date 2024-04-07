@@ -1,5 +1,4 @@
-import { IInitObject } from '../ui/types/common.types.js';
-import { ICustomer } from '../ui/types/customers.types.js';
+import { ICustomer } from '../types/customers.types.js';
 import Utils from './utils.js';
 
 const test1 = {
@@ -31,9 +30,7 @@ const test1 = {
   total_price: 123,
 };
 
-export const rebuildObj = <T extends { customer?: ICustomer; delivery?: { finalDate: string } }>(
-  obj: T,
-) => {
+export const rebuildObj = <T extends { customer?: ICustomer; delivery?: { finalDate: string } }>(obj: T) => {
   const { customer, delivery } = obj;
 
   if (customer && delivery) {

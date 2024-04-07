@@ -1,6 +1,6 @@
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
 import { tabsSection } from '../../pages/aqa_project/orders/order-details-tabs-section.page.js';
-import { IDelivery, LOCATION_TYPE, ORDER_HISTORY_ACTIONS } from '../../types/order.types.js';
+import { ORDER_HISTORY_ACTIONS } from '../../../types/order.types.js';
 import BaseActions from '../base.actions.js';
 
 class OrderTabsSectionActions extends BaseActions {

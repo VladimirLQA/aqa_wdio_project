@@ -2,7 +2,7 @@ import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
 import { ControllersList } from '../../../api/controllers/contollers.index.js';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
 import { DeliveryPageTitles, getScheduleOrderUI, getShopAddress, orderPageToastMessages } from '../../../data/orders/orders.data.js';
-import { DELIVERY, IAddress, IDelivery, IDeliveryWithLocation, LOCATION_TYPE, ORDER_HISTORY_ACTIONS } from '../../../ui/types/order.types.js';
+import { DELIVERY, IAddress, IDeliveryWithLocation, ORDER_HISTORY_ACTIONS } from '../../../types/order.types.js';
 import SignInActions from '../../../ui/actions/sign-in.actions.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import OrderDetailsActions from '../../../ui/actions/orders/orders-details.actions.js';

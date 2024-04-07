@@ -1,4 +1,4 @@
-import { IDelivery, ORDER_STATUSES } from '../../ui/types/order.types.js';
+import { IDelivery } from '../../types/order.types.js';
 import { ApiBaseAssertions } from './api-base.assertions.js';
 import Expect from '../../utils/chai-expect/expect-collection.js';
 

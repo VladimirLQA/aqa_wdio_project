@@ -1,6 +1,6 @@
-import { COUNTRIES } from '../../ui/types/customers.types.js';
-import { DELIVERY, ORDER_STATUSES } from '../../ui/types/order.types.js';
-import { MANUFACTURERS } from '../../ui/types/products.types.js';
+import { COUNTRIES } from '../../types/customers.types.js';
+import { DELIVERY, ORDER_STATUSES } from '../../types/order.types.js';
+import { MANUFACTURERS } from '../../types/products.types.js';
 
 export const DELIVERY_SCHEMA = {
   type: ['object', 'null'],

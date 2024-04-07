@@ -1,4 +1,4 @@
-import { Id } from '../../api/type/api-request.type.js';
+import { Id, ResponseFields } from './api-request.type.js';
 
 export interface IProduct {
   name: string;
@@ -10,12 +10,7 @@ export interface IProduct {
 
 export type IProductWithID = IProduct & Id;
 
-export type ProductToastMessage =
-  | 'created'
-  | 'updated'
-  | 'deleted'
-  | 'already exist'
-  | 'assigned to order';
+export type ProductToastMessage = 'created' | 'updated' | 'deleted' | 'already exist' | 'assigned to order';
 
 export enum MANUFACTURERS {
   APPLE = 'Apple',
@@ -38,3 +33,16 @@ export const manufacturersArray = [
   MANUFACTURERS.XIAOMI,
   MANUFACTURERS.AMAZON,
 ];
+
+export interface IProductFromResponse extends IProduct {
+  _id: string;
+  createdOn?: string;
+}
+
+export interface IProductResponseData extends ResponseFields {
+  Product: IProductFromResponse;
+}
+
+export interface IProductsResponseData extends ResponseFields {
+  Products: IProductFromResponse[];
+}

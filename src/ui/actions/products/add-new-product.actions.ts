@@ -1,8 +1,8 @@
 import BaseActions from '../base.actions.js';
-import { IProduct } from '../../types/products.types.js';
+import { IProduct } from '../../../types/products.types.js';
 import AddNewProductPage from '../../pages/aqa_project/products/add-new-product.page.js';
 import Utils from '../../../utils/utils.js';
-import { MANUFACTURERS } from '../../types/products.types.js';
+import { MANUFACTURERS } from '../../../types/products.types.js';
 import utils from '../../../utils/utils.js';
 
 class AddNewProductActions extends BaseActions {
@@ -32,10 +32,7 @@ class AddNewProductActions extends BaseActions {
 
   async createProduct(product: IProduct) {
     await this.fillProductInputs(product);
-    await this.chooseDropdownItem(
-      AddNewProductPage['Manufacturer dropdown'],
-      AddNewProductPage['Dropdown option [last()]'](product.manufacturer),
-    );
+    await this.chooseDropdownItem(AddNewProductPage['Manufacturer dropdown'], AddNewProductPage['Dropdown option [last()]'](product.manufacturer));
     await utils.browserPause(3000);
     await this.clickOnSaveNewProductButton();
     await this.waitForPageLoad();

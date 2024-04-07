@@ -1,8 +1,6 @@
-import Utils from '../../../utils/utils.js';
 import ProductsActions from '../../actions/products/products.actions.js';
-import { IProduct, ProductToastMessage } from '../../types/products.types.js';
+import { IProduct, ProductToastMessage } from '../../../types/products.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
-import { BaseAssertions } from '../base.assertions.js';
 import { CommonAssertions } from '../common.assertions.js';
 
 class ProductsAssertions extends CommonAssertions {

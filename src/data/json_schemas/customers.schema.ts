@@ -1,4 +1,4 @@
-import { COUNTRIES } from '../customers/customers.data.js';
+import { COUNTRIES } from '../../types/customers.types.js';
 
 export const CREATE_CUSTOMER_SCHEMA = {
   type: 'object',
