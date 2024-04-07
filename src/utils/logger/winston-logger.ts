@@ -1,12 +1,11 @@
 import * as winston from 'winston';
 import _ from 'lodash';
 import { attachLog } from '../reporter/allure.reporter.js';
+import { BaseLogger } from './abstract-logger.js';
 
-type logLevels = 'info' | 'error';
+type LogLevels = 'info' | 'error';
 
-class Logger {
-  private logArray: string[] = [];
-  private static instance: Logger;
+class WinstonLogger extends BaseLogger {
   private logger = winston.createLogger({
     level: 'info',
     format: winston.format.combine(
@@ -17,14 +16,7 @@ class Logger {
     transports: [new winston.transports.Console()],
   });
 
-  constructor() {
-    if (Logger.instance) {
-      return Logger.instance;
-    }
-    Logger.instance = this;
-  }
-
-  log(message: string, level: logLevels = 'info') {
+  log(message: string, level: LogLevels = 'info') {
     const logEntry = `${new Date().toISOString()} [${level.toUpperCase()}]: ${message}`;
     this.logArray.push(logEntry);
     this.logger.log({ level, message });
@@ -34,7 +26,7 @@ class Logger {
     this.log(`API Request: ${requestInfo}`);
   }
 
-  logApiResponse(responseInfo: string, level: logLevels = 'info') {
+  logApiResponse(responseInfo: string, level: LogLevels = 'info') {
     this.log(`API Response: ${responseInfo}`);
   }
 
@@ -43,10 +35,6 @@ class Logger {
     attachLog(log);
     this.clearLogs();
   }
-
-  clearLogs() {
-    _.remove(this.logArray);
-  }
 }
 
-export default new Logger();
+export default new WinstonLogger();

@@ -1,4 +1,3 @@
-import { IInitObject } from '../types/common.types.js';
 import { ICustomer } from '../types/customers.types.js';
 import Utils from './utils.js';
 
