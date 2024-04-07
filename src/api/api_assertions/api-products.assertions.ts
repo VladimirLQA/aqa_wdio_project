@@ -1,6 +1,6 @@
 import { ApiBaseAssertions } from './api-base.assertions.js';
-import { IProductFromResponse } from '../type/api.product.type.js';
 import Expect from '../../utils/chai-expect/expect-collection.js';
+import { IProductFromResponse } from '../../types/products.types.js';
 
 class ApiProductsAssertions extends ApiBaseAssertions {
   verifyProduct(actual: IProductFromResponse, expected: Partial<IProductFromResponse>) {

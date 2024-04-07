@@ -1,5 +1,5 @@
 import { ResponseFields } from './api-request.type.js';
-import { COUNTRIES, ICustomerResponse } from './customers.types.js';
+import { COUNTRIES, ICustomerFromResponse } from './customers.types.js';
 import { IProductFromResponse } from './products.types.js';
 
 export enum LOCATION_TYPE {
@@ -65,7 +65,7 @@ export interface IHistory {
 export interface IOrder {
   comments: [] | IComment[];
   createdOn: string;
-  customer: ICustomerResponse;
+  customer: ICustomerFromResponse;
   delivery: IDelivery;
   history: IHistory[];
   products: IProductFromResponse[];
@@ -143,4 +143,10 @@ export interface IOrderData {
   orderId: string;
   customerId: string;
   productsId: string[];
+}
+interface IOrderCreationData<T extends ORDER_STATUSES> {
+  status: T;
+  customer: ICustomerFromResponse;
+  products: IProductFromResponse[];
+  delivery: T extends ORDER_STATUSES.DRAFT | ORDER_STATUSES.CANCELED ? IDelivery | DELIVERY | undefined : IDelivery | DELIVERY;
 }

@@ -1,4 +1,4 @@
-import { ResponseFields } from './api-request.type';
+import { ResponseFields } from './api-request.type.js';
 
 export interface ICustomer {
   email: string;
@@ -23,15 +23,15 @@ export enum COUNTRIES {
   RUSSIA = 'Russia',
 }
 
-export interface ICustomerResponse extends ICustomer {
+export interface ICustomerFromResponse extends ICustomer {
   _id: string;
   createdOn: string;
 }
 
 export interface ICustomerResponseData extends ResponseFields {
-  Customer: ICustomerResponse;
+  Customer: ICustomerFromResponse;
 }
 
 export interface ICustomersResponseData extends ResponseFields {
-  Customers: ICustomerResponse[];
+  Customers: ICustomerFromResponse[];
 }

@@ -1,6 +1,6 @@
 import { ILoginResponse, IUserCredentials } from '../../types/user.types.js';
 import SignInEndpoints from '../endpoints/base-endpoints.js';
-import Request from '../request/axios-request.js';
+import Request from '../request/index-request.js';
 import { RequestOptions, RequestParams } from '../../types/api-request.type.js';
 
 class SignInController {

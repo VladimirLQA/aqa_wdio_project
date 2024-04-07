@@ -1,4 +1,3 @@
-import { AxiosResponse } from 'axios';
 import { validateSchema } from '../../utils/json-schema-validator.js';
 import Expect from '../../utils/chai-expect/expect-collection.js';
 import { IResponse } from '../../types/api-request.type.js';

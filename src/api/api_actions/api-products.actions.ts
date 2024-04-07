@@ -1,4 +1,4 @@
-import { getNewProduct } from '../../data/products/product.data.js';
+import { generateProduct } from '../../data/products/product.data.js';
 import { IProduct } from '../../types/products.types.js';
 import { productsStorage } from '../../utils/storages/storages.js';
 import ProductsController from '../controllers/products.controller.js';
@@ -6,7 +6,7 @@ import { reqAsLoggedUser } from '../request/request-as-logged-user.js';
 
 class ApiProductsActions {
   async createProduct(token: string, product?: IProduct) {
-    const productData = getNewProduct(product);
+    const productData = generateProduct(product);
     const response = await ProductsController.create({ token, data: productData });
     return response;
   }
@@ -44,7 +44,7 @@ class ApiProductsActions {
 
   async createProducts(count: number) {
     for (let i = 1; i <= count; i++) {
-      const product = getNewProduct();
+      const product = generateProduct();
       productsStorage.addEntity((await reqAsLoggedUser(ProductsController.create, { data: product })).data.Product);
     }
     return productsStorage.getAllEntities();

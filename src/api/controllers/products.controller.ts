@@ -1,7 +1,7 @@
 import ProductsEndpoints from '../endpoints/products-endpoints.js';
-import Request from '../request/axios-request.js';
+import Request from '../request/index-request.js';
 import { Id, RequestOptions, RequestParams } from '../../types/api-request.type.js';
-import { IProduct, IProductFromResponse, IProductResponseData, IProductWithID, IProductsResponseData } from '../../types/products.types.js';
+import { IProduct, IProductFromResponse, IProductResponseData, IProductsResponseData } from '../../types/products.types.js';
 
 class ProductsController {
   public async get(params: RequestParams<Id>) {

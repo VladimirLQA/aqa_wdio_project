@@ -2,7 +2,7 @@ import OrdersController from '../controllers/orders.controller.js';
 import Utils from '../../utils/utils.js';
 import ApiProductsActions from './api-products.actions.js';
 import ApiCustomersActions from './api-customers.actions.js';
-import { ICustomerResponse } from '../../types/customers.types.js';
+import { ICustomerFromResponse } from '../../types/customers.types.js';
 import { IProductFromResponse } from '../../types/products.types.js';
 import { IOrdersRequest, IOrderData, ICommentRequest, ORDER_STATUSES, IOrderDeliveryRequest } from '../../types/order.types.js';
 
@@ -214,7 +214,7 @@ class ApiOrdersActions {
 
   async getCustomerFromOrder(token: string, orderId: string) {
     try {
-      const customer: ICustomerResponse = (await this.getOrderByID(token, orderId)).data.Order.customer;
+      const customer: ICustomerFromResponse = (await this.getOrderByID(token, orderId)).data.Order.customer;
       return customer;
     } catch (error) {
       throw new Error(`Error while getting customer from order, order id - ${orderId}`);

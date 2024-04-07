@@ -1,10 +1,9 @@
 import { ContentType } from 'allure-js-commons';
 import OrdersEndpoints from '../endpoints/orders-endpoints.js';
-import Request from '../request/axios-request.js';
+import Request from '../request/index-request.js';
 import { Id, RequestOptions, RequestParams } from '../../types/api-request.type.js';
 import {
   IOrdersRequest,
-  IOrderFromResponse,
   ICommentRequest,
   IOrderDeliveryRequest,
   IOrderStatusRequest,

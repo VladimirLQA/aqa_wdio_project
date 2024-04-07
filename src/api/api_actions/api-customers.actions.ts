@@ -1,6 +1,6 @@
 import CustomerController from '../controllers/customer.controller.js';
 import { ICustomer } from '../../types/customers.types.js';
-import { getNewCustomer } from '../../data/customers/customers.data.js';
+import { generateCustomer } from '../../data/customers/customers.data.js';
 import { reqAsLoggedUser } from '../request/request-as-logged-user.js';
 import { customersStorage } from '../../utils/storages/storages.js';
 import { IAddress } from '../../types/order.types.js';
@@ -83,7 +83,7 @@ class ApiCustomersActions {
 
   async createCustomers(count: number) {
     for (let i = 1; i <= count; i++) {
-      const customer = getNewCustomer();
+      const customer = generateCustomer();
       customersStorage.addEntity((await reqAsLoggedUser(CustomerController.create, { data: customer })).data.Customer);
     }
     return customersStorage.getAllEntities();

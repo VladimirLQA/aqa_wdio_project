@@ -1,4 +1,6 @@
-import { RequestOptions } from '../../types/api-request.type';
+import { RequestOptions } from '../../types/api-request.type.js';
+import { BaseLogger } from '../../utils/logger/abstract-logger.js';
+import { BaseReporter } from '../../utils/reporter/abstract-reporter.js';
 
 export interface IResponse<T = unknown> {
   data: T;
@@ -22,6 +24,7 @@ export abstract class AbstractRequest {
 
   private logRequest() {
     this.reporterService.reportApiRequest(this.options!, this.response);
+    // this.logSuccesResponse();
     // this.loggerService.logApiRequest(JSON.stringify(this.options));
     // this.loggerService.logApiResponse(JSON.stringify(this.response));
   }
@@ -52,14 +55,12 @@ export abstract class AbstractRequest {
       this.transformRequest();
       this.response = await this.send();
       this.transformResponse();
-      this.logSuccesResponse();
     } catch (error: any) {
       if (error) this.logErrorResponse(error);
       this.transformResponse(error);
     } finally {
       this.logRequest();
     }
-
     return this.response;
   }
 }
