@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AxiosRequestConfig, AxiosResponse } from 'axios';
-import { RequestOptions } from '../type/api-request.type.js';
+import { RequestOptions } from '../../types/api-request.type.js';
 import { logApiActions } from '../../utils/reporter/allure.reporter.js';
 import { AbstractRequest } from './abstract-request.js';
 import FormData from 'form-data';

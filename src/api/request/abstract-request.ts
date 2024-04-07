@@ -1,9 +1,9 @@
-import { RequestOptions } from '../type/api-request.type';
+import { RequestOptions } from '../../types/api-request.type';
 
 export interface IResponse<T = unknown> {
   data: T;
   status: string;
-  headers: string;
+  headers: Record<string, string | number | boolean>;
 }
 
 export abstract class AbstractRequest {

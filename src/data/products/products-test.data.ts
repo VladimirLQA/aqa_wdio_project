@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { IProduct, MANUFACTURERS } from '../../ui/types/products.types.js';
+import { IProduct, MANUFACTURERS } from '../../types/products.types.js';
 
 export interface ProductsTestData extends IProduct {
   description: string;

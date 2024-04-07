@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { IProduct, MANUFACTURERS } from '../../ui/types/products.types.js';
+import { IProduct, MANUFACTURERS } from '../../types/products.types.js';
 
 export const productToastMessages = {
   created: () => `Product was successfully created`,
@@ -13,7 +13,7 @@ export const errorMessage = {
   'already exist': (name: string) => `Product with name '${name}' already exists`,
 };
 
-export const getNewProduct = (customProductParams?: Partial<IProduct>): IProduct => {
+export const getNewProduct = (customProductParams?: Partial<IProduct>) => {
   return {
     name: faker.commerce.product() + faker.number.int({ min: 1, max: 100 }),
     price: faker.number.int({ min: 50, max: 3000 }),

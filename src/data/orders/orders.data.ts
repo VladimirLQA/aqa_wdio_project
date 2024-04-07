@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { IAddress, IDeliveryWithLocation, LOCATION_TYPE } from '../../ui/types/order.types.js';
-import { DELIVERY, IDelivery } from '../../api/type/api.orders.type.js';
+import { DELIVERY, IAddress, IDelivery, IDeliveryWithLocation, LOCATION_TYPE } from '../../types/order.types.js';
 import { COUNTRIES } from '../customers/customers.data.js';
 import utils from '../../utils/utils.js';
 

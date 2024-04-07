@@ -1,26 +1,39 @@
 import { ContentType } from 'allure-js-commons';
 import OrdersEndpoints from '../endpoints/orders-endpoints.js';
-import Request from '../request/request.js';
-import { Id, RequestOptions, RequestParams } from '../type/api-request.type.js';
+import Request from '../request/axios-request.js';
+import { Id, RequestOptions, RequestParams } from '../../types/api-request.type.js';
 import {
-  IApiCommentRequest,
-  IApiOrderDeliveryRequest,
-  IApiOrderStatusRequest,
-  IApiOrdersRequest,
-} from '../type/api.orders.type.js';
+  IOrdersRequest,
+  IOrderFromResponse,
+  ICommentRequest,
+  IOrderDeliveryRequest,
+  IOrderStatusRequest,
+  IOrdersResponseData,
+  IOrderResponseData,
+} from '../../types/order.types.js';
 
 class OrdersController {
   async get(params: RequestParams<Id>) {
     const options: RequestOptions = {
       method: 'GET',
       baseURL: OrdersEndpoints.baseURL,
-      url: params.data ? OrdersEndpoints.orderById(params.data._id) : OrdersEndpoints.orders,
+      url: OrdersEndpoints.orderById(params.data._id),
       headers: { 'Content-Type': ContentType.JSON, Authorization: `Bearer ${params.token}` },
     };
-    return Request.sendRequest(options);
+    return Request.sendRequest<IOrderResponseData>(options);
   }
 
-  async createOrder(params: RequestParams<IApiOrdersRequest>) {
+  async getAll(params: RequestParams<unknown>) {
+    const options: RequestOptions = {
+      method: 'GET',
+      baseURL: OrdersEndpoints.baseURL,
+      url: OrdersEndpoints.orders,
+      headers: { 'Content-Type': ContentType.JSON, Authorization: `Bearer ${params.token}` },
+    };
+    return Request.sendRequest<IOrdersResponseData>(options);
+  }
+
+  async createOrder(params: RequestParams<IOrdersRequest>) {
     const options: RequestOptions = {
       method: 'POST',
       baseURL: OrdersEndpoints.baseURL,
@@ -28,10 +41,10 @@ class OrdersController {
       headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
       data: params.data,
     };
-    return Request.sendRequest(options);
+    return Request.sendRequest<IOrderResponseData>(options);
   }
 
-  async updateOrder(params: RequestParams<IApiOrdersRequest>) {
+  async updateOrder(params: RequestParams<IOrdersRequest>) {
     const options: RequestOptions = {
       method: 'PUT',
       baseURL: OrdersEndpoints.baseURL,
@@ -39,7 +52,7 @@ class OrdersController {
       headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
       data: params.data,
     };
-    return Request.sendRequest(options);
+    return Request.sendRequest<IOrderResponseData>(options);
   }
 
   async deleteOrder(params: Required<RequestParams<Id>>) {
@@ -49,10 +62,10 @@ class OrdersController {
       url: OrdersEndpoints.orderById(params.data._id),
       headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
     };
-    return Request.sendRequest(options);
+    return Request.sendRequest<null>(options);
   }
 
-  async addComment(params: RequestParams<IApiCommentRequest>) {
+  async addComment(params: RequestParams<ICommentRequest>) {
     const options: RequestOptions = {
       method: 'POST',
       baseURL: OrdersEndpoints.baseURL,
@@ -60,10 +73,10 @@ class OrdersController {
       headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
       data: params.data,
     };
-    return Request.sendRequest(options);
+    return Request.sendRequest<IOrderResponseData>(options);
   }
 
-  async deleteComment(params: RequestParams<IApiCommentRequest>) {
+  async deleteComment(params: RequestParams<ICommentRequest>) {
     const options: RequestOptions = {
       method: 'PUT',
       baseURL: OrdersEndpoints.baseURL,
@@ -71,10 +84,10 @@ class OrdersController {
       headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
       data: params.data,
     };
-    return Request.sendRequest(options);
+    return Request.sendRequest<IOrderResponseData>(options);
   }
 
-  async updateOrderStatus(params: RequestParams<IApiOrderStatusRequest>) {
+  async updateOrderStatus(params: RequestParams<IOrderStatusRequest>) {
     const options: RequestOptions = {
       method: 'PUT',
       baseURL: OrdersEndpoints.baseURL,
@@ -85,7 +98,7 @@ class OrdersController {
     return Request.sendRequest(options);
   }
 
-  async delivery(params: RequestParams<IApiOrderDeliveryRequest>) {
+  async delivery(params: RequestParams<IOrderDeliveryRequest>) {
     const options: RequestOptions = {
       method: 'POST',
       baseURL: OrdersEndpoints.baseURL,
@@ -93,10 +106,10 @@ class OrdersController {
       headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
       data: params.data,
     };
-    return Request.sendRequest(options);
+    return Request.sendRequest<IOrderResponseData>(options);
   }
 
-  async receive(params: RequestParams<Partial<IApiOrdersRequest>>) {
+  async receive(params: RequestParams<Partial<IOrdersRequest>>) {
     const options: RequestOptions = {
       method: 'POST',
       baseURL: OrdersEndpoints.baseURL,
@@ -104,7 +117,7 @@ class OrdersController {
       headers: { Authorization: `Bearer ${params.token}`, 'Content-Type': ContentType.JSON },
       data: params.data,
     };
-    return Request.sendRequest(options);
+    return Request.sendRequest<IOrderResponseData>(options);
   }
 }
 

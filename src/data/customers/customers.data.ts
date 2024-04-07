@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { ICustomer, COUNTRIES } from '../../ui/types/customers.types.js';
+import { ICustomer, COUNTRIES } from '../../types/customers.types.js';
 
 export const getNewCustomer = (customProductParams?: Partial<ICustomer>) => {
   return {
