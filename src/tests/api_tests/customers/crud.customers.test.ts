@@ -16,49 +16,47 @@ describe('[CRUD] CUSTOMERS test', () => {
     token = await ApiSignInActions.signInAsAdminAndGetToken();
   });
 
-  context('[CRUD] test', () => {
-    it('Should create customer', async () => {
-      createdCustomer = generateCustomer();
+  it('Should create customer', async () => {
+    createdCustomer = generateCustomer();
 
-      response = await ApiActions.customers.createCustomer(token, createdCustomer);
-      console.log('response', JSON.stringify(response, null, 2));
+    response = await ApiActions.customers.createCustomer(token, createdCustomer);
+    console.log('response', JSON.stringify(response, null, 2));
 
-      ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
-      ApiCustomersAssertions.verifyResponseSchema(CREATE_CUSTOMER_SCHEMA, response.data);
-      ApiCustomersAssertions.verifyCustomer(response.data.Customer, createdCustomer);
+    ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
+    ApiCustomersAssertions.verifyResponseSchema(CREATE_CUSTOMER_SCHEMA, response.data);
+    ApiCustomersAssertions.verifyCustomer(response.data.Customer, createdCustomer);
 
-      id = response.data.Customer._id;
-    });
+    id = response.data.Customer._id;
+  });
 
-    it('Should get created customer by id', async () => {
-      response = await ApiActions.customers.getCustomerByID(token, id);
+  it('Should get created customer by id', async () => {
+    response = await ApiActions.customers.getCustomerByID(token, id);
 
-      ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
-      ApiCustomersAssertions.verifyResponseSchema(CREATE_CUSTOMER_SCHEMA, response.data);
-    });
+    ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
+    ApiCustomersAssertions.verifyResponseSchema(CREATE_CUSTOMER_SCHEMA, response.data);
+  });
 
-    it('Should update customer by id', async () => {
-      const updatedCustomer = generateCustomer();
+  it('Should update customer by id', async () => {
+    const updatedCustomer = generateCustomer();
 
-      response = await ApiActions.customers.updateCustomer(token, id, updatedCustomer);
+    response = await ApiActions.customers.updateCustomer(token, id, updatedCustomer);
 
-      ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
-      ApiCustomersAssertions.verifyCustomer(response.data.Customer, updatedCustomer);
-    });
-    it('Should get all customers', async () => {
-      response = await ApiActions.customers.getAllPrCustomers(token);
+    ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
+    ApiCustomersAssertions.verifyCustomer(response.data.Customer, updatedCustomer);
+  });
+  it('Should get all customers', async () => {
+    response = await ApiActions.customers.getAllPrCustomers(token);
 
-      ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
-      Expect.toBeNotEmpty({ actual: response.data.Customers });
-      expect(response.data.Customers).to.be.an('array');
-    });
+    ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
+    Expect.toBeNotEmpty({ actual: response.data.Customers });
+    expect(response.data.Customers).to.be.an('array');
+  });
 
-    it('Should delete customer by id', async () => {
-      response = await ApiActions.customers.deleteCustomer(token, id);
-      ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.NO_CONTENT);
+  it('Should delete customer by id', async () => {
+    response = await ApiActions.customers.deleteCustomer(token, id);
+    ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.NO_CONTENT);
 
-      response = await ApiActions.customers.getCustomerByID(token, id);
-      ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.NOT_FOUND, false, `Customer with id '${id}' wasn't found`);
-    });
+    response = await ApiActions.customers.getCustomerByID(token, id);
+    ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.NOT_FOUND, false, `Customer with id '${id}' wasn't found`);
   });
 });
