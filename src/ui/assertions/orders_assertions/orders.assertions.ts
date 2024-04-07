@@ -3,9 +3,9 @@ import OrderDetailsActions from '../../../ui/actions/orders/orders-details.actio
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import OrdersActions from '../../actions/orders/orders.actions.js';
 import OrderDetailsPage from '../../pages/aqa_project/orders/order-details.page.js';
-import { ICustomer } from '../../types/customers.types.js';
-import { HeaderDetailsTitles, IDeliveryScheduleHistory, IDeliveryWithLocation, IOrder, ORDER_HISTORY_ACTIONS } from '../../types/order.types.js';
-import { IProduct } from '../../types/products.types.js';
+import { ICustomer } from '../../../types/customers.types.js';
+import { HeaderDetailsTitles, IDeliveryScheduleHistory, IDeliveryWithLocation, IOrder, ORDER_HISTORY_ACTIONS } from '../../../types/order.types.js';
+import { IProduct } from '../../../types/products.types.js';
 import ProductsAssertions from '../products_assertions/products.assertions.js';
 import { CommonAssertions } from '../common.assertions.js';
 

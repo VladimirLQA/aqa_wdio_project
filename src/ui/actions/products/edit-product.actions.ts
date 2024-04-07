@@ -2,7 +2,7 @@
 
 import Utils from '../../../utils/utils.js';
 import EditProductPage from '../../pages/aqa_project/products/edit-product.page.js';
-import { IProduct, MANUFACTURERS } from '../../types/products.types.js';
+import { IProduct, MANUFACTURERS } from '../../../types/products.types.js';
 import BaseActions from '../base.actions.js';
 
 class EditProductActions extends BaseActions {
@@ -32,10 +32,7 @@ class EditProductActions extends BaseActions {
 
   public async updateProduct(product: IProduct) {
     await this.fillProductInputs(product);
-    await this.chooseDropdownItem(
-      EditProductPage['Manufacturer dropdown'],
-      EditProductPage['Dropdown option [last()]'](product.manufacturer),
-    );
+    await this.chooseDropdownItem(EditProductPage['Manufacturer dropdown'], EditProductPage['Dropdown option [last()]'](product.manufacturer));
     await this.clickOnSaveChangesButton();
     await this.waitForPageLoad();
   }

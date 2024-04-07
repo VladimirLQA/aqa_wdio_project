@@ -3,9 +3,8 @@ import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js'
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
 import CreateOrderModalPage from '../../pages/aqa_project/modals/orders_modals/create-order.modal.page.js';
 import OrdersPage from '../../pages/aqa_project/orders/orders.page.js';
-import { IOrder, ORDER_STATUSES } from '../../types/order.types.js';
-import { IProduct } from '../../types/products.types.js';
-import BaseActions from '../base.actions.js';
+import { IOrder } from '../../../types/order.types.js';
+import { IProduct } from '../../../types/products.types.js';
 import { CommonActions } from '../common.actions.js';
 import CreateOrderModalActions from '../modals/orders_modals/create-order.modal.actions.js';
 
@@ -20,10 +19,7 @@ class OrdersActions extends CommonActions {
   @logAction('Create order')
   async createOrder(customerName: string, products: string[]) {
     await this.clickOnCreateOrderButton();
-    await this.chooseDropdownItem(
-      CreateOrderModalPage['Customer dropdown'],
-      CreateOrderModalPage['Dropdown option [last()]'](customerName),
-    );
+    await this.chooseDropdownItem(CreateOrderModalPage['Customer dropdown'], CreateOrderModalPage['Dropdown option [last()]'](customerName));
     await this.createOrderModal.addProductsToOrder(products);
     await this.createOrderModal.clickOnCreateButton();
     const order: IOrder = await this.getOrder(customerName, products);
@@ -42,10 +38,8 @@ class OrdersActions extends CommonActions {
   }
 
   async getOrder(customerName: string, products: string[]) {
-    const order: IOrder = (await reqAsLoggedUser(OrdersController.get, {})).data.Orders.find(
-      (o: IOrder) =>
-        o.customer.name === customerName &&
-        o.products.filter((p: IProduct) => products.includes(p.name)),
+    const order: IOrder = (await reqAsLoggedUser(OrdersController.get, { data: {} })).data.Orders.find(
+      (o: IOrder) => o.customer.name === customerName && o.products.filter((p: IProduct) => products.includes(p.name)),
     );
     return order;
   }
