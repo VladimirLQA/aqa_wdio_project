@@ -2,7 +2,7 @@ const mocha_spec = ['../tests/**/*.test.ts'];
 const mocha_suites = {
   ui: ['../tests/ui_tests/**/*.test.ts'],
   api: ['../tests/api_tests/**/*.test.ts'],
-  single: ['../tests/ui_tests/**/smoke.orders.test.ts'],
+  single: ['../tests/apii_tests/**/crud.products.test.ts'],
 };
 const cucumber_spec = ['../**/*.feature'];
 const cucumber_suites = { ui: ['../ui/features/**/*.feature'] };
