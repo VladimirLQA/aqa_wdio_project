@@ -5,7 +5,7 @@ import AddNewProductActions from '../../../ui/actions/products/add-new-product.a
 import ProductsActions from '../../../ui/actions/products/products.actions.js';
 import SignInActions from '../../../ui/actions/sign-in.actions.js';
 import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions.js';
-import { IProduct } from '../../../ui/types/products.types.js';
+import { IProduct } from '../../../types/products.types.js';
 
 describe('Smoke tests with creating product', () => {
   let productToCreate: IProduct,
@@ -21,8 +21,8 @@ describe('Smoke tests with creating product', () => {
     // for (const productName of productsNames) {
     //   ids.push(
     //     (await reqAsLoggedUser(ProductsController.get, {})).data.Products.filter(
-    //       (product: IProductResponse) => product.name === productName,
-    //     ).map((el: IProductResponse) => el._id),
+    //       (product: IProductFromResponse) => product.name === productName,
+    //     ).map((el: IProductFromResponse) => el._id),
     //   );
     // }
     // for (const id of ids) {

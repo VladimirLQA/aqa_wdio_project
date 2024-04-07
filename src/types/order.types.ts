@@ -39,7 +39,7 @@ export interface IComment {
 
 export interface IAddress {
   city: string;
-  country: COUNTRIES | string;
+  country: string | COUNTRIES;
   flat: number;
   house: number;
   street: string;

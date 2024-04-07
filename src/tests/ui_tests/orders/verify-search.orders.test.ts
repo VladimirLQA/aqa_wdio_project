@@ -2,7 +2,7 @@ import SignInActions from '../../../ui/actions/sign-in.actions.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import OrdersActions from '../../../ui/actions/orders/orders.actions.js';
 import OrdersPage from '../../../ui/pages/aqa_project/orders/orders.page.js';
-import { ORDER_STATUSES, orderStatusesArray } from '../../../ui/types/order.types.js';
+import { ORDER_STATUSES, orderStatusesArray } from '../../../types/order.types.js';
 import OrdersAssertions from '../../../ui/assertions/orders_assertions/orders.assertions.js';
 import FiltersModalActions from '../../../ui/actions/modals/filters-modal.actions.js';
 

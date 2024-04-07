@@ -8,12 +8,9 @@ import OrderDetailsActions from '../../../ui/actions/orders/orders-details.actio
 import OrdersActions from '../../../ui/actions/orders/orders.actions.js';
 import OrdersAssertions from '../../../ui/assertions/orders_assertions/orders.assertions.js';
 import OrderDetailsPage from '../../../ui/pages/aqa_project/orders/order-details.page.js';
-import { ICustomer } from '../../../ui/types/customers.types.js';
+import { ICustomer, ICustomerResponse } from '../../../types/customers.types.js';
 import { getNewCustomer } from '../../../data/customers/customers.data.js';
-import CustomerModalActions from '../../../ui/actions/modals/orders_modals/edit-customer.modal.actions.js';
-import { ORDER_HISTORY_ACTIONS } from '../../../ui/types/order.types.js';
-import Expect from '../../../utils/chai-expect/expect-collection.js';
-import { ICustomerResponse } from '../../../api/type/api.customers.type.js';
+import { ORDER_HISTORY_ACTIONS } from '../../../types/order.types.js';
 import utils from '../../../utils/utils.js';
 
 describe('Customer order section', () => {

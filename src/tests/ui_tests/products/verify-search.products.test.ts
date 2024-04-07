@@ -5,7 +5,7 @@ import ProductsActions from '../../../ui/actions/products/products.actions.js';
 import SignInActions from '../../../ui/actions/sign-in.actions.js';
 import ProductsAssertions from '../../../ui/assertions/products_assertions/products.assertions.js';
 import ProductsPage from '../../../ui/pages/aqa_project/products/products.page.js';
-import { manufacturersArray } from '../../../ui/types/products.types.js';
+import { manufacturersArray } from '../../../types/products.types.js';
 
 describe('WDIO - 7', () => {
   before('Up browser and open products page', async () => {
@@ -22,8 +22,7 @@ describe('WDIO - 7', () => {
     const quickFilters = [MANUFACTURERS.APPLE, MANUFACTURERS.AMAZON, MANUFACTURERS.XIAOMI];
     await ProductsActions.clickOnFilterButton();
     await ProductsActions.checkQuickFiltersAndClickApplyButton(quickFilters);
-    const actualQuickFilters = (await ProductsActions.getListOfChipButtons(ProductsPage))
-      .quickFilters;
+    const actualQuickFilters = (await ProductsActions.getListOfChipButtons(ProductsPage)).quickFilters;
     expect(quickFilters.every((filter) => actualQuickFilters!.includes(filter))).toBe(true);
     await ProductsAssertions.verifyTableData(ProductsPage);
   });

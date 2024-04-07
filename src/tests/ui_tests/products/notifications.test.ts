@@ -1,10 +1,10 @@
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
-import { IProductResponse } from '../../../api/type/api.product.type.js';
+import { IProductFromResponse } from '../../../api/type/api.product.type.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import ProductsActions from '../../../ui/actions/products/products.actions.js';
 import SideBarActions from '../../../ui/actions/side-bar.actions.js';
 import SignInActions from '../../../ui/actions/sign-in.actions.js';
-import { IProduct } from '../../../ui/types/products.types.js';
+import { IProduct } from '../../../types/products.types.js';
 import ProductsController from '../../../api/controllers/products.controller.js';
 
 describe('Notifications test on products page', () => {
@@ -27,9 +27,9 @@ describe('Notifications test on products page', () => {
     let ids: string[] = [];
     for (const productName of productsNames) {
       ids.push(
-        (await reqAsLoggedUser(ProductsController.get, {})).data.Products.filter(
-          (product: IProductResponse) => product.name === productName,
-        ).map((el: IProductResponse) => el._id),
+        (await reqAsLoggedUser(ProductsController.get, {})).data.Products.filter((product: IProductFromResponse) => product.name === productName).map(
+          (el: IProductFromResponse) => el._id,
+        ),
       );
     }
     for (const id of ids) {

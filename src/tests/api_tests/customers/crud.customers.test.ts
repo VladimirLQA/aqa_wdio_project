@@ -1,21 +1,16 @@
-import { AxiosResponse } from 'axios';
-import ApiCustomersActions from '../../../api/api_actions/api-customers.actions.js';
 import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions.js';
 import ApiCustomersAssertions from '../../../api/api_assertions/api-customers.assertions.js';
-import { STATUS_CODES } from '../../../api/type/api.common.type.js';
-import { ICustomerResponse } from '../../../api/type/api.customers.type.js';
 import { getNewCustomer } from '../../../data/customers/customers.data.js';
 import { CREATE_CUSTOMER_SCHEMA } from '../../../data/json_schemas/customers.schema.js';
-import { ICustomer } from '../../../ui/types/customers.types.js';
+import { ICustomer, ICustomerResponse } from '../../../types/customers.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
 import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
+import { IResponse } from '../../../types/api-request.type.js';
+import { STATUS_CODES } from '../../../types/http.types.js';
 
 describe('[CRUD] CUSTOMERS test', () => {
-  let token: string,
-    id: string,
-    createdCustomer: ICustomerResponse | ICustomer,
-    response: AxiosResponse;
+  let token: string, id: string, createdCustomer: ICustomerResponse | ICustomer, response: IResponse;
 
   before(async () => {
     token = await ApiSignInActions.signInAsAdminAndGetToken();
@@ -62,12 +57,7 @@ describe('[CRUD] CUSTOMERS test', () => {
       ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.NO_CONTENT);
 
       response = await ApiActions.customers.getCustomerByID(token, id);
-      ApiCustomersAssertions.verifyResponse(
-        response,
-        STATUS_CODES.NOT_FOUND,
-        false,
-        `Customer with id '${id}' wasn't found`,
-      );
+      ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.NOT_FOUND, false, `Customer with id '${id}' wasn't found`);
     });
   });
 });

@@ -1,22 +1,22 @@
-import { ICustomerResponse } from '../../../api/type/api.customers.type.js';
-import { IProductResponse } from '../../../api/type/api.product.type.js';
 import { orderPageToastMessages } from '../../../data/orders/orders.data.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import OrderActions from '../../../ui/actions/orders/orders.actions.js';
 import SignInActions from '../../../ui/actions/sign-in.actions.js';
 import OrdersAssertions from '../../../ui/assertions/orders_assertions/orders.assertions.js';
 import OrdersDetailsActions from '../../../ui/actions/orders/orders-details.actions.js';
-import { IOrder } from '../../../ui/types/order.types.js';
+import { IOrder } from '../../../types/order.types.js';
 import ApiProductsActions from '../../../api/api_actions/api-products.actions.js';
 import ApiCustomersActions from '../../../api/api_actions/api-customers.actions.js';
 import Utils from '../../../utils/utils.js';
 import SideBarActions from '../../../ui/actions/side-bar.actions.js';
 import { ControllersList } from '../../../api/controllers/contollers.index.js';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
+import { ICustomerResponse } from '../../../types/customers.types.js';
+import { IProductFromResponse } from '../../../types/products.types.js';
 
 describe('Create order tests', () => {
   let orderId: string, order: IOrder;
-  let [product_01, product_02]: IProductResponse[] = [];
+  let [product_01, product_02]: IProductFromResponse[] = [];
   let [customer]: ICustomerResponse[] = [];
 
   before(async () => {

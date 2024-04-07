@@ -3,10 +3,10 @@ import ApiOrdersAssertions from '../../../api/api_assertions/api-orders.assertio
 import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions.js';
 import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
 import { ICustomerResponse } from '../../../api/type/api.customers.type.js';
-import { IProductResponse } from '../../../api/type/api.product.type.js';
+import { IProductFromResponse } from '../../../api/type/api.product.type.js';
 import { CREATE_ORDER_SCHEMA } from '../../../data/json_schemas/orders.schema.js';
 import { STATUS_CODES } from '../../../api/type/api.common.type.js';
-import { IHistory, IOrder, ORDER_HISTORY_ACTIONS, ORDER_STATUSES } from '../../../ui/types/order.types.js';
+import { IHistory, IOrder, ORDER_HISTORY_ACTIONS, ORDER_STATUSES } from '../../../types/order.types.js';
 import Utils from '../../../utils/utils.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
@@ -17,7 +17,7 @@ import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
 
 describe('[CRUD] ORDERS test', () => {
   let token: string, orderId: string, response: AxiosResponse, totalPrice: number;
-  let [product_01, product_02]: IProductResponse[] = [];
+  let [product_01, product_02]: IProductFromResponse[] = [];
   let [customer]: ICustomerResponse[] = [];
 
   before(async () => {
@@ -50,7 +50,7 @@ describe('[CRUD] ORDERS test', () => {
     //   await ApiCustomersActions.deleteCustomer(token, id);
     // }
     // const ids = (await ApiProductsActions.getAllProducts(token)).data.Products.map(
-    //   (product: IProductResponse) => product._id,
+    //   (product: IProductFromResponse) => product._id,
     // );
 
     // for (const id of ids) {
