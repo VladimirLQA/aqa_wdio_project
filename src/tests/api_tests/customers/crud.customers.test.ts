@@ -1,11 +1,11 @@
-import ApiSignInActions from '../../../api/api_actions/api-sign-in.actions.js';
-import ApiCustomersAssertions from '../../../api/api_assertions/api-customers.assertions.js';
+import ApiSignInActions from '../../../api-core/api_actions/api-sign-in.actions.js';
+import ApiCustomersAssertions from '../../../api-core/api_assertions/api-customers.assertions.js';
 import { generateCustomer } from '../../../data/customers/customers.data.js';
 import { CREATE_CUSTOMER_SCHEMA } from '../../../data/json_schemas/customers.schema.js';
 import { ICustomer, ICustomerFromResponse } from '../../../types/customers.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
-import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
+import { ApiActions } from '../../../api-core/api_actions/api-actions.index.js';
 import { IResponse } from '../../../types/api-request.type.js';
 import { STATUS_CODES } from '../../../types/http.types.js';
 

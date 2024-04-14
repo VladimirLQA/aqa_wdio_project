@@ -1,4 +1,4 @@
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
+import { reqAsLoggedUser } from '../../../api-core/request/request-as-logged-user.js';
 import { generateProduct } from '../../../data/products/product.data.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import AddNewProductActions from '../../../ui/actions/products/add-new-product.actions.js';

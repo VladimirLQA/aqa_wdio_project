@@ -1,10 +1,10 @@
-import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions.js';
+import ApiProductsAssertions from '../../../api-core/api_assertions/api-products.assertions.js';
 import { CREATE_PRODUCT_SCHEMA } from '../../../data/json_schemas/products.schema.js';
 import { generateProduct } from '../../../data/products/product.data.js';
 import { IProduct, IProductFromResponse } from '../../../types/products.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
-import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
+import { ApiActions } from '../../../api-core/api_actions/api-actions.index.js';
 import { STATUS_CODES } from '../../../types/http.types.js';
 import { IResponse } from '../../../types/api-request.type.js';
 

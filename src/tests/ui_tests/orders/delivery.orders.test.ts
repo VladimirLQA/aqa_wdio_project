@@ -1,6 +1,6 @@
-import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
-import { ControllersList } from '../../../api/controllers/contollers.index.js';
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
+import { ApiActions } from '../../../api-core/api_actions/api-actions.index.js';
+import { ControllersList } from '../../../api-core/controllers/contollers.index.js';
+import { reqAsLoggedUser } from '../../../api-core/request/request-as-logged-user.js';
 import { DeliveryPageTitles, getScheduleOrderUI, getShopAddress, orderPageToastMessages } from '../../../data/orders/orders.data.js';
 import { DELIVERY, IAddress, IDeliveryWithLocation, ORDER_HISTORY_ACTIONS } from '../../../types/order.types.js';
 import SignInActions from '../../../ui/actions/sign-in.actions.js';

@@ -6,9 +6,9 @@ import OrdersActions from '../../../../ui/actions/orders/orders.actions.js';
 import OrdersAssertions from '../../../../ui/assertions/orders_assertions/orders.assertions.js';
 import OrderDetailsPage from '../../../../ui/pages/aqa_project/orders/order-details.page.js';
 import SideBarActions from '../../../../ui/actions/side-bar.actions.js';
-import { reqAsLoggedUser } from '../../../../api/request/request-as-logged-user.js';
-import { ControllersList } from '../../../../api/controllers/contollers.index.js';
-import { ApiActions } from '../../../../api/api_actions/api-actions.index.js';
+import { reqAsLoggedUser } from '../../../../api-core/request/request-as-logged-user.js';
+import { ControllersList } from '../../../../api-core/controllers/contollers.index.js';
+import { ApiActions } from '../../../../api-core/api_actions/api-actions.index.js';
 
 describe('Comments order details section', () => {
   let token: string, comment: string, orderIdShared: string, products: string[], customer: string;
