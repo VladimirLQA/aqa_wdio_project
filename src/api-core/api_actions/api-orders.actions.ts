@@ -4,19 +4,15 @@ import ApiProductsActions from './api-products.actions.js';
 import ApiCustomersActions from './api-customers.actions.js';
 import { ICustomerFromResponse } from '../../types/customers.types.js';
 import { IProductFromResponse } from '../../types/products.types.js';
-import { IOrdersRequest, IOrderData, ICommentRequest, ORDER_STATUSES, IOrderDeliveryRequest } from '../../types/order.types.js';
+import { IOrdersRequest, IOrderData, ICommentRequest, ORDER_STATUSES, IOrderDeliveryRequest, IOrderResponseData } from '../../types/order.types.js';
+import { getScheduleOrder } from '../../data/orders/orders.data.js';
 
 class ApiOrdersActions {
-  async createOrder(token: string, data: IOrdersRequest) {
-    try {
-      const response = await OrdersController.createOrder({ token, data: data });
-      return response;
-    } catch (error: any) {
-      throw new Error('Error during creating order');
-    }
-  }
-
-  async createOrderWithDraftStatus(token: string, orderData: Partial<IOrderData>): Promise<IOrderData> {
+  async createOrderWithDraftStatus<T extends IOrderData | IOrderResponseData = IOrderData>(
+    token: string,
+    orderData: Partial<IOrderData>,
+    deliveryData?: IOrderDeliveryRequest,
+  ): Promise<T> {
     const data: IOrdersRequest = {
       customer: orderData.customerId ?? (await ApiCustomersActions.createCustomers(1))[0]._id,
       products: [],
@@ -29,37 +25,14 @@ class ApiOrdersActions {
       data.products.push(...orderData.productsId!);
     }
 
-    try {
-      const response = await OrdersController.createOrder({
-        token,
-        data,
-      });
-      return {
-        orderId: response.data?.Order._id,
-        productsId: data.products,
-        customerId: data.customer,
-      };
-    } catch (error: any) {
-      throw new Error('Error during creating order');
+    const order = await OrdersController.createOrder({ token, data });
+    if (deliveryData) {
+      deliveryData.delivery = deliveryData.delivery ?? getScheduleOrder();
+      deliveryData._id = order.data.Order._id;
+      await this.scheduleOrderDelivery(token, deliveryData);
     }
-  }
 
-  async getAllOrders(token: string) {
-    try {
-      const response = await OrdersController.getAll({ data: {}, token });
-      return response;
-    } catch (error) {
-      throw new Error('Error while getting all orders');
-    }
-  }
-
-  async deleteOrder(token: string, orderId: string) {
-    try {
-      const response = await OrdersController.deleteOrder({ token, data: { _id: orderId } });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while deleting order by id - ${orderId}`);
-    }
+    return {} as T;
   }
 
   async updateCustomerInOrder(token: string, data: IOrdersRequest) {
@@ -136,6 +109,15 @@ class ApiOrdersActions {
     }
   }
 
+  async createOrder(token: string, data: IOrdersRequest) {
+    try {
+      const response = await OrdersController.createOrder({ token, data: data });
+      return response;
+    } catch (error: any) {
+      throw new Error('Error during creating order');
+    }
+  }
+
   async updateOrderStatusToInProcess(token: string, orderId: string) {
     const response = await this.updateOrderStatus(token, orderId, ORDER_STATUSES.IN_PROCESS);
     return response;
@@ -165,18 +147,6 @@ class ApiOrdersActions {
       return response;
     } catch (error) {
       throw new Error(`Error while scheduling order delivery in order, order id - ${delivery._id}`);
-    }
-  }
-
-  async scheduleOrderPickup(token: string, pickup: IOrderDeliveryRequest) {
-    try {
-      const response = await OrdersController.delivery({
-        token,
-        data: pickup,
-      });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while scheduling order pickup in order, order id - ${pickup._id}`);
     }
   }
 

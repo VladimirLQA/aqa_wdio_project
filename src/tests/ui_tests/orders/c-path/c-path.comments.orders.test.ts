@@ -8,7 +8,6 @@ import OrdersActions from '../../../../ui/actions/orders/orders.actions.js';
 import OrdersAssertions from '../../../../ui/assertions/orders_assertions/orders.assertions.js';
 import OrderDetailsPage from '../../../../ui/pages/aqa_project/orders/order-details.page.js';
 import Expect from '../../../../utils/chai-expect/expect-collection.js';
-import Utils from '../../../../utils/utils.js';
 import SideBarActions from '../../../../ui/actions/side-bar.actions.js';
 import OrdersDeliveryActions from '../../../../ui/actions/orders/orders-delivery.actions.js';
 import { ApiActions } from '../../../../api-core/api_actions/api-actions.index.js';
