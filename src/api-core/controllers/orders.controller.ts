@@ -22,7 +22,7 @@ class OrdersController {
     return Request.sendRequest<IOrderResponseData>(options);
   }
 
-  async getAll(params: RequestParams<unknown>) {
+  async getAll(params: Partial<RequestParams<unknown>>) {
     const options: RequestOptions = {
       method: 'GET',
       baseURL: OrdersEndpoints.baseURL,

@@ -8,11 +8,7 @@ import { IOrdersRequest, IOrderData, ICommentRequest, ORDER_STATUSES, IOrderDeli
 import { getScheduleOrder } from '../../data/orders/orders.data.js';
 
 class ApiOrdersActions {
-  async createOrderWithDraftStatus<T extends IOrderData | IOrderResponseData = IOrderData>(
-    token: string,
-    orderData: Partial<IOrderData>,
-    deliveryData?: IOrderDeliveryRequest,
-  ): Promise<T> {
+  async createOrderWithDraftStatus(token: string, orderData: Partial<IOrderData>, deliveryData?: IOrderDeliveryRequest): Promise<IOrderData> {
     const data: IOrdersRequest = {
       customer: orderData.customerId ?? (await ApiCustomersActions.createCustomers(1))[0]._id,
       products: [],
@@ -32,90 +28,70 @@ class ApiOrdersActions {
       await this.scheduleOrderDelivery(token, deliveryData);
     }
 
-    return {} as T;
+    return {
+      orderId: order.data.Order._id,
+      productsId: data.products,
+      customerId: data.customer,
+    };
   }
 
   async updateCustomerInOrder(token: string, data: IOrdersRequest) {
-    try {
-      const response = await OrdersController.updateOrder({
-        token,
-        data: {
-          ...data,
-        },
-      });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while updating customer in order with id - ${data._id}`);
-    }
+    const response = await OrdersController.updateOrder({
+      token,
+      data: {
+        ...data,
+      },
+    });
+    return response;
   }
 
   async updateProductInOrder(token: string, data: IOrdersRequest) {
-    try {
-      const response = await OrdersController.updateOrder({
-        token,
-        data: {
-          ...data,
-        },
-      });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while updating product in order with id - ${data._id}`);
-    }
+    const response = await OrdersController.updateOrder({
+      token,
+      data: {
+        ...data,
+      },
+    });
+    return response;
   }
 
   async getOrderByID(token: string, orderId: string) {
-    try {
-      const response = await OrdersController.get({ token, data: { _id: orderId } });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while getting order by id - ${orderId}`);
-    }
+    const response = await OrdersController.get({ token, data: { _id: orderId } });
+    return response;
+  }
+
+  async getAllOrders(token: string) {
+    const response = await OrdersController.getAll({ token });
+    return response;
   }
 
   async addCommentToOrder(token: string, comment: ICommentRequest) {
-    console.log(comment);
-    try {
-      const response = await OrdersController.addComment({ token, data: comment });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while adding comment to order with - ${comment._id}`);
-    }
+    const response = await OrdersController.addComment({ token, data: comment });
+    return response;
   }
 
   async deleteCommentInOrder(token: string, comment: ICommentRequest) {
-    try {
-      const response = await OrdersController.deleteComment({
-        token,
-        data: comment,
-      });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while deleting comment in order with id - ${comment.comments._id}`);
-    }
+    const response = await OrdersController.deleteComment({
+      token,
+      data: comment,
+    });
+    return response;
   }
 
   async updateOrderStatus(token: string, orderId: string, status: ORDER_STATUSES) {
-    try {
-      const response = await OrdersController.updateOrderStatus({
-        token,
-        data: {
-          _id: orderId,
-          status,
-        },
-      });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while updating status in order with orderId - ${orderId}`);
-    }
+    const response = await OrdersController.updateOrderStatus({
+      token,
+      data: {
+        _id: orderId,
+        status,
+      },
+    });
+    return response;
   }
 
   async createOrder(token: string, data: IOrdersRequest) {
-    try {
-      const response = await OrdersController.createOrder({ token, data: data });
-      return response;
-    } catch (error: any) {
-      throw new Error('Error during creating order');
-    }
+    const response = await OrdersController.createOrder({ token, data: data });
+    return response;
   }
 
   async updateOrderStatusToInProcess(token: string, orderId: string) {
@@ -139,74 +115,37 @@ class ApiOrdersActions {
   }
 
   async scheduleOrderDelivery(token: string, delivery: IOrderDeliveryRequest) {
-    try {
-      const response = await OrdersController.delivery({
-        token,
-        data: delivery,
-      });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while scheduling order delivery in order, order id - ${delivery._id}`);
-    }
+    const response = await OrdersController.delivery({ token, data: delivery });
+    return response;
   }
 
   async receiveProductInOrder(token: string, productId: Pick<IOrdersRequest, '_id' | 'products'>) {
-    try {
-      const response = await OrdersController.receive({
-        token,
-        data: productId,
-      });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while receiving product in order, order id - ${productId.products?.at(-1)}`);
-    }
+    const response = await OrdersController.receive({ token, data: productId });
+    return response;
   }
   async receiveAllProductsInOrder(token: string, productsId: Pick<IOrdersRequest, '_id' | 'products'>) {
-    try {
-      const response = await OrdersController.receive({
-        token,
-        data: productsId,
-      });
-      return response;
-    } catch (error) {
-      throw new Error(`Error while receiving products in order, order id - ${productsId._id}`);
-    }
+    const response = await OrdersController.receive({ token, data: productsId });
+    return response;
   }
 
   async getAllProductsFromOrder(token: string, orderId: string) {
-    try {
-      const products: IProductFromResponse[] = (await this.getOrderByID(token, orderId)).data.Order.products;
-      return Utils.sortById(products);
-    } catch (error) {
-      throw new Error(`Error while getting all products from order, order id - ${orderId}`);
-    }
+    const products: IProductFromResponse[] = (await this.getOrderByID(token, orderId)).data.Order.products;
+    return Utils.sortById(products);
   }
 
   async getCustomerFromOrder(token: string, orderId: string) {
-    try {
-      const customer: ICustomerFromResponse = (await this.getOrderByID(token, orderId)).data.Order.customer;
-      return customer;
-    } catch (error) {
-      throw new Error(`Error while getting customer from order, order id - ${orderId}`);
-    }
+    const customer: ICustomerFromResponse = (await this.getOrderByID(token, orderId)).data.Order.customer;
+    return customer;
   }
 
   async getTotalPriceFromOrder(token: string, orderId: string) {
-    try {
-      const price: number = (await this.getOrderByID(token, orderId)).data.Order.total_price;
-      return price;
-    } catch (error) {
-      throw new Error(`Error while getting total price from order, order id - ${orderId}`);
-    }
+    const price: number = (await this.getOrderByID(token, orderId)).data.Order.total_price;
+    return price;
   }
 
   async getStatusFromOrder(token: string, orderId: string) {
-    try {
-      const status: ORDER_STATUSES = (await this.getOrderByID(token, orderId)).data.Order.status;
-      return status;
-    } catch (error) {
-      throw new Error(`Error while getting total price from order, order id - ${orderId}`);
-    }
+    const status: ORDER_STATUSES = (await this.getOrderByID(token, orderId)).data.Order.status;
+    return status;
   }
 }
 
