@@ -17,15 +17,10 @@ export abstract class AbstractRequest {
     this.loggerService.log(`Request URL: [${this.options?.method}] [${this.options?.url}]`, 'error');
   }
 
-  private logSuccesResponse() {
-    this.loggerService.log(`Response status: [${this.response.status}]`, 'info');
-    this.loggerService.log(`Request URL: [${this.options?.method}] [${this.options?.url}]`, 'info');
-  }
-
   private logRequest() {
     this.reporterService.reportApiRequest(this.options!, this.response);
-    // this.loggerService.logApiRequest(JSON.stringify(this.options));
-    // this.loggerService.logApiResponse(JSON.stringify(this.response));
+    // this.loggerService.logApiRequest(JSON.stringify(this.options, null, 2));
+    // this.loggerService.logApiResponse(JSON.stringify(this.response, null, 2));
   }
 
   /**
