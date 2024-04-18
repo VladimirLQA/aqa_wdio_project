@@ -19,6 +19,7 @@ jobs:
         run: npm run test:api
         
       - name: Generate report
+        if: success() || failure()
         run: npm run report:generate
         
       - name: Save Allure report
