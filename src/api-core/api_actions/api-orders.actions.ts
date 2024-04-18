@@ -35,6 +35,32 @@ class ApiOrdersActions {
     };
   }
 
+  async createOrderWithInProcessStatus(token: string, orderData: IOrderData, deliveryData: IOrderDeliveryRequest) {
+    const order = await this.createOrderWithDraftStatus(token, orderData, deliveryData);
+    await OrdersController.updateOrderStatus({ token, data: { status: ORDER_STATUSES.IN_PROCESS, _id: order.orderId } });
+    return order;
+  }
+
+  async createOrderWithPartiallyReceivedStatus(token: string, orderData: IOrderData, deliveryData: IOrderDeliveryRequest) {
+    const order = await this.createOrderWithInProcessStatus(token, orderData, deliveryData);
+    await OrdersController.receive({ token, data: { _id: orderData.orderId, products: [orderData.productsId[0]] } });
+    return order;
+  }
+
+  async createOrderWithReceivedStatus(token: string, orderData: IOrderData, deliveryData: IOrderDeliveryRequest) {
+    const order = await this.createOrderWithInProcessStatus(token, orderData, deliveryData);
+    await OrdersController.receive({ token, data: { _id: orderData.orderId, products: orderData.productsId } });
+    return order;
+  }
+
+  async createOrderWithCanceledStatus(token: string, orderData: IOrderData, deliveryData?: IOrderDeliveryRequest) {
+    let order: IOrderData;
+    if (deliveryData) order = await this.createOrderWithDraftStatus(token, orderData, deliveryData);
+    else order = await this.createOrderWithDraftStatus(token, orderData);
+    await OrdersController.updateOrderStatus({ token, data: { _id: orderData.orderId, status: ORDER_STATUSES.CANCELED } });
+    return order;
+  }
+
   async updateCustomerInOrder(token: string, data: IOrdersRequest) {
     const response = await OrdersController.updateOrder({
       token,
@@ -119,16 +145,12 @@ class ApiOrdersActions {
     return response;
   }
 
-  async receiveProductInOrder(token: string, productId: Pick<IOrdersRequest, '_id' | 'products'>) {
-    const response = await OrdersController.receive({ token, data: productId });
-    return response;
-  }
-  async receiveAllProductsInOrder(token: string, productsId: Pick<IOrdersRequest, '_id' | 'products'>) {
-    const response = await OrdersController.receive({ token, data: productsId });
+  async receiveProductsInOrder(token: string, orderData: Partial<IOrderData>) {
+    const response = await OrdersController.receive({ token, data: { _id: orderData.orderId, products: orderData.productsId } });
     return response;
   }
 
-  async getAllProductsFromOrder(token: string, orderId: string) {
+  async getProductsFromOrder(token: string, orderId: string) {
     const products: IProductFromResponse[] = (await this.getOrderByID(token, orderId)).data.Order.products;
     return Utils.sortById(products);
   }

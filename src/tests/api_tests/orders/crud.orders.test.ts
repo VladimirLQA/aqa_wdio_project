@@ -121,9 +121,9 @@ describe('[CRUD] ORDERS test', () => {
     });
 
     it(`Should receive all products in order`, async () => {
-      response = await ApiActions.orders.receiveAllProductsInOrder(token, {
-        _id: orderId,
-        products: [product_01._id, product_02._id],
+      response = await ApiActions.orders.receiveProductsInOrder(token, {
+        orderId,
+        productsId: [product_01._id, product_02._id],
       });
 
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
