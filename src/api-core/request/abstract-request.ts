@@ -19,8 +19,8 @@ export abstract class AbstractRequest {
 
   private logRequest() {
     this.reporterService.reportApiRequest(this.options!, this.response);
-    // this.loggerService.logApiRequest(JSON.stringify(this.options, null, 2));
-    // this.loggerService.logApiResponse(JSON.stringify(this.response, null, 2));
+    this.loggerService.logApiRequest(JSON.stringify(this.options, null, 2));
+    this.loggerService.logApiResponse(JSON.stringify(this.response, null, 2));
   }
 
   /**

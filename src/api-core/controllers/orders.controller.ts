@@ -21,7 +21,7 @@ class OrdersController {
     };
     return Request.sendRequest<IOrderResponseData>(options);
   }
-
+  
   async getAll(params: Partial<RequestParams<unknown>>) {
     const options: RequestOptions = {
       method: 'GET',
@@ -31,7 +31,7 @@ class OrdersController {
     };
     return Request.sendRequest<IOrdersResponseData>(options);
   }
-
+  
   async createOrder(params: RequestParams<IOrdersRequest>) {
     const options: RequestOptions = {
       method: 'POST',
@@ -42,7 +42,7 @@ class OrdersController {
     };
     return Request.sendRequest<IOrderResponseData>(options);
   }
-
+  
   async updateOrder(params: RequestParams<IOrdersRequest>) {
     const options: RequestOptions = {
       method: 'PUT',
@@ -53,7 +53,7 @@ class OrdersController {
     };
     return Request.sendRequest<IOrderResponseData>(options);
   }
-
+  
   async deleteOrder(params: Required<RequestParams<Id>>) {
     const options: RequestOptions = {
       method: 'DELETE',
@@ -63,7 +63,7 @@ class OrdersController {
     };
     return Request.sendRequest<null>(options);
   }
-
+  
   async addComment(params: RequestParams<ICommentRequest>) {
     const options: RequestOptions = {
       method: 'POST',
@@ -74,7 +74,7 @@ class OrdersController {
     };
     return Request.sendRequest<IOrderResponseData>(options);
   }
-
+  
   async deleteComment(params: RequestParams<ICommentRequest>) {
     const options: RequestOptions = {
       method: 'PUT',
@@ -85,7 +85,7 @@ class OrdersController {
     };
     return Request.sendRequest<IOrderResponseData>(options);
   }
-
+  
   async updateOrderStatus(params: RequestParams<IOrderStatusRequest>) {
     const options: RequestOptions = {
       method: 'PUT',
@@ -96,7 +96,7 @@ class OrdersController {
     };
     return Request.sendRequest(options);
   }
-
+  
   async delivery(params: RequestParams<IOrderDeliveryRequest>) {
     const options: RequestOptions = {
       method: 'POST',
@@ -107,7 +107,7 @@ class OrdersController {
     };
     return Request.sendRequest<IOrderResponseData>(options);
   }
-
+  
   async receive(params: RequestParams<Partial<IOrdersRequest>>) {
     const options: RequestOptions = {
       method: 'POST',
