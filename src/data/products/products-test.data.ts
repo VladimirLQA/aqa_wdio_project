@@ -4,6 +4,7 @@ import { IProduct, MANUFACTURERS } from '../../types/products.types.js';
 export interface ProductsTestData extends IProduct {
   description: string;
 }
+
 // Record<string, Record<keyof IProduct, Partial<ProductsTestData>[]>>
 export const productData: any = {
   valid: {
