@@ -30,14 +30,14 @@ describe.only('Order statuses test', () => {
   });
   
   it.only('Should create order with in process status', async () => {
-    const delivery = getScheduleOrder({ condition: DELIVERY.PICK_UP, address: { country: COUNTRIES.BELARUS } });
+    const delivery = getScheduleOrder({ condition: DELIVERY.DELIVERY });
     const order = await ApiActions.orders.createOrderWithInProcessStatus(token, {}, { delivery });
     response = await ApiActions.orders.getOrderByID(token, order.orderId);
     
     ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
     ApiOrdersAssertions.verifyResponseSchema(CREATE_ORDER_SCHEMA, response.data.Order);
     
-    Expect.toEqual({ actual: response.data.Order.status, expected: ORDER_STATUSES.DRAFT });
+    Expect.toEqual({ actual: response.data.Order.status, expected: ORDER_STATUSES.IN_PROCESS });
   });
   // TODO
 });

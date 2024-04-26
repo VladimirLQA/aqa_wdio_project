@@ -13,6 +13,8 @@ import {
   ORDER_STATUSES
 } from '../../types/order.types.js';
 import { shopAddressByCountry } from '../../data/orders/orders.data.js';
+import { reqAsLoggedUser } from '../request/request-as-logged-user.js';
+import { ControllersList } from '../controllers/contollers.index.js';
 
 class ApiOrdersActions {
   async createOrderWithDraftStatus(token: string, orderData: Partial<IOrderData>, deliveryData?: IOrderDeliveryRequest): Promise<IOrderData> {
@@ -29,17 +31,8 @@ class ApiOrdersActions {
     }
     
     const order = await OrdersController.createOrder({ token, data });
-    // todo implement separate method to handle deliveryData
     if (deliveryData) {
-      if (deliveryData.delivery.condition === DELIVERY.DELIVERY) {
-        const { country, city, flat, street, house } = await this.getCustomerFromOrder(token, order.data.Order._id);
-        deliveryData.delivery.address = { city, country, street, flat, house };
-      } else {
-        deliveryData.delivery.address = {
-          ...shopAddressByCountry[deliveryData.delivery.address.country as COUNTRIES],
-          country: deliveryData.delivery.address.country
-        };
-      }
+      deliveryData.delivery.address = await this.setDeliveryAddress(deliveryData, order.data.Order._id);
       deliveryData._id = order.data.Order._id;
       await this.scheduleOrderDelivery(token, deliveryData);
     }
@@ -47,6 +40,22 @@ class ApiOrdersActions {
     return {
       orderId: order.data.Order._id, productsId: data.products, customerId: data.customer,
     };
+  }
+  
+  async setDeliveryAddress(dData: IOrderDeliveryRequest, orderId: string) {
+    if (dData.delivery.condition === DELIVERY.DELIVERY) {
+      const { country, city, flat, street, house } = (await reqAsLoggedUser(ControllersList.orders.get,
+        { data: { _id: orderId } })).data.Order.customer;
+      
+      dData.delivery.address = { city, country, street, flat, house };
+    } else {
+      dData.delivery.address = {
+        ...shopAddressByCountry[dData.delivery.address.country as COUNTRIES],
+        country: dData.delivery.address.country
+      };
+    }
+    
+    return dData.delivery.address;
   }
   
   async createOrderWithInProcessStatus(token: string, orderData: Partial<IOrderData>, deliveryData: IOrderDeliveryRequest) {
