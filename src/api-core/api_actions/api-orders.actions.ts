@@ -66,25 +66,25 @@ class ApiOrdersActions {
     return order;
   }
   
-  async createOrderWithPartiallyReceivedStatus(token: string, orderData: IOrderData, deliveryData: IOrderDeliveryRequest) {
+  async createOrderWithPartiallyReceivedStatus(token: string, orderData: Partial<IOrderData>, deliveryData: IOrderDeliveryRequest) {
     const order = await this.createOrderWithInProcessStatus(token, orderData, deliveryData);
-    await OrdersController.receive({ token, data: { _id: orderData.orderId, products: [orderData.productsId[0]] } });
+    await OrdersController.receive({ token, data: { _id: order.orderId, products: [order.productsId[0]] } });
     return order;
   }
   
-  async createOrderWithReceivedStatus(token: string, orderData: IOrderData, deliveryData: IOrderDeliveryRequest) {
+  async createOrderWithReceivedStatus(token: string, orderData: Partial<IOrderData>, deliveryData: IOrderDeliveryRequest) {
     const order = await this.createOrderWithInProcessStatus(token, orderData, deliveryData);
-    await OrdersController.receive({ token, data: { _id: orderData.orderId, products: orderData.productsId } });
+    await OrdersController.receive({ token, data: { _id: order.orderId, products: order.productsId } });
     return order;
   }
   
-  async createOrderWithCanceledStatus(token: string, orderData: IOrderData, deliveryData?: IOrderDeliveryRequest) {
+  async createOrderWithCanceledStatus(token: string, orderData: Partial<IOrderData>, deliveryData?: IOrderDeliveryRequest) {
     let order: IOrderData;
     if (deliveryData) order = await this.createOrderWithDraftStatus(token, orderData, deliveryData);
     else order = await this.createOrderWithDraftStatus(token, orderData);
+    
     await OrdersController.updateOrderStatus({
-      token,
-      data: { _id: orderData.orderId, status: ORDER_STATUSES.CANCELED }
+      token, data: { _id: order.orderId, status: ORDER_STATUSES.CANCELED }
     });
     return order;
   }
