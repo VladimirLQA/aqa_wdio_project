@@ -2,18 +2,17 @@ import { commentsForOrderStatus, getComment, orderPageToastMessages } from '../.
 import SignInActions from '../../../../ui/actions/sign-in.actions.js';
 import HomeActions from '../../../../ui/actions/home.actions.js';
 import OrderDetailsActions from '../../../../ui/actions/orders/orders-details.actions.js';
-import ApiOrdersActions from '../../../../api/api_actions/api-orders.actions.js';
-import ApiSignInsActions from '../../../../api/api_actions/api-sign-in.actions.js';
+import ApiOrdersActions from '../../../../api-core/api_actions/api-orders.actions.js';
+import ApiSignInsActions from '../../../../api-core/api_actions/api-sign-in.actions.js';
 import OrdersActions from '../../../../ui/actions/orders/orders.actions.js';
 import OrdersAssertions from '../../../../ui/assertions/orders_assertions/orders.assertions.js';
 import OrderDetailsPage from '../../../../ui/pages/aqa_project/orders/order-details.page.js';
 import Expect from '../../../../utils/chai-expect/expect-collection.js';
-import Utils from '../../../../utils/utils.js';
 import SideBarActions from '../../../../ui/actions/side-bar.actions.js';
 import OrdersDeliveryActions from '../../../../ui/actions/orders/orders-delivery.actions.js';
-import { ApiActions } from '../../../../api/api_actions/api-actions.index.js';
-import { ControllersList } from '../../../../api/controllers/contollers.index.js';
-import { reqAsLoggedUser } from '../../../../api/request/request-as-logged-user.js';
+import { ApiActions } from '../../../../api-core/api_actions/api-actions.index.js';
+import { ControllersList } from '../../../../api-core/controllers/contollers.index.js';
+import { reqAsLoggedUser } from '../../../../api-core/request/request-as-logged-user.js';
 
 describe('Order - comments tests @c-path', () => {
   let token: string,

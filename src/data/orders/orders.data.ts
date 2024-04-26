@@ -14,23 +14,16 @@ export const orderPageToastMessages = {
 };
 
 export const getComment = () => faker.commerce.productDescription() + faker.number.int(100);
-
-const formatDate = (date: Date) => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}/${month}/${day}`;
-};
 export const getScheduleOrder = (schedule?: Partial<IDelivery>): IDelivery => {
   return {
     condition: DELIVERY.DELIVERY,
-    finalDate: new Date(new Date().setDate(new Date().getDate() + 3)).toISOString(),
+    finalDate: utils.dateToYYYYMMDD(new Date(new Date().setDate(new Date().getDate() + 3)).toISOString()),
     address: {
       city: faker.location.city(),
       country: COUNTRIES.GREAT_BRITAIN,
       street: faker.location.street(),
-      flat: faker.number.int({ min: 10, max: 200 }),
-      house: +faker.location.buildingNumber(),
+      flat: faker.number.int({ min: 0, max: 999 }),
+      house: faker.number.int({ min: 0, max: 9999 }),
     },
     ...schedule,
   };
@@ -71,7 +64,7 @@ export const getShopAddress = (country: COUNTRIES | string) => {
   };
 };
 
-const shopAddressByCountry: Record<COUNTRIES, Omit<IAddress, 'country'>> = {
+export const shopAddressByCountry: Record<COUNTRIES, Omit<IAddress, 'country'>> = {
   USA: {
     city: 'Jefferson City',
     street: 'John Daniel Drive',

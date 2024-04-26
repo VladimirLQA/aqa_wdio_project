@@ -1,7 +1,7 @@
-import { ApiActions } from '../../../api/api_actions/api-actions.index.js';
-import ApiProductsAssertions from '../../../api/api_assertions/api-products.assertions.js';
-import { ControllersList } from '../../../api/controllers/contollers.index.js';
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
+import { ApiActions } from '../../../api-core/api_actions/api-actions.index.js';
+import ApiProductsAssertions from '../../../api-core/api_assertions/api-products.assertions.js';
+import { ControllersList } from '../../../api-core/controllers/contollers.index.js';
+import { reqAsLoggedUser } from '../../../api-core/request/request-as-logged-user.js';
 import { STATUS_CODES } from '../../../types/http.types.js';
 import { generateProduct, productToastMessages } from '../../../data/products/product.data.js';
 import { productData } from '../../../data/products/products-test.data.js';

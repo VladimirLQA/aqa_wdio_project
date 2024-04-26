@@ -82,11 +82,12 @@ class ApiCustomersActions {
   }
 
   async createCustomers(count: number) {
+    const customers = [];
     for (let i = 1; i <= count; i++) {
       const customer = generateCustomer();
-      customersStorage.addEntity((await reqAsLoggedUser(CustomerController.create, { data: customer })).data.Customer);
+      customers.push((await reqAsLoggedUser(CustomerController.create, { data: customer })).data.Customer);
     }
-    return customersStorage.getAllEntities();
+    return customers;
   }
 }
 

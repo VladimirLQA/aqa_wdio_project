@@ -48,7 +48,7 @@ export interface IAddress {
 export interface IDelivery {
   condition: DELIVERY | null;
   finalDate: string;
-  address: IAddress;
+  address: Partial<IAddress>;
 }
 export type IDeliveryWithLocation = IDelivery & { location: LOCATION_TYPE };
 

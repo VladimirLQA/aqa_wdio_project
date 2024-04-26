@@ -17,3 +17,14 @@ jobs:
         run: npm install
       - name: api test
         run: npm run test:api
+        
+      - name: Generate report
+        if: success() || failure()
+        run: npm run report:generate
+        
+      - name: Save Allure report
+        if: success() || failure()
+        uses: actions/upload-artifact@v2
+        with:
+          name: api-report
+          path: src/report/allure-report

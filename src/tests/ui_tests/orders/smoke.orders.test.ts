@@ -5,12 +5,12 @@ import SignInActions from '../../../ui/actions/sign-in.actions.js';
 import OrdersAssertions from '../../../ui/assertions/orders_assertions/orders.assertions.js';
 import OrdersDetailsActions from '../../../ui/actions/orders/orders-details.actions.js';
 import { IOrder } from '../../../types/order.types.js';
-import ApiProductsActions from '../../../api/api_actions/api-products.actions.js';
-import ApiCustomersActions from '../../../api/api_actions/api-customers.actions.js';
+import ApiProductsActions from '../../../api-core/api_actions/api-products.actions.js';
+import ApiCustomersActions from '../../../api-core/api_actions/api-customers.actions.js';
 import Utils from '../../../utils/utils.js';
 import SideBarActions from '../../../ui/actions/side-bar.actions.js';
-import { ControllersList } from '../../../api/controllers/contollers.index.js';
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
+import { ControllersList } from '../../../api-core/controllers/contollers.index.js';
+import { reqAsLoggedUser } from '../../../api-core/request/request-as-logged-user.js';
 import { ICustomerFromResponse } from '../../../types/customers.types.js';
 import { IProductFromResponse } from '../../../types/products.types.js';
 

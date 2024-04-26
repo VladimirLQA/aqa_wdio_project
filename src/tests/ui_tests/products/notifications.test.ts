@@ -1,11 +1,11 @@
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
-import { IProductFromResponse } from '../../../api/type/api.product.type.js';
+import { reqAsLoggedUser } from '../../../api-core/request/request-as-logged-user.js';
+import { IProductFromResponse } from '../../../api-core/type/api.product.type.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import ProductsActions from '../../../ui/actions/products/products.actions.js';
 import SideBarActions from '../../../ui/actions/side-bar.actions.js';
 import SignInActions from '../../../ui/actions/sign-in.actions.js';
 import { IProduct } from '../../../types/products.types.js';
-import ProductsController from '../../../api/controllers/products.controller.js';
+import ProductsController from '../../../api-core/controllers/products.controller.js';
 
 describe('Notifications test on products page', () => {
   let productToCreate: IProduct, productsNames: string[];

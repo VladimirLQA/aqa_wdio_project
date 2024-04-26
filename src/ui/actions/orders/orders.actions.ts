@@ -1,5 +1,5 @@
-import OrdersController from '../../../api/controllers/orders.controller.js';
-import { reqAsLoggedUser } from '../../../api/request/request-as-logged-user.js';
+import OrdersController from '../../../api-core/controllers/orders.controller.js';
+import { reqAsLoggedUser } from '../../../api-core/request/request-as-logged-user.js';
 import { logAction } from '../../../utils/reporter/allure.reporter.js';
 import CreateOrderModalPage from '../../pages/aqa_project/modals/orders_modals/create-order.modal.page.js';
 import OrdersPage from '../../pages/aqa_project/orders/orders.page.js';
