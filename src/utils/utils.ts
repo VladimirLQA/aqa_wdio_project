@@ -118,9 +118,8 @@ class Utils {
   }
 
   getStringInDoubleQuotes(input: string) {
-    if (typeof input === 'string') {
+    if (input) {
       const matches = input.match(/"([^"]*)"/);
-
       if (matches && matches.length > 1) return matches[1]; // The first capturing group contains the string inside double quotes
     }
   }

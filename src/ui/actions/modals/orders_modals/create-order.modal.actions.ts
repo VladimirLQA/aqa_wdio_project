@@ -1,6 +1,5 @@
-import { logAction } from '../../../../utils/reporter/allure.reporter.js';
+import { logAction } from '../../../../utils/reporter/allure.decorators.js';
 import CreateOrderModalPage from '../../../pages/aqa_project/modals/orders_modals/create-order.modal.page.js';
-// import ModalActions from '../../modal.actions.js';
 import BaseActions from '../../base.actions.js';
 
 class CreateOrderModalActions extends BaseActions {

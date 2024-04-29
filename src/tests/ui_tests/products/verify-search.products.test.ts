@@ -1,4 +1,4 @@
-import { MANUFACTURERS } from '../../../data/products/product.data.js';
+import { MANUFACTURERS } from '../../../types/products.types.js';
 import HomeActions from '../../../ui/actions/home.actions.js';
 import FiltersModalActions from '../../../ui/actions/modals/filters-modal.actions.js';
 import ProductsActions from '../../../ui/actions/products/products.actions.js';

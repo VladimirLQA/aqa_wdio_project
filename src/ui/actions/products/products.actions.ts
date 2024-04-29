@@ -1,8 +1,7 @@
 import { productToastMessages } from '../../../data/products/product.data.js';
-import { logAction } from '../../../utils/reporter/allure.reporter.js';
+import { logAction } from '../../../utils/reporter/allure.decorators.js';
 import ProductsPage from '../../pages/aqa_project/products/products.page.js';
 import { ProductToastMessage } from '../../../types/products.types.js';
-import BaseActions from '../base.actions.js';
 import { CommonActions } from '../common.actions.js';
 
 class ProductsActions extends CommonActions {

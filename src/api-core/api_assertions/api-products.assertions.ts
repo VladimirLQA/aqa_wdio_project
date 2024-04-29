@@ -9,12 +9,6 @@ class ApiProductsAssertions extends ApiBaseAssertions {
     Expect.toEqual({ actual: actual.amount, expected: expected.amount });
     Expect.toEqual({ actual: actual.price, expected: expected.price });
     Expect.toEqual({ actual: actual.manufacturer, expected: expected.manufacturer });
-
-    // expect(actual.name).toBe(expected.name);
-    // expect(actual.notes).toBe(expected.notes);
-    // expect(actual.amount).toBe(expected.amount);
-    // expect(actual.price).toBe(expected.price);
-    // expect(actual.manufacturer).toBe(expected.manufacturer);
   }
 }
 

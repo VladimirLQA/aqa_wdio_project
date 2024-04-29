@@ -17,7 +17,7 @@ class OrderHistoryTabPage extends CommonTabsSectionPage {
 
   readonly ['Get action with id'] = (id: string) => `#${id} > span:nth-of-type(1)`;
 
-  readonly ['Action data by actioin id'] = (id: string) => `[aria-labelledby="${id}"] .his-col.fst-italic`;
+  readonly ['Action data by action id'] = (id: string) => `[aria-labelledby="${id}"] .his-col.fst-italic`;
 }
 
 class CommentTabSectionPage extends CommonTabsSectionPage {

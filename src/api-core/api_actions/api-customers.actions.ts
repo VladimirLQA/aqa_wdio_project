@@ -2,7 +2,6 @@ import CustomerController from '../controllers/customer.controller.js';
 import { ICustomer } from '../../types/customers.types.js';
 import { generateCustomer } from '../../data/customers/customers.data.js';
 import { reqAsLoggedUser } from '../request/request-as-logged-user.js';
-import { customersStorage } from '../../utils/storages/storages.js';
 import { IAddress } from '../../types/order.types.js';
 
 class ApiCustomersActions {
@@ -15,7 +14,7 @@ class ApiCustomersActions {
     }
   }
 
-  async getAllPrCustomers(token: string) {
+  async getAllCustomers(token: string) {
     try {
       const response = await CustomerController.getAll({ token });
       return response;

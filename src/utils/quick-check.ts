@@ -42,4 +42,11 @@ export const rebuildObj = <T extends { customer?: ICustomer; delivery?: { finalD
   return { ...obj, Name: customer?.name, Delivery: dateToWeb };
 };
 
-console.log(rebuildObj(test1));
+// console.log(rebuildObj(test1));
+
+function getStringInDoubleQuotes(input: string) {
+  const matches = input.match(/"([^"]*)"/);
+  if (matches && matches.length > 1) return matches[1]; // The first capturing group contains the string inside double quotes
+}
+
+console.log(getStringInDoubleQuotes('Hello "my" love'));

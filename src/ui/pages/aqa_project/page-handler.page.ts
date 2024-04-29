@@ -1,10 +1,9 @@
 import Logger from '../../../utils/logger/winston-logger.js';
 import { TIMEOUT } from '../../../utils/aqa_project_const.js';
-import { asyncFind, asyncForEach, asyncMap } from '../../../utils/async_array_methods/array-async-methods.js';
-import { logAction } from '../../../utils/reporter/allure.reporter.js';
+import { asyncFind } from '../../../utils/async_array_methods/array-async-methods.js';
+import { logAction } from '../../../utils/reporter/allure.decorators.js';
 import Utils from '../../../utils/utils.js';
 import { isWebElement } from '../../../utils/type-guards.js';
-import utils from '../../../utils/utils.js';
 
 export default class PageHandler {
   async findElement(selector: string | WebdriverIO.Element): Promise<WebdriverIO.Element> {
