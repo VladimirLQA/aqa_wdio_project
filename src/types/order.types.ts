@@ -6,6 +6,7 @@ export enum LOCATION_TYPE {
   HOME = 'Home',
   OTHER = 'Other',
 }
+
 export enum DELIVERY {
   DELIVERY = 'Delivery',
   PICK_UP = 'Pickup',
@@ -50,6 +51,7 @@ export interface IDelivery {
   finalDate: string;
   address: Partial<IAddress>;
 }
+
 export type IDeliveryWithLocation = IDelivery & { location: LOCATION_TYPE };
 
 export interface IHistory {
@@ -105,13 +107,16 @@ export interface IDeliveryScheduleHistory {
   house: IOrderHistoryPreviousUpdated;
   street: IOrderHistoryPreviousUpdated;
 }
+
 export interface IOrderId {
   _id?: string;
 }
+
 export interface IOrdersRequest extends IOrderId {
   customer: string;
   products: string[];
 }
+
 export interface IOrderFromResponse extends IOrder {
   readonly _id: string;
 }
@@ -144,7 +149,8 @@ export interface IOrderData {
   customerId: string;
   productsId: string[];
 }
-interface IOrderCreationData<T extends ORDER_STATUSES> {
+
+export interface IOrderCreationData<T extends ORDER_STATUSES> {
   status: T;
   customer: ICustomerFromResponse;
   products: IProductFromResponse[];

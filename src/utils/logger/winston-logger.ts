@@ -1,6 +1,6 @@
 import * as winston from 'winston';
 import _ from 'lodash';
-import { attachLog } from '../reporter/allure.reporter.js';
+import { attachLog } from '../reporter/allure.decorators.js';
 import { BaseLogger } from './abstract-logger.js';
 
 type LogLevels = 'info' | 'error';
