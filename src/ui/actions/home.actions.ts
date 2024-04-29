@@ -1,4 +1,4 @@
-import { logAction } from '../../utils/reporter/allure.reporter.js';
+import { logAction } from '../../utils/reporter/allure.decorators.js';
 import HomePage from '../pages/aqa_project/home.page.js';
 import BaseActions from './base.actions.js';
 

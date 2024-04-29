@@ -55,12 +55,12 @@ class DeliveryActions extends BaseActions {
     await this.chooseDropdownItem(DeliveryPage['Country dropdown'], DeliveryPage['Dropdown option [last()]'](country));
   }
 
-  async fillAddress(address: IAddress) {
-    await this.fillCityInputField(address!.city);
-    await this.fillFlatInputField(address!.flat);
-    await this.fillHouseInputField(address!.house);
-    await this.fillStreetInputField(address!.street);
-    await this.chooseCountry(address?.country);
+  async fillAddress(address: Partial<IAddress>) {
+    await this.fillCityInputField(address!.city!);
+    await this.fillFlatInputField(address!.flat!);
+    await this.fillHouseInputField(address!.house!);
+    await this.fillStreetInputField(address!.street!);
+    await this.chooseCountry(address!.country!);
   }
 
   async scheduleOrder(schedule?: IDeliveryWithLocation) {
@@ -73,7 +73,7 @@ class DeliveryActions extends BaseActions {
     if (sch.location === LOCATION_TYPE.OTHER && sch.condition === DELIVERY.DELIVERY) {
       await this.fillAddress(sch!.address!);
     } else if (sch.condition === DELIVERY.PICK_UP) {
-      await this.chooseCountry(sch.address?.country);
+      await this.chooseCountry(sch.address?.country!);
     }
     await this.clickOnSaveDeliveryButton();
     await this.waitForPageLoad();

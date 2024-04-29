@@ -1,4 +1,4 @@
-import { logAction } from '../../utils/reporter/allure.reporter.js';
+import { logAction } from '../../utils/reporter/allure.decorators.js';
 import SidebarPage from '../pages/aqa_project/sidebar.page.js';
 import BaseActions from './base.actions.js';
 
@@ -32,7 +32,7 @@ class SidebarActions extends BaseActions {
 
   @logAction('Click on "Customers" button')
   async clickOnSidebarCurrencyBuyButton() {
-    await this.basePage.click(SidebarPage["Currency 'Buy' button"]);
+    await this.basePage.click(SidebarPage['Currency \'Buy\' button']);
   }
 
   @logAction('Fill currency input')

@@ -1,4 +1,4 @@
-import { logAction } from '../../../utils/reporter/allure.reporter.js';
+import { logAction } from '../../../utils/reporter/allure.decorators.js';
 import { tabsSection } from '../../pages/aqa_project/orders/order-details-tabs-section.page.js';
 import { ORDER_HISTORY_ACTIONS } from '../../../types/order.types.js';
 import BaseActions from '../base.actions.js';
@@ -53,7 +53,7 @@ class OrderTabsSectionActions extends BaseActions {
     return (await this.basePage.browserExecute(`
         const result = {};
         const action = document.querySelector('${tabsSection['Order history']['Get action with id'](id)}').innerText;
-        const data  = [...document.querySelectorAll('${tabsSection['Order history']['Action data by actioin id'](
+        const data  = [...document.querySelectorAll('${tabsSection['Order history']['Action data by action id'](
           id,
         )}')].map(c => c.innerText).filter(v => v);
           const chunk = (arr, size) => {

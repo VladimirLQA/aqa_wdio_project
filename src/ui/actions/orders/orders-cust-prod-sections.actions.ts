@@ -1,4 +1,4 @@
-import { logAction } from '../../../utils/reporter/allure.reporter.js';
+import { logAction } from '../../../utils/reporter/allure.decorators.js';
 import Utils from '../../../utils/utils.js';
 import BaseActions from '../base.actions.js';
 import CustomerModalActions from '../modals/orders_modals/edit-customer.modal.actions.js';

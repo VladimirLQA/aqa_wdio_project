@@ -1,7 +1,6 @@
-import { logAction } from '../../../../utils/reporter/allure.reporter.js';
+import { logAction } from '../../../../utils/reporter/allure.decorators.js';
 import { editModalsPages } from '../../../pages/aqa_project/modals/orders_modals/edit-products.modal.page.js';
 import BaseActions from '../../base.actions.js';
-// import ModalActions from '../../modal.actions.js';
 
 class CustomerModalActions extends BaseActions {
   @logAction('Click on "Save" button in "Edit customer" modal')

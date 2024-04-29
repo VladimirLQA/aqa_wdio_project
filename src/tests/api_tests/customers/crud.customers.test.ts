@@ -45,7 +45,7 @@ describe('[CRUD] CUSTOMERS test', () => {
     ApiCustomersAssertions.verifyCustomer(response.data.Customer, updatedCustomer);
   });
   it('Should get all customers', async () => {
-    response = await ApiActions.customers.getAllPrCustomers(token);
+    response = await ApiActions.customers.getAllCustomers(token);
 
     ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);
     Expect.toBeNotEmpty({ actual: response.data.Customers });

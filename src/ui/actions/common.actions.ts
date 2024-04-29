@@ -1,8 +1,6 @@
-// @ts-nocheck
-import { ControllersList } from '../../api-core/controllers/contollers.index.js';
+import { ControllersIndexName, ControllersList } from '../../api-core/controllers/contollers.index.js';
 import { reqAsLoggedUser } from '../../api-core/request/request-as-logged-user.js';
 import { asyncForEach, asyncReduce } from '../../utils/async_array_methods/array-async-methods.js';
-import { logAction } from '../../utils/reporter/allure.reporter.js';
 import { CommonPage } from '../pages/aqa_project/common.page.js';
 import FilterModalPage from '../pages/aqa_project/modals/filter-modal.page.js';
 import { ActionButtons, IChipsFilterOptions, UnionFilterModalLabels } from '../../types/common.types.js';
@@ -30,7 +28,7 @@ export class CommonActions extends BaseActions {
   }
 
   async getApiMappedData(page: CommonPage) {
-    const data = (await reqAsLoggedUser(ControllersList[page.pageName].get, {})).data[Utils.capitalize(page.pageName)];
+    const data = (await reqAsLoggedUser(ControllersList[page.pageName as ControllersIndexName].getAll, { data: null })).data[Utils.capitalize(page.pageName)];
     const res = await asyncReduce(
       data,
       // @ts-ignore
@@ -51,7 +49,7 @@ export class CommonActions extends BaseActions {
     const { search, quickFilters } = chipFilters;
     const filteredAndSearchedData: Record<string, string>[] = [];
     await asyncForEach(tableData, async (entity) => {
-      const isMatchQuickFilter: boolean = quickFilters?.some((filter) => Object.values(entity).at(-1)?.includes(filter));
+      const isMatchQuickFilter: boolean | undefined = quickFilters?.some((filter) => Object.values(entity).at(-1) === filter);
       const isMatchSearch: boolean = Object.values(entity).some((value) =>
         // @ts-ignore
         value.toLowerCase().includes(search?.toLowerCase()),
@@ -88,6 +86,7 @@ export class CommonActions extends BaseActions {
     // }, []);
     // return searchedAndFiltered;
   }
+
   // const { search, quickFilters } = chipFilters;
   // const filteredAndSearchedData: Record<string, string>[] = [];
   // await asyncForEach(tableData, async (entity) => {
