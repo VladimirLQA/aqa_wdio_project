@@ -2,6 +2,8 @@ import { COUNTRIES } from './customers.types.js';
 import { ORDER_STATUSES } from './order.types.js';
 import { MANUFACTURERS } from './products.types.js';
 
+export type GenericID<T extends { _id: string} = any> = T[];
+
 export type ActionButtons = 'Delete' | 'Details' | 'Edit';
 
 export type UnionFilterModalLabels = MANUFACTURERS | ORDER_STATUSES | COUNTRIES;

@@ -29,7 +29,7 @@ describe('[CRUD] ORDERS test', () => {
   });
 
   after(async () => {
-    await reqAsLoggedUser(ControllersList.orders.deleteOrder, { data: { _id: orderId } });
+    await reqAsLoggedUser(ControllersList.orders.delete, { data: { _id: orderId } });
 
     for (const product of [product_01, product_02]) {
       await reqAsLoggedUser(ControllersList.products.delete, { data: { _id: product._id } });

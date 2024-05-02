@@ -17,9 +17,8 @@ describe('Product validation data', () => {
   beforeEach(async () => {});
 
   after(async () => {
-    for (const product of productsStorage.getAllEntities()) {
-      await reqAsLoggedUser(ControllersList.products.delete, { data: { _id: product._id } });
-    }
+    await ApiActions.common.deleteCreatedEntities('products',
+      productsStorage.getAllEntities().map((product) => product._id));
   });
 
   context('Tests with valid data', () => {
