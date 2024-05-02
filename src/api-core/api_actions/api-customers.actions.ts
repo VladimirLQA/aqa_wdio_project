@@ -3,6 +3,7 @@ import { ICustomer } from '../../types/customers.types.js';
 import { generateCustomer } from '../../data/customers/customers.data.js';
 import { reqAsLoggedUser } from '../request/request-as-logged-user.js';
 import { IAddress } from '../../types/order.types.js';
+import { GenericID } from '../../types/common.types.js';
 
 class ApiCustomersActions {
   async createCustomer(token: string, customer: ICustomer) {
@@ -36,16 +37,8 @@ class ApiCustomersActions {
     try {
       const { email, country, street, notes, flat, phone, name, city, house } = (await this.getCustomerByID(token, id)).data.Customer;
       const updatedCustomer = {
-        _id: id,
-        email,
-        country,
-        street,
-        notes,
-        flat,
-        phone,
-        name,
-        city,
-        house,
+        _id: id, email, country, street, notes, flat,
+        phone, name, city, house,
         ...newCustomer,
       };
 
@@ -81,7 +74,7 @@ class ApiCustomersActions {
   }
 
   async createCustomers(count: number) {
-    const customers = [];
+    const customers: GenericID = [];
     for (let i = 1; i <= count; i++) {
       const customer = generateCustomer();
       customers.push((await reqAsLoggedUser(CustomerController.create, { data: customer })).data.Customer);

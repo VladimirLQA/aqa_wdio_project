@@ -2,6 +2,7 @@ import { generateProduct } from '../../data/products/product.data.js';
 import { IProduct, IProductFromResponse } from '../../types/products.types.js';
 import ProductsController from '../controllers/products.controller.js';
 import { reqAsLoggedUser } from '../request/request-as-logged-user.js';
+import { GenericID } from '../../types/common.types.js';
 
 class ApiProductsActions {
   async createProduct(token: string, product?: IProduct) {
@@ -42,7 +43,7 @@ class ApiProductsActions {
   }
 
   async createProducts(count: number) {
-    let products = [];
+    let products: GenericID = [];
     for (let i = 1; i <= count; i++) {
       const product = generateProduct();
       products.push((await reqAsLoggedUser(ProductsController.create, { data: product })).data.Product);
