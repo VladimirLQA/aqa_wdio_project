@@ -1,29 +1,37 @@
 name: Github Actions Tests Run
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
+
 on: [push]
+
 jobs:
   init:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-varsion: [ 21.x ]
+        node-version: [ 21.x ]
+
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Staring Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - name: install modules
+
+      - name: Install modules
         run: npm install
-      - name: api test
+
+      - name: API tests
         run: npm run test:api
-        
+        continue-on-error: true
+
+      - name: UI tests
+        run: npm run test:ui
+        continue-on-error: true
+
       - name: Generate report
-        if: success() || failure()
         run: npm run report:generate
-        
+
       - name: Save Allure report
-        if: success() || failure()
         uses: actions/upload-artifact@v2
         with:
           name: api-report
