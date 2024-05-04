@@ -38,3 +38,11 @@ export enum VALIDATION_ERROR_MESSAGES {
 export interface IInitObject {
   [key: string]: string;
 }
+
+export type ValidInvalid = 'valid' | 'invalid';
+
+export type DataItemFor<T> = {
+  [K in keyof T]?: any;
+} & { description: string };
+
+export type TestDataFor<T> = Record<ValidInvalid, Record<keyof T, DataItemFor<T>[]>>;

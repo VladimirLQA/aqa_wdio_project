@@ -1,12 +1,10 @@
 import { ApiActions } from '../../../api-core/api_actions/api-actions.index.js';
 import ApiProductsAssertions from '../../../api-core/api_assertions/api-products.assertions.js';
-import { ControllersList } from '../../../api-core/controllers/contollers.index.js';
-import { reqAsLoggedUser } from '../../../api-core/request/request-as-logged-user.js';
 import { STATUS_CODES } from '../../../types/http.types.js';
 import { generateProduct, productToastMessages } from '../../../data/products/product.data.js';
 import { productData } from '../../../data/products/products-test.data.js';
 import { VALIDATION_ERROR_MESSAGES } from '../../../types/common.types.js';
-import { productsStorage } from '../../../utils/storages/storages.js';
+import { ProductsStorage } from '../../../utils/storages/index-storages.js';
 
 describe('Product validation data', () => {
   let token: string;
@@ -18,7 +16,7 @@ describe('Product validation data', () => {
 
   after(async () => {
     await ApiActions.common.deleteCreatedEntities('products',
-      productsStorage.getAllEntities().map((product) => product._id));
+      ProductsStorage.getAllEntities().map((product) => product._id));
   });
 
   context('Tests with valid data', () => {
@@ -27,7 +25,7 @@ describe('Product validation data', () => {
         const response = await ApiActions.products.createProduct(token, generateProduct({ name: productName.name }));
 
         ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
-        productsStorage.addEntity(response.data.Product);
+        ProductsStorage.addEntity(response.data.Product);
       });
     }
 
@@ -36,7 +34,7 @@ describe('Product validation data', () => {
         const response = await ApiActions.products.createProduct(token, generateProduct({ price: productPrice.price }));
 
         ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
-        productsStorage.addEntity(response.data.Product);
+        ProductsStorage.addEntity(response.data.Product);
       });
     }
 
@@ -45,7 +43,7 @@ describe('Product validation data', () => {
         const response = await ApiActions.products.createProduct(token, generateProduct({ amount: productAmount.amount }));
 
         ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
-        productsStorage.addEntity(response.data.Product);
+        ProductsStorage.addEntity(response.data.Product);
       });
     }
 
@@ -54,7 +52,7 @@ describe('Product validation data', () => {
         const response = await ApiActions.products.createProduct(token, generateProduct({ manufacturer: productManufacturer.manufacturer }));
 
         ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
-        productsStorage.addEntity(response.data.Product);
+        ProductsStorage.addEntity(response.data.Product);
       });
     }
 
@@ -63,7 +61,7 @@ describe('Product validation data', () => {
         const response = await ApiActions.products.createProduct(token, generateProduct({ notes: productNotes.notes }));
 
         ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
-        productsStorage.addEntity(response.data.Product);
+        ProductsStorage.addEntity(response.data.Product);
       });
     }
   });
@@ -83,7 +81,7 @@ describe('Product validation data', () => {
       const response = await ApiActions.products.createProduct(token, product);
 
       ApiProductsAssertions.verifyResponse(response, STATUS_CODES.CONFLICT, false, productToastMessages['already exist'](product.name));
-      productsStorage.addEntity(preparedProduct.data.Product);
+      ProductsStorage.addEntity(preparedProduct.data.Product);
     });
 
     for (const productPrice of productData.invalid.price) {

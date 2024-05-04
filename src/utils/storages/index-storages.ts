@@ -2,7 +2,11 @@ import { ICustomerFromResponse } from '../../types/customers.types.js';
 import { IOrder } from '../../types/order.types.js';
 import { IProductFromResponse } from '../../types/products.types.js';
 import { Storage } from './abstract.storage.js';
+import  { TokenStorage } from './token.storage.js';
 
-export const productsStorage = new Storage<IProductFromResponse>();
-export const customersStorage = new Storage<ICustomerFromResponse>();
-export const ordersStorage = new Storage<IOrder>();
+const ProductsStorage = new Storage<IProductFromResponse>();
+const CustomersStorage = new Storage<ICustomerFromResponse>();
+const OrdersStorage = new Storage<IOrder>();
+const UsersToken = new TokenStorage();
+
+export { ProductsStorage, CustomersStorage, UsersToken, OrdersStorage };
