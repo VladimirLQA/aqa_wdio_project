@@ -19,8 +19,8 @@ export abstract class AbstractRequest {
 
   private async logRequest() {
     await this.reporterService.reportApiRequest(this.options!, this.response);
-    this.loggerService.logApiRequest(JSON.stringify(this.options, null, 2));
-    this.loggerService.logApiResponse(JSON.stringify(this.response, null, 2));
+    this.loggerService.log(`Response status: [${this.response.status}]`, 'info');
+    this.loggerService.log(`Request URL: [${this.options?.method}] [${this.options?.url}]`, 'info');
   }
 
   /**
@@ -53,7 +53,7 @@ export abstract class AbstractRequest {
       if (error) this.logErrorResponse(error);
       this.transformResponse(error);
     } finally {
-      this.logRequest();
+      await this.logRequest();
     }
     return this.response;
   }
