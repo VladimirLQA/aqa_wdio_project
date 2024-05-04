@@ -1,12 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { IProduct, MANUFACTURERS } from '../../types/products.types.js';
+import { TestDataFor } from '../../types/common.types.js';
 
-export interface ProductsTestData extends IProduct {
-  description: string;
-}
-
-// Record<string, Record<keyof IProduct, Partial<ProductsTestData>[]>>
-export const productData: any = {
+export const productData: TestDataFor<IProduct> = {
   valid: {
     name: [
       {
@@ -138,7 +134,7 @@ export const productData: any = {
         notes: faker.string.alpha(251),
         description: '251 symbols value',
       },
-      { notes: faker.string.alpha(5) + '<>', description: 'forbidden symbols in value' },
+      { notes: faker.string.alpha(5) + '<>', description: 'forbidden symbols in value "<>"' },
     ],
   },
 };
