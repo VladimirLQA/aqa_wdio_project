@@ -15,12 +15,16 @@ export abstract class AbstractRequest {
   private logErrorResponse(error: any) {
     this.loggerService.log(`Error: ${(error as Error).message}`, 'error');
     this.loggerService.log(`Request URL: [${this.options?.method}] [${this.options?.url}]`, 'error');
+    this.loggerService.log(`Request body: [${JSON.stringify(this.options?.data, null, 2) ?? ''}]`, 'error');
   }
 
-  private async logRequest() {
-    await this.reporterService.reportApiRequest(this.options!, this.response);
+  private logSuccessResponse() {
     this.loggerService.log(`Response status: [${this.response.status}]`, 'info');
     this.loggerService.log(`Request URL: [${this.options?.method}] [${this.options?.url}]`, 'info');
+  }
+
+  private async reportRequestLogs() {
+    await this.reporterService.reportApiRequest(this.options!, this.response);
   }
 
   /**
@@ -49,11 +53,12 @@ export abstract class AbstractRequest {
       this.transformRequest();
       this.response = await this.send();
       this.transformResponse();
+      this.logSuccessResponse();
     } catch (error: any) {
       if (error) this.logErrorResponse(error);
       this.transformResponse(error);
     } finally {
-      await this.logRequest();
+      await this.reportRequestLogs();
     }
     return this.response;
   }

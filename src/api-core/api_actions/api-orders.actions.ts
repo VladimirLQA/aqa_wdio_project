@@ -10,16 +10,17 @@ import {
   IOrderData,
   IOrderDeliveryRequest,
   IOrdersRequest,
-  ORDER_STATUSES
+  ORDER_STATUSES,
 } from '../../types/order.types.js';
 import { shopAddressByCountry } from '../../data/orders/orders.data.js';
 import { reqAsLoggedUser } from '../request/request-as-logged-user.js';
 import { ControllersList } from '../controllers/contollers.index.js';
+import { generateCustomer } from '../../data/customers/customers.data.js';
 
 class ApiOrdersActions {
   async createOrderWithDraftStatus(token: string, orderData: Partial<IOrderData>, deliveryData?: IOrderDeliveryRequest): Promise<IOrderData> {
     const data: IOrdersRequest = {
-      customer: orderData.customerId ?? (await ApiCustomersActions.createCustomers(1))[0]._id,
+      customer: orderData.customerId ?? (await ApiCustomersActions.createCustomer(token, generateCustomer())).data.Customer._id,
       products: [],
     };
 
@@ -32,7 +33,7 @@ class ApiOrdersActions {
 
     const order = await OrdersController.createOrder({ token, data });
     if (deliveryData) {
-      deliveryData.delivery.address = await this.getDeliveryAddress(deliveryData, order.data.Order._id);
+      // deliveryData.delivery.address = await this.getDeliveryAddress(deliveryData, order.data.Order._id);
       deliveryData._id = order.data.Order._id;
       await this.scheduleOrderDelivery(token, deliveryData);
     }
@@ -51,7 +52,7 @@ class ApiOrdersActions {
     } else {
       dData.delivery.address = {
         ...shopAddressByCountry[dData.delivery.address.country as COUNTRIES],
-        country: dData.delivery.address.country
+        country: dData.delivery.address.country,
       };
     }
 
@@ -61,7 +62,7 @@ class ApiOrdersActions {
   async createOrderWithInProcessStatus(token: string, orderData: Partial<IOrderData>, deliveryData: IOrderDeliveryRequest) {
     const order = await this.createOrderWithDraftStatus(token, orderData, deliveryData);
     await OrdersController.updateOrderStatus({
-      token, data: { status: ORDER_STATUSES.IN_PROCESS, _id: order.orderId }
+      token, data: { status: ORDER_STATUSES.IN_PROCESS, _id: order.orderId },
     });
     return order;
   }
@@ -84,7 +85,7 @@ class ApiOrdersActions {
     else order = await this.createOrderWithDraftStatus(token, orderData);
 
     await OrdersController.updateOrderStatus({
-      token, data: { _id: order.orderId, status: ORDER_STATUSES.CANCELED }
+      token, data: { _id: order.orderId, status: ORDER_STATUSES.CANCELED },
     });
     return order;
   }
@@ -169,6 +170,7 @@ class ApiOrdersActions {
   }
 
   async scheduleOrderDelivery(token: string, delivery: IOrderDeliveryRequest) {
+    delivery.delivery.address = await this.getDeliveryAddress({ ...delivery }, delivery._id!);
     const response = await OrdersController.delivery({ token, data: delivery });
     return response;
   }
@@ -176,7 +178,7 @@ class ApiOrdersActions {
   async receiveProductsInOrder(token: string, orderData: Partial<IOrderData>) {
     const response = await OrdersController.receive({
       token,
-      data: { _id: orderData.orderId, products: orderData.productsId }
+      data: { _id: orderData.orderId, products: orderData.productsId },
     });
     return response;
   }
@@ -199,6 +201,11 @@ class ApiOrdersActions {
   async getStatusFromOrder(token: string, orderId: string) {
     const status: ORDER_STATUSES = (await this.getOrderByID(token, orderId)).data.Order.status;
     return status;
+  }
+
+  async deleteOrder(token: string, orderId: string) {
+    const response = await OrdersController.delete({ token, data: { _id: orderId } });
+    return response;
   }
 }
 
