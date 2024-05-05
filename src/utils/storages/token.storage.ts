@@ -1,5 +1,3 @@
-import { ILoginResponse } from '../../types/user.types.js';
-
 interface UsersToken {
   username: string;
   token: string;
@@ -28,8 +26,8 @@ export class TokenStorage {
 
   getToken(username?: string) {
     return username
-      ? this.findUserByName(username).token
-      : this.users[this.users.length - 1].token;
+      ? this.findUserByName(username)?.token
+      : this.users[this.users.length - 1]?.token;
   }
 
   removeToken(username?: string) {

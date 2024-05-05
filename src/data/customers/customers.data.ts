@@ -5,10 +5,10 @@ export const generateCustomer = (customerData?: Partial<ICustomer>) => {
   return {
     email: faker.internet.email(),
     country: COUNTRIES.CANADA,
-    street: faker.location.street(),
+    street: faker.string.alpha({ length: { min: 1, max: 40 } }),
     notes: faker.lorem.paragraph(3),
     flat: faker.number.int({ min: 1, max: 100 }),
-    phone: faker.phone.number('+38#########'),
+    phone: `+380${faker.string.numeric({ length: 8 })}`,
     name: `${faker.person.firstName()} ${faker.person.lastName()}`,
     city: faker.location.city(),
     house: faker.number.int({ min: 1, max: 300 }),
