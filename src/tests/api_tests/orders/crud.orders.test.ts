@@ -1,19 +1,17 @@
 import ApiCustomersAssertions from '../../../api-core/api_assertions/api-customers.assertions.js';
 import ApiOrdersAssertions from '../../../api-core/api_assertions/api-orders.assertions.js';
 import ApiProductsAssertions from '../../../api-core/api_assertions/api-products.assertions.js';
-import { reqAsLoggedUser } from '../../../api-core/request/request-as-logged-user.js';
 import { CREATE_ORDER_SCHEMA } from '../../../data/json_schemas/orders.schema.js';
-import { IHistory, ORDER_HISTORY_ACTIONS, ORDER_STATUSES } from '../../../types/order.types.js';
+import { DELIVERY, IHistory, IOrder, ORDER_HISTORY_ACTIONS, ORDER_STATUSES } from '../../../types/order.types.js';
 import Utils from '../../../utils/utils.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { expect } from 'chai';
-import { getScheduleOrder } from '../../../data/orders/orders.data.js';
-import { ControllersList } from '../../../api-core/controllers/contollers.index.js';
 import { ApiActions } from '../../../api-core/api_actions/api-actions.index.js';
 import { ICustomerFromResponse } from '../../../types/customers.types.js';
 import { STATUS_CODES } from '../../../types/http.types.js';
 import { IProductFromResponse } from '../../../types/products.types.js';
 import { IResponse } from '../../../types/api-request.type.js';
+import { getScheduleOrder } from '../../../data/orders/orders.data.js';
 
 describe('[CRUD] ORDERS test', () => {
   let token: string, orderId: string, response: IResponse, totalPrice: number;
@@ -29,33 +27,9 @@ describe('[CRUD] ORDERS test', () => {
   });
 
   after(async () => {
-    await reqAsLoggedUser(ControllersList.orders.delete, { data: { _id: orderId } });
-
-    for (const product of [product_01, product_02]) {
-      await reqAsLoggedUser(ControllersList.products.delete, { data: { _id: product._id } });
-    }
-    await reqAsLoggedUser(ControllersList.customers.delete, { data: { _id: customer._id } });
-
-    // const id2 = (await ApiOrdersActions.getAllOrders(token)).data.Orders.map(
-    //   (order: IOrder) => order._id,
-    // );
-    // for (const id of id2) {
-    //   await ApiOrdersActions.deleteOrder(token, id);
-    // }
-
-    // const id3 = (await ApiCustomersActions.getAllPrCustomers(token)).data.Customers.map(
-    //   (customer: ICustomerFromResponse) => customer._id,
-    // );
-    // for (const id of id3) {
-    //   await ApiCustomersActions.deleteCustomer(token, id);
-    // }
-    // const ids = (await ApiProductsActions.getAllProducts(token)).data.Products.map(
-    //   (product: IProductFromResponse) => product._id,
-    // );
-
-    // for (const id of ids) {
-    //   await ApiProductsActions.deleteProduct(token, id);
-    // }
+    await ApiActions.common.deleteCreatedEntities('orders', [orderId]);
+    await ApiActions.common.deleteCreatedEntities('products', [product_01._id, product_02._id]);
+    await ApiActions.common.deleteCreatedEntities('customers', [customer._id]);
   });
 
   context('[CRUD] test', () => {
@@ -97,7 +71,7 @@ describe('[CRUD] ORDERS test', () => {
     });
 
     it('Should schedule delivery', async () => {
-      const delivery = getScheduleOrder();
+      const delivery = getScheduleOrder({ condition: DELIVERY.DELIVERY });
       response = await ApiActions.orders.scheduleOrderDelivery(token, { _id: orderId, delivery });
 
       ApiOrdersAssertions.verifyResponse(response, STATUS_CODES.OK, true, null);

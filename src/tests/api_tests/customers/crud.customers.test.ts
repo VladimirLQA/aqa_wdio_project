@@ -20,7 +20,6 @@ describe('[CRUD] CUSTOMERS test', () => {
     createdCustomer = generateCustomer();
 
     response = await ApiActions.customers.createCustomer(token, createdCustomer);
-    console.log('response', JSON.stringify(response, null, 2));
 
     ApiCustomersAssertions.verifyResponse(response, STATUS_CODES.CREATED, true, null);
     ApiCustomersAssertions.verifyResponseSchema(CREATE_CUSTOMER_SCHEMA, response.data);

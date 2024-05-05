@@ -1,16 +1,13 @@
 import { ApiActions } from '../../../api-core/api_actions/api-actions.index.js';
 import ApiOrdersAssertions from '../../../api-core/api_assertions/api-orders.assertions.js';
 import { CREATE_ORDER_SCHEMA } from '../../../data/json_schemas/orders.schema.js';
-import { IResponse } from '../../../types/api-request.type.js';
 import { STATUS_CODES } from '../../../types/http.types.js';
 import { DELIVERY, ORDER_STATUSES } from '../../../types/order.types.js';
 import Expect from '../../../utils/chai-expect/expect-collection.js';
 import { getScheduleOrder } from '../../../data/orders/orders.data.js';
-import { reqAsLoggedUser } from '../../../api-core/request/request-as-logged-user.js';
-import { ControllersList } from '../../../api-core/controllers/contollers.index.js';
 
 describe('Order statuses test', () => {
-  let orderIDs: string[] = [], productIDs: string[] = [], customerIDs: string[] = [], response: IResponse, token: string;
+  let orderIDs: string[] = [], productIDs: string[] = [], customerIDs: string[] = [], token: string;
 
   before(async () => {
     token = await ApiActions.signIn.signInAsAdminAndGetToken();
@@ -21,17 +18,6 @@ describe('Order statuses test', () => {
     await ApiActions.common.deleteCreatedEntities('orders', orderIDs);
     await ApiActions.common.deleteCreatedEntities('products', productIDs);
     await ApiActions.common.deleteCreatedEntities('customers', customerIDs);
-    // for (const order of orderIDs) {
-    //   await reqAsLoggedUser(ControllersList.orders.deleteOrder, { data: { _id: order } });
-    // }
-    //
-    // for (const product of productIDs) {
-    //   await reqAsLoggedUser(ControllersList.products.delete, { data: { _id: product } });
-    // }
-    //
-    // for (const customer of customerIDs) {
-    //   await reqAsLoggedUser(ControllersList.customers.delete, { data: { _id: customer } });
-    // }
   });
 
   it('Should create order with draft status', async () => {
