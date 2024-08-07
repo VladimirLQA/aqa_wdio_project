@@ -1,4 +1,9 @@
-import { FindAsyncCallback, ForEachAsyncCallback, ReduceAsyncCallback } from '../../types/async-array-method-callback.types.js';
+import {
+  FilterAsyncCallback,
+  FindAsyncCallback,
+  ForEachAsyncCallback,
+  ReduceAsyncCallback,
+} from '../../types/async-array-method-callback.types.js';
 import { MapAsyncCallback } from '../../types/async-array-method-callback.types.js';
 
 export async function asyncFind<T>(array: T[], callback: FindAsyncCallback<T>): Promise<T | undefined> {
@@ -32,4 +37,16 @@ export async function asyncForEach<T>(array: T[], asyncCallback: ForEachAsyncCal
   for (let index = 0; index < array.length; index++) {
     await asyncCallback(array[index], index, array);
   }
+}
+
+
+export default async function filter<T>(array: T[], callback: FilterAsyncCallback<T>): Promise<T[]> {
+  const filteredArray: T[] = [];
+  for (let index = 0; index < array.length; index++) {
+    const result = await callback(array[index], index, array);
+    if (result) {
+      filteredArray.push(array[index]);
+    }
+  }
+  return filteredArray;
 }
